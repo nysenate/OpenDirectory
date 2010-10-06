@@ -14,6 +14,26 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+           <artifactId>solr-solrj</artifactId>
+           <groupId>org.apache.solr</groupId>
+           <version>1.4.0</version>
+           <type>jar</type>
+           <scope>compile</scope>
+    </dependency>
+    <dependency>
+           <artifactId>solr-core</artifactId>
+           <groupId>org.apache.solr</groupId>
+           <version>1.4.0</version>
+           <type>jar</type>
+           <scope>compile</scope>
+           <exclusions>
+           	<exclusion>
+           		<artifactId>wstx-asl</artifactId>
+           		<groupId>woodstox</groupId>
+           	</exclusion>
+           </exclusions>
+    </dependency>
   </dependencies>
   <build>
     <finalName>opendirectory</finalName>
