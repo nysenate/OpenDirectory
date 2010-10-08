@@ -7,3 +7,9 @@ h2
 	text-align:center;
 	border-bottom-style:ridge;
 }
+#f_b
+{
+	position: absolute;
+	top:0;
+	right:0;
+}
