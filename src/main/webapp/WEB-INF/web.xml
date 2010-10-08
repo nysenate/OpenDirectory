@@ -4,4 +4,39 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  
+	<servlet>
+		<servlet-name>IndexServlet</servlet-name>
+		<servlet-class>gov.nysenate.opendirectory.servlets.IndexServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>BrowseServlet</servlet-name>
+		<servlet-class>gov.nysenate.opendirectory.servlets.BrowserServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>PersonServlet</servlet-name>
+		<servlet-class>gov.nysenate.opendirectory.servlets.PersonServlet</servlet-class>
+	</servlet>
+	
+	
+	<servlet-mapping>
+		<servlet-name>BrowseServlet</servlet-name>
+		<url-pattern>/browse/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>PersonServlet</servlet-name>
+		<url-pattern>/person/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>IndexServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>IndexServlet</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
 </web-app>
