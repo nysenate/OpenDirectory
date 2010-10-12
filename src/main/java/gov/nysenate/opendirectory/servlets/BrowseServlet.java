@@ -1,7 +1,7 @@
 package gov.nysenate.opendirectory.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.StringTokenizer;
  
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,13 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class BrowseServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
-	    out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 " +
-			"Transitional//EN\">\n" +
-			"<html>\n" +
-			"<head><title>Hello WWW</title></head>\n" +
-			"<body>\n" +
-			"<h1>Browse!!</h1>\n" +
-			"</body></html>");
+		StringTokenizer tokens = new StringTokenizer(request.getRequestURI(),"/");
+		tokens.nextToken(); //Throw `OpenDirectory` away
+	    tokens.nextToken(); //Throw `browse` away
+	    if (tokens.hasMoreTokens()) {
+	    	String name = tokens.nextToken().toLowerCase();
+	    	if ( name.equals("department")) {
+	    		getServletContext().getRequestDispatcher("/dept.jsp").forward(request, response);
+	    	} else if ( name.equals("firstname") ) {
+	    		getServletContext().getRequestDispatcher("/first.jsp").forward(request, response);
+	    	} else if ( name.equals("lastname") ) {
+	    		getServletContext().getRequestDispatcher("/last.jsp").forward(request, response);
+	    	} else if ( name.equals("location") ) {
+	    		getServletContext().getRequestDispatcher("/loc.jsp").forward(request, response);
+	    	}
+	    } else {
+	    	getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+	    }
 	}
 }

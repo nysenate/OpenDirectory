@@ -12,7 +12,7 @@
 	
 	<servlet>
 		<servlet-name>BrowseServlet</servlet-name>
-		<servlet-class>gov.nysenate.opendirectory.servlets.BrowserServlet</servlet-class>
+		<servlet-class>gov.nysenate.opendirectory.servlets.BrowseServlet</servlet-class>
 	</servlet>
 	
 	<servlet>
@@ -20,7 +20,10 @@
 		<servlet-class>gov.nysenate.opendirectory.servlets.PersonServlet</servlet-class>
 	</servlet>
 	
-	
+	<servlet-mapping>
+		<servlet-name>BrowseServlet</servlet-name>
+		<url-pattern>/browse</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>BrowseServlet</servlet-name>
 		<url-pattern>/browse/*</url-pattern>
@@ -28,15 +31,11 @@
 	
 	<servlet-mapping>
 		<servlet-name>PersonServlet</servlet-name>
+		<url-pattern>/person</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PersonServlet</servlet-name>
 		<url-pattern>/person/*</url-pattern>
 	</servlet-mapping>
 	
-	<servlet-mapping>
-		<servlet-name>IndexServlet</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>IndexServlet</servlet-name>
-		<url-pattern>/*</url-pattern>
-	</servlet-mapping>
 </web-app>
