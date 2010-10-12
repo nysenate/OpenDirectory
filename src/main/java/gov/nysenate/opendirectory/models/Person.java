@@ -14,7 +14,6 @@ public class Person {
 	 */
 
 	public Person() {}
-
 	public Person(SearchResult record) throws NamingException {
 		Attributes attributes = record.getAttributes();
 		this.email = (String)attributes.get("mail").get();
