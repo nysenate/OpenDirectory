@@ -3,8 +3,8 @@ package gov.nysenate.opendirectory.tests;
 import java.util.Collection;
 
 import javax.naming.NamingException;
-
-import junit.framework.Assert;
+//12345678901234567890123456789012345678901234567890123456789012345678901234567890
+import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 import gov.nysenate.opendirectory.ldap.Ldap;
 import gov.nysenate.opendirectory.models.Person;
@@ -23,19 +23,17 @@ public class LdapTest extends TestCase {
 		super.tearDown();
 	}
 	*/
-	
+
 	public void testConnectAnon() {
-		Assert.fail("We fail");
-		Assert.assertTrue(false);
 		try {
 			new Ldap().connect();
 		} catch (NamingException e) {
-			Assert.fail(e.toString());
+			fail(e.toString());
 		}
 	}
 	
 	public void testConnectAuth() {
-		
+		fail("We've failed big time");
 	}
 	
 	public void testGetPersonByName() {
@@ -46,7 +44,7 @@ public class LdapTest extends TestCase {
 				System.out.println(p);
 			}
 		} catch (NamingException e) {
-			Assert.fail(e.toString());
+			fail(e.toString());
 		}
 	}
 }
