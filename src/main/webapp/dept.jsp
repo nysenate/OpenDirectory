@@ -1,6 +1,6 @@
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" type="text/css" href="/OpenDirectory/style.css" />
 <h1>SenBook</h1>
 <h2>The NYSS Employee Information Tool</h2>
 </head>
