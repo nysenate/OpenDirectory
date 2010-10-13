@@ -4,12 +4,7 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  
-	<servlet>
-		<servlet-name>IndexServlet</servlet-name>
-		<servlet-class>gov.nysenate.opendirectory.servlets.IndexServlet</servlet-class>
-	</servlet>
-	
+
 	<servlet>
 		<servlet-name>BrowseServlet</servlet-name>
 		<servlet-class>gov.nysenate.opendirectory.servlets.BrowseServlet</servlet-class>
