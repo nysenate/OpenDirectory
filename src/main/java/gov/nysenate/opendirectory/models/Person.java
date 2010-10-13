@@ -1,5 +1,7 @@
 package gov.nysenate.opendirectory.models;
 
+import java.util.Comparator;
+
 import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
@@ -25,16 +27,20 @@ public class Person {
 	public Person() {}
 	public Person(SearchResult record) throws NamingException {
 		Attributes attributes = record.getAttributes();
-		this.email = getAttribute(attributes,"mail");
-		this.phone = getAttribute(attributes,"telephonenumber");
-		this.state = getAttribute(attributes,"st");
-		this.department = getAttribute(attributes,"department");
-		this.title = getAttribute(attributes,"title");
-		this.firstName = getAttribute(attributes,"givenname");
-		this.lastName = getAttribute(attributes,"sn");
-		this.fullName = getAttribute(attributes,"displayname");
-		this.uid = getAttribute(attributes,"uid");
-		this.location = getAttribute(attributes,"l");
+		email = getAttribute(attributes,"mail");
+		phone = getAttribute(attributes,"telephonenumber");
+		state = getAttribute(attributes,"st");
+		department = getAttribute(attributes,"department");
+		title = getAttribute(attributes,"title");
+		firstName = getAttribute(attributes,"givenname");
+		lastName = getAttribute(attributes,"sn");
+		fullName = getAttribute(attributes,"displayname");
+		uid = getAttribute(attributes,"uid");
+		location = getAttribute(attributes,"l");
+		
+		if(fullName.endsWith("/senate")) {
+			fullName = fullName.substring(0, fullName.length()-7);
+		}
 	}
 	
 	private String firstName;
@@ -120,4 +126,17 @@ public class Person {
 		out.append("\n\tEmail: "+email);
 		return out.toString();
 	}
+
+	public static class ByLastName implements Comparator<Person> {
+		public int compare(Person a, Person b) {
+			return a.lastName.compareToIgnoreCase(b.lastName);
+		}
+	}
+
+	public static class ByFirstName implements Comparator<Person> {
+		public int compare(Person a, Person b) {
+			return a.firstName.compareToIgnoreCase(b.firstName);
+		}
+	}
+
 }
