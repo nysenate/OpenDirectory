@@ -1,6 +1,7 @@
 package gov.nysenate.opendirectory.models;
 
 import javax.naming.NamingException;
+import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.SearchResult;
 
@@ -12,20 +13,28 @@ public class Person {
 	/* Designed according to JavaBean specs for use in the
 	 * Java Expressions Language (EL) of JSP 2.0+
 	 */
-
+	private String getAttribute(Attributes attributes,String name) throws NamingException {
+		Attribute attr = attributes.get(name);
+		
+		if(attr != null && attr.size() != 0)
+			return (String)attr.get();
+		else
+			return null;
+	}
+	
 	public Person() {}
 	public Person(SearchResult record) throws NamingException {
 		Attributes attributes = record.getAttributes();
-		this.email = (String)attributes.get("mail").get();
-		this.phone = (String)attributes.get("telephonenumber").get();
-		this.state = (String)attributes.get("st").get();
-		this.department = (String)attributes.get("department").get();
-		this.title = (String)attributes.get("title").get();
-		this.firstName = (String)attributes.get("givenname").get();
-		this.lastName = (String)attributes.get("sn").get();
-		this.fullName = (String)attributes.get("displayname").get();
-		this.uid = (String)attributes.get("uid").get();
-		this.location = (String)attributes.get("location").get();
+		this.email = getAttribute(attributes,"mail");
+		this.phone = getAttribute(attributes,"telephonenumber");
+		this.state = getAttribute(attributes,"st");
+		this.department = getAttribute(attributes,"department");
+		this.title = getAttribute(attributes,"title");
+		this.firstName = getAttribute(attributes,"givenname");
+		this.lastName = getAttribute(attributes,"sn");
+		this.fullName = getAttribute(attributes,"displayname");
+		this.uid = getAttribute(attributes,"uid");
+		this.location = getAttribute(attributes,"l");
 	}
 	
 	private String firstName;
@@ -101,4 +110,14 @@ public class Person {
 		this.email = email;
 	}
 
+	public String toString() {
+		StringBuilder out = new StringBuilder();
+		out.append(fullName+"("+uid+")");
+		out.append("\n\tTitle: "+title);
+		out.append("\n\tLocation: "+location+", "+state);
+		out.append("\n\tDepartment:"+department);
+		out.append("\n\tPhone: "+phone);
+		out.append("\n\tEmail: "+email);
+		return out.toString();
+	}
 }
