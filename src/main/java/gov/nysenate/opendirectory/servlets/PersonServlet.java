@@ -1,7 +1,6 @@
 package gov.nysenate.opendirectory.servlets;
 
 import java.io.IOException;
-import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
