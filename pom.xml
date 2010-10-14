@@ -41,6 +41,13 @@
     	<type>jar</type>
     	<scope>compile</scope>
     </dependency>
+    <dependency>
+    	<groupId>org.slf4j</groupId>
+    	<artifactId>slf4j-nop</artifactId>
+    	<version>1.6.1</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
   </dependencies>
   <build>
     <finalName>opendirectory</finalName>
