@@ -18,7 +18,7 @@
 	<h3><%=bucket%></h3>
 	<ul>
 		<% for(Person p : people.get(bucket)) { %>
-			<li>(<%=p.getFirstName()%>) <%=p.getFullName()%></li>
+			<li>(<%=p.getFirstName()%>) <a href="/OpenDirectory/person/<%=p.getUid()%>"><%=p.getFullName()%></a></li>
 		<% } %>
 	</ul>
 <% } %>

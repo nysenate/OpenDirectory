@@ -87,6 +87,22 @@ public class Ldap {
 		}
 		return ret;
 	}
+	public Collection<Person> getPersonByUid(String name) throws NamingException {
+		if (context == null)
+			throw new NamingException("Must connect to server before querying");
+
+		NamingEnumeration<SearchResult> results = context.search(
+					"O=senate",
+					"(uid="+name+")",
+					new SearchControls()
+				);
+		
+		ArrayList<Person> ret = new ArrayList<Person>();
+		while(results.hasMore()) {
+			ret.add(new Person(results.next()));
+		}
+		return ret;
+	}
 }
 /*
 	try {
