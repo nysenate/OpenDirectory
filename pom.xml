@@ -34,6 +34,13 @@
            	</exclusion>
            </exclusions>
     </dependency>
+    <dependency>
+    	<groupId>org.slf4j</groupId>
+    	<artifactId>slf4j-api</artifactId>
+    	<version>1.6.1</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
   </dependencies>
   <build>
     <finalName>opendirectory</finalName>
