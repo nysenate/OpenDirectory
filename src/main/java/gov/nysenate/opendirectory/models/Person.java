@@ -38,7 +38,7 @@ public class Person {
 		uid = getAttribute(attributes,"uid");
 		location = getAttribute(attributes,"l");
 		
-		if(fullName.endsWith("/senate")) {
+		if(fullName!=null && fullName.endsWith("/senate")) {
 			fullName = fullName.substring(0, fullName.length()-7);
 		}
 	}
@@ -127,16 +127,81 @@ public class Person {
 		return out.toString();
 	}
 
-	public static class ByLastName implements Comparator<Person> {
-		public int compare(Person a, Person b) {
-			return a.lastName.compareToIgnoreCase(b.lastName);
-		}
-	}
-
+	
 	public static class ByFirstName implements Comparator<Person> {
 		public int compare(Person a, Person b) {
-			return a.firstName.compareToIgnoreCase(b.firstName);
+			int ret = a.firstName.compareToIgnoreCase(b.firstName);
+			if (ret == 0) {
+				ret = a.lastName.compareToIgnoreCase(b.lastName);
+				if (ret == 0) {
+					ret = a.department.compareToIgnoreCase(b.department);
+					if (ret == 0) {
+						ret = a.location.compareToIgnoreCase(b.location);
+						if (ret == 0) {
+							ret = a.uid.compareToIgnoreCase(b.uid);
+						}
+					}
+				}
+			}
+			return ret;
+		}
+	}
+	
+	public static class ByLastName implements Comparator<Person> {
+		public int compare(Person a, Person b) {
+			int ret = a.lastName.compareToIgnoreCase(b.lastName);
+			if (ret == 0) {
+				ret = a.firstName.compareToIgnoreCase(b.firstName);
+				if (ret == 0) {
+					ret = a.department.compareToIgnoreCase(b.department);
+					if (ret == 0) {
+						ret = a.location.compareToIgnoreCase(b.location);
+						if (ret == 0) {
+							ret = a.uid.compareToIgnoreCase(b.uid);
+						}
+					}
+				}
+			}
+			return ret;
 		}
 	}
 
+	public static class ByLocation implements Comparator<Person> {
+		public int compare(Person a, Person b) {
+			int ret = a.location.compareToIgnoreCase(b.location);
+			if (ret == 0) {
+				ret = a.firstName.compareToIgnoreCase(b.firstName);
+				if (ret == 0) {
+					ret = a.lastName.compareToIgnoreCase(b.lastName);
+					if (ret == 0) {
+						ret = a.department.compareToIgnoreCase(b.department);
+						if (ret == 0) {
+							ret = a.uid.compareToIgnoreCase(b.uid);
+						}
+					}
+				}
+			}
+			return ret;
+				
+		}
+	}
+	
+	public static class ByDepartment implements Comparator<Person> {
+		public int compare(Person a, Person b) {
+			int ret = a.department.compareToIgnoreCase(b.department);
+			if (ret == 0) {
+				ret = a.firstName.compareToIgnoreCase(b.firstName);
+				if (ret == 0) {
+					ret = a.lastName.compareToIgnoreCase(b.lastName);
+					if (ret == 0) {
+						ret = a.location.compareToIgnoreCase(b.location);
+						if (ret == 0) {
+							ret = a.uid.compareToIgnoreCase(b.uid);
+						}
+					}
+				}
+			}
+			return ret;
+		}
+	}
 }
