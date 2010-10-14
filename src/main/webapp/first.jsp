@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.HashMap,java.util.Collections,java.util.TreeSet,gov.nysenate.opendirectory.models.Person"  %>
+<%@ page language="java" import="java.util.HashMap,java.util.TreeSet,gov.nysenate.opendirectory.models.Person"  %>
 <%! @SuppressWarnings("unchecked") %>
 <%  
 	HashMap<String,TreeSet<Person>> people = (HashMap<String,TreeSet<Person>>)request.getAttribute("people");
