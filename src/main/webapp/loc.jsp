@@ -18,7 +18,7 @@
 	<h3><%=bucket%></h3>
 	<ul>
 		<% for(Person p : people.get(bucket)) { %>
-			<li>(<%=p.getLocation()%>) <%=p.getFullName()%></li>
+			<li><%=p.getFullName()%></li>
 		<% } %>
 	</ul>
 <% } %>

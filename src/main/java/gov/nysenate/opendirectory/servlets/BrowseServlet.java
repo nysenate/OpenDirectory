@@ -31,7 +31,7 @@ public class BrowseServlet extends HttpServlet {
 		    	if ( type.equals("department")) {
 					request.setAttribute(
 							"people",
-							GetPeopleSortedBy(
+							GetPeopleSortedByString(
 									Person.class.getMethod("getDepartment"),
 									new Person.ByDepartment()
 								)
@@ -41,7 +41,7 @@ public class BrowseServlet extends HttpServlet {
 		    	} else if ( type.equals("firstname") ) {
 					request.setAttribute(
 							"people",
-							GetPeopleSortedBy(
+							GetPeopleSortedByChar(
 									Person.class.getMethod("getFirstName"),
 									new Person.ByFirstName()
 								)
@@ -50,7 +50,7 @@ public class BrowseServlet extends HttpServlet {
 					
 		    	} else if ( type.equals("lastname") ) {
 					request.setAttribute("people",
-							GetPeopleSortedBy(
+							GetPeopleSortedByChar(
 								Person.class.getMethod("getLastName"),
 								new Person.ByLastName())
 						);
@@ -59,7 +59,7 @@ public class BrowseServlet extends HttpServlet {
 		    	} else if ( type.equals("location") ) {
 					request.setAttribute(
 							"people",
-							GetPeopleSortedBy(
+							GetPeopleSortedByString(
 									Person.class.getMethod("getLocation"),
 									new Person.ByLocation()
 								)
@@ -79,7 +79,7 @@ public class BrowseServlet extends HttpServlet {
 		}
 	}
 		
-	private HashMap<String,TreeSet<Person>> GetPeopleSortedBy(Method method, Comparator<Person> comparator) {
+	private HashMap<String,TreeSet<Person>> GetPeopleSortedByChar(Method method, Comparator<Person> comparator) {
 		try {
 			long start = System.currentTimeMillis();
 			ArrayList<Person> people = (ArrayList<Person>)new Ldap().connect().getPeople();
@@ -94,6 +94,43 @@ public class BrowseServlet extends HttpServlet {
 						if (plist == null) {
 							plist = new TreeSet<Person>(comparator);
 							data.put((String.valueOf(value.charAt(0))), plist);
+						}
+						System.out.println(p.getFullName());
+						plist.add(p);
+					}
+				} catch (NullPointerException e) {
+					//Person doesn't have a `value`
+					e.printStackTrace();
+				}
+			}
+			return data;
+		} catch (NamingException e) {
+			//Error Connecting to LDAP
+			System.out.println(e);
+		} catch (InvocationTargetException e) {
+			//Person is not a valid target for the method
+			System.out.println(e);
+		} catch (IllegalAccessException e) {
+			//Method is private and not accessible
+			System.out.println(e);
+		}
+		return null;
+	}
+	
+	private HashMap<String,TreeSet<Person>> GetPeopleSortedByString(Method method, Comparator<Person> comparator) {
+		try {
+			long start = System.currentTimeMillis();
+			ArrayList<Person> people = (ArrayList<Person>)new Ldap().connect().getPeople();
+			System.out.println("LDAP Query Time: "+(System.currentTimeMillis()-start)+" milliseconds");
+			HashMap<String,TreeSet<Person>> data = new HashMap<String,TreeSet<Person>>();
+			for(Person p : people) {
+				try {
+					String value = (String)method.invoke(p);
+					if (value!=null && value.length()!=0) {
+						TreeSet<Person> plist = data.get(value);
+						if (plist == null) {
+							plist = new TreeSet<Person>(comparator);
+							data.put(value, plist);
 						}
 						System.out.println(p.getFullName());
 						plist.add(p);
