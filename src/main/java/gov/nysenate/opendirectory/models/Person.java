@@ -49,7 +49,7 @@ public class Person {
 	private String firstName;
 	@Field
 	private String lastName;
-	@Field("nytitle")
+	@Field("Title")
 	private String title;
 	@Field("id")
 	private String uid;
