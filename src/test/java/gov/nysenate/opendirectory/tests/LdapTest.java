@@ -3,8 +3,6 @@ package gov.nysenate.opendirectory.tests;
 import java.util.Collection;
 
 import javax.naming.NamingException;
-//12345678901234567890123456789012345678901234567890123456789012345678901234567890
-import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 import gov.nysenate.opendirectory.ldap.Ldap;
 import gov.nysenate.opendirectory.models.Person;

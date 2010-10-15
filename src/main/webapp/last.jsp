@@ -4,7 +4,7 @@
 	HashMap<String,TreeSet<Person>> people = (HashMap<String,TreeSet<Person>>)request.getAttribute("people");
 %><html>
 <head>
-<link rel="stylesheet" type="text/css" href="/OpenDirectory/style.css" />
+<link rel="stylesheet" type="text/css" href="/opendirectory/style.css" />
 </head>
 
 <body>
@@ -27,7 +27,7 @@
 	<h3><%=last%></h3>
 	<ul>
 		<% for(Person p : people.get(last)) { %>
-			<li> <a href="/OpenDirectory/person/<%=p.getUid()%>"><%=p.getFullName()%></a></li>
+			<li> <a href="/opendirectory/person/<%=p.getUid()%>"><%=p.getFullName()%></a></li>
 		<% } %>
 	</ul>
 <% } %>
