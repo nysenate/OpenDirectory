@@ -7,6 +7,8 @@ import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.SearchResult;
 
+import org.apache.solr.client.solrj.beans.Field;
+
 /*
  * "displayname","location","givenname","uidnumber","uid", "mail", "cn",
  * "telephonenumber","st","l","sn","department", "title","gidnumber", "employeeid"
@@ -43,16 +45,27 @@ public class Person {
 		}
 	}
 	
+	@Field
 	private String firstName;
+	@Field
 	private String lastName;
+	@Field("nytitle")
 	private String title;
+	@Field("id")
 	private String uid;
+	@Field
 	private String fullName;
+	@Field
 	private String state;
+	@Field
 	private String location;
+	@Field
 	private String department;
+	@Field
 	private String phone;
+	@Field
 	private String email;
+	
 	
 	public String getFirstName() {
 		return firstName;
@@ -84,7 +97,7 @@ public class Person {
 	public String getEmail() {
 		return email;
 	}
-
+	
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
