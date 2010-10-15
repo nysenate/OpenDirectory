@@ -41,8 +41,8 @@ public class Test {
 			localserver = new CommonsHttpSolrServer("http://localhost:8080/solr/");
 			
 			SolrServer server = localserver;
-			
-			/*Person test_p = new Person();
+		
+			Person test_p = new Person();
 			
 			test_p.setEmail("test_email@chrim.com");
 			test_p.setFirstName("test");
@@ -53,26 +53,17 @@ public class Test {
 			test_p.setPhone("123-333-1111");
 			test_p.setState("NY");
 			test_p.setTitle("Manager");
-			test_p.setUid("123");
+			test_p.setUid("1");
 			
 			server.addBean(test_p);
 			server.commit();
-			*/
+			
 			
 			SolrQuery query = new SolrQuery();
 			query.setQuery("*:*");
 			
 			QueryResponse rsp = server.query(query);
 		
-			
-			/*SolrDocumentList docs = rsp.getResults();
-			while(docs.get(3).iterator().hasNext())
-			{
-				docs.get(3).iterator().
-			}
-			System.out.println(docs.get(3).size());
-			*/
-			
 			ArrayList<Person> beans = (ArrayList<Person>)rsp.getBeans(Person.class);
 			
 			for(Person p : beans) {
