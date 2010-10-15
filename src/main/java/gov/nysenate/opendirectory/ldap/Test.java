@@ -1,5 +1,7 @@
 package gov.nysenate.opendirectory.ldap;
 
+import gov.nysenate.opendirectory.models.Person;
+
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,9 +17,15 @@ import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 
+import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
+import org.apache.solr.client.solrj.beans.*;
+
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 public class Test {
 	/**
@@ -30,30 +38,46 @@ public class Test {
 			/*********SOLR Test**********/
 			CommonsHttpSolrServer localserver = null;
 			//Could use EmbeddedSolrServer(), depends on how we are setting up the environments?
-			localserver = new CommonsHttpSolrServer("http://localhost:8080/solr");
+			localserver = new CommonsHttpSolrServer("http://localhost:8080/solr/");
 			
 			SolrServer server = localserver;
 			
-			SolrInputDocument doc1 = new SolrInputDocument();
-			doc1.addField("displayname", "DISPLAYNAME1", 1.0f);
-			doc1.addField("second", "This is the default value");
+			/*Person test_p = new Person();
 			
-			SolrInputDocument doc2 = new SolrInputDocument();
-			doc2.addField("displayname", "DISPLAYNAME2", 1.0f);
+			test_p.setEmail("test_email@chrim.com");
+			test_p.setFirstName("test");
+			test_p.setLastName("person");
+			test_p.setDepartment("testDepartment");
+			test_p.setFullName("test person");
+			test_p.setLocation("Albany");
+			test_p.setPhone("123-333-1111");
+			test_p.setState("NY");
+			test_p.setTitle("Manager");
+			test_p.setUid("123");
 			
-			Collection<SolrInputDocument> docs = new ArrayList<SolrInputDocument>();
-			docs.add(doc1);
-			docs.add(doc2);
-			
-			server.add(doc1);
-			
-//			server.add(docs);
+			server.addBean(test_p);
 			server.commit();
-
-			//doc1.addField("location
-			//doc1.addField("givenname","uidnumber",
-			//"uid", "mail", "cn", "telephonenumber",
-			//"st","l","sn","department", "title","gidnumber", "employeeid"
+			*/
+			
+			SolrQuery query = new SolrQuery();
+			query.setQuery("*:*");
+			
+			QueryResponse rsp = server.query(query);
+		
+			
+			/*SolrDocumentList docs = rsp.getResults();
+			while(docs.get(3).iterator().hasNext())
+			{
+				docs.get(3).iterator().
+			}
+			System.out.println(docs.get(3).size());
+			*/
+			
+			ArrayList<Person> beans = (ArrayList<Person>)rsp.getBeans(Person.class);
+			
+			for(Person p : beans) {
+				System.out.println(p.getUid());
+			}
 			
 		}
 		catch (Exception e) {
