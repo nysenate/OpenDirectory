@@ -14,11 +14,11 @@
 <a HREF="javascript:history.go(-1)">Go back</a> | <a HREF="javascript:history.go(1)">Go forward</a>
 </div>
 
-<% for(String bucket : new TreeSet<String>(people.keySet()) ) { %>
-	<h3><%=bucket%></h3>
+<% for(String loc : new TreeSet<String>(people.keySet()) ) { %>
+	<h3><%=loc%></h3>
 	<ul>
-		<% for(Person p : people.get(bucket)) { %>
-			<li><%=p.getFullName()%></li>
+		<% for(Person p : people.get(loc)) { %>
+			<li> <a href="/OpenDirectory/person/<%=p.getUid()%>"><%=p.getFullName()%></a></li>
 		<% } %>
 	</ul>
 <% } %>

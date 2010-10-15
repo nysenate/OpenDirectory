@@ -22,11 +22,12 @@
 
 --%>
 
-<% for(String bucket : new TreeSet<String>(people.keySet()) ) { %>
-	<h3><%=bucket%></h3>
+<% for(String last : new TreeSet<String>(people.keySet()) ) { %>
+
+	<h3><%=last%></h3>
 	<ul>
-		<% for(Person p : people.get(bucket)) { %>
-			<li>(<%=p.getLastName()%>) <%=p.getFullName()%></li>
+		<% for(Person p : people.get(last)) { %>
+			<li> <a href="/OpenDirectory/person/<%=p.getUid()%>"><%=p.getFullName()%></a></li>
 		<% } %>
 	</ul>
 <% } %>

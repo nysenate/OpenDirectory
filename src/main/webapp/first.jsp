@@ -4,7 +4,7 @@
 	HashMap<String,TreeSet<Person>> people = (HashMap<String,TreeSet<Person>>)request.getAttribute("people");
 %><html>
 <head>
-<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" type="text/css" href="/OpenDirectory/style.css" />
 </head>
 
 <body>
@@ -14,11 +14,11 @@
 <a HREF="javascript:history.go(-1)">Go back</a> | <a HREF="javascript:history.go(1)">Go forward</a>
 </div>
 
-<% for(String bucket : new TreeSet<String>(people.keySet()) ) { %>
-	<h3><%=bucket%></h3>
+<% for(String first : new TreeSet<String>(people.keySet()) ) { %>
+	<h3><%=first%></h3>
 	<ul>
-		<% for(Person p : people.get(bucket)) { %>
-			<li>(<%=p.getFirstName()%>) <a href="/OpenDirectory/person/<%=p.getUid()%>"><%=p.getFullName()%></a></li>
+		<% for(Person p : people.get(first)) { %>
+			<li> <a href="/OpenDirectory/person/<%=p.getUid()%>"><%=p.getFullName()%></a></li>
 		<% } %>
 	</ul>
 <% } %>
