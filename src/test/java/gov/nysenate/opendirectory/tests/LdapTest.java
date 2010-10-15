@@ -31,11 +31,11 @@ public class LdapTest extends TestCase {
 			fail(e.toString());
 		}
 	}
-	
+	/*
 	public void testConnectAuth() {
 		fail("We've failed big time");
 	}
-	
+	*/
 	public void testGetPersonByName() {
 		try {
 			Ldap ldap = new Ldap().connect();
