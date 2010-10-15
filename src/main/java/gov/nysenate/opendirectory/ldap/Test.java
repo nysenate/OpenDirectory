@@ -1,5 +1,10 @@
 package gov.nysenate.opendirectory.ldap;
 
+import gov.nysenate.opendirectory.models.Person;
+
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Hashtable;
 
 import javax.naming.AuthenticationException;
@@ -12,6 +17,16 @@ import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocumentList;
+import org.apache.solr.common.SolrInputDocument;
+import org.apache.solr.client.solrj.beans.*;
+
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+
 public class Test {
 	/**
 	 * @param args
@@ -20,7 +35,49 @@ public class Test {
 	public static void main(String[] args) throws NamingException {
 		
 		try {
+			/*********SOLR Test**********/
+			CommonsHttpSolrServer localserver = null;
+			//Could use EmbeddedSolrServer(), depends on how we are setting up the environments?
+			localserver = new CommonsHttpSolrServer("http://localhost:8080/solr/");
 			
+			SolrServer server = localserver;
+		
+			Person test_p = new Person();
+			
+			test_p.setEmail("test_email@chrim.com");
+			test_p.setFirstName("test");
+			test_p.setLastName("person");
+			test_p.setDepartment("testDepartment");
+			test_p.setFullName("test person");
+			test_p.setLocation("Albany");
+			test_p.setPhone("123-333-1111");
+			test_p.setState("NY");
+			test_p.setTitle("Manager");
+			test_p.setUid("1");
+			
+			server.addBean(test_p);
+			server.commit();
+			
+			
+			SolrQuery query = new SolrQuery();
+			query.setQuery("*:*");
+			
+			QueryResponse rsp = server.query(query);
+		
+			ArrayList<Person> beans = (ArrayList<Person>)rsp.getBeans(Person.class);
+			
+			for(Person p : beans) {
+				System.out.println(p.getUid());
+			}
+			
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		/*******PULL in INFO from LDAP*********
+		try {				
 			//Set the attributes to retrieve
 			String[] attributestoretrieve = {"displayname","location","givenname","uidnumber",
 											"uid", "mail", "cn", "telephonenumber",
@@ -41,9 +98,8 @@ public class Test {
 			String domainFilter = "O=senate"; 			//organization = senate
 			//String domainFilter = new String();
 			//String searchFilter = "(objectClass=dominoPerson)"; 	//all users
-			//String searchFilter = "(uidnumber=1087)"; 
-			String searchFilter = "(uid=CRM*)"; //all "CRM" users
-			//String searchFilter = "(giddisplay=*)";
+			String searchFilter = "(displayname=Andrew H*)"; 
+			//String searchFilter = "(uid=CRM*)"; //all "CRM" users
 			//String searchFilter = "(&(objectClass=dominoGroup)(giddisplay=Public))";
 			//String searchFilter = "(&(objectClass=dominoPerson)(employeeid=*)(!(employeeid=999*))(!(employeeid=0000)))"; //clean query
 			
@@ -86,14 +142,22 @@ public class Test {
 				resultNum++;
 			}
 		
+		} 
 		//If the authorization credentials are bad, we'll catch that here and report the failure
-		} catch (AuthenticationException e) {
+		catch (AuthenticationException e) {
 			System.out.println("Authentication Failed!");
-		}
+		} 
+		*/
 		
 		//Bad queries aren't caught here, not sure how to do that yet.
 	}
 	
+
+	private static SolrServer getSolrServer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	public static DirContext getLdap(String cred, String pwd) throws NamingException {
 		Hashtable<String,String> env = new Hashtable<String,String>();
