@@ -1,0 +1,4557 @@
+/* $Id: zen.css,v 1.14 2008/09/15 10:36:22 johnalbin Exp $ */
+
+/*
+ * ZEN STYLES
+ *
+ * This is an example stylesheet. Sub-themes should NOT include the zen/zen.css
+ * file, but instead copy this CSS to their own stylesheets.
+ *
+ * In this stylesheet, we have included all of the classes and IDs from this
+ * theme's tpl.php files. We have also included many of the useful Drupal core
+ * styles to make it easier for theme developers to see them.
+ *
+ * Many of these styles are over-riding Drupal's core stylesheets, so if you
+ * remove a declaration from here, the styles may still not be what you want
+ * since Drupal's core stylesheets are still styling the element. See the
+ * drupal6-reference.css file for a list of all Drupal 5.x core styles.
+ *
+ * In addition to the style declarations in this file, other Drupal styles that
+ * you might want to override or augment are those for:
+ *
+ *   Book Navigation  See line 74  of Zen's drupal6-reference.css file
+ *   Forum            See line 197 of Zen's drupal6-reference.css file
+ *   Menus            See line 667 of Zen's drupal6-reference.css file
+ *   News Aggregator  See line 20  of Zen's drupal6-reference.css file
+ *   Polls            See line 287 of Zen's drupal6-reference.css file
+ *   Search           See line 320 of Zen's drupal6-reference.css file
+ *   User Profiles    See line 945 of Zen's drupal6-reference.css file
+ */
+
+/** body **/
+  body
+  {
+    margin: 0;
+    color: #012849;
+    font-family: Times New Roman, serif;
+    background: url(images/nyss_bg.png) top left repeat-x;
+  }
+  body#tinymce {
+    background: transparent;
+  }
+
+  .admin-menu select {
+	width: 100%;
+}
+
+  #page_outer {
+  background: url(images/nyss_bg.png) top left repeat-x;
+  }
+
+  body.red,
+  body.red #page_outer {
+    background: url(images/nyss_bg_red.png) top left repeat-x;
+  }
+
+  body.blue,
+  body.blue #page_outer {
+    background: url(images/nyss_bg_blue.png) top left repeat-x;
+  }
+
+  #page
+  {
+  background: #E2DED5;
+  }
+
+  #page-inner
+  {
+  }
+
+div.messages a, div.stats a{
+  text-decoration: underline;
+}
+
+/** header **/
+/** Red is for Republican header, Blue is for Democratic header image **/
+   body.red #header{
+    background-position: 0 -1128px;
+  }
+
+   body.blue #header{
+    background-position: 0 -188px;
+  }
+/** Main image holder **/
+  #header
+  {
+    background:url(images/header.png) top left no-repeat;
+    z-index: 200;
+  }
+/** Backgrounds  **/
+  #header.bg-1 {
+  background-position: 0 0 -564;
+}
+
+#header.bg-2 {
+  background-position: 0 0px;
+}
+
+#header.bg-3 {
+  background-position: 0 -940px;
+}
+#header.bg-4 {
+  background-position: 0 -752px;
+}
+
+#header.bg-5 {
+  background-position: 0 -564px;
+}
+
+  #header-inner
+  {
+  }
+
+  #userlogin {
+    position: absolute;
+    top: 0;
+    right: 0;
+		
+  }
+  #user-bar {
+    float: right;
+    width: 154px;
+    margin-top: 12px;
+		font-family: arial, serif;
+		color: #ffffff;
+		font-size: 11px;
+  }
+
+  .logged-in #user-bar {
+  width: 174px;
+	
+}
+
+#user-bar a {
+	color: #c6b44a;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+#user-bar a:hover {
+	color: #ffffff;
+}
+
+  #header #home-link {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    font-style: italic;
+    text-transform: uppercase;
+    position: absolute;
+    top: 34px;
+    right: 10px;
+  }
+  #header #home-link a {
+    color: #FFF;
+  }
+  #header #home-link a:hover {
+    color: #c6b44a;
+  }
+
+  #logo-title /* Wrapper for logo, website name, and slogan */
+  {
+  }
+
+
+  #logo /* Wrapper for logo */
+  {
+    background: transparent url(images/nyss_logo.png) no-repeat top left;
+    width: 280px;
+    height: 65px;
+    padding: 0;
+    margin: -10px 10px 0;
+    text-indent: -9999px;
+  }
+
+  #logo-image /* The actual logo image */
+  {
+  }
+
+  h1#site-name, div#site-name /* The name of the website */
+  {
+    margin: 0;
+    font-size: 2em;
+    line-height: 1.3em;
+  }
+
+  #site-name a:link,
+  #site-name a:visited
+  {
+    color: #000;
+    text-decoration: none;
+  }
+
+  #site-name a:hover
+  {
+    text-decoration: underline;
+  }
+
+  #site-slogan /* The slogan (or tagline) of a website */
+  {
+  }
+
+  #header-blocks /* Wrapper for any blocks placed in the header region */
+  {
+  }
+
+  #header #senator_header {
+    position: relative;
+    top: 10px;
+    left: 10px;
+  }
+
+  #header #senator_header .ny_state_senator {
+    color: #C6B44A;
+    font-family: arial, serif;
+    text-transform: uppercase;
+  }
+
+  #header #senator_header .senator_info {
+    float: left;
+  }
+
+  #header #senator_header .senator_name span.cufon-canvas {
+	font-family: arial, serif;
+}
+
+#header #senator_header .senator_name a span.cufon-canvas {
+}
+
+  #header #senator_header .senator_name a {
+    color: white;
+    font-size: 2.3em;
+    text-transform: uppercase;
+    display:block;
+    padding: 5px 0 10px;
+  }
+
+#header #senator_header .senator_name a:link{
+	font-weight: normal;
+}
+
+#header #senator_header .senator_name a:hover{
+	text-decoration: none;
+}
+
+#header #senator_header .senator_name a:visited{
+	font-weight: normal;
+}
+
+  #header #senator_header .senator_photo {
+    float: left;
+    margin-right: 10px;
+  }
+
+  #header #senator_header .senator_photo img {
+    border: 2px solid #fff;
+  }
+
+  #header #senator_header .district {
+    font-family: Helvetica, Arial, sans-serif;
+    color: #fff;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: .8em;
+    letter-spacing: 1px;
+    margin-top: -6px;
+  }
+
+/** main (container for everything else) **/
+  #main
+  {
+  }
+
+  #main-inner
+  {
+  }
+
+  #main p {
+  line-height: 1.4em;
+  }
+
+  #main .node .content ul {
+    padding-bottom: 1em;
+  }
+
+
+/** content **/
+  #content
+  {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: .9em;
+  }
+
+  #content-inner {
+  background: url(images/nyss_main_header_bg.png) no-repeat top left;
+  padding-top: 14px;
+  position: relative;
+}
+
+.front #content-inner {
+}
+
+.no-sidebars #content-inner {
+  background: url(images/nyss_main_header_full_bg.png) no-repeat top left;
+}
+.no-sidebars #content {
+  width: 900px;
+  margin: 10px 0;
+}
+.no-sidebars #sidebar-left {
+  display: none;
+}
+
+#content-inner-inner
+  {
+    margin-top: 15px;
+    margin-left: 10px;
+    padding: 0 15px 20px;
+    background: #fff url(images/nyss_block_footer_bg.png) repeat-x bottom left;
+}
+.no-sidebars #content-inner-inner {
+  margin-right: 9px;
+}
+
+#content-masthead {
+  margin-left: 10px;
+}
+
+  #content-header /* Wrapper for breadcrumb, title, messages, tabs, and help */
+  {
+    margin-top: 10px;
+  }
+
+  .breadcrumb /* The path to the current page in the form of a list of links */
+  {
+    padding-bottom: 0; /* Undo system.css */
+  }
+
+  h1.title, /* The title of the page */
+  h2.title, /* Block title or the title of a piece of content when it is given in a list of content */
+  h3.title /* Comment title */
+  {
+    margin: 0 0 .5em 0;
+  }
+  
+h1.title {
+  color: #012849;
+}
+
+h2.title {
+  color: #012849;
+}
+
+.node-type-committee h2.committee_name, h2.committee_name,
+h4.section_header,
+.not-node #content-header h1.title,
+.node-type-page #content-header h1.title,
+.node-type-district #content-header h1.title,
+.page-department-cio h1.title {
+  margin: 0 0 1em 0;
+	font-family: arial, serif;
+  padding: 0;
+  text-transform: uppercase;
+  color: #000000; /*  #1B5187; */
+  
+  font-size: 1.7em;
+}
+
+.page-initiative.not-node #content-header h1.title {
+  margin: 0;
+	font-family: arial, serif;
+}
+
+h2.in_the_news_header {
+  margin: 0 0 1em;
+	font-family: arial, serif;
+  color: #1B5187;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  padding: 0;
+}
+
+.node-type-blog h1.title {
+  margin: 0;
+}
+
+.page-committees h1.title {
+  margin: 0;
+}
+
+  div.messages /* Important messages (status, warning, and error) for the user */
+  {
+  }
+
+  div.status /* Normal priority messages */
+  {
+  }
+
+  div.warning, tr.warning /* Medium priority messages */
+  {
+    /* border: 1px solid #f0c020; */ /* Drupal core uses: 1px solid #f0c020 */
+  }
+
+  div.error, tr.error /* High priority messages. See also the .error declaration below. */
+  {
+  }
+
+  div.tabs /* See also the tabs.css file. */
+  {
+  }
+
+  div.item-list ul li {
+    list-style: none;
+  }
+
+  div.ui-accordion div.item-list ul li {
+    background: url(images/nyss_arrow_right.png) 7px 6px no-repeat;
+    margin-left: 10px;
+    zoom: 1;
+  }
+
+  div#block-nyss_blocks-issues div.content ul li {
+    background: url(images/nyss_arrow_right.png) 7px 6px no-repeat;
+    margin-left: -25px;
+    padding-left: 25px;
+    list-style: none;
+    zoom: 1;
+  }
+
+  .help /* Help text on a page */
+  {
+    margin: 1em 0;
+  }
+
+  .more-help-link /* Link to more help */
+  {
+    font-size: 0.85em;
+    text-align: right;
+  }
+
+  #content-area /* Wrapper for the actual page content */
+  {
+    /* border-bottom: 1px solid #E2DED5; */
+    padding-bottom: 10px;
+  }
+/* Undid this so other pages can be switched in as the front page on occasion
+  .front #content-area {
+    padding-bottom: 0;
+    height: 0;
+  } */
+  .pager /* A list of page numbers when more than 1 page of content is available */
+  {
+    clear: both;
+    margin: 1em 0;
+    text-align: center;
+    padding: 0;
+    }
+
+  .item-list .pager {
+	padding: 0;
+	text-align: left;
+  }
+
+  .item-list .pager li {
+	padding: 0;
+}
+
+  .item-list .pager li a {
+	color: #c1b8af;
+	padding: .5em;
+}
+
+.item-list .pager li a:hover {
+	color: #5E4D42;;
+}
+
+.pager li.pager-current {
+	font-weight: normal;
+	padding: .5em;
+}
+
+  .feed-icons /* The links to the RSS or Atom feeds for the current list of content */
+  {
+    margin: 1em 0;
+  }
+
+  #content-bottom /* Wrapper for any blocks placed in the "content bottom" region */
+  {
+    padding-top: 5px;
+    margin-top: 10px;
+  }
+
+  .front #content-bottom {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.node-type-senator #content-bottom #block-views-committee_updates-block_2 {
+    width: 257px;
+    padding-right: 15px;
+    display: block;
+  }
+
+.node-type-senator #block-views-1a8d406442cd7ba62ed33618ae393001 {
+  width: 260px;
+  float: left;
+  padding-right: 1em;
+}
+
+.node-type-senator #content-bottom .region-count-3 {
+  border-left:1px solid #E2DED5;
+  display: block;
+  float: left;
+  width: 257px;
+  padding-left: 15px;
+  padding-right: 0 !important;
+}
+
+.node-type-senator #content-bottom div.item-list ul li,
+.node-type-senator #content-bottom .views-row-odd,
+.node-type-senator #content-bottom .views-row-even {
+  margin: 0 0 1em 0;
+}
+
+#content-bottom .share_links h3,
+.view-flag-committee-featured-video2 .share_links h3,
+#content-top .share_links h3 {
+  float: left;
+	font-family: arial, serif;
+  margin: 0 0.5em 0 0;
+  color: #012849;
+  text-transform: uppercase;
+  font-size: 1em;
+  line-height: 12px;
+}
+
+#content-bottom .share_links,
+.view-flag-committee-featured-video2 .share_links,
+#content-top .share_links,
+#sidebar-left .share_links {
+	margin: 1em 0 0 0;
+}
+
+#content-bottom .share_links ul.links li,
+.view-flag-committee-featured-video2 .share_links ul.links li,
+#content-top .share_links ul.links li {
+  margin: 0;
+  padding: 0;
+}
+
+.node ul.links .print_html, .node ul.links .print_mail, .node ul.links .print_pdf {
+  margin: 0;
+}
+
+#sidebar-left .share_links ul.links img,
+#content-bottom .share_links ul.links img,
+.view-flag-committee-featured-video2 .share_links ul.links img,
+#content-top .share_links ul.links img {
+  width: 15px;
+  height: 15px;
+}
+
+.legislation-section {
+  padding: 1em 0;
+  margin-top: 10px;
+  border-top: 1px solid #E2DED5;
+}
+.legislation-section h2 {
+  padding: 1em 0 0;
+}
+.legislation-section h2 a {
+  color: #012849;
+}
+.legislation-outline {
+  padding: 0;
+  margin-top: 1em;
+  clear: both;
+  float: left;
+}
+.legislation-outline .legislation-top {
+  padding-bottom: 0;
+  line-height: normal;
+}
+.legislation-outline h3.title, .legislation-outline .legislation-teaser {
+  float: left;
+  clear: both;
+  margin-bottom: 0;
+  font-size: 1em;
+  line-height: normal;
+}
+.legislation_comment_add {
+  padding: 15px 0 30px 0;
+  text-align: center;
+  color: red;
+  font-size: 1.2em;
+}
+.legislation_comment_add a {
+  color: red;
+}
+span.legis-comments {
+  font-weight: bold;
+  padding-left: 5px;
+}
+
+/** BLOCK VIEWS **/
+
+  .view-content div.item-list ul {
+    padding-left: 0;
+  }
+
+/** navbar **/
+  #navbar
+  {
+  background: url(images/nyss_menu_bg.png) top left repeat-x;
+  line-height: 30px;
+  bottom: 0;
+  left: 0;
+  margin-top: 2px;
+  }
+
+  #navbar-inner
+  {
+  }
+
+  #navbar ul li a {
+    text-transform: uppercase;
+    color: #fff;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: .8em;
+    letter-spacing: 1.3px;
+    border-right: 1px solid #DFEEF4;
+    font-weight: normal;
+    padding: 4px 6px 0 8px;
+    line-height: 24px;
+    display: block;
+  }
+
+  #navbar ul li a.active {
+    color: #1B5187;
+    background: #E2DED5;
+    background-image: url(images/nyss_menu_bg_light.png);
+    font-weight: bold;
+}
+
+#navbar ul li li a.active {
+  background: none;
+}
+
+  #navbar ul li a:hover,
+  #navbar ul li a.hover {
+    background-image: url(images/nyss_menu_bg_light.png);
+    color: #1B5187;
+  }
+
+  #navbar ul li a#menu-senator-front-link {
+    font-style: italic;
+    color: #C6B44A;
+    font-size: .7em;
+  }
+
+  #navbar ul li a#menu-senator-front-link:hover {
+  background: none;
+  }
+
+  #navbar ul li.last a {
+    border-right: none;
+  }
+
+
+#primary {
+  margin: 0;
+}
+
+#primary ul.links, #primary ul.nice-menu {
+  border-left: 1px solid #DFEEF4;
+  float: left;
+}
+
+#primary ul.nice-menu,
+#primary ul.nice-menu ul {
+  z-index: 10;
+}
+
+#primary ul.nice-menu li {
+  background: none;
+  border:none;
+  padding: 0;
+}
+
+#primary ul.nice-menu ul {
+  top: 28px;
+  background: #deedf3;
+  border-top: none;
+  padding: 8px 8px;
+  margin-left: -1px;
+}
+
+#primary ul.nice-menu ul a {
+  text-transform: none;
+  color: #1B5187;
+  border-right: none;
+  padding: 0 0 3px 0;
+  margin: 0 0 3px 0;
+  border-bottom: 1px solid #fff;
+  font-size: .8em;
+  letter-spacing: normal;
+}
+
+#primary ul.nice-menu ul a:hover {
+  background: none;
+  color: #012849;
+}
+
+#primary ul.nice-menu ul a:visited {
+  font-weight: normal;
+}
+
+#sitemap-footer {
+  margin: 1em 1em 0;
+  background-color: #FFF;
+  float: left;
+  width: 877px;
+  display: table;
+}
+#sitemap-footer h2.title {
+  margin: 1em 0 5px 11px;
+  font-weight: bold;
+}
+#sitemap-footer ul.menu {
+  margin: 0 0 1.5em 1em;
+  display: table-row-group;
+}
+#sitemap-footer ul.menu ul.menu {
+  margin-left: 0;
+  display: block;
+}
+#sitemap-footer ul.menu div a{
+  font-weight: bold;
+}
+#sitemap-footer ul.menu ul.menu div a{
+  font-weight: normal;
+}
+
+
+#sitemap-footer ul, #sitemap-footer li {
+  margin: 0;
+  padding: 0;
+  text-indent: 0;
+  list-style: none;
+}
+#sitemap-footer a {
+  font-weight: normal;
+}
+#sitemap-footer ul.menu li.expanded {
+  font-size: 12px;
+  max-width: 110px;
+  padding-right: 0.5em;
+  padding-left: 1em;
+  display: table-cell;
+}
+#sitemap-footer ul.menu li.leaf {
+  font-size: 12px;
+}
+#sitemap-footer ul.menu li.expanded.last {
+  margin-right: -3px;
+  width: 103px;
+}
+
+  #search-box /* Wrapper for the search form */
+  {
+  width: 240px;
+  height: 18px;
+  position: absolute;
+  top: 61px;
+  right: 10px;
+  overflow: hidden;
+  }
+
+#search-box .form-item {
+  margin: 0;
+  padding: 0;
+}
+
+  #search-box .form-text {
+    border:1px solid #5E4D42;
+    color:#666666;
+    float:left;
+    font-size:0.7em;
+    height:14px;
+    line-height:16px;
+    margin:0;
+    padding:2px 3px 0;
+    width:200px;
+  }
+
+  #node-20761 .links {
+    display: none;
+  }
+  #node-20761 .share_links {
+    border-bottom: none;
+    height: 1px;
+  }
+  #node-20761 .share_links .inner {
+    display: none;
+  }
+
+  *:first-child+html #search-box .form-text {
+  height: 15px;
+  padding-top: 1px;
+}
+
+  #search-box .form-submit {
+  width: 28px;
+  float: right;
+  margin: 0;
+  padding: 0;
+  background: url(images/nyss_button_go.png) 0 0 no-repeat;
+  border: none;
+  line-height: 1000px;
+  overflow: hidden;
+  text-indent: -9999em;
+  cursor: pointer;
+  height: 17px;
+}
+
+#search-box .form-submit.hover {
+  background-position: 0 -18px;
+}
+
+  #edit-search-theme-form-1-wrapper label /* Label that says "Search this site:" */
+  {
+    display: none;
+  }
+
+#primary /* Primary links */
+{
+}
+
+#primary ul.links li {
+  padding-right: 0;
+}
+
+  #secondary /* Secondary links */
+  {
+  margin-left: 0;
+  padding-top:30px;
+  margin-bottom: 8px;
+  }
+
+/** sidebar-left **/
+  #sidebar-left
+  {
+  }
+
+  #sidebar-left-inner
+  {
+  }
+
+/** sidebar-right **/
+  #sidebar-right
+  {
+  }
+
+  #sidebar-right-inner
+  {
+  }
+
+/** footer **/
+  #footer
+  {
+  font-family: Helvetica, Arial, sans-serif;
+  background: url(images/nyss_footer_bg.png) top left repeat-x #fff;
+  color: #003260;
+  font-size: .8em;
+  padding-bottom: 20px;
+  clear: both;
+  padding-left: 16px;
+  }
+
+  #footer .cc-logo {
+    padding-right: 3px;
+  }
+
+  #footer a {
+  color: #003260;
+}
+
+  #footer-inner
+  {
+  }
+
+  #footer-message /* Wrapper for the footer message from Drupal's "Site information"
+                     and for any blocks placed in the footer region */
+  {
+
+  }
+
+  #footer ul.links li {
+  padding: 0 .5em 0 0;
+  margin: 0 .5em 0 0;
+  border-right: 1px solid #003260;
+}
+
+#footer ul.links li.last {
+  border-right: none;
+}
+
+/** closure **/
+  #closure-blocks /* Wrapper for any blocks placed in the closure region */
+  {
+  }
+
+/** Drupal nodes **/
+  .node /* Node wrapper */
+  {
+  }
+
+  .node-inner /* Additional wrapper for node */
+  {
+  }
+
+  .sticky /* A sticky node (displayed before others in a list) */
+  {
+  }
+
+  .node-unpublished, .comment-unpublished /* Unpublished nodes */
+  {
+    background-image: url(images/unpublished.png);
+    background-color: #FFF;
+    background-repeat: no-repeat;
+  }
+
+  .node-unpublished div.unpublished, /* The word "Unpublished" displayed beneath the content. */
+  .comment-unpublished div.unpublished
+  {
+    height: 0;
+    overflow: visible;
+    color: #d8d8d8;
+    font-size: 75px;
+    line-height: 1;
+    font-family: Impact, "Arial Narrow", Helvetica, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    word-wrap: break-word; /* A very nice CSS3 property */
+  }
+
+  .node-mine /* A node created by the current user */
+  {
+  }
+
+  .node-teaser /* A node displayed as teaser */
+  {
+
+  }
+
+  .view-blog-main .node-teaser,
+  .view-committe-updates .node-teaser,
+  .view-content-pages .node-teaser,
+  .view-Issues .node-teaser,
+  .view-committee-updates .node-teaser,
+  .view-senate-updates .node-teaser,
+  .view-senator-content-types .node-teaser,
+  .view-og-ghp-organization .node-teaser,
+  .view-initiative-updates .node-teaser,
+  .view-senator-blogs .node-teaser,
+  .view-senator-news .node-teaser,
+  .view-senator-press .node-teaser,
+  .view-opendata .node-teaser,
+  .view-senator-reports .node-teaser,
+  #block-views-gallery-block_2,
+  #block-views-gallery-block_3,
+  .view-blog-search .node-teaser,
+  .view-blog-main .node,
+  .page-department-cio .view-og-ghp-organization .node {
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+  clear: both;
+}
+
+div.panel-pane .view-event-related-content div.node.node-teaser,
+.view-event-related-content .node-teaser,
+.view-blog-main .node-teaser,
+.view-committe-updates .node-teaser,
+.view-content-pages .node-teaser,
+.view-Issues .node-teaser,
+.view-senate-updates .node-teaser,
+.view-senator-content-types .node-teaser,
+.view-og-ghp-organization .node-teaser,
+.view-committee-updates .node-teaser,
+.view-initiative-updates .node-teaser,
+.view-senator-blogs .node-teaser,
+.view-senator-news .node-teaser,
+.view-senator-press .node-teaser,
+.view-opendata .node-teaser,
+.view-senator-reports .node-teaser,
+.view-opendata .node-teaser,
+.view-blog-search .node-teaser,
+.view-blog-main .node,
+.page-department-cio .view-og-ghp-organization .node {
+  border-bottom: 1px solid #E2DED5;
+  margin-bottom: 25px;
+}
+
+div.panel-pane .view-event-related-content div.node.node-teaser {
+  padding-bottom: 10px;
+}
+
+div.panel-pane .view-event-related-content .views-row-last div.node.node-teaser {
+  padding-bottom: 0px;
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+
+#block-views-opendata-block_1 .view-content .views-field-title {
+  padding-bottom: 10px;
+}
+
+.views-row-last .node-teaser {
+	border-bottom: none;
+	margin-bottom: 1em;
+}
+
+.page-media-reports .node-teaser {
+  border-bottom: none;
+}
+
+#content-area .view-gallery .view-content {
+}
+
+  /* All nodes are given a node-type-FOO class that describes the type of
+   * content that it is. If you create a new content type called
+   * "my-custom-type", it will receive a "node-type-my-custom-type" class.
+   */
+  .node-type-page /* Page content node */
+  {
+  }
+
+  .node-type-story /* Story content node */
+  {
+  }
+
+  .node h2.title /* Node title */
+  {
+  font-size: 1.8em;
+  padding-right: 100px;
+  margin-bottom: 0;
+  }
+
+  .node-teaser h2.title {
+  font-size: 1.4em;
+  padding-right: 0;
+}
+
+  .marker /* "New" or "Updated" marker for content that is new or updated for the current user */
+  {
+    color: #c00;
+  }
+
+  .node .picture /* The picture of the node author */
+  {
+  }
+
+  .node.node-unpublished .picture,
+  .comment.comment-unpublished .picture
+  {
+    position: relative; /* Otherwise floated pictures will appear below the "Unpublished" text. */
+  }
+
+  .node .meta /* Wrapper for submitted and terms data */
+  {
+  }
+
+  .node .submitted /* The "posted by" information */
+  {
+  font-style: italic;
+  }
+
+  a.rss_icon {
+  float: right;
+  background: url(images/nyss_button_rss2.png) top left no-repeat;
+  height: 16px;
+  width: 39px;
+  display: block;
+  line-height: 1000px;
+  overflow: hidden;
+  text-indent: -9999em;
+}
+
+  .node-type-blog .node a.rss_icon {
+  /** margin-top: -35px;  **/
+}
+
+.node .transcript_type {
+  font-weight: bold;
+  padding-bottom: 1em;
+  color: red;
+}
+
+  .node .terms,
+  .view-id-event_related_content.view-display-id-block_11 .views-row
+   /* Node terms (taxonomy) */
+  {
+  margin-bottom: 1em;
+  }
+
+  .node .terms ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+ .node .terms ul li,
+ .view-id-event_related_content.view-display-id-block_11 .views-row {
+  padding: 0;
+  font-size:0.9em;
+  line-height:1.1em;
+}
+
+.view-id-event_related_content.view-display-id-block_11 .views-row {
+  margin: -10px 0 8px 0;
+}
+
+ .node .terms ul li label,
+ .view-id-event_related_content.view-display-id-block_11 .views-row label {
+  height: 12px;
+	font-family: arial, serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: green;
+  font-size:0.9em;
+  vertical-align: 5%;
+}
+
+.node .terms ul li .term_list,
+.view-id-event_related_content.view-display-id-block_11 .views-row .term_list {
+}
+.node .terms ul li.issues label {
+	font-family: arial, serif;
+/*  background: url(images/nyss_text_relatedissues.png) top left no-repeat; */
+}
+
+.node .share_links,
+.panel-pane .share_links {
+  height: 36px;
+  border-top: 1px solid #E2DED5;
+  border-bottom: 1px solid #E2DED5;
+  margin-bottom: 1.4em;
+}
+
+.node .share_links .inner,
+.panel-pane .share_links .inner {
+  float: right;
+}
+
+.node .share_links ul,
+.panel-pane .share_links ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  height: 36px;
+  line-height: 36px;
+  float: left;
+}
+
+.node .share_links ul li,
+.panel-pane .share_links ul li {
+  float: left;
+  padding-right: 5px;
+}
+
+.node .share_links ul li img,
+.panel-pane .share_links ul li img {
+  margin-top: 6px;
+}
+
+.node .share_links h3,
+.panel-pane .share_links h3 {
+  float: left;
+	font-family: arial, serif;
+  margin: 10px 9px 0 0;
+  color: #012849;
+  text-transform: uppercase;
+  font-size: 1.1em;
+}
+
+.node .featured_image {
+  margin: 0 0 1em 0;
+}
+
+.node-teaser .featured_image {
+  float: right;
+  margin: 0 0 1em 1em;
+}
+
+.view-senate-updates .node-teaser .featured_image,
+.view-senator-content-types .node-teaser .featured_image,
+.view-og-ghp-organization .node-teaser .featured_image,
+.view-committee-updates .node-teaser .featured_image,
+.view-initiative-updates .node-teaser .featured_image {
+  float: left;
+  margin: 0 1em 1em 0;
+}
+
+.node-teaser fieldset {
+  padding: 0;
+}
+
+/* .node-type-senator .node-teaser .featured_image {
+  float: none;
+  margin: 0 0 1em 0;
+} /*
+
+#content-area .login_register {
+  margin-top: 19px;
+}
+
+#content-area #comments .login_register {
+  border-top:1px solid #E2DED5;
+  margin-bottom:24px;
+  padding-top:7px;
+}
+
+  .node .content /* Node's content wrapper */
+  {
+  margin-bottom: 1em;
+  }
+
+  .node-teaser .content {
+  margin-bottom: 0;
+}
+
+  .node div.links /* Wrapper for node links */
+  {
+    margin: 1em 0;
+  }
+
+  ul.links /* Taxonomy links, node links, comment links */
+  {
+    margin: 0;
+    padding: 0;
+  }
+
+  .node-inner ul.links.inline {
+    width: 100%;
+    padding-top: 1em;
+  }
+  ul.links.inline
+  {
+    display:-moz-inline-stack;
+    display:inline-block;
+    zoom:1;
+    *display:inline;
+  }
+
+  ul.links li
+  {
+    display: inline;
+    list-style-type: none;
+    padding: 0 0.5em;
+  }
+
+  .preview .node /* Preview of the content before submitting new or updated content */
+  {
+    /* background-color: #ffffea; */ /* Drupal core uses a #ffffea background */
+  }
+
+/** Drupal comments **/
+
+#something_to_say {
+  background: url(images/nyss_bg_something_to_say.png) top left no-repeat #E2DED5;
+  height: 83px;
+  margin-bottom: 23px;
+}
+
+#something_to_say ul {
+  list-style: none;
+  padding: 9px 5px 0 0;
+  margin: 0 0 0 340px;
+}
+
+#something_to_say ul li {
+  border-bottom: 1px solid #B79EA4;
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+}
+#something_to_say ul li.last {
+  border-bottom: none;
+}
+  #comments /* Wrapper for the list of comments and its title */
+  {
+    margin: 1em 0;
+  }
+
+  #comments-title /* Heading for the list of comments */
+  {
+  }
+
+#comments h3.title {
+  font-size: 20px;
+	font-family: arial, serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #012849;
+}
+
+  .comment /* Wrapper for a single comment */
+  {
+  margin: 0 0 1em 0;
+  }
+
+  .not-logged-in .comment {
+  margin: 1em 0 1em 0;
+}
+
+  .comment-inner /* Additional wrapper for a single comment */
+  {
+  }
+
+  .comment-preview /* Preview of the comment before submitting new or updated comment */
+  {
+  }
+
+  .comment.new /* A new comment since the user last viewed the page. */
+  {
+  }
+
+  .comment.odd /* An odd-numbered comment in the list of comments */
+  {
+  }
+
+  .comment.even /* An even-numbered comment in the list of comments */
+  {
+  }
+
+  .comment.first /* The first comment in the list of comments */
+  {
+  }
+
+  .comment.last /* The last comment in the list of comments */
+  {
+  }
+
+  .comment-unpublished /* Unpublished comments */
+  {
+    /* background-color: #fff4f4; */ /* Drupal core uses a #fff4f4 background */
+  }
+
+  .comment-unpublished div.unpublished /* The word "Unpublished" displayed beneath the content. See also the div.unpublished declaration in the node section above. */
+  {
+  }
+
+  .comment-published /* Published comments */
+  {
+  }
+
+  .comment-by-anon /* A comment created by an anonymous user */
+  {
+  }
+
+  .comment-by-author /* A comment created by the node's author */
+  {
+  }
+
+  .comment-mine /* A comment created by the current user */
+  {
+  }
+
+  .comment h3 /* Comment title */
+  {
+  margin: 0 5px 0 0;
+  font-size: 1em;
+  position: absolute;
+  bottom: 0;
+  }
+
+  .comment h3 a {
+  color: #897A34;
+}
+
+  .new /* "New" marker for comments that are new for the current user */
+  {
+    color: #c00;
+  }
+
+  .comment .picture /* The picture of the comment author */
+  {
+  }
+
+  .comment .submitted /* The "posted by" information */
+  {
+  font-size: .9em;
+  font-weight: normal;
+  }
+
+  .comment .content /* Comment's content wrapper */
+  {
+  clear: both;
+  padding-top: 8px;
+  }
+
+  .comment .meta {
+  position: relative;
+  border-bottom: 1px solid #D6D2BF;
+  padding-bottom: 5px;
+}
+
+  .comment .user-signature /* The user's signature */
+  {
+  }
+
+  .comment .left {
+  width: 65%;
+}
+
+.page-comment #content-area {
+  margin-top: 2em;
+}
+
+  .comment ul.links /* Wrapper for comment links. See also the ul.links declaration in the node section above. */
+  {
+    margin: 3px 0 0 0;
+    float: right;
+    width: 30%;
+  }
+
+  .comment ul.links li {
+  border-right: 1px solid #012849;
+  margin-right: .1em;
+  padding-right: .3em;
+  text-transform: capitalize;
+  font-size: .9em;
+}
+
+.comment ul.links li.last {
+border-right: none;
+margin-right: 0;
+padding-right: 0;
+}
+
+.comment ul.links .comment_forbidden {
+  display: none;
+}
+
+#comment-form .comment {
+  margin: 2em 0;
+}
+
+  .indented /* Nested comments are indented */
+  {
+    margin-left: 1.1em;  /* Drupal core uses a 25px left margin */
+  }
+
+  .preview .comment /* Preview of the comment before submitting new or updated comment */
+  {
+    /* background-color: #ffffea; */ /* Drupal core uses a #ffffea background */
+  }
+
+/** Drupal blocks **/
+
+  .block /* Block wrapper */
+  {
+    margin-bottom: 1em;
+  }
+
+  .block.region-odd /* Zebra striping for each block in the region */
+  {
+  }
+
+  .block.region-even /* Zebra striping for each block in the region */
+  {
+  }
+
+  .block.odd /* Zebra striping independent of each region */
+  {
+  }
+
+  .block.even /* Zebra striping independent of each region */
+  {
+  }
+
+  .region-count-1 /* Incremental count for each block in the region */
+  {
+  }
+
+  .count-1 /* Incremental count independent of each region */
+  {
+  }
+
+  .block-inner /* Additional wrapper for block */
+  {
+  }
+
+  .block h2.title /* Block title */
+  {
+color:  #1B5187;
+font-size:1.2em;
+margin-bottom:10px;
+text-transform:uppercase;
+  }
+
+  .block .content /* Block's content wrapper */
+  {
+  }
+
+  #block-aggregator-category-1 /* Block for the latest news items in the first category */
+  {
+  }
+
+  #block-aggregator-feed-1 /* Block for the latest news items in the first feed */
+  {
+  }
+
+  #block-block-1 /* First administrator-defined block */
+  {
+  }
+
+  #block-blog-0 /* "Recent blog posts" block */
+  {
+  }
+
+  #block-book-0 /* "Book navigation" block for the current book's table of contents */
+  {
+  }
+
+  #block-comments-0 /* "Recent comments" block */
+  {
+  }
+
+  #block-forum-0 /* "Active forum topics" block */
+  {
+  }
+
+  #block-forum-1 /* "New forum topics" block */
+  {
+  }
+
+  #block-menu-2 /* "Primary links" block */
+  {
+  }
+
+  #block-node-0 /* "Syndicate" block for primary RSS feed */
+  {
+  }
+
+  #block-poll-0 /* "Most recent poll" block */
+  {
+  }
+
+  #block-profile-0 /* "Author information" block for the profile of the page's author */
+  {
+  }
+
+  #block-search-0 /* "Search form" block */
+  {
+  }
+
+  #block-statistics-0 /* "Popular content" block */
+  {
+  }
+
+  #block-user-0 /* "User login form" block */
+  {
+  }
+
+  #block-user-1 /* "Navigation" block for Drupal navigation menu */
+  {
+  }
+
+  #block-user-2 /* "Who's new" block for a list of the newest users */
+  {
+  }
+
+  #block-user-3 /* "Who's online" block for a list of the online users */
+  {
+  }
+
+  #block-nyss_blocks-sen_video table {
+    margin: 10px 0 0 0;
+  }
+  #block-nyss_blocks-sen_video table thead th {
+    text-align: left;
+  }
+  #content-area table th, #content-area table td {
+    padding-right: 3px;
+    text-align: left;
+  }
+
+.block .bottom,
+.block .top {
+	height: 0px;
+	margin: 0;
+	display: none;
+}
+
+#left_blocks .block {
+  margin-bottom: .5em;
+  font-size: .9em;
+}
+
+#left_blocks .block .top {
+  background: url(images/nyss_block_header_bg.jpg) top left no-repeat;
+  height: 26px;
+  display: block;
+}
+
+#left_blocks .block .bottom {
+  background:transparent url(images/nyss_block_footer_bg.png) repeat-x scroll 0 -20px;
+  height:22px;
+  margin: 0 9px;
+  display: block;
+}
+
+#sidebar-left .block h2.title,
+#sidebar-left h2.title
+ {
+  text-transform: uppercase;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.1em;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #000000;
+}
+
+#sidebar-left .block ul {
+  margin: 0;
+}
+
+#sidebar-left .block .item-list ul {
+  margin: 0;
+  padding: 0;
+}
+
+
+#sidebar-left .block-inner {
+  background:#FFFFFF none repeat scroll 0 0;
+  margin: -10px 9px 0;
+  padding: 0 12px;
+}
+
+/** SEARCH AND SIGNUP BLOCKS **/
+
+#sidebar-left #block-nyss_blocks-nyss_signup .form-text,
+#sidebar-left #block-nyss_blocks-global_nyss_senator_search .form-text,
+#sidebar-left #block-nyss_blocks-nyss_senator_search .form-text {
+  border:1px solid #D1CDC4;
+  color:#666666;
+  font-size:0.7em;
+  height:15px;
+  line-height:16px;
+  padding:2px 3px 0;
+  background: #fff;
+  float: left;
+}
+
+#sidebar-left #block-nyss_blocks-global_nyss_senator_search input.error {
+  border: 1px solid red;
+}
+
+#sidebar-left #block-nyss_blocks-global_nyss_senator_search .top,
+#sidebar-left #block-nyss_blocks-global_nyss_senator_search .bottom,
+#sidebar-left #block-nyss_blocks-nyss_senator_search .top,
+#sidebar-left #block-nyss_blocks-nyss_senator_search .bottom,
+#sidebar-left #block-nyss_blocks-nyss_signup .top,
+#sidebar-left #block-nyss_blocks-nyss_signup .bottom {
+  background: none;
+  /* height: inherit; */
+  height: 0;
+}
+
+#sidebar-left #block-nyss_blocks-global_nyss_senator_search .form-item,
+#sidebar-left #block-nyss_blocks-nyss_senator_search .form-item {
+  margin: 0 0 5px 0;
+  float: left;
+}
+
+#sidebar-left #block-nyss_blocks-nyss_signup .form-submit,
+#nyss-senator-search-form .form-submit,
+.view-blog-search .form-submit {
+  width: 53px;
+  float: left;
+  display: block;
+  background:url(images/nyss_button_submit.png) no-repeat scroll 0 0;
+  border:none;
+  cursor:pointer;
+  line-height:1000px;
+  margin:0;
+  overflow:hidden;
+  padding:0;
+  text-indent:-9999em;
+  height: 18px;
+}
+
+#sidebar-left #block-nyss_blocks-nyss_signup .form-submit.hover,
+#nyss-senator-search-form .form-submit.hover,
+#block-nyss_blocks-search_blogs .form-submit.hover,
+.view-blog-search .form-submit.hover  {
+  background-position: 0 -18px;
+}
+
+/* SEARCH ONLY */
+
+#sidebar-left #block-nyss_blocks-global_nyss_senator_search .form-text,
+#sidebar-left #block-nyss_blocks-nyss_senator_search .form-text {
+  margin-right: 3px;
+}
+#sidebar-left #block-nyss_blocks-global_nyss_senator_search #edit-address,
+#sidebar-left #block-nyss_blocks-nyss_senator_search #edit-address {
+  width: 235px;
+}
+#sidebar-left #block-nyss_blocks-global_nyss_senator_search #edit-submit,
+#sidebar-left #block-nyss_blocks-nyss_senator_search #edit-submit {
+  margin-top: 2px;
+}
+
+#sidebar-left #block-nyss_blocks-global_nyss_senator_search {
+  border-bottom: 1px solid #fff;
+  margin: 0 10px 0 10px;
+  padding: 0 0 17px 0;
+}
+
+#sidebar-left #block-nyss_blocks-nyss_senator_search {
+  margin: 10px 0 0 10px;
+  padding: 0 0 0 0;
+}
+
+#sidebar-left #block-nyss_blocks-global_nyss_senator_search .block-inner,
+#sidebar-left #block-nyss_blocks-nyss_senator_search .block-inner {
+  background:none;
+  margin:0;
+  padding:0;
+}
+
+#sidebar-left #block-nyss_blocks-global_nyss_senator_search h2.title,
+#sidebar-left #block-nyss_blocks-nyss_senator_search h2.title {
+  color: #012849;
+	font-family: arial, serif;
+  font-size: 1em;
+  margin-left: 10px;
+}
+
+#sidebar-left #block-nyss_blocks-global_nyss_senator_search form,
+#sidebar-left #block-nyss_blocks-nyss_senator_search form {
+  clear: both;
+  margin-left: 10px;
+}
+
+#nyss-senator-search-form #edit-address {
+  margin-right:3px;
+  width:95px;
+}
+
+#nyss-senator-search-form .form-submit {
+  display: block;
+  clear:none;
+}
+
+/* SIGNUP ONLY */
+
+#sidebar-left #block-nyss_blocks-nyss_signup {
+  margin: 0 10px 0;
+  padding: 0;
+}
+
+#sidebar-left #block-nyss_blocks-nyss_signup .block-inner {
+  background: none;
+  margin: 0 10px;
+  padding: 0;
+}
+
+#sidebar-left #block-nyss_blocks-nyss_signup h2.title {
+  color: #012849;
+	font-family: arial, serif;
+  font-size: 1em;
+}
+
+#sidebar-left #block-nyss_blocks-nyss_signup #edit-email-wrapper {
+  margin-bottom: 5px;
+  margin-top: 0;
+  float:left;
+}
+
+#sidebar-left #block-nyss_blocks-nyss_signup #edit-email-wrapper input.error {
+  border: 1px solid red;
+}
+
+#sidebar-left .sidebar-messages {
+  font-size: .9em;
+}
+
+#sidebar-left #block-nyss_blocks-nyss_signup #edit-email {
+  width: 234px;
+}
+
+#sidebar-left #block-nyss_blocks-nyss_signup #edit-zip-1-wrapper,
+#sidebar-left #block-nyss_blocks-nyss_signup #edit-zip-wrapper {
+  margin-right:6px;
+  float: left;
+  margin-top: 0;
+}
+
+#sidebar-left #block-nyss_blocks-nyss_signup #edit-zip-1,
+#sidebar-left #block-nyss_blocks-nyss_signup #edit-zip {
+  width:53px;
+  float: left;
+}
+
+#sidebar-left #block-nyss_blocks-nyss_signup #edit-mobile-wrapper {
+  float: left;
+  margin-top: 0;
+  margin-right: 6px;
+}
+
+#sidebar-left #block-nyss_blocks-nyss_signup #edit-mobile {
+  width: 108px;
+  float: left;
+}
+
+#block-nyss_blocks-search_blogs .form-submit {
+  width: 53px;
+  clear: both;
+  display: block;
+  background:url(images/nyss_button_search.png) no-repeat scroll 0 0;
+  border:none;
+  cursor:pointer;
+  line-height:1000px;
+  margin: 5px 0;
+  overflow:hidden;
+  padding:0;
+  text-indent:-9999em;
+  height: 18px;
+}
+
+
+/** SOCIAL MEDIA BUTTONS **/
+
+#sidebar-left #block-nyss_organization-contact h3,
+#sidebar-left #block-nyss_blocks-social_buttons h3 {
+  display: none;
+}
+
+.front #sidebar-left #block-nyss_blocks-social_buttons h2.title {
+  color: #012849;
+}
+
+.front #sidebar-left #block-nyss_blocks-social_buttons {
+  background: transparent url(images/nyss_bg_social.png) left -15px no-repeat;
+}
+
+.front #sidebar-left #block-nyss_blocks-social_buttons #social_buttons{
+  max-width: 256px;
+  margin: 18px auto 0;
+  font-size: .8em;
+}
+
+.front #sidebar-left #block-nyss_blocks-social_buttons .bottom {
+  display: none;
+}
+
+#sidebar-left #block-nyss_organization-contact #social_buttons {
+  margin-top: 10px;
+}
+
+
+#block-nyss_blog-about {
+  color: #5E4D42;
+}
+
+#sidebar-left #block-nyss_organization-contact .bottom,
+#sidebar-left #block-nyss_blocks-social_buttons .bottom {
+  height: 7px;
+}
+
+#sidebar-left form#views-exposed-form-blog-search-default select.form-select {
+  width: 175px;
+}
+
+#sidebar-left form#views-exposed-form-blog-search-default .views-exposed-form label {
+  float: left;
+  width: 76px;
+  font-size:0.8em;
+  line-height:2.3em;
+  font-family: Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  color: #012849;
+}
+
+#sidebar-left form#views-exposed-form-blog-search-default .views-exposed-form .container-inline-date label {
+  font-size: .9em;
+}
+
+#sidebar-left form#views-exposed-form-blog-search-default .views-widget {
+  float: left;
+}
+
+#sidebar-left #block-nyss_blocks-most_popular .block-inner {
+  background: transparent;
+}
+
+#sidebar-left #block-nyss_blocks-most_popular .block-inner #most_popular {
+  background-color: #ffffff;
+}
+
+/** THEME OPENDATA PAGE **/
+div#node-18648 {
+  padding-bottom: 2em;
+}
+
+
+/** SEARCH RESULTS **/
+
+.result {
+  margin: 0 0 1em 0;
+}
+
+.senator_result {
+  background: #F4F3F0;
+  padding: 5px;
+}
+
+.senator_header {
+  margin-bottom: .5em;
+  font-style: italic;
+}
+
+.senator_header span {
+  float: right;
+  font-size: .9em;
+}
+
+.search-results dt.title {
+  font-size: 1.2em;
+}
+
+.search-results dt.title span {
+  font-size: .9em;
+  margin-left: 2em;
+}
+
+#main .search-results p.search-info {
+  margin: 0;
+  padding: 0;
+}
+
+.search-results dd {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+
+.search-results p {
+  margin: 0;
+  padding: 0;
+}
+
+/** FRONT PAGE **/
+
+.front #content-masthead,
+.node-type-senator #content-masthead {
+  margin-top: 0px;
+  height: 331px;
+}
+
+.content-masthead .block {
+  margin: 0;
+}
+
+#unique_id {
+  position: relative;
+  width: 590px;
+  height: 322px;
+}
+
+.front #block-views-issues_legislation-block_1 .views-field-field-feature-image-fid {
+  display: none;
+}
+
+.front #block-views-issues_legislation-block_1 .views-row-1 {
+  background: #e0eff4 url(images/nyss_bg_blk_iss_leg.png) top right no-repeat;
+  padding: 20px 10px;
+  margin-bottom: 1em;
+  color: #001b3a;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.front #block-views-issues_legislation-block_1 .views-row-1 .views-field-field-feature-image-fid {
+  display: block;
+  margin-bottom: .5em;
+}
+
+.front #block-views-issues_legislation-block_1 .views-row-1 .views-field-teaser p {
+  border-top: 1px solid #c2d0d9;
+  padding-top: .5em;
+  padding-bottom: .2em;
+  line-height: 1.1em;
+  color: #365567;
+}
+
+.front #block-views-issues_legislation-block_1 .views-field-teaser {
+  display: none;
+}
+
+.front #block-views-issues_legislation-block_1 .views-row-1 .views-field-teaser {
+  display:block;
+}
+
+.front #block-views-issues_legislation-block_1 h3 {
+  font-size: 1em;
+  margin: 0;
+}
+
+.front #block-views-issues_legislation-block_1 .read_more {
+  display:none;
+}
+
+.front #block-views-issues_legislation-block_1 .views-row-1 .read_more {
+  display: block;
+}
+
+.front #block-views-issues_legislation-block_1 .views-row-1 h3 {
+  font-size: 1.25em;
+  margin-bottom: .3em;
+}
+
+.front #block-views-issues_legislation-block_1 .views-row-1 a {
+  color: #001b3a;
+  font-weight: bold;
+}
+
+.front #block-nyss_blocks-senate_blogs {
+  padding-right: 15px;
+  float: left;
+  width: 260px;
+}
+
+.front .view-week-senate .view-content {
+	margin: 0 0 1em 0;
+}
+
+.front #block-nyss_blocks-happening_now,
+#block-views-3df277f8e043ad22b9d16d9ca7fdc07d {
+  width: 257px;
+  border-left: 1px solid #E2DED5;
+  padding-left: 15px;
+  float: right;
+}
+
+.front .view-week-senate .item-list ul {
+  padding: 0;
+  margin: 0;
+}
+
+.front .view-week-senate table td,
+.section-committee #block-views-public_hearing-block_1 table td,
+.section-committee #block-views-next_event-block_1 table td
+{
+  padding-top:0.3em;
+  padding-bottom:0.3em;
+  list-style: none;
+  clear: both;
+}
+
+.front .view-week-senate table td.views-field-field-date-value {
+  width: 50px;
+}
+
+.front .view-week-senate table td,
+.section-committee #block-views-public_hearing-block_1 table td,
+.section-committee #block-views-next_event-block_1 table td,
+{
+  border-bottom: 1px solid #dedfda;
+}
+
+.front .view-week-senate table tr.last td,
+.section-committee #block-views-public_hearing-block_1 tr.last td,
+.section-committee #block-views-next_event-block_1 tr.last td,
+{
+  border-bottom: none;
+}
+
+ .front .view-week-senate table {
+  width: 100%;
+}
+
+ .front .view-week-senate .content .sIFR-flash {
+  margin-top: 8px;
+}
+
+ .section-committee #block-views-public_hearing-block_1 table tr.odd,
+ .section-committee #block-views-public_hearing-block_1 table tr.even,
+ .section-committee #block-views-next_event-block_1 table tr.odd,
+ .section-committee #block-views-next_event-block_1 table tr.even,
+ .front .view-week-senate table tr.odd,
+ .front .view-week-senate table tr.even {
+  background: none;
+}
+
+.front #block-nyss_blocks-live_session .content h2.title {
+  border-top: solid 1px #DEDFDA;
+  padding-top: 1em;
+}
+.front .view-week-senate .views-field-field-date-value,
+.section-committee #block-views-public_hearing-block_1 .views-field-field-date-value,
+/* .section-committee #block-views-next_event-block_1 .views-field-field-date-value */
+{
+  width: 54px;
+  font-size: .9em;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.front #block-nyss_blocks-happening_now .item-list ul,
+.front #content-bottom .region-count-3 .item-list ul {
+  margin: 0;
+  padding: 0;
+}
+
+.front #block-nyss_blocks-happening_now .item-list ul li,
+.front #content-bottom .region-count-3 .item-list ul li {
+  margin: 0;
+  padding: 0;
+  list-style-image: none;
+  list-style-type: none;
+}
+
+.front #content-bottom #block-views-5880aedbb982c2793ab700505b2bb051 {
+  clear: both;
+  float: none;
+  border-top:1px solid #E2DED5;
+  width: auto;
+  padding-top: 1em;
+}
+
+#block-nyss_blocks-happening_now, .front #block-nyss_blocks-senate_blogs {
+  line-height: 1.2em;
+}
+
+#block-nyss_blocks-happening_now h4.title, .front #block-nyss_blocks-senate_blogs h4, .front #block-nyss_blocks-senate_blogs h2 {
+  line-height: 1.1em;
+  font-size: 1.1em;
+  margin: 0;
+}
+
+#block-nyss_blocks-happening_now p, .front #block-nyss_blocks-senate_blogs p {
+  padding: 0;
+  margin: 0;
+}
+
+#block-nyss_blocks-happening_now .content, .front #block-nyss_blocks-senate_blogs .content {
+  margin-bottom: .5em;
+}
+
+#block-nyss_blocks-happening_now .senator_picture, .front #block-nyss_blocks-senate_blogs .senator_picture {
+  float: left;
+  margin: .1em 0 0 0;
+}
+
+#block-nyss_blocks-happening_now .senator_title, .front #block-nyss_blocks-senate_blogs .senator_title {
+  font-style: italic;
+}
+
+#block-nyss_blocks-happening_now .meta, .front #block-nyss_blocks-senate_blogs .meta {
+  border-bottom: 1px solid #dedfda;
+  padding-bottom: .5em;
+  margin-bottom: .5em;
+  line-height: 1.3em;
+}
+
+#block-nyss_blocks-happening_now .meta .clearfix, .front #block-nyss_blocks-senate_blogs .meta .clearfix {
+  clear: both;
+  height: 0px;
+}
+
+#block-nyss_blocks-happening_now .with-image, .front #block-nyss_blocks-senate_blogs .with-image {
+  padding-left: 10px;
+  float: left;
+  width: 200px;
+}
+
+#content-bottom h2.title,
+#content-area .view-gallery h2.title {
+  text-transform: uppercase;
+	font-family: arial, serif;
+  color: #000000;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.front #content-bottom #block-views-5880aedbb982c2793ab700505b2bb051 h2.title {
+  float: right;
+  width: 270px;
+}
+
+.front #content-bottom #block-views-5880aedbb982c2793ab700505b2bb051 .views-field-title {
+  float: right;
+  clear: right;
+  width: 270px;
+  margin-bottom: .5em;
+  font-size: 1.1em;
+}
+
+/* fix for admin links overlapping button when.front #content-bottom #block-views-5880aedbb982c2793ab700505b2bb051 logged in */
+.front #content-bottom .view-flag-featured-front-video div.views-admin-links {
+  width: 80%;
+}
+
+.front #content-bottom #block-views-5880aedbb982c2793ab700505b2bb051 .views-field-teaser,
+.view-senator-tabs .with-video p {
+  float: right;
+  width: 270px;
+  clear: right;
+  line-height: 1.2em;
+}
+
+.front #content-bottom #block-views-5880aedbb982c2793ab700505b2bb051 .share_links {
+  float: right;
+  clear: right;
+  height: 15px;
+  width: 270px;
+}
+
+.front #content-bottom #block-views-5880aedbb982c2793ab700505b2bb051 .next_session {
+  float: right;
+  clear: right;
+  font-size: 0.8em;
+  line-height: 1.1em;
+  margin: 9px 0 0;
+  width: 150px;
+}
+.front #content-bottom #block-views-5880aedbb982c2793ab700505b2bb051 .next_session_active {
+  float: right;
+  clear: right;
+  font-size: 0.8em;
+  line-height: 1.1em;
+  margin: 14px 0 0;
+  width: 150px;
+  color: red;
+}
+
+.front #content-bottom .link_live_feed, .front #content-bottom .link_live_feed_active {
+  width: 112px;
+  float: right;
+  width: 120px;
+  margin: 10px 0 10px 0;
+  padding: 0;
+  background: url(images/nyss_button_video.png) 0 0 no-repeat;
+  border: none;
+  line-height: 1000px;
+  overflow: hidden;
+  text-indent: -9999em;
+  cursor: pointer;
+  height: 19px;
+  min-height: 19px;
+  z-index: 999;
+}
+.front #content-bottom .link_live_feed_active {
+  background: url(images/nyss_button_video2.png) 0 0 no-repeat;
+}
+.front #content-bottom .link_live_feed.hover, .front #content-bottom .link_live_feed_active:hover {
+  background-position: 0 -19px;
+}
+
+.front #content-bottom #block-views-5880aedbb982c2793ab700505b2bb051 .views-field-field-video-embed,
+.view-senator-tabs .field-type-emvideo {
+  float: left;
+  width: 260px;
+  margin-top: -5em;
+}
+
+#sidebar-left .share_links h3 {
+  float: left;
+	font-family: arial, serif;
+  font-size: 1em;
+  margin: 0 0.5em 0 0;
+  color: #012849;
+  text-transform: uppercase;
+  line-height: 12px;
+}
+
+.front #content-bottom #block-views-5880aedbb982c2793ab700505b2bb051 .share_links ul.links,
+#sidebar-left .share_links ul.links {
+  float: left;
+}
+
+#sidebar-left .share_links ul.links li {
+  margin: 0 0 0 0;
+  padding: 0;
+}
+
+.front #content-bottom #block-views-5880aedbb982c2793ab700505b2bb051 .share_links ul.links img {
+  height: 15px;
+  width: 15px;
+}
+
+/** SENATOR PAGES **/
+
+.node-type-senator .teaser ul.links.inline {
+	clear: both;
+}
+
+.node-type-senator #content-area {
+	padding-bottom: 0;
+}
+
+.node-type-senator #content-bottom {
+	margin-top: 0;
+}
+
+.node-type-senator #content-area .node {
+	display: none;
+}
+
+.node-type-senator h1.title {
+  display: none;
+}
+
+#content-bottom #block-views-gallery-block_1 {
+  float: none;
+  width: auto;
+}
+
+#block-views-gallery-block_1 {
+  clear: both;
+}
+
+#content .view-id-gallery.view-display-id-block_3 .views-row-odd,
+#content .view-id-gallery.view-display-id-block_3 .views-row-even,
+#content .view-id-gallery.view-display-id-block_2 .views-row-odd,
+#content .view-id-gallery.view-display-id-block_2 .views-row-even,
+#content .view-id-gallery.view-display-id-page_1 .views-row-odd,
+#content .view-id-gallery.view-display-id-page_1 .views-row-even,
+#content .view-id-gallery.view-display-id-page_2 .views-row-odd,
+#content .view-id-gallery.view-display-id-page_2 .views-row-even,
+#content .view-id-gallery.view-display-id-page_3 .views-row-odd,
+#content .view-id-gallery.view-display-id-page_3 .views-row-even,
+#content .view-id-gallery.view-display-id-page_4 .views-row-odd,
+#content .view-id-gallery.view-display-id-page_4 .views-row-even,
+#content .view-id-gallery.view-display-id-page_5 .views-row-odd,
+#content .view-id-gallery.view-display-id-page_5 .views-row-even,
+#content .view-id-gallery.view-display-id-page_6 .views-row-odd,
+#content .view-id-gallery.view-display-id-page_6 .views-row-even,
+#content #block-views-gallery-block_1 .views-row-odd,
+#content #block-views-gallery-block_1 .views-row-even,
+#content .view-id-event_related_content.view-display-id-block_3 .views-row-odd,
+#content .view-id-event_related_content.view-display-id-block_3 .views-row-even,
+#content .view-id-event_related_content.view-display-id-block_4 .views-row-odd,
+#content .view-id-event_related_content.view-display-id-block_4 .views-row-even {
+  display:-moz-inline-stack;
+  display:inline-block;
+  zoom:1;
+  *display:inline;
+  font-size:0.9em;
+  line-height:1.2em;
+  margin-bottom:10px;
+  margin-right:8px;
+  vertical-align:top;
+  width:125px;
+}
+#content .view-id-gallery.view-display-id-page_7 .views-row-odd,
+#content .view-id-gallery.view-display-id-page_7 .views-row-even {
+  margin-left: 10px;
+  list-style-type: disc;
+}
+
+#block-views-upcoming_events_senate-block_1 .item-list ul,
+#block-views-upcoming_events_senate-block_1 .item-list ul li {
+  margin: 0;
+  padding: 0;
+  clear: both;
+}
+
+#block-views-upcoming_events_senate-block_1 .views-field-field-date-value {
+  float: left;
+  width: 50px;
+  font-weight: bold;
+  font-size: .8em;
+  text-transform: uppercase;
+  line-height: 1.1em;
+  margin-top: 3px;
+}
+
+#block-views-upcoming_events_senate-block_1 .views-field-title,
+#block-views-upcoming_events_senate-block_1 .views-field-teaser,
+#block-views-upcoming_events_senate-block_1 .views-field-field-location-lid {
+  float: right;
+  width: 210px;
+}
+
+#block-views-upcoming_events_senate-block_1 .views-field-field-location-lid {
+  font-style: italic;
+}
+
+.node-inner .content fieldset {
+  border: 0;
+}
+.node-type-campaign .node-inner .content fieldset {
+  border: groove 2px #F0F0F0;
+}
+
+.node-type-senator #block-nyss_blocks-senator_tabs {
+  float: none;
+  width: auto;
+}
+
+.node-type-senator #content-bottom div.item-list .node-inner ul {
+  list-style-type: disc;
+}
+.node-type-senator #content-bottom div.item-list .node-inner ul li {
+  list-style-type: disc;
+  margin: 0 0 0 1.5em;
+}
+
+.node-type-senator #block-nyss_blocks-senator_tabs .ui-tabs-nav {
+}
+
+.node-type-senator #content-bottom #block-views-committe_updates-block_1 .views-field-title {
+  margin-bottom: .5em;
+}
+
+.node-type-senator #content-bottom #block-views-committe_updates-block_1 {
+  margin-right: 10px;
+  padding-right: 10px;
+  width: 264px;
+}
+
+.node-type-senator #content-bottom .region-count-2 .item-list ul li {
+  margin-bottom: 1em;
+}
+
+.node-type-senator #content-bottom .region-count-2 .item-list ul {
+  margin: 0;
+}
+
+.page-senators .views-row-odd,
+.page-senators .views-row-even {
+  margin: 0 0 1em 0;
+  clear: left;
+}
+
+.page-senators .views-row-odd .views-field-field-profile-picture-fid,
+.page-senators .views-row-even .views-field-field-profile-picture-fid {
+  float: left;
+  margin: 0 1em 1em 0;
+  position: relative;
+}
+
+.page-senators #content-inner-inner {
+  padding-bottom: 40px;
+}
+
+.page-senators .views-field-title {
+  font-size: 1.2em;
+}
+
+.page-senator #content-area .block h2.block_title {
+	font-family: arial, serif;
+  text-transform: uppercase;
+}
+
+#block-views-constituent_stories-block_1 .field-content p {
+  background: url(images/nyss_bg_const_story_open_quote.png) top left no-repeat;
+}
+
+#block-views-constituent_stories-block_1 .views-field-teaser {
+  background: url(images/nyss_bg_const_story_cls_quote.png) bottom right no-repeat;
+  color: #420D27;
+  font-style: italic;
+  font-size: 1.3em;
+}
+
+#block-views-constituent_stories-block_1 .views-field-teaser p {
+  padding: 8px 0 8px 16px;
+  line-height: 1.2em;
+}
+
+#sidebar-left .views-field-field-video-embed {
+  margin-bottom: .5em;
+}
+
+.view-senator-blogs h2.title {
+  font-size: 2em;
+}
+
+.view-senator-news {
+  margin-bottom: 2em;
+}
+
+.node-type-senator #block-nyss_blocks-senator_tabs {
+  border-bottom: 1px solid #E2DED5;
+  padding-bottom: 1em;
+}
+
+.view-id-blog_main h4.title,
+.view-id-senator_blogs h4.title,
+.view-blog-search h4.title {
+  font-size: 1.4em;
+}
+
+/** COMMITTEE PAGES **/
+
+.node-type-committee #content-bottom {
+	margin-top: 0;
+	padding-top: 0;
+}
+
+.node-type-committee .view-committee-updates,
+.node-type-senator .view-senate-updates,
+.node-type-senator .view-senator-content-types,
+.node-type-senator .view-og-ghp-organization,
+.node-type-initiative .view-initiative-updates {
+  border-bottom: 1px solid #E2DED5;
+  padding: 0 0 1.5em 0;
+}
+
+.node-type-committee .view-committee-updates .views-field-title,
+.node-type-senator .view-senate-updates .views-field-title,
+.node-type-senator .view-senator-content-types .views-field-title,
+.node-type-senator .view-og-ghp-organization .views-field-title,
+.node-type-initiative .view-initiative-updates .views-field-title {
+  font-size: 1.3em;
+  margin-bottom: .3em;
+}
+
+.node-type-committee .view-committee-updates .views-field-created,
+.node-type-senator .view-senate-updates .views-field-created,
+.node-type-senator .view-senator-content-types .views-field-created,
+.node-type-senator .view-og-ghp-organization .views-field-created,
+.node-type-initiative .view-initiative-updates .views-field-created {
+  float: left;
+  font-style: italic;
+  margin-right: 28px;
+  line-height: 1em;
+}
+
+.node-type-committee .view-committee-updates .views-field-tid,
+.node-type-senator .view-senate-updates .views-field-tid,
+.node-type-senator .view-senator-content-types .views-field-tid,
+.node-type-senator .view-og-ghp-organization .views-field-tid,
+.node-type-initiative .view-initiative-updates .views-field-tid {
+  float: left;
+  background:transparent url(images/nyss_text_relatedissues.png) no-repeat scroll 0 1px;
+  padding-left: 90px;
+    line-height: 1em;
+}
+
+.node-type-committee .view-committee-updates .views-field-teaser,
+.node-type-senator .view-senate-updates .views-field-teaser,
+.node-type-senator .view-senator-content-types .views-field-teaser,
+.node-type-senator .view-og-ghp-organization .views-field-teaser,
+.node-type-initiative .view-initiative-updates .views-field-teaser {
+  clear: both;
+  padding: .3em 0 0 0;
+}
+
+.node-type-committee .view-committee-updates .views-field-teaser p,
+.node-type-senator .view-senate-updates .views-field-teaser p,
+.node-type-senator .view-senator-content-types .views-field-teaser p,
+.node-type-senator .view-og-ghp-organization .views-field-teaser p,
+.node-type-initiative .view-initiative-updates .views-field-teaser p {
+  padding: 0;
+  margin: 0;
+}
+
+.node-type-committee .view-committee-updates .read-more,
+.node-type-senator .view-senate-updates .read-more,
+.node-type-senator .view-senator-content-types .read-more,
+.node-type-senator .view-og-ghp-organization .read-more,
+.node-type-initiative .view-initiative-updates .read-more {
+  text-align: left;
+}
+
+.node-type-committee .view-committee-updates .views-row-even,
+.node-type-committee .view-committee-updates .views-row-odd,
+.node-type-senator .view-senate-updates .views-row-even,
+.node-type-senator .view-senate-updates .views-row-odd,
+.node-type-senator .view-senator-content-types .views-row-even,
+.node-type-senator .view-senator-content-types .views-row-odd,
+.node-type-senator .view-og-ghp-organization .views-row-even,
+.node-type-senator .view-og-ghp-organization .views-row-odd,
+.node-type-initiative .view-initiative-updates .views-row-even,
+.node-type-initiative .view-initiative-updates .views-row-odd {
+  margin: 0 0 1em 0;
+}
+
+  #content-bottom #block-views-3df277f8e043ad22b9d16d9ca7fdc07d {
+    padding-left: 15px;
+    width: 259px;
+    float: left;
+  }
+
+  #content-bottom #block-views-3df277f8e043ad22b9d16d9ca7fdc07d ul {
+    padding: 0;
+    margin: 0;
+  }
+
+  .view-flag-committee-featured-video  .views-field-field-video-embed,
+  .view-flag-committee-featured-video2 .views-field-field-video-embed {
+    margin-bottom: .5em;
+  }
+
+  .view-flag-committee-featured-video .views-field-teaser p,
+  .view-flag-committee-featured-video2 .views-field-teaser p {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+/* .view-flag-committee-featured-video2
+{
+  margin-left: 275px;
+} */
+
+  .node-type-committee .node .share_links {
+  display: none;
+  }
+
+.section-committee #block-views-public_hearing-block_1,
+.section-committee #block-views-next_event-block_1
+{
+  padding-right: 15px;
+    width: 259px;
+    float: left;
+}
+
+.section-committee #block-views-public_hearing-block_1 .item-list ul,
+.section-committee #block-views-next_event-block_1 .item-list ul
+{
+  padding: 0;
+  margin: 0;
+}
+
+.section-committee #block-views-public_hearing-block_1 table,
+.section-committee #block-views-next_event-block_1 table
+{
+  width: 100%;
+}
+
+#nyss-blocks-committees-form .form-submit {
+  float: right;
+}
+
+#nyss-blocks-committees-form #edit-committee {
+  float: left;
+  width: 220px;
+}
+
+#block-nyss_blocks-committee_chair .picture, #block-nyss_blocks-committee_members .picture {
+  float: left;
+  margin: 0 1em 1em 0;
+}
+
+#block-nyss_blocks-committee_chair .committee-chair, #block-nyss_blocks-committee_members .committee-chair  {
+  clear: left;
+  line-height: 1.2em;
+}
+
+#sidebar-left #block-nyss_blocks-committee_chair .block-inner, #sidebar-left #block-nyss_blocks-committee_members .block-inner {
+  margin-bottom: -20px;
+  *margin-bottom: 0;
+}
+#sidebar-left #block-nyss_blocks-committee_members .committee-description p {
+  font-style: italic;
+  font-weight: bold;
+  color: #1B5187;
+  padding: 6px 0 4px 10px;
+}
+#sidebar-left #block-nyss_blocks-committee_members .committee-members {
+  padding-bottom: 10px;
+}
+#sidebar-left #block-nyss_blocks-committee_chair #social_buttons {
+  padding-top: 8px;
+  margin-top: 6px;
+  border-top: solid 1px #E2DED5;
+  font-size: .8em;
+  float: left;
+  width: 195px;
+}
+
+#sidebar-left #block-nyss_blocks-committee_members #social_buttons {
+  padding-top: 8px;
+  margin-top: 6px;
+  border-top: solid 1px #E2DED5;
+  font-size: .8em;
+  float: left;
+  width: 195px;
+}
+
+.social_buttons {
+  padding-top: 3px;
+  font-size: .9em;
+}
+#sidebar-left #social_buttons a, .social_buttons a {
+  text-indent: 20px;
+  line-height: 16px;
+  background: url(images/sharing.png) no-repeat top left;
+}
+
+#sidebar-left #social_buttons .rss, .social_buttons .rss {
+
+  background-position: 0 -788px;
+  display: block;
+  float: left;
+  width: 61px;
+}
+
+#sidebar-left #social_buttons .facebook, .social_buttons .facebook {
+
+  background-position: 0 -264px;
+  display: block;
+  float: left;
+}
+.views-field-field-senators-district-nid .social_buttons .facebook {
+  width: 80px;
+}
+
+#sidebar-left #social_buttons .youtube, .social_buttons .youtube {
+
+  background-position: 0 -1116px;
+  display: block;
+  float: left;
+}
+.views-field-field-senators-district-nid .social_buttons .youtube {
+  width: 80px;
+}
+
+#sidebar-left #social_buttons .twitter, .social_buttons .twitter {
+
+  background-position: 0 -952px;
+  display: block;
+  float: left;
+  width: 80px;
+}
+.view-field-field-senators-district-nid .social_buttons .flickr {
+	width: 80px;
+}
+#sidebar-left #social_buttons .flickr, .social_buttons .flickr {
+	background-position: 0 -1280px;
+	display: block;
+	float: left;
+}
+
+#sidebar-left #block-nyss_blocks-social_buttons a {
+  text-indent: 32px;
+  line-height: 24px;
+  padding-right: 11px;
+  margin-bottom: 1em;
+  white-space: pre;
+  height: 24px;
+  text-wrap: none;
+  overflow: hidden;
+}
+
+#sidebar-left #block-nyss_blocks-social_buttons .rss {
+  display: block;
+  float: left;
+  background-position: 0 -854px; 
+}
+
+#sidebar-left #block-nyss_blocks-social_buttons .rss:hover{
+  background-position: 0 -878px;
+  color: #000;	
+}
+
+
+#sidebar-left #block-nyss_blocks-social_buttons .facebook {
+  display: block;
+  float: left;
+  background-position: 0 -330px;
+}
+#sidebar-left #block-nyss_blocks-social_buttons .facebook:hover{
+  background-position: 0 -354px;
+  color: #000;	
+}
+#sidebar-left #block-nyss_blocks-social_buttons .twitter {
+  display: block;
+  float: left;
+  background-position: 0 -1018px;
+}
+#sidebar-left #block-nyss_blocks-social_buttons .twitter:hover{
+  background-position: 0 -1042px;
+  color: #000;	
+}
+#sidebar-left #block-nyss_blocks-social_buttons .myspace {
+  display: block;
+  float: left;
+  background-position: 0 -526px;
+}
+#sidebar-left #block-nyss_blocks-social_buttons .myspace:hover{
+  background-position: 0 -550px;
+  color: #000;	
+}
+#sidebar-left #block-nyss_blocks-social_buttons .flickr {
+  display: block;
+  float: left;
+  background-position: 0 -428px;
+}
+#sidebar-left #block-nyss_blocks-social_buttons .flickr:hover{
+  background-position: 0 -452px;
+  color: #000;	
+}
+#sidebar-left #block-nyss_blocks-social_buttons .youtube {
+  display: block;
+  float: left;
+   background-position: 0 -1182px;
+}
+#sidebar-left #block-nyss_blocks-social_buttons .youtube:hover{
+  background-position: 0 -1206px;
+  color: #000;	
+}
+#sidebar-left #block-nyss_blocks-social_buttons .bliptv {
+  display: block;
+  float: left;
+  background-position: 0 -100px;
+}
+#sidebar-left #block-nyss_blocks-social_buttons .bliptv:hover{
+  background-position: 0 -124px;
+  color: #000;	
+}
+#sidebar-left #block-nyss_blocks-social_buttons .picasa {
+  display: block;
+  float: left;
+  background-position: 0 -690px; 
+}
+#sidebar-left #block-nyss_blocks-social_buttons .picasa:hover{
+  background-position: 0 -714px;
+  color: #000;	
+}
+
+
+#sidebar-left #block-nyss_blocks-committees .form-submit {
+  width: 29px;
+  float: right;
+  margin: 0;
+  padding: 0;
+  background: url(images/nyss_button_go_dark.png) 0 0 no-repeat;
+  border: none;
+  line-height: 1000px;
+  overflow: hidden;
+  text-indent: -9999em;
+  cursor: pointer;
+  height: 17px;
+}
+
+#sidebar-left #block-nyss_blocks-committees .form-submit.hover {
+  background-position: 0 -19px;
+}
+
+.section-committee .ny_state_senate, .ny_state_senate {
+  width: 215px;
+  height: 14px;
+  min-height: 14px;
+  background: url(images/nyss_text_nyssenate.png) no-repeat top left;
+  margin-top:10px;
+}
+
+.node-type-committee h2.committee_name, h2.committee_name {
+  color: #8B9298;
+  margin: 0;
+}
+
+.section-committee .committee_info {
+  display:block;
+  padding-bottom:6px;
+  padding-left: 0;
+}
+
+.section-committee .full {
+}
+
+.section-committee .committee-icon {
+  float: left;
+}
+
+.section-committee .committee-icon img {
+  border: 1px solid #2D1F19;
+}
+
+.section-committee .node-inner {
+  margin-bottom: 10px;
+}
+
+.view-committees .views-field-field-committee-image-fid {
+  float: left;
+}
+
+.view-committees .views-field-field-committee-image-fid img {
+  border: 1px solid #2D1F19;
+  margin-right: 10px;
+  margin-bottom: 40px;
+}
+
+.view-committees .views-field-teaser, .view-committees .views-field-title {
+  margin-bottom: 5px;
+}
+
+.view-committees .views-field-title a {
+  font-size: 1.5em;
+}
+
+.view-committees .views-row-even, .view-committees .views-row-odd {
+  border-bottom: 1px solid #E2DED5;
+  padding: 0 0 10px 0;
+  margin-top: 20px;
+}
+
+.view-committee-updates ul.links.inline,
+.view-senate-updates ul.links.inline,
+.view-senator-content-types ul.links.inline,
+.view-og-ghp-organization ul.links.inline,
+.view-initiative-updates ul.links.inline {
+  display: block;
+  clear: right;
+}
+
+.view-og-ghp-organization h2.block_title,
+#block-views-initiative_updates-block_1 h2.block_title,
+#block-views-senate_updates-block_1 h2.block_title,
+#block-views-committee_updates-block_1 h2.block_title {
+  color: #1B5187;
+	font-family: arial, serif;
+  text-transform: uppercase;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.section-committee h1.title,
+.senator_blog h1.title {
+  display: none;
+}
+
+.view-id-initiative_updates .more-link,
+.view-id-committee_updates .more-link {
+	text-align: left;
+}
+
+/** MAP PAGES **/
+
+.page-districts-map #content-area,
+.page-districts-map-new_york #content-area,
+.page-districts-map-long_island #content-area {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+/** ISSUES/LEGISLATION **/
+
+.page-issues_legislation-search iframe {
+	overflow: hidden;
+}
+
+#content-bottom #block-views-bda9e37fb11536ff75b7f501ac1cb8bd {
+  float: none;
+  width: auto;
+}
+
+#nyss-block-issues-form #edit-issue {
+    float: left;
+    width: 220px;
+  }
+
+#sidebar-left #nyss-block-issues-form .form-submit {
+  background:transparent url(/sites/all/themes/nys/images/nyss_button_go_dark.png) no-repeat scroll 0 0;
+  border:medium none;
+  cursor:pointer;
+  float:right;
+  height:17px;
+  line-height:1000px;
+  margin:0;
+  overflow:hidden;
+  padding:0;
+  text-indent:-9999em;
+  width:29px;
+}
+
+#sidebar-left #nyss-block-issues-form .form-submit.hover {
+  background-position: 0 -19px;
+}
+
+/** MEDIA & REPORTS **/
+
+.page-media-reports .views-field-field-video-embed,
+.page-media-reports .views-field-field-feature-image-fid {
+  float: left;
+  margin: 0 1em 1em 0;
+}
+
+.page-media-reports #content-area .block h2.block_title {
+  color:  #1B5187;
+	font-family: arial, serif;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+#livestream_block {
+  text-align: center;
+}
+
+/** CALENDARS **/
+
+.calendar-calendar div.date-nav a,
+.calendar-calendar div.date-nav h3 {
+  color: inherit;
+}
+
+.calendar-calendar th {
+  background: #F8F7F5;
+  color: ;
+}
+
+.calendar-calendar div.date-nav {
+  background: #F0EEEA;
+}
+
+.date-nav div.date-prev,
+.date-nav div.date-next {
+  width: 10%;
+}
+
+.date-nav div.date-heading {
+  text-align: center;
+  width: 80%;
+}
+
+.calendar-calendar div.date-nav h3 {
+  font-size: 1em;
+  text-transform: uppercase;
+}
+
+.calendar-calendar div.calendar {
+	float: none;
+}
+
+.calendar-calendar td div.day {
+	margin-bottom: 1em;
+}
+
+.calendar-calendar td {
+  text-align: center;
+}
+
+.calendar-calendar td.empty {
+	background: #F0EEEA;
+	border-color:#F0EEEA;
+}
+
+.calendar-calendar th.days {
+  background: #F8F7F5;
+}
+
+.view-calendar .feed-icon {
+  margin: 1em 0;
+}
+
+.calendar-calendar .mini-day-on {
+  background: #F0EEEA;
+}
+
+.calendar-calendar .mini-day-on a {
+  font-weight: bold;
+}
+
+.calendar-calendar td .inner div.calendar div,
+.calendar-calendar td .inner div.calendar div a {
+  background-color: #F0EEEA;
+  font-size: 1em;
+}
+.calendar-calendar td .inner div.calendar-sessionday {
+  background-color: #FFE6EA;
+  font-size: 1em;
+  text-align: left;
+}
+.calendar-calendar td .inner div,
+.calendar-calendar td .inner div a {
+  background: transparent;
+}
+
+.calendar-calendar .day-view td .inner div.calendar div a {
+	font-size: 1.5em;
+	line-height: 1.5em;
+}
+
+.calendar-calendar td .inner div.calendar div a {
+  font-weight: normal;
+  text-transform: capitalize;
+  padding: 0;
+}
+
+.calendar-calendar td.calendar-agenda-items div.calendar {
+	padding: .1em;
+}
+
+.calendar-calendar td.calendar-agenda-items div.calendar .month {
+	margin-bottom: .5em;
+}
+
+.calendar-calendar td .inner div.view-item {
+  margin: 0 .2em .5em .2em;
+  clear: both;
+  font-size: 10px;
+}
+
+.calendar-calendar td.calendar-agenda-hour .calendar-hour {
+	font-size: 1em;
+}
+
+.calendar-calendar td.week {
+  width: inherit;
+  min-width: inherit;
+  font-size: 1.5em;
+  font-style: italic;
+  vertical-align: middle;
+}
+.calendar-calendar td.week a {
+  color: #8F8674;
+}
+
+.calendar-calendar td.calendar-agenda-items div.calendar,
+.calendar-calendar td .inner div {
+  line-height: 1.2em;
+}
+
+.view-events-calendar .feed-icon {
+  margin: 1em 0;
+}
+
+#sidebar-left .view-display-id-calendar_block_1 .view-header {
+  font-size: .85em;
+}
+
+.calendar-icon {
+  text-align: right;
+  font-size: .8em;
+  margin-top: 5px;
+}
+.calendar-icon a.ical-icon {
+  background: url(images/calendar16x16.png) top right no-repeat;
+  padding-right: 20px;
+  float: right;
+}
+
+.calendar-calendar td.calendar-agenda-hour {
+	text-align: left;
+	padding-right: .2em;
+	line-height: 1em;
+	font-size: .8em;
+}
+
+div#nodelink {
+	margin: 1em 0;
+}
+
+/** EVENT NODES **/
+
+.node-type-event .content .field {
+	clear: both;
+	margin: 0 0 1em 0;
+}
+
+.node-type-event .content .field-item {
+	font-style: italic;
+}
+
+.node-type-event .field-field-date span {
+}
+
+.node-type-event .date-display-end {
+}
+
+.node-type-event .node .content .field {
+  margin: 0 0 1em 0;
+}
+
+/** BLOG SEARCH **/
+
+.view-blog-search .date-clear-block {
+  display:-moz-inline-stack;
+  display:inline-block;
+  zoom:1;
+  *display:inline;
+}
+
+.view-blog-search .views-exposed-widget {
+  padding-bottom: 1em;
+}
+
+.view-blog-search .views-exposed-widget .form-submit {
+  margin-top: 1.6em;
+}
+
+/** Drupal boxes **/
+  /* Wrapper for Comment form, Comment viewing options, Menu admin, and
+   * Search results.
+   */
+  .box /* Wrapper for box */
+  {
+  }
+
+  .box-inner /* Additional wrapper for box */
+  {
+  }
+
+  .box h2.title /* Box title */
+  {
+  }
+
+  .box .content /* Box's content wrapper */
+  {
+  }
+
+/** Miscellaneous Drupal styles **/
+  .error /* Errors that are separate from div.messages status messages (see above.) */
+  {
+    /* color: #e55; */ /* Drupal core uses a #e55 background */
+  }
+
+  .warning /* Warnings that are separate from div.messages status messages (see above.) */
+  {
+    /* color: #e09010; */ /* Drupal core uses a #e09010 background */
+  }
+
+  .more-link /* Aggregator, blog, and forum more link */
+  {
+    text-align: right;
+    clear: both;
+  }
+
+  #user-login-form /* Drupal's default login form */
+  {
+    text-align: left;
+  }
+
+  tr.even, tr.odd /* Some tables have rows marked even or odd. See also the ".section-admin tr.even" declaration below. */
+  {
+    border-bottom: none;
+    padding: 0;
+  }
+
+  tr.even
+  {
+    /* background-color: #eee; */ /* Drupal core uses a #eee background */
+  }
+
+  tr.odd
+  {
+    /* background-color: #eee; */ /* Drupal core uses a #eee background */
+  }
+
+  li a.active /* The active item in a Drupal menu */
+  {
+    color: #5E4D42;
+  }
+
+
+/** Drupal forms **/
+  .form-item, /* Wrapper for a form element (or group of form elements) and its label */
+  .form-checkboxes,
+  .form-radios
+  {
+    margin: 1em 0;
+  }
+
+  .form-item input.error, /* Highlight the form elements that caused a form submission error */
+  .form-item textarea.error,
+  .form-item select.error
+  {
+    border: 2px solid #c00;
+  }
+
+  .form-item label /* The label for a form element */
+  {
+    display: block;
+    font-weight: bold;
+  }
+
+  .form-item label.option /* The label for a radio button or checkbox */
+  {
+    display: inline;
+    font-weight: normal;
+  }
+
+  .form-required /* The part of the label that indicates a required field */
+  {
+    color: #c00;
+  }
+
+  .form-item .description /* The descriptive help text (separate from the label) */
+  {
+    font-size: 0.85em;
+  }
+
+  .form-checkboxes .form-item, /* Pack groups of checkboxes and radio buttons closer together */
+  .form-radios .form-item
+  {
+    margin: 0.4em 0;
+  }
+
+  .form-submit /* The submit button */
+  {
+  }
+
+  .container-inline div, .container-inline label /* Inline labels and form divs */
+  {
+    display: inline;
+  }
+
+  .tips /* Tips for Drupal's input formats */
+  {
+    margin: 0;
+    padding: 0;
+    font-size: 0.9em;
+  }
+
+/** OpenID **/
+  /* The default styling for the OpenID login link seems to assume Garland's
+   * styling of list items.
+   */
+  #user-login-form ul /* OpenID creates a new ul above the login form's links. */
+  {
+    margin-bottom: 0; /* Position OpenID's ul next to the rest of the links. */
+  }
+
+  #user-login-form li.openid-link, /* The "Log in using OpenID" links. */
+  #user-login li.openid-link
+  {
+    margin-top: 1em;
+    margin-left: -20px; /* Un-do some of the padding on the ul list. */
+    padding-left: 20px;
+    background-position: left center;
+  }
+
+  #user-login-form li.user-link, /* The "Cancel OpenID login" links. */
+  #user-login li.user-link
+  {
+    margin-top: 1em;
+    list-style-type: disc;
+    list-style-position: outside;
+  }
+
+  #user-login li.openid-link, /* The OpenID links on the /user form. */
+  #user-login li.user-link
+  {
+    margin-left: -2em; /* Un-do all of the padding on the ul list. */
+  }
+
+/** Drupal admin tables **/
+  /* We overrode these styles in html-elements.css, but restore them for the
+   * admin section of the site.
+   */
+  .section-admin tbody
+  {
+    border-top: 1px solid #ccc;
+  }
+
+  .section-admin th
+  {
+    text-align: left;
+    padding-right: 1em;
+    border-bottom: 3px solid #ccc;
+  }
+
+  .section-admin tbody th
+  {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .section-admin thead th
+  {
+    text-align: left;
+    padding-right: 1em;
+    border-bottom: 3px solid #ccc;
+  }
+
+  .section-admin tr.even,
+  .section-admin tr.odd
+  {
+    background-color: #eee;
+    border-bottom: 1px solid #ccc;
+    padding: 0.1em 0.6em;
+  }
+
+/* DEFAULT DRUPAL CSS OVERRIDES */
+
+ul.links li {
+  padding: 0 1em 0 0;
+}
+
+/* MODULE THEME CSS OVERRIDES */
+
+body.admin-menu {
+  margin-top: 20px !important;
+}
+
+/* FEATURE BLOCK / JCAROUSEL TANGO SKIN CSS OVERRIDES */
+
+#block-nyss_blocks-front_carousel {
+  margin-bottom: 0;
+  position: relative;
+}
+
+.jcarousel-skin-tango .jcarousel-container {
+    -moz-border-radius: 0;
+    background: none;
+    border: none;
+}
+
+.jcarousel-skin-tango .jcarousel-container-horizontal {
+    width: 590px;
+    padding: 0;
+    margin: -10px 0 0 0;
+}
+
+.jcarousel-skin-tango .jcarousel-clip-horizontal {
+    width:  590px;
+    height: 344px;
+}
+
+.jcarousel-skin-tango .item-list .jcarousel-list {
+  padding: 0;
+  margin: 0;
+}
+
+.jcarousel-skin-tango .jcarousel-item {
+    width: 590px;
+    height: 344px;
+}
+
+.jcarousel-skin-tango .jcarousel-item-horizontal {
+    margin-right: 10px;
+    list-style: none;
+    position: relative;
+}
+
+.jcarousel-skin-tango .jcarousel-item-placeholder {
+    background: none;
+    color: #000;
+}
+
+.jcarousel-skin-tango .jcarousel-item .views-field-title,
+.view-flag-feature-on-front-carousel.view-display-id-default .views-field-title,
+.view-senator-carousel .views-field-title {
+  position: absolute;
+  bottom: 21px;
+  width: 570px;
+  color: #fff;
+  background: url(images/nyss_bg_feat_title.png) repeat;
+  padding: 5px 10px;
+  z-index: 100;
+}
+
+.view-senator-carousel .views-field-title {
+  bottom: 26px;
+}
+
+.jcarousel-skin-tango .jcarousel-item .views-field-title a,
+.view-flag-feature-on-front-carousel.view-display-id-default .views-field-title a,
+.view-senator-carousel .views-field-title a {
+  color: #FFF;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  text-transform: none;
+  font-size: .9em;
+  line-height: 1.3em;
+  letter-spacing: 1px;
+}
+
+#unique_id ul,
+.view-senator-carousel ul {
+  padding: 0;
+  margin: 0;
+}
+
+.section-senator .view-display-id-page_1 {
+  position: relative;
+}
+
+.more_bar {
+  display: block;
+  width: 572px;
+  height: 21px;
+  line-height: 1000px;
+  color: #fff;
+  position: absolute;
+  bottom: 1px;
+  background: url(images/nyss_button_more_stories.png) 480px 5px #012849 no-repeat;
+  padding-right: 18px;
+  text-align: right;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: Helvetica, Arial, sans-serif;
+  z-index: 101;
+  overflow: hidden;
+  text-indent: -9999em;
+  bottom: 0;
+  zoom:1;
+}
+
+/* LIGHTBOX */
+
+#frameContainer {
+	width: 455px;
+}
+
+#imageDataContainer {
+	position: relative;
+}
+
+#frameHoverNav {
+	top: -457px;
+	left: 0;
+	width: 460px;
+	height: 100%;
+	position: absolute;
+}
+
+#framePrevLink, #frameNextLink {
+	width: 49%;
+	background: none;
+	height: 315px;
+}
+
+#framePrevLink {
+	left: 0;
+	float: left;
+}
+
+#frameNextLink {
+	right: 0;
+	float: right;
+}
+
+#frameNextLink:hover {
+	background-position: right 15%;
+}
+
+#framePrevLink:hover {
+	background-position: left 15%;
+}
+
+#bottomNavClose {
+	margin-top: 0;
+}
+
+#bottomNavZoom {
+	margin-right: 35px;
+}
+
+#bottomNavZoomOut {
+	margin-right: 35px;
+}
+
+/* CLEARFIX */
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+html[xmlns] .clearfix {
+    display: block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+/* BOOK STYLES */
+.book-navigation-tree .menu {
+  border: 0;
+  padding: 0 0 0 2em;
+}
+#sidebar-left .book-navigation-tree .menu {
+  padding: 0 0 0 1em;
+}
+.book-navigation-tree {
+  margin: .5em 0;
+}
+.book-navigation-tree ul li.leaf {
+  line-height: 16px;
+}
+.book-navigation-tree div.book-active-chapter {
+  background-color: #FFFFCC;
+  border: 2px solid #FFFF77;
+  padding: 4px 0 4px 6px;
+  margin: 2px -6px;
+  display: block;
+}
+#sidebar-left .book-navigation-tree div.book-active-chapter {
+  padding: 2px 0 2px 4px;
+  margin: 2px -4px;
+}
+span.no-comments a {
+  color: #666;
+  font-weight: normal;
+}
+span.yes-comments a {
+  color: #897A34;
+  font-weight: normal;
+}
+
+.book-navigation .page-links {
+  margin: 2em 0;
+}
+
+/* SENATOR LIST PAGE */
+.view-senators .views-field-field-last-name-value .contact, .view-senators .views-field-field-last-name-value .contact a {
+  color: #999;
+  font-weight: normal;
+}
+.view-senators .views-field-field-last-name-value .contact a:hover {
+  color: #000;
+}
+
+/* CONTACT PAGES */
+.view-senator-bio .views-field-address {
+  padding: 0 40px 1em 0;
+  float: left;
+}
+.view-senator-bio .view-footer {
+  clear: both;
+}
+#nyss-contact-mail-page #edit-guest-address-wrapper {
+  width: 250px;
+  float: left;
+  margin: 0;
+}
+#edit-guest-address2-wrapper {
+  width: 100px;
+  float: left;
+  clear: right;
+  margin: 0;
+}
+#nyss-contact-mail-page #edit-guest-address2-wrapper {
+  width: 200px;
+}
+#nyss-contact-mail-page #edit-city-wrapper {
+  float: left;
+  width: 250px;
+  clear: left;
+}
+#nyss-contact-mail-page #edit-zip-wrapper, #nyss-contact-mail-senator #edit-zip-wrapper  {
+  float: left;
+  width: 130px;
+  clear: both;
+}
+#nyss-contact-mail-page #edit-phone-wrapper, #nyss-contact-mail-senator #edit-phone-wrapper {
+  float: left;
+}
+#nyss-contact-mail-page #edit-issue-wrapper, #nyss-contact-mail-senator #edit-issue-wrapper {
+  float: left;
+  margin-top: 0;
+}
+#nyss-contact-mail-page #edit-issue-wrapper select, #nyss-contact-mail-senator #edit-issue-wrapper select {
+  height: 100px;
+}
+#nyss-contact-mail-page #edit-subject-wrapper {
+  float: left;
+}
+#nyss-contact-mail-page #edit-message-wrapper {
+  clear: both;
+}
+
+#nyss-contact-mail-senator #edit-subject-wrapper, #nyss-contact-mail-senator #edit-message-wrapper {
+  clear: both;
+  width: 300px;
+}
+
+#nyss-contact-mail-senator .resizable-textarea textarea, #nyss-contact-mail-senator input#edit-subject {
+  width: 285px;
+}
+#nyss-contact-mail-senator #edit-city-wrapper {
+  float: left;
+  margin: 0;
+}
+#nyss-contact-mail-senator input#edit-guest-address {
+  width: 285px;
+}
+#nyss-contact-mail-senator input#edit-phone {
+  width: 155px;
+}
+#nyss-contact-mail-senator input#edit-city {
+  width: 185px;
+}
+
+#nyss-contact-foil-form fieldset {
+  clear: both;
+  padding-bottom: 2em;
+}
+#nyss-contact-foil-form .form-item {
+  margin: 1em 0 0;
+}
+#nyss-contact-foil-form #edit-general-firstname-wrapper, #nyss-contact-foil-form #edit-general-phone-wrapper, #nyss-contact-foil-form #edit-business-businessname-wrapper, #nyss-contact-foil-form #edit-business-phone-wrapper {
+  float: left;
+  padding-right: 20px;
+}
+#nyss-contact-foil-form #edit-notify-wrapper {
+  float: left;
+}
+#nyss-contact-foil-form #edit-money-wrapper {
+  margin-top: 14px;
+}
+#nyss-contact-foil-form #edit-submit {
+  margin: 2em 0;
+}
+
+/* CUSTOM SENATOR NODE CONTENT PAGE STYLES */
+#nyss-admin-admin-content th, #nyss-admin-admin-content td {
+  text-align: left;
+  vertical-align: top;
+  padding: 2px 6px 6px 0;
+  min-width: 25px;
+}
+#nyss-admin-admin-content thead {
+  background-color: #CCC;
+}
+#nyss-admin-admin-content .odd {
+  background-color: #EEE;
+}
+#nyss-admin-admin-content .even {
+  background-color: #DDD;
+}
+
+/* LEGINFO LEGISLATION SEARCH PAGE */
+#leginfo-form-wrapper {
+  margin: 0 0 2em;
+}
+#leginfo-results-wrapper {
+  padding: 2em 0 0;
+  border-top: 1px solid gray;
+}
+.leginfo-bill-wrapper {
+  padding: 0 0 1em;
+  margin: 0 0 1em;
+  border-bottom: solid 1px #E2DED5;
+}
+#leginfo .form-radios .form-item {
+  display: inline;
+  font-size: 0.9em;
+}
+.leginfo-committee-search {
+  color: #999;
+}
+.leginfo-committee-search a {
+  color: #999;
+  font-weight: normal;
+}
+
+/* ISSUE PAGE STYLES, ISSUE SQUARES */
+.issues_square_table {
+  border-collapse: separate;
+  border-spacing: 1em;
+  margin: -1em 0 0 -1em;
+}
+.issues_square_row {
+  min-height: 50px;
+}
+#content-area table td.issues_square {
+  width: 235px;
+  height: 100%;
+  padding: 1em;
+  border: 1px solid #E2DED5;
+}
+.issues_square.even {
+}
+
+/* OPENDATA PAGE STYLES */
+#opendata-results .item-list ul.pager {
+  margin-bottom: 8px;
+}
+.opendata-trouble {
+  clear: both;
+  font-size: .9em;
+}
+.opendata-help {
+  display: inline;
+}
+.opendata-help a {
+  font-weight: normal;
+}
+.opendata-help a:hover {
+  text-decoration: underline;
+}
+#nyss-opendata-search-form {
+  clear: both;
+  margin-top: -1em;
+}
+#nyss-opendata-search-form #edit-keywords-wrapper input {
+  width: 400px;
+}
+#nyss-opendata-search-form #edit-keywords-wrapper {
+  margin: 1em 0 0;
+}
+#nyss-opendata-search-form #catboxes {
+  float: left;
+}
+#nyss-opendata-search-form #catboxes .form-checkboxes, #nyss-opendata-search-form #commsboxes .form-checkboxes {
+  width: 390px;
+  height: 80px;
+  overflow: auto;
+  border: solid 1px #999;
+  padding: 5px 0 15px 5px;
+}
+#nyss-opendata-search-form #catboxes .form-item, #nyss-opendata-search-form #catboxes .form-checkboxes, #nyss-opendata-search-form #commsboxes .form-item, #nyss-opendata-search-form #commsboxes .form-checkboxes {
+  padding-right: 10px;
+  margin: 0;
+}
+#nyss-opendata-search-form #catboxes #edit-cats-all-wrapper, #nyss-opendata-search-form #commsboxes #edit-cats-all-wrapper {
+  border-bottom: solid 1px #999;
+  padding-bottom: 5px;
+  margin: 0 5px 7px 0;
+}
+#nyss-opendata-search-form #catboxes .form-item input, #nyss-opendata-search-form #commsboxes .form-item input {
+  padding: 0;
+}
+#nyss-opendata-search-form .left {
+  width: 430px;
+  float: left;
+}
+#nyss-opendata-search-form .right {
+  width: 400px;
+  float: right;
+  clear: right;
+}
+#nyss-opendata-search-form .right .form-radios {
+  float: left;
+  margin: 0;
+}
+#nyss-opendata-search-form .right .form-radios .form-item {
+  width: 125px;
+  float: left;
+}
+#nyss-opendata-search-form .right .date-clear-block {
+  clear: none;
+}
+#nyss-opendata-search-form .right .edit-datetype-wrapper .edit-datetype-created-wrapper {
+  float: left;
+  width: 130px;
+}
+#nyss-opendata-search-form .right .container-inline-date {
+  width: 180px;
+  float: left;
+  margin: 1em 0 0;
+}
+#nyss-opendata-search-form .right .container-inline-date .form-item input {
+  width: 150px;
+}
+#nyss-opendata-search-form #edit-filetypes-wrapper {
+  float: left;
+}
+#nyss-opendata-search-form #edit-filetypes-wrapper .form-checkboxes {
+  margin: 0;
+  float: left;
+}
+#nyss-opendata-search-form #edit-filetypes-wrapper .form-checkboxes .form-item {
+  float: left;
+  width: 75px;
+}
+#nyss-opendata-search-form #commsboxes {
+  float: left;
+  margin: 1em 0;
+}
+#nyss-opendata-search-form #commsboxes .form-checkboxes {
+  width: 365px;
+}
+#nyss-opendata-search-form #edit-submit-wrapper {
+  float: left;
+  margin: 2em 0 0;
+}
+#nyss-opendata-search-form #opendata-results {
+  float: left;
+  clear: both;
+  margin: 1em 0 0;
+}
+#nyss-opendata-search-form #opendata-results h2.title {
+  float: left;
+}
+#nyss-opendata-search-form #opendata-results .opendata-totalitems {
+  float: left;
+  font-size: 12px;
+  font-style: italic;
+  line-height: 25px;
+  padding-left: 10px;
+}
+#nyss-opendata-search-form #opendata-results table {
+  clear: both;
+  /* Explicit width needed for bug w/ IE7-8 and sticky tableheaders. */
+  width: 100%;
+}
+
+#opendata-results table th, #opendata-results table td {
+  padding: 3px 7px 5px 3px;
+}
+#opendata-results table thead th {
+  background-color: #999;
+}
+#opendata-results table th a {
+  color: #FFF;
+}
+#opendata-results table td  {
+  border-right: solid #CCC 1px;
+  vertical-align: middle;
+}
+#opendata-results th#od-created, #opendata-results th#od-posted {
+  width: 50px;
+}
+#opendata-results th#od-title {
+  width: 415px;
+}
+#opendata-results th#od-cat {
+  width: 100px;
+}
+#opendata-results th#od-comm {
+  width: 100px;
+}
+#opendata-results th#od-author {
+  width: 100px;
+}
+#opendata-results td.od-xmark {
+  text-align: center;
+  padding: 3px 0 5px;
+}
+#opendata-results th#od-csv, #opendata-results th#od-txt, #opendata-results th#od-pdf, #opendata-results th#od-xls, #opendata-results th#od-doc {
+  width: 20px;
+  text-align: center;
+  padding: 3px 5px 5px;
+}
+#opendata-results th#od-csv.active, #opendata-results th#od-txt.active, #opendata-results th#od-pdf.active, #opendata-results th#od-xls.active, #opendata-results th#od-doc {
+  width: 50px;
+}
+#opendata-results th#od-created.active {
+  width: 70px;
+}
+#opendata-results th#od-posted.active {
+  width: 60px;
+}
+
+.view-admin-user table tr.even,
+#opendata-results table tr.even {
+  background-color: #E0E0E0;
+}
+.view-admin-user table tr.even td.active,
+#opendata-results table tr.even td.active {
+  background-color: #D0D0D0;
+}
+.view-admin-user table tr td,
+.view-admin-user table tr th {
+  padding: 4px;
+}
+.view-admin-user table th {
+  background-color: #999999;
+  color: #fff;
+}
+.view-admin-user table th a {
+  color: #ffd;
+}
+.view-admin-user table.views-table {
+  margin-bottom: 12px;
+}
+
+/* SENATOR HOMEPAGE BLOCK STYLES */
+#block-nyss_blocks-senator_homepage_extensible {
+  clear: both;
+}
+#block-nyss_blocks-senator_homepage_extensible .block {
+  padding-top: 1em;
+  border-top: solid 1px #E2DED5;
+}
+#block-nyss_blocks-senator_homepage_extensible .view-flag-senator-featured-poll {
+  width: 260px;
+}
+
+/* INITIATIVE PAGE STYLES */
+.initiative {
+  float: left;
+}
+#initiative-top {
+  margin-bottom: 1em;
+  padding: 1em 0;
+  clear: both;
+  float: left;
+  width: 100%;
+}
+#initiative-free {
+  width: 260px;
+  float: left;
+}
+#initiative-free img {
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  width: 240px;
+}
+#initiative-description {
+  border-left: 1px solid #E2DED5;
+  width: 260px;
+  float: left;
+  padding-left: 1em;
+}
+#block-views-initiative-block_1 {
+  position: inherit;
+}
+#block-views-initiative-block_1 div.node-inner {
+  border-bottom: 2px solid #E2DED5;
+  margin-bottom: 1.5em;
+  padding-bottom: 1em;
+}
+#block-views-initiative-block_1 .views-row-last div.node-inner {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+#block-views-initiative-block_1 div.node-inner {
+  border-bottom: 2px solid #E2DED5;
+  margin-bottom: 1.5em;
+  padding-bottom: 1em;
+}
+#block-views-initiative-block_1 .views-row-last div.node-inner {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* CAMPAIGN FORM STYLES */
+#activism-petition-activism-cta-form #edit-activism-signup-first-name-wrapper input, #activism-petition-activism-cta-form #edit-activism-signup-last-name-wrapper input {
+  width: 182px;
+}
+#activism-petition-activism-cta-form #edit-activism-signup-state-wrapper {
+  float: left;
+  width: 185px;
+  margin: 0 10px 1em 0;
+}
+#activism-petition-activism-cta-form #edit-activism-signup-postal-code-wrapper {
+  float: left;
+  clear: right;
+  margin: 0 0 1em 0;
+  width: 188px;
+}
+#activism-petition-activism-cta-form #edit-activism-signup-postal-code-wrapper input {
+  width: 188px;
+}
+#activism-petition-activism-cta-form #edit-activism-signup-phone-wrapper {
+  clear: both;
+}
+
+/* SPECIFIC PAGE STYLES */
+
+#node-18454 .content pre {
+  font-size: .9em;
+}
+.node #issues-legislation-page h2.title, #node-18648 h2.title {
+  text-transform: uppercase;
+	font-family: arial, serif;
+  font-size: 1.2em;
+}
+.issues-legislation-table {
+  border: solid 1px #E2DED5;
+  margin: 10px 0
+}
+.issues-legislation-table td {
+  padding: 10px;
+}
+.issues-legislation-table .issues-legislation-descrip, .issues-legislation-table .issues-legislation-picture {
+  padding-bottom: 0;
+  vertical-align: top;
+}
+.issues-legislation-table .issues-legislation-header {
+  padding: 10px 10px 0;
+}
+.taxonomy-list td.cells-1 {
+  font-size: 1.3em;
+  height: 40px;
+  width: 100%;
+  background: #FFF;
+}
+.taxonomy-list div.taxonomy-list-item {
+  border-bottom: 1px solid #E2DED5;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  width: 100%;
+}
+#block-views-department-block_1 .view-content div {
+  display: inline;
+}
+#sidebar-left #block-nyss_blocks-senator_promo_sidebar .block-inner {
+  margin: -10px 9px -20px;
+  padding: 10px 12px 0;
+}
+#block-nyss_blocks-senator_promo_bottom {
+  clear: both;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 1em;
+}
+#content-area #nyss-admin-admin-comment table th, #content-area #nyss-admin-admin-comment table td {
+  max-width: 335px;
+}
+/* Add a border between rows on comment admin page. */
+#content-area #nyss-admin-admin-comment table tr {
+  border-bottom: 1px solid #D0D0D0;
+}
+
+/* Keep the search button on the same line as the search field */
+#edit-leg-term-wrapper {
+  display: inline;
+}
+
+#nyss-leginfo-search-form {
+  text-align: center;
+}
+
+#edit-leg-term {
+  width:400px;
+}
+
+#leginfo {
+  padding-bottom: 200px;
+}
+
+/* Styles for OpenSenate search page */
+#opensenate-banner-image {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.opensenate-float-left {
+  float: left;
+  width: 230px;
+  margin-right: 20px;
+  text-align: right;
+}
+.opensenate-float-left img {
+  border: none;
+}
+.opensenate-right-text {
+  margin-left: 250px;
+}
+.opensenate-bar {
+  margin-top: 20px;
+  height: 20px;
+  background: #fff url('images/opensenate/opensenate_bar.png') no-repeat top center;
+}
+.opensenate-separator {
+  clear: both;
+  margin-bottom: 10px;
+}
+.views-label-field-email-email {
+  font-weight: bold;
+}
+
+.committee-updates-description,
+.initiative-updates-description {
+  clear: both;
+  float: left;
+  width: 400px;
+}
+
+.view-committee-updates .view-content,
+.view-senate-updates .view-content,
+.view-senator-content-types .view-content,
+.view-og-ghp-organization .view-content,
+.view-initiative-updates .view-content {
+  border-top: 1px solid #897A34;
+  padding-top: 14px;
+  clear: both;
+}
+
+.committee-updates-right-infobox,
+.initiative-updates-right-infobox {
+  float: right;
+  width: 130px;
+}
+.committee-updates-right-infobox label,
+.initiative-updates-right-infobox label {
+  font-weight: bold;
+  display: block;
+}
+
+.event-type {
+  font-size: 0.9em;
+  text-transform: uppercase;
+}
+#block-views-53783ff7ee6066f059668f3e283749cb {
+  background-color: #E2DED5;
+  float: right;
+  width: 260px;
+  padding: 6px;
+  margin-top: -6px;
+}
+
+#block-views-initiative_updates-block_1,
+#block-views-committee_updates-block_1 {
+  padding-top: 6px;
+  border-top: 2px solid #897A34;
+}
+
+#block-views-initiative_updates-block_1 {
+  clear: both;
+}
+
+h2.pane-title {
+  background-color: #1B5187;
+  font-size: 9pt;
+  color: white;
+  text-transform: uppercase;
+  padding: 3px 6px;
+  font-family: Helvetica,Arial,sans-serif;
+  font-weight: normal;
+}
+
+h3.event_committee,
+.views-field-title-1 {
+  margin-top: -10px;
+}
+
+.event-main-video
+{
+ text-align: center;
+ float: right;
+ width: 425px;
+ margin: 0 0 10px 10px;
+}
+
+.fieldgroup.group-meeting {
+  background-color: #E2DED5;
+}
+
+.fieldgroup.group-meeting legend {
+  background-color: white;
+  padding-right: 6px;
+  border: 1px solid #012849;
+}
+
+.fieldgroup.group-meeting.collapsible.collapsed {
+  background-color: white;
+}
+
+.view-event-related-content label {
+  font-weight: bold;
+}
+
+.view-event-related-content .views-field-field-date-value .field-content {
+  font-style: italic;
+}
+
+.view-event-related-content.view-display-id-block_14 .views-field-field-date-value .field-content {
+  font-style: normal;
+}
+
+.view-event-related-content.view-display-id-block_14 div.item-list ul li {
+  list-style-type: disc;
+  margin-left: 15px;
+  padding-left: 0px;
+}
+
+.panel-pane > .pane-content > .links {
+  padding-top: 6px;
+  border-top: 1px solid #012849;
+}
+
+.view-event-related-content .views-field-field-date-value label {
+  display: block;
+}
+
+.view-event-related-content .views-field-field-date-value {
+  margin-bottom: 10px;
+}
+
+.view-committee-updates .view-filters,
+.view-senate-updates .view-filters,
+.view-senator-content-types .view-filters,
+.view-og-ghp-organization .view-filters,
+.view-initiative-updates .view-filters {
+  margin-top: -36px;
+  margin-bottom: 3px;
+  float: right;
+}
+
+.view-committee-updates .views-widget,
+.view-committee-updates .views-widget .form-item,
+.view-committee-updates #edit-type-wrapper,
+.view-senate-updates .views-widget,
+.view-senate-updates .views-widget .form-item,
+.view-senate-updates #edit-type-wrapper,
+.view-senator-content-types .views-widget,
+.view-senator-content-types .views-widget .form-item,
+.view-senator-content-types #edit-type-wrapper,
+.view-og-ghp-organization .views-widget,
+.view-og-ghp-organization .views-widget .form-item,
+.view-og-ghp-organization #edit-type-wrapper,
+.view-initiative-updates .views-widget,
+.view-initiative-updates .views-widget .form-item,
+.view-initiative-updates #edit-type-wrapper {
+  display: inline;
+}
+
+.admin-menu .views-widget select {
+  width: 100px;
+}
+.view-committee-updates .views-exposed-form .views-exposed-widget .form-submit,
+.view-senate-updates .views-exposed-form .views-exposed-widget .form-submit,
+.view-senator-content-types .views-exposed-form .views-exposed-widget .form-submit,
+.view-og-ghp-organization .views-exposed-form .views-exposed-widget .form-submit,
+.view-initiative-updates .views-exposed-form .views-exposed-widget .form-submit {
+  margin: 0;
+}
+
+.calendar-color-legend .event-type-public-hearing,
+.calendar-calendar td .inner .event-type-public-hearing .view-field,
+.calendar-calendar td .inner .event-type-public-hearing .view-field a {
+  color: red;
+}
+
+.calendar-color-legend .event-type-session,
+.calendar-calendar td .inner .event-type-session .view-field,
+.calendar-calendar td .inner .event-type-session .view-field a {
+  color: blue;
+}
+
+.calendar-color-legend .event-type-committee-meeting,
+.calendar-calendar td .inner .event-type-committee-meeting .view-field,
+.calendar-calendar td .inner .event-type-committee-meeting .view-field a {
+  color: green;
+}
+
+.calendar-color-legend .event-type-press-conference,
+.calendar-calendar td .inner .event-type-press-conference .view-field,
+.calendar-calendar td .inner .event-type-press-conference .view-field a {
+  color: sienna;
+}
+
+.calendar-color-legend .event-type-other {
+  color: #444;
+}
+
+.calendar-color-legend {
+  float:right;
+  margin: 0 0 10px 10px;
+  border: solid 1px #ccc;
+}
+.calendar-color-legend td,
+.calendar-color-legend th {
+  padding: 2px 8px;
+  border: solid 1px #ccc;
+}
+
+#views-exposed-form-livestream-calendar-calendar-1 select,
+#views-exposed-form-global-calendar-calendar-1 select {
+  width: 100px;
+}
+
+
+.messages.emvideo-livestream-message {
+  padding: 5px;
+  background: none;
+  text-align: left;
+  background-color: #FFFFCC;
+}
+
+#block-views-next_event-block_1 .views-field-field-live-streaming-value {
+  font-style: italic;
+}
+
+#block-views-livestream_calendar-block_1 li,
+#block-views-livestream_calendar-block_1 .view-footer {
+  margin-top: 6px;
+}
+
+.clearboth {
+  clear: both;
+}
+
+.initiative-return-link {
+  margin-top: -20px;
+  padding-bottom: 10px;
+}
+
+#views-exposed-form-gallery-page-1 select,
+#views-exposed-form-gallery-page-7 select {
+  width: 110px;
+}
+#views-exposed-form-gallery-page-1 input.form-text,
+#views-exposed-form-gallery-page-7 input.form-text {
+  width: 220px;
+}
+
+#views-exposed-form-gallery-page-1 .container-inline-date.date-clear-block,
+#views-exposed-form-gallery-page-7 .container-inline-date.date-clear-block {
+  width: 115px;
+  float: left;
+}
+#views-exposed-form-gallery-page-1 .date-clear-block,
+#views-exposed-form-gallery-page-7 .date-clear-block {
+  clear: none;
+}
+#views-exposed-form-gallery-page-1 #edit-date-min-wrapper,
+#views-exposed-form-gallery-page-1 #edit-date-max-wrapper,
+#views-exposed-form-gallery-page-7 #edit-date-min-wrapper,
+#views-exposed-form-gallery-page-7 #edit-date-max-wrapper {
+}
+
+#views-exposed-form-gallery-page-1 input#edit-date-min-datepicker-popup-1,
+#views-exposed-form-gallery-page-1 input#edit-date-max-datepicker-popup-1,
+#views-exposed-form-gallery-page-7 input#edit-date-min-datepicker-popup-1,
+#views-exposed-form-gallery-page-7 input#edit-date-max-datepicker-popup-1 {
+  width: 100px;
+}
+
+.field-field-live {
+  padding-bottom: 10px;
+}
+
+.openleg-pager .item-list .pager li.pager-last {
+  display: none;
+}
+.view-committee-related-events.view-display-id-page_1 .views-field-field-video-embed,
+.view-committee-related-events.view-display-id-page_2 .views-field-field-video-embed,
+.view-committee-related-events.view-display-id-page_3 .views-field-field-video-embed,
+.view-committee-related-events.view-display-id-page_4 .views-field-field-video-embed,
+.view-livestream-calendar.view-display-id-page_1 .views-field-field-video-embed {
+  float:right;
+  margin: 0 0 6px 10px;
+}
+.view-committee-related-events.view-display-id-page_1 .views-row,
+.view-committee-related-events.view-display-id-page_2 .views-row,
+.view-committee-related-events.view-display-id-page_3 .views-row,
+.view-committee-related-events.view-display-id-page_4 .views-row,
+.view-livestream-calendar.view-display-id-page_1 .views-row {
+  border-top: solid 1px #ccc;
+  margin-top: 6px;
+  padding-top: 3px;
+  clear: both;
+}
+
+.view-committee-related-events.view-display-id-page_1 .views-row.views-row-first,
+.view-committee-related-events.view-display-id-page_2 .views-row.views-row-first,
+.view-committee-related-events.view-display-id-page_3 .views-row.views-row-first,
+.view-committee-related-events.view-display-id-page_4 .views-row.views-row-first,
+.view-livestream-calendar.view-display-id-page_1 .views-row {
+  border-top: none;
+  margin-top: 0px;
+  padding-top: 0px;
+  clear: both;
+}
+
+.view-committee-related-events.view-display-id-page_1 .views-field-field-public-hearing-value,
+.view-committee-related-events.view-display-id-page_2 .views-field-field-public-hearing-value,
+.view-committee-related-events.view-display-id-page_3 .views-field-field-public-hearing-value,
+.view-committee-related-events.view-display-id-page_4 .views-field-field-public-hearing-value,
+.view-livestream-calendar.view-display-id-page_1 .views-field-field-public-hearing-value {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.view-video-landing div.item-list ul li {
+  list-style: disc outside none;
+  margin-left: 15px;
+  padding-left: 0px;
+}
+
+#calpopup-body .node-type-cable_broadcast h3 {
+  display: none;
+}
+
+.openleg-meeting-note label,
+.openleg-meeting-bills label {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.block-inner .view-tweets .item-list ul li { 
+  margin: 0 0 0 18px;
+}
+
+.block-inner .view-tweets div.item-list ul li {
+  list-style: disc outside none;
+}
+
+.view-bronto-lists tr.even {
+  background-color: #E0E0E0;
+}
+
+.view-bronto-lists tr.odd td.active {
+  background-color: #EEE;
+}
+
+.view-bronto-lists tr {
+  border-bottom: 1px solid #E2DED5;
+}
+
+/* Constituent story theming */
+.node-type-story h1.title {
+  margin:0 0 0.0em;
+}
+
+.constituent-story-fields .field-field-promo-image {
+  float: left;
+  margin: 0 10px 10px 0;
+}
+
+.node-type-story .field-field-feature-image {
+  margin: 0 0 10px 0;
+}
+
+.node-type-story .field-field-feature-image .field-label,
+.constituent-story-fields .field-field-promo-image .field-label,
+.node-type-story .field-field-full-name .field-label-inline-first {
+  display: none;
+}
+
+.constituent-story-fields h2 {
+  margin: 0;
+  line-height: 1em;
+}
+
+.node-type-story .field-label {
+  text-transform: uppercase;
+}
+
+.node-type-story .field-type-emvideo {
+  margin-bottom: 10px;
+}
+
+.constituent-story-fields .field-field-full-name {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.view-initiative-stories.view-display-id-block_2 .view-content .views-field-field-first-name-value {
+  text-indent: -1em;
+  margin-left: 1em;
+  margin-bottom: 4px;
+  margin-right: 10px;
+  width: 160px;
+  float: left;
+}
+
+#conditional-livestream {
+  padding-top: 6px;
+  display: none;
+}
+
+/*Cufon Styles not currently in CSS*/
+
+#sidebar-left #left_blocks .block h2.title {font-family: arial, serif;}
+#content h4.section_header{font-family: arial, serif;}
+.front #content-bottom h2.title{font-family: arial, serif;}
+.page-senator #content-area .view-senator-news h2.title{font-family: arial, serif;}
+#block-views-committees-block_1 h2.block_title{font-family: arial, serif;}
+#block-views-committees-block_2 h2.block_title{font-family: arial, serif;}
+#block-views-committees-block_3 h2.block_title{font-family: arial, serif;}
+.page-senator #content-header h1.title{font-family: arial, serif;}
+#block-views-gallery-block_3 h2.block_title{font-family: arial, serif;}
+#block-views-gallery-block_2 h2.block_title{font-family: arial, serif;}
