@@ -21,6 +21,11 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
 public class BrowseServlet extends HttpServlet {
+	
+	public BrowseServlet() {
+		//Only executed on startup
+		
+	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
 			StringTokenizer tokens = new StringTokenizer(request.getRequestURI(),"/");
@@ -116,7 +121,7 @@ public class BrowseServlet extends HttpServlet {
 		}
 		return null;
 	}
-	
+
 	private HashMap<String,TreeSet<Person>> GetPeopleSortedByString(Method method, Comparator<Person> comparator) {
 		try {
 			long start = System.currentTimeMillis();

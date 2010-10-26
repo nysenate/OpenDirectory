@@ -73,8 +73,8 @@ public class Test {
 			CommonsHttpSolrServer localserver = null;
 			localserver = new CommonsHttpSolrServer("http://localhost:8080/solr/");
 			
-			
 			/*
+			
 			start = System.currentTimeMillis();
 			SolrServer server = localserver;
 			server.deleteByQuery("*:*");
@@ -93,6 +93,7 @@ public class Test {
 			server.addBeans(people_to_add);
 			server.commit();
 			*/
+			
 			start = System.currentTimeMillis();
 			
 			SolrServer server = localserver;
@@ -103,6 +104,7 @@ public class Test {
 			query.setRows(1900);
 			
 			QueryResponse rsp = server.query(query);
+			
 			System.out.println("Querying takes: "+(System.currentTimeMillis()-start)+" milliseconds");
 			
 			System.out.println(rsp.getResults().size());
