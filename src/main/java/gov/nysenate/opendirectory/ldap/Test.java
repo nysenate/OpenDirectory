@@ -26,8 +26,6 @@ import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.client.solrj.beans.*;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-
 public class Test {
 	/**
 	 * @param args
