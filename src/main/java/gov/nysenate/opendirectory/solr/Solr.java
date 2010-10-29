@@ -14,7 +14,7 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 @SuppressWarnings("unused")
 public class Solr {
 	
-	private SolrServer server;
+	protected SolrServer server;
 	
 	public Solr() {
 		server = null;
