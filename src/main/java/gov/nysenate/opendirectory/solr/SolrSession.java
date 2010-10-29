@@ -1,6 +1,8 @@
 package gov.nysenate.opendirectory.solr;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.TreeSet;
 
@@ -44,17 +46,30 @@ public class SolrSession {
 			//Throw some kind of error
 			return null;
 		}
+	}
+	
+	public ArrayList<Person> loadPeople() {
 		
+		//Do the query
+		QueryResponse results = solr.query("*:*");
+		SolrDocumentList profiles = results.getResults();
+		
+		//Transform the results
+		ArrayList<Person> people = new ArrayList<Person>();
+		for( SolrDocument profile : profiles ) {
+			people.add(loader.loadPerson(profile));
+		}
+		return people;
 	}
 	
 	//Could use addBean function that comes with solrj but we need to 
 	//put the credentials (hashmap) into solr field.
-	public void savePerson(Person person) throws SolrServerException, IOException {
+	private void addPerson(Person person) throws SolrServerException, IOException {
 		SolrInputDocument solr_person = new SolrInputDocument();
 		
 		solr_person.addField("firstName", person.getFirstName(), 1.0f);
 		solr_person.addField("lastName", person.getLastName(), 1.0f);
-		solr_person.addField("Title", person.getTitle(), 1.0f);
+		solr_person.addField("title", person.getTitle(), 1.0f);
 		solr_person.addField("id", person.getUid(), 1.0f);
 		solr_person.addField("fullName", person.getFullName(), 1.0f);
 		solr_person.addField("state", person.getState(), 1.0f);
@@ -62,10 +77,22 @@ public class SolrSession {
 		solr_person.addField("department", person.getDepartment(), 1.0f);
 		solr_person.addField("phone", person.getPhone(), 1.0f);
 		solr_person.addField("email", person.getEmail(), 1.0f);
-		
+
 		//String credentials = new String();
 	
 		solr.server.add(solr_person);
+	}
+	
+	public void savePerson(Person person) throws SolrServerException, IOException {
+		addPerson(person);
+		solr.server.commit();
+	}
+	
+	public void savePeople(Collection<Person> people)  throws SolrServerException, IOException  {
+		for(Person person : people) {
+			addPerson(person);
+		}
+		solr.server.commit();
 	}
 	
 /*	To be figured out... need to figure out annotations with Graylin
@@ -78,6 +105,17 @@ public class SolrSession {
 	}
 */
 	
+	public void deleteAll() {
+		try {
+			solr.deleteAll();
+			solr.server.commit();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	public String Credentials(HashMap<String,TreeSet<String>> permissions)
 	{
 		String credentials = new String();

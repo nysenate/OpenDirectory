@@ -51,12 +51,14 @@ public class Solr {
 			return null;
 		}
 	}
+	
+	
+	public Solr deleteAll() throws IOException, SolrServerException {
+		server.deleteByQuery("*:*");
+		return this;
+	}
+	
 	/*
-		public Solr deleteAll() throws IOException, SolrServerException {
-			server.deleteByQuery("*:*");
-			return this;
-		}
-		
 		public Solr delete(String query) throws IOException, SolrServerException {
 			server.deleteByQuery(query);
 			return this;
