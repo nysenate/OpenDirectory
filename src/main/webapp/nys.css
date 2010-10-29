@@ -33,7 +33,7 @@
     margin: 0;
     color: #012849;
     font-family: Times New Roman, serif;
-    background: url(images/nyss_bg.png) top left repeat-x;
+    background: url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_bg.png) top left repeat-x;
   }
   body#tinymce {
     background: transparent;
@@ -82,7 +82,7 @@ div.messages a, div.stats a{
 /** Main image holder **/
   #header
   {
-    background:url(images/header.png) top left no-repeat;
+    background:url(http://www.nysenate.gov/sites/all/themes/nys/images/header.png) top left no-repeat;
     z-index: 200;
   }
 /** Backgrounds  **/
@@ -162,7 +162,7 @@ div.messages a, div.stats a{
 
   #logo /* Wrapper for logo */
   {
-    background: transparent url(images/nyss_logo.png) no-repeat top left;
+    background: transparent url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_logo.png) no-repeat top left;
     width: 280px;
     height: 65px;
     padding: 0;
@@ -610,7 +610,7 @@ span.legis-comments {
 /** navbar **/
   #navbar
   {
-  background: url(images/nyss_menu_bg.png) top left repeat-x;
+  background: url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_menu_bg.png) top left repeat-x;
   line-height: 30px;
   bottom: 0;
   left: 0;

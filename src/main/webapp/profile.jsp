@@ -10,17 +10,36 @@
 <title><%=person.getFullName() %></title>
 </head>
 <body>
-<h1>SenBook</h1>
-<h2>The NYSS Employee Information Tool</h2>
-<div id="f_b">
-<a HREF="javascript:history.go(-1)">Go back</a> | <a HREF="javascript:history.go(1)">Go forward</a>
-</div>
+<div id="page">
+			<div id="header">
+				<a href="/opendirectory/"> <div id="logo"></div> </a>
+				<div id="nav_bar">Browse by:
+					<ul>
+						<li><a href="/opendirectory/browse/lastname" class="nav">Last name</a></li> |
+						<li><a href="/opendirectory/browse/firstname" class="nav">First name</a></li> |
+						<li><a href="/opendirectory/browse/department" class="nav">Department</a></li> |
+						<li><a href="/opendirectory/browse/location" class="nav">Location</a></li> |
+					</ul>
+					<div id="nav_search_entire">
+					<label for="nav_search"> Search:</label>
+					<input type="text" name="nav_search" size="31" maxlength="255" value="" id="nav_search"</input>
+					<input type="button" value = "Search" id="nav_search_button"></input>
+					</div>
+				</div>
+			</div>
+			
+<div id="main">
 <b><%=person.getFullName()%></b>
 <p>Title: <%=person.getTitle() %></p>
 <p>Location: <%=person.getLocation() %></p>
 <p>Department: <%=person.getDepartment() %></p>
 <p>Phone: <%=person.getPhone() %></p>
 <p>E-mail: <%=person.getEmail() %></p>
+
+</div>
+
+<div id="forward_back">
+<a HREF="javascript:history.go(-1)" class="forward_back">Back</a> | <a HREF="javascript:history.go(1)" class="forward_back">Forward</a>
 
 </body>
 </html>

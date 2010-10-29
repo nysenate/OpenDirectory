@@ -1,15 +1,103 @@
-h1
-{
-	text-align:center;
-}
-h2
-{
-	text-align:center;
-	border-bottom-style:ridge;
-}
-#f_b
-{
+html,body,div,ul,li { margin:0px; padding:0px; }
+
+body
+  {
+    color: #012849;
+    font-family: Times New Roman, serif;
+    background: url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_bg.png) top left repeat-x;
+  }
+ #forward_back{
 	position: absolute;
-	top:0;
-	right:0;
+	top: 0px;
+	left: 0px; 
+	color: white;
+ }
+ a.forward_back{
+ color: white;
+ }
+ a.forward_back:visited{
+ color: white;
+ }
+ a.forward_back:hover{
+ text-decoration: none;
+ }
+ 
+#page {
+	width:877px;
+	margin:0 auto;
+	background: #E2DED5;
 }
+
+#header {
+	background:url(http://www.nysenate.gov/sites/all/themes/nys/images/header.png) top left no-repeat;
+	padding:16px 0px 0px 0px;	
+}
+  #logo /* Wrapper for logo */
+  {
+    background: transparent url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_logo.png) no-repeat top left;
+    width: 280px;
+    height: 65px;
+    margin-top:16px 0px 0px 5px;
+    padding-bottom:10px;
+    /*text-indent: -9999px;*/
+  }
+  
+  #nav_bar {
+    color: white;
+	background: url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_menu_bg.png) top left repeat-x;
+	line-height: 30px;
+	margin-top:2px;
+	font-family: Helvetica, Arial, sans-serif;
+  }
+	  a.nav {
+	  
+	  color: white;
+	  
+	  }
+	  a.nav:visited{
+	  color: white;
+	
+	 	}
+	  a.nav:hover{
+	  text-decoration:none;
+
+ 	}
+  	#nav_bar ul {
+  		display:inline;
+	  	list-icon-style:none;
+  	}
+  	#nav_bar li {
+  		padding:10px;
+  		display:inline;
+  	}
+
+  	#search_entire{
+  	text-align:center;
+  	}
+  	#advanced_search{
+  	text-align:center;
+  	}
+  	a#advanced:hover{
+  	text-decoration:none;}
+  	
+  	#nav_search_entire{
+  	float:right;
+  	width:10 px;
+  	}
+  	#nav_search{
+  	width: 150px;
+  	}
+
+  	.entity_button { display:inline; }
+  	.entity_title { display:inline; font-weight:bold; }
+  	.people{margin-left: 40px;}
+  	a.people_url:hover{text-decoration:none;}
+  	
+#main {
+ margin-top: 15px;
+    margin: 20px;
+    padding: 20px;
+    background: #ffffff url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_block_footer_bg.png) repeat-x bottom left;
+}
+#footer {}
+

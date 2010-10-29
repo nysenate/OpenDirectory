@@ -61,7 +61,7 @@ public class Ldap {
 
 		NamingEnumeration<SearchResult> results = context.search(
 					"O=senate",
-					"(objectClass=dominoPerson)",
+					"(&(objectClass=dominoPerson)(employeeid=*)(!(employeeid=999*))(!(employeeid=0000)))",
 					new SearchControls()
 				);
 		
