@@ -67,6 +67,7 @@ public class SolrSession {
 	private void addPerson(Person person) throws SolrServerException, IOException {
 		SolrInputDocument solr_person = new SolrInputDocument();
 		
+		solr_person.addField("otype", "person", 1.0f);
 		solr_person.addField("firstName", person.getFirstName(), 1.0f);
 		solr_person.addField("lastName", person.getLastName(), 1.0f);
 		solr_person.addField("title", person.getTitle(), 1.0f);
