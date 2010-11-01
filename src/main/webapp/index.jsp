@@ -72,12 +72,12 @@
 	
 			$("#advanced").toggle(
 				function() {
-					$("#but").show();
+					$("#search_button").show();
 					$("#advanced_search").hide();
 					return false;
 				},
 				function() {
-					$("#but").hide();
+					$("#search_button").hide();
 					$("#advanced_search").show();
 					return false;
 				}
