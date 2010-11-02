@@ -24,15 +24,15 @@
 			</div>
 			
 			<div id="main">
-				<div id="login_entire">
+				<form id="login_entire">
 				<label for="login_name">Username:</label>
-				<input type="text" name="login name" size="31" maxlength="255" value="" id="login_name"/>
+				<input type="text" name="name" size="31" maxlength="255" value="" id="login_name"/>
 				<br></br>
 				<label for="login_pword">Password:</label>
-				<input type="password" name="login password" size="31" maxlength="255" value="" id="login_pword"/>
+				<input type="password" name="password" size="31" maxlength="255" value="" id="login_pword"/>
 				<br></br>
 				<input type="button" value = "Login" id="login_button"></input>
-				</div>
+				</form>
 				<div id="user_bar">
 				<a href="/opendirectory/login.jsp"> LOGIN </a>
 				</div>
