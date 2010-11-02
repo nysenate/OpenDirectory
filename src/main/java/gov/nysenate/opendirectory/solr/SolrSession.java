@@ -119,11 +119,20 @@ public class SolrSession {
 	}
 	public String Credentials(HashMap<String,TreeSet<String>> permissions)
 	{
+		//XML to be written
 		String credentials = new String();
+		credentials="<fields>";
 		
-		//permissions.get(key)--> iterate through the TreeSet
-		//write to credentials
-		//permissions.get("uid").iterator()
+		/* Need some dynamic way of writing the credentials based upon dynamic keys
+		 * while(!permissions.isEmpty())
+		{
+			credentials+="<field name=\"" + permissions.iterator.keyvalue + "\" allow = \"" + permissions.
+		}
+		*/
+		permissions.
+		//how to write xml with predefined fields
+		TreeSet<String> credential_set = permissions.get("otype");
+		
 		
 		return credentials;
 		
