@@ -114,5 +114,15 @@ color: #FFFFFF
     padding: 20px;
     background: #ffffff url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_block_footer_bg.png) repeat-x bottom left;
 }
+
+#name
+{
+	font-size: 30px;
+}
+#info
+{
+	text-align:left;
+	font-size: 12px;
+}
 #footer {}
 

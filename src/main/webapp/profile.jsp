@@ -26,12 +26,13 @@
 				</div>
 			</div>
 			<div id="main">
+				<div id="name">
 				<b><%=person.getFullName()%></b>
-				<p>Title: <%=person.getTitle() %></p>
-				<p>Location: <%=person.getLocation() %></p>
-				<p>Department: <%=person.getDepartment() %></p>
-				<p>Phone: <%=person.getPhone() %></p>
-				<p>E-mail: <%=person.getEmail() %></p>
+				</div>
+					<div id="info">
+					<p><%=person.getTitle() %> , <%=person.getLocation() %> - <%=person.getDepartment() %>  </p>
+					<p><%=person.getPhone() %>, <a href="mailto:<%=person.getEmail()%>"><%=person.getEmail() %></a> </p>
+					</div>
 					<div id="user_bar">
 					<a href="/opendirectory/login.jsp"> LOGIN </a>
 					</div>
