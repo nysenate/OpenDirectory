@@ -2,6 +2,8 @@ package gov.nysenate.opendirectory.servlets;
 
 import gov.nysenate.opendirectory.ldap.Ldap;
 import gov.nysenate.opendirectory.models.Person;
+import gov.nysenate.opendirectory.solr.Solr;
+import gov.nysenate.opendirectory.solr.SolrSession;
 
 
 import java.io.IOException;
@@ -21,6 +23,13 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
 public class BrowseServlet extends HttpServlet {
+	
+	private Solr solrServer;
+	
+	public BrowseServlet() {
+		//Only executed on startup
+		solrServer = new Solr().connect();
+	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
 			StringTokenizer tokens = new StringTokenizer(request.getRequestURI(),"/");
@@ -81,9 +90,7 @@ public class BrowseServlet extends HttpServlet {
 		
 	private HashMap<String,TreeSet<Person>> GetPeopleSortedByChar(Method method, Comparator<Person> comparator) {
 		try {
-			long start = System.currentTimeMillis();
-			ArrayList<Person> people = (ArrayList<Person>)new Ldap().connect().getPeople();
-			System.out.println("LDAP Query Time: "+(System.currentTimeMillis()-start)+" milliseconds");
+			ArrayList<Person> people = solrServer.newSession(new Person()).loadPeople();
 			HashMap<String,TreeSet<Person>> data = new HashMap<String,TreeSet<Person>>();
 			for(Person p : people) {
 				try {
@@ -104,9 +111,6 @@ public class BrowseServlet extends HttpServlet {
 				}
 			}
 			return data;
-		} catch (NamingException e) {
-			//Error Connecting to LDAP
-			System.out.println(e);
 		} catch (InvocationTargetException e) {
 			//Person is not a valid target for the method
 			System.out.println(e);
@@ -116,12 +120,10 @@ public class BrowseServlet extends HttpServlet {
 		}
 		return null;
 	}
-	
+
 	private HashMap<String,TreeSet<Person>> GetPeopleSortedByString(Method method, Comparator<Person> comparator) {
 		try {
-			long start = System.currentTimeMillis();
-			ArrayList<Person> people = (ArrayList<Person>)new Ldap().connect().getPeople();
-			System.out.println("LDAP Query Time: "+(System.currentTimeMillis()-start)+" milliseconds");
+			ArrayList<Person> people = solrServer.newSession(new Person()).loadPeople();
 			HashMap<String,TreeSet<Person>> data = new HashMap<String,TreeSet<Person>>();
 			for(Person p : people) {
 				try {
@@ -141,9 +143,6 @@ public class BrowseServlet extends HttpServlet {
 				}
 			}
 			return data;
-		} catch (NamingException e) {
-			//Error Connecting to LDAP
-			System.out.println(e);
 		} catch (InvocationTargetException e) {
 			//Person is not a valid target for the method
 			System.out.println(e);

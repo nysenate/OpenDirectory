@@ -9,6 +9,8 @@ import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
+import javax.naming.directory.Attribute;
+import javax.naming.directory.Attributes;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.SearchControls;
@@ -67,10 +69,11 @@ public class Ldap {
 		
 		ArrayList<Person> ret = new ArrayList<Person>();
 		while(results.hasMore()) {
-			ret.add(new Person(results.next()));
+			ret.add( loadPerson(results.next()) );
 		}
 		return ret;
 	}
+	
 	public Collection<Person> getPersonByName(String name) throws NamingException {
 		if (context == null)
 			throw new NamingException("Must connect to server before querying");
@@ -83,7 +86,7 @@ public class Ldap {
 		
 		ArrayList<Person> ret = new ArrayList<Person>();
 		while(results.hasMore()) {
-			ret.add(new Person(results.next()));
+			ret.add( loadPerson(results.next()) );
 		}
 		return ret;
 	}
@@ -99,9 +102,39 @@ public class Ldap {
 		
 		ArrayList<Person> ret = new ArrayList<Person>();
 		while(results.hasMore()) {
-			ret.add(new Person(results.next()));
+			ret.add( loadPerson(results.next()) );
 		}
 		return ret;
+	}
+	
+	private String getAttribute(Attributes attributes,String name) throws NamingException {
+		Attribute attr = attributes.get(name);
+		
+		if(attr != null && attr.size() != 0)
+			return (String)attr.get();
+		else
+			return null;
+	}
+	
+	public Person loadPerson(SearchResult record) throws NamingException {
+		Person person = new Person();
+		Attributes attributes = record.getAttributes();
+		person.setEmail(getAttribute(attributes,"mail"));
+		person.setPhone(getAttribute(attributes,"telephonenumber"));
+		person.setState(getAttribute(attributes,"st"));
+		person.setDepartment(getAttribute(attributes,"department"));
+		person.setTitle(getAttribute(attributes,"title"));
+		person.setFirstName(getAttribute(attributes,"givenname"));
+		person.setLastName(getAttribute(attributes,"sn"));
+		person.setUid(getAttribute(attributes,"uid"));
+		person.setLocation(getAttribute(attributes,"l"));
+		
+		String fullName = getAttribute(attributes,"displayname");
+		if ((fullName)!=null && fullName.endsWith("/senate")) {
+			fullName = fullName.substring(0, fullName.length()-7);
+		}
+		person.setFullName(fullName);
+		return person;
 	}
 }
 /*

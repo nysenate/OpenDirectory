@@ -1,49 +1,22 @@
 package gov.nysenate.opendirectory.models;
 
 import java.util.Comparator;
-
-import javax.naming.NamingException;
-import javax.naming.directory.Attribute;
-import javax.naming.directory.Attributes;
-import javax.naming.directory.SearchResult;
+import java.util.HashMap;
+import java.util.TreeSet;
 
 import org.apache.solr.client.solrj.beans.Field;
 
-/*
- * "displayname","location","givenname","uidnumber","uid", "mail", "cn",
- * "telephonenumber","st","l","sn","department", "title","gidnumber", "employeeid"
- */
 public class Person {
-	/* Designed according to JavaBean specs for use in the
+	/** 
+	 * Designed according to JavaBean specs for use in the
 	 * Java Expressions Language (EL) of JSP 2.0+
-	 */
-	private String getAttribute(Attributes attributes,String name) throws NamingException {
-		Attribute attr = attributes.get(name);
-		
-		if(attr != null && attr.size() != 0)
-			return (String)attr.get();
-		else
-			return null;
-	}
+	**/
 	
 	public Person() {}
-	public Person(SearchResult record) throws NamingException {
-		Attributes attributes = record.getAttributes();
-		email = getAttribute(attributes,"mail");
-		phone = getAttribute(attributes,"telephonenumber");
-		state = getAttribute(attributes,"st");
-		department = getAttribute(attributes,"department");
-		title = getAttribute(attributes,"title");
-		firstName = getAttribute(attributes,"givenname");
-		lastName = getAttribute(attributes,"sn");
-		fullName = getAttribute(attributes,"displayname");
-		uid = getAttribute(attributes,"uid");
-		location = getAttribute(attributes,"l");
-		
-		if(fullName!=null && fullName.endsWith("/senate")) {
-			fullName = fullName.substring(0, fullName.length()-7);
-		}
-	}
+	
+	private TreeSet<String> credentials;
+	
+	private HashMap<String,TreeSet<String>> permissions;
 	
 	@Field
 	private String firstName;
@@ -140,7 +113,6 @@ public class Person {
 		return out.toString();
 	}
 
-	
 	public static class ByFirstName implements Comparator<Person> {
 		public int compare(Person a, Person b) {
 			int ret = a.firstName.compareToIgnoreCase(b.firstName);
