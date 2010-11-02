@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.TreeSet;
 
+import org.apache.solr.analysis.KeywordTokenizerFactory;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.beans.Field;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -79,7 +81,7 @@ public class SolrSession {
 		solr_person.addField("phone", person.getPhone(), 1.0f);
 		solr_person.addField("email", person.getEmail(), 1.0f);
 
-		//String credentials = new String();
+		String permissions = Credentials(person.getPermissions());
 	
 		solr.server.add(solr_person);
 	}
@@ -119,21 +121,35 @@ public class SolrSession {
 	}
 	public String Credentials(HashMap<String,TreeSet<String>> permissions)
 	{
+		Iterator<?> permission = permissions.keySet().iterator();
+		
 		//XML to be written
 		String credentials = new String();
 		credentials="<fields>";
 		
-		/* Need some dynamic way of writing the credentials based upon dynamic keys
-		 * while(!permissions.isEmpty())
+		String key;
+		while(permission.hasNext())
 		{
-			credentials+="<field name=\"" + permissions.iterator.keyvalue + "\" allow = \"" + permissions.
+			key = permission.next().toString();
+			
+			credentials+="<field name=\"" + key + "\" allow = \"" + 
+				permissions.get(key).toString() + "\"/>"; 
+/*			
+  			String[] field_permissions = permissions.get(key).toArray();
+			
+			for( int i = 0; i<permissions.get(key).size(); i++){
+				credentials+=
+			}
+	*/		
+			
 		}
-		*/
-		permissions.
-		//how to write xml with predefined fields
+		
+		/*how to write xml with predefined fields
 		TreeSet<String> credential_set = permissions.get("otype");
 		
+		*/
 		
+		credentials+="</fields>";
 		return credentials;
 		
 	}
