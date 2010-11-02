@@ -1,11 +1,8 @@
-<%@ page language="java" import="gov.nysenate.opendirectory.models.Person" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
-	Person person = (Person)request.getAttribute("person");
-%><!DOCTYPE html5>
 <html>
 	<head>
+		<title>Login Page</title>
 		<link rel="stylesheet" type="text/css" href="/opendirectory/style.css" />
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title><%=person.getFullName() %></title>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	</head>
 	<body>
 		<div id="page">
@@ -20,25 +17,29 @@
 					</ul>
 					<div id="nav_search_entire">
 					<label for="nav_search"> Search:</label>
-					<input type="text" name="nav_search" size="31" maxlength="255" value="" id="nav_search" />
+					<input type="text" name="nav_search" size="31" maxlength="255" value="" id="nav_search"/>
 					<input type="button" value = "Search" id="nav_search_button"></input>
 					</div>
 				</div>
 			</div>
+			
 			<div id="main">
-				<b><%=person.getFullName()%></b>
-				<p>Title: <%=person.getTitle() %></p>
-				<p>Location: <%=person.getLocation() %></p>
-				<p>Department: <%=person.getDepartment() %></p>
-				<p>Phone: <%=person.getPhone() %></p>
-				<p>E-mail: <%=person.getEmail() %></p>
-					<div id="user_bar">
-					<a href="/opendirectory/login.jsp"> LOGIN </a>
-					</div>
+				<div id="login_entire">
+				<label for="login_name">Username:</label>
+				<input type="text" name="login name" size="31" maxlength="255" value="" id="login_name"/>
+				<br></br>
+				<label for="login_pword">Password:</label>
+				<input type="password" name="login password" size="31" maxlength="255" value="" id="login_pword"/>
+				<br></br>
+				<input type="button" value = "Login" id="login_button"></input>
+				</div>
+				<div id="user_bar">
+				<a href="/opendirectory/login.jsp"> LOGIN </a>
+				</div>
 			</div>
-		</div>
+			
 		<div id="forward_back">
 			<a HREF="javascript:history.go(-1)" class="forward_back">Back</a> | <a HREF="javascript:history.go(1)" class="forward_back">Forward</a>
 		</div>
-	</body>
+</body>
 </html>

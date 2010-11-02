@@ -10,16 +10,15 @@ body
 	position: absolute;
 	top: 0px;
 	left: 0px; 
-	color: white;
+	color:#C6B44A;
+	text-decoration: none;
+	font-weight: bold;
  }
  a.forward_back{
- color: white;
- }
- a.forward_back:visited{
- color: white;
+ color:#C6B44A;
  }
  a.forward_back:hover{
- text-decoration: none;
+color: #FFFFFF
  }
  
 #page {
@@ -40,6 +39,18 @@ body
     margin-top:16px 0px 0px 5px;
     padding-bottom:10px;
     /*text-indent: -9999px;*/
+  }
+  #user_bar a{
+  	color:#C6B44A;
+	font-size:14px;
+	font-weight:bold;
+	text-decoration:none;
+	position: absolute;
+	top: 20px;
+	right: 200px; 
+  }
+  #user_bar a:hover{
+  color: #FFFFFF
   }
   
   #nav_bar {
@@ -86,6 +97,10 @@ body
   	}
   	#nav_search{
   	width: 150px;
+  	}
+  	#login_entire
+  	{
+  	text-align: center;
   	}
 
   	.entity_button { display:inline; }
