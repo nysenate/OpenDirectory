@@ -19,6 +19,11 @@
 		<servlet-name>SolrControllerServlet</servlet-name>
 		<servlet-class>gov.nysenate.opendirectory.servlets.SolrControllerServlet</servlet-class>
 	</servlet>
+
+	<servlet>
+		<servlet-name>UserServlet</servlet-name>
+		<servlet-class>gov.nysenate.opendirectory.servlets.UserServlet</servlet-class>
+	</servlet>
 		
 	<servlet-mapping>
 		<servlet-name>BrowseServlet</servlet-name>
@@ -38,6 +43,15 @@
 		<url-pattern>/person/*</url-pattern>
 	</servlet-mapping>
 
+	<servlet-mapping>
+		<servlet-name>UserServlet</servlet-name>
+		<url-pattern>/user</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserServlet</servlet-name>
+		<url-pattern>/user/*</url-pattern>
+	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>SolrControllerServlet</servlet-name>
 		<url-pattern>/solr</url-pattern>
