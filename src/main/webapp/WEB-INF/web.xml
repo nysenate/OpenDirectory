@@ -19,7 +19,12 @@
 		<servlet-name>SolrControllerServlet</servlet-name>
 		<servlet-class>gov.nysenate.opendirectory.servlets.SolrControllerServlet</servlet-class>
 	</servlet>
-		
+	
+	<servlet>
+		<servlet-name>APIServlet</servlet-name>
+		<servlet-class>gov.nysenate.opendirectory.servlets.APIServlet</servlet-class>
+	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>BrowseServlet</servlet-name>
 		<url-pattern>/browse</url-pattern>
@@ -37,7 +42,7 @@
 		<servlet-name>PersonServlet</servlet-name>
 		<url-pattern>/person/*</url-pattern>
 	</servlet-mapping>
-
+	
 	<servlet-mapping>
 		<servlet-name>SolrControllerServlet</servlet-name>
 		<url-pattern>/solr</url-pattern>
@@ -46,5 +51,14 @@
 		<servlet-name>SolrControllerServlet</servlet-name>
 		<url-pattern>/solr/*</url-pattern>
 	</servlet-mapping>
-		
+
+	<servlet-mapping>
+		<servlet-name>APIServlet</servlet-name>
+		<url-pattern>/api</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>APIServlet</servlet-name>
+		<url-pattern>/api/*</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
