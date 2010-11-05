@@ -58,7 +58,7 @@ public class Ldap {
 		return this;
 	}
 	
-	public static boolean authenticate(String cred, String pwd) throws NamingException{
+	public static boolean authenticate(String cred, String pwd) throws NamingException {
 		
 		try {
 			Hashtable<String,String> env = new Hashtable<String,String>();
@@ -76,8 +76,7 @@ public class Ldap {
 				throw new NamingException("Credentials and Password are required");
 			}
 			
-			//Create the LDAP context from the environment
-			context = new InitialDirContext(env);
+			new InitialDirContext(env);
 			return true;
 		} catch (AuthenticationException e) {
 			return false;

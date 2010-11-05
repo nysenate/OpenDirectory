@@ -67,7 +67,7 @@
 					</div>
 			<% } %>
 				<div id="user_bar">
-				<a href="/opendirectory/login.jsp"> LOGIN </a>
+				<a href="/opendirectory/user/login"> LOGIN </a>
 				</div>
 			</div>
 		</div>
