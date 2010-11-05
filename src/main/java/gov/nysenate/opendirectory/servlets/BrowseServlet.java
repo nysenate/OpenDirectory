@@ -20,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @SuppressWarnings("serial")
 public class BrowseServlet extends HttpServlet {
@@ -32,6 +33,11 @@ public class BrowseServlet extends HttpServlet {
 	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
+			HttpSession session = request.getSession();
+			if (session != null && session.getAttribute("uid") != null) {
+				request.setAttribute("user",
+						solrServer.newSession(new Person()).loadPersonByUid((String)session.getAttribute("uid")));
+			}
 			StringTokenizer tokens = new StringTokenizer(request.getRequestURI(),"/");
 			tokens.nextToken(); //Throw `OpenDirectory` away
 		    tokens.nextToken(); //Throw `browse` away
