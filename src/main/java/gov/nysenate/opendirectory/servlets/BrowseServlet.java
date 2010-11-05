@@ -1,9 +1,7 @@
 package gov.nysenate.opendirectory.servlets;
 
-import gov.nysenate.opendirectory.ldap.Ldap;
 import gov.nysenate.opendirectory.models.Person;
 import gov.nysenate.opendirectory.solr.Solr;
-import gov.nysenate.opendirectory.solr.SolrSession;
 
 
 import java.io.IOException;
@@ -14,8 +12,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
- 
-import javax.naming.NamingException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -75,6 +72,11 @@ public class BrowseServlet extends HttpServlet {
 						);
 					getServletContext().getRequestDispatcher("/loc.jsp").forward(request, response);
 					
+		    	} else if ( type.equals("all") ) {
+		    		
+		    		request.setAttribute("people", solrServer.newSession(new Person()).loadPeople());
+		    		getServletContext().getRequestDispatcher("/showall.jsp").forward(request, response);
+		    		
 		    	}
 		    } else {
 		    	getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
