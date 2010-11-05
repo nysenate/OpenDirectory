@@ -47,10 +47,39 @@ color: #FFFFFF
 	text-decoration:none;
 	position: absolute;
 	top: 20px;
-	right: 200px; 
+	right: 400px; 
+  }
+  #welcome
+  {
+  color:#FFFFFF;
+  position: absolute;
+  top: 20px;
+  right: 300px;
   }
   #user_bar a:hover{
   color: #FFFFFF
+  }
+  
+    #home a{
+  	color:#C6B44A;
+	font-size:14px;
+	font-weight:bold;
+	text-decoration:none;
+	position: absolute;
+	top: 20px;
+	right: 325px; 
+  }
+  #home a:hover{
+  color: #FFFFFF
+  }
+  #top_info
+  {
+  text-align:right;
+  
+  }
+  #pic
+  {
+	float:left;
   }
   
   #nav_bar {
@@ -114,6 +143,35 @@ color: #FFFFFF
     padding: 20px;
     background: #ffffff url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_block_footer_bg.png) repeat-x bottom left;
 }
+#skills
+{
+    margin: 20px;
+   	margin-top: 40px;
+    padding: 20px;
+    background: #ffffff url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_block_footer_bg.png) repeat-x bottom left;
+    width:350px;
+}
+#skills b
+{
+    font-size:24px;
+}
+#interests
+{
+	
+	margin-top: 15px;
+    margin: 20px;
+    padding: 20px;
+    background: #ffffff url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_block_footer_bg.png) repeat-x bottom left;
+    width:350px;
+   float: right;
+   
+}
+#add_info {
+ margin-top: 15px;
+    margin: 20px;
+    padding: 20px;
+    background: #ffffff url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_block_footer_bg.png) repeat-x bottom left;
+}
 
 #name
 {
@@ -121,7 +179,6 @@ color: #FFFFFF
 }
 #info
 {
-	text-align:left;
 	font-size: 12px;
 }
 #footer {}
