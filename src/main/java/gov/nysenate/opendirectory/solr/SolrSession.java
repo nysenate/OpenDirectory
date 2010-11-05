@@ -27,7 +27,7 @@ public class SolrSession {
 	
 	public Person loadPersonByUid(String uid) {
 		//Do the query
-		QueryResponse results = solr.query("fullname:"+uid);
+		QueryResponse results = solr.query("id:"+uid);
 		SolrDocumentList profiles = results.getResults();
 		
 		//Return null on no results
