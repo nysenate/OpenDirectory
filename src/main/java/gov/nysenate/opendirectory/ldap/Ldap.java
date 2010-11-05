@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
 
+import javax.naming.AuthenticationException;
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
@@ -55,6 +56,32 @@ public class Ldap {
 		//Create the LDAP context from the environment
 		context = new InitialDirContext(env);
 		return this;
+	}
+	
+	public static boolean authenticate(String cred, String pwd) throws NamingException {
+		
+		try {
+			Hashtable<String,String> env = new Hashtable<String,String>();
+			
+			//Required options
+			env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+			env.put(Context.PROVIDER_URL,"ldap://webmail.nysenate.gov");
+			
+			//If they supplied user name and password set options for authentication
+			if(cred != null && pwd != null) {
+				env.put(Context.SECURITY_AUTHENTICATION, "simple");
+				env.put(Context.SECURITY_PRINCIPAL,cred);
+				env.put(Context.SECURITY_CREDENTIALS,pwd);
+			} else {
+				throw new NamingException("Credentials and Password are required");
+			}
+			
+			new InitialDirContext(env);
+			return true;
+		} catch (AuthenticationException e) {
+			return false;
+		}
+		
 	}
 	
 	public Collection<Person> getPeople() throws NamingException {

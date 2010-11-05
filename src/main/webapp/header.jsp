@@ -22,7 +22,7 @@
 </div>
 	<% if (user == null) { %>
 			<div id="user_bar">
-			<a href="/opendirectory/login.jsp"> LOGIN </a>
+			<a href="/opendirectory/user/login"> LOGIN </a>
 			</div>
 				<div id="home">
 				<a href="/opendirectory/"> HOME </a>
@@ -33,7 +33,7 @@
 	<p> Welcome, <%=user.getFirstName()%></p>
 	</div>
 		<div id="user_bar">
-			<a href="/opendirectory/login.jsp"> LOGOUT </a>
+			<a href="/opendirectory/user/logout"> LOGOUT </a>
 			</div>
 				<div id="home">
 				<a href="/opendirectory/"> HOME </a>

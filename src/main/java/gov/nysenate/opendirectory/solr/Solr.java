@@ -11,7 +11,6 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
 
-@SuppressWarnings("unused")
 public class Solr {
 	
 	protected SolrServer server;
@@ -51,7 +50,6 @@ public class Solr {
 			return null;
 		}
 	}
-	
 	
 	public Solr deleteAll() throws IOException, SolrServerException {
 		server.deleteByQuery("*:*");

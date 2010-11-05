@@ -54,12 +54,6 @@
 					<input type="button" value ="Search" id="but"></input>
 					</div>
 				</form>
-					<div id="user_bar">
-					<a href="/opendirectory/login.jsp"> LOGIN </a> 
-					</div>
-					<div id="home">
-					<a href="/opendirectory/"> HOME </a>
-					</div>
 			</div>
 			<div id="footer">
 			</div>
