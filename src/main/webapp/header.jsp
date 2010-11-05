@@ -16,9 +16,6 @@
 		<input type="button" value = "Search" id="nav_search_button"></input>
 		</div>
 	</div>
-		<div id="forward_back">
-		<a HREF="javascript:history.go(-1)" class="forward_back">Back</a> | <a HREF="javascript:history.go(1)" class="forward_back">Forward</a>
-		</div>
 </div>
 	<% if (user == null) { %>
 			<div id="user_bar">

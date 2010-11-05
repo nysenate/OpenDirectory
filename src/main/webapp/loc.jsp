@@ -58,8 +58,5 @@
 					</div>
 			</div>
 		</div>
-		<div id="forward_back">
-			<a HREF="javascript:history.go(-1)" class="forward_back">Back</a> | <a HREF="javascript:history.go(1)" class="forward_back">Forward</a>
-		</div>
 	</body>
 </html>
