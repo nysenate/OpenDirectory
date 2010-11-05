@@ -430,6 +430,8 @@
    <field name="department" type="string" indexed="true" stored="true" />
    <field name="phone" type="string" indexed="true" stored="true"/>
    <field name="email"  type="string" indexed="true" stored="true"/>
+   <field name="permissions" type="string" indexed="false" stored="true"/>
+   <field name="user_credential" type="string" indexed="false" stored="true" />
 
 <!--   <field name="id" type="string" indexed="true" stored="true" required="true" /> 
    <field name="sku" type="textTight" indexed="true" stored="true" omitNorms="true"/>

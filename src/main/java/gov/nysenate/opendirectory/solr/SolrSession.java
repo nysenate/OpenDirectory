@@ -68,7 +68,9 @@ public class SolrSession {
 	//put the credentials (hashmap) into solr field.
 	private void addPerson(Person person) throws SolrServerException, IOException {
 		SolrInputDocument solr_person = new SolrInputDocument();
-		
+		String permissions = Permissions(person.getPermissions());
+		String credentials = person.getCredentials().toString().substring(1, person.getCredentials().toString().length()-1);
+			
 		solr_person.addField("otype", "person", 1.0f);
 		solr_person.addField("firstName", person.getFirstName(), 1.0f);
 		solr_person.addField("lastName", person.getLastName(), 1.0f);
@@ -80,9 +82,10 @@ public class SolrSession {
 		solr_person.addField("department", person.getDepartment(), 1.0f);
 		solr_person.addField("phone", person.getPhone(), 1.0f);
 		solr_person.addField("email", person.getEmail(), 1.0f);
-
-		String permissions = Credentials(person.getPermissions());
-	
+		solr_person.addField("permissions", permissions);
+		solr_person.addField("user_credential", credentials);
+		
+		System.out.println(permissions);
 		solr.server.add(solr_person);
 	}
 	
@@ -119,36 +122,32 @@ public class SolrSession {
 		}
 		
 	}
-	public String Credentials(HashMap<String,TreeSet<String>> permissions)
+	
+	//Returns permissions for each field in "xml" string
+	public String Permissions(HashMap<String,TreeSet<String>> permissions)
 	{
 		Iterator<?> permission = permissions.keySet().iterator();
 		
 		//XML to be written
 		String credentials = new String();
-		credentials="<fields>";
+		credentials="<fields>\n";
 		
 		String key;
+		String credential_list;
+		String temp;
+		
 		while(permission.hasNext())
 		{
 			key = permission.next().toString();
+			credential_list = permissions.get(key).toString();
+			temp = credential_list.substring(1, credential_list.length()- 1);
 			
 			credentials+="<field name=\"" + key + "\" allow = \"" + 
-				permissions.get(key).toString() + "\"/>"; 
-/*			
-  			String[] field_permissions = permissions.get(key).toArray();
-			
-			for( int i = 0; i<permissions.get(key).size(); i++){
-				credentials+=
-			}
-	*/		
+				temp + "\"/>\n"; 
 			
 		}
 		
-		/*how to write xml with predefined fields
-		TreeSet<String> credential_set = permissions.get("otype");
-		
-		*/
-		
+
 		credentials+="</fields>";
 		return credentials;
 		

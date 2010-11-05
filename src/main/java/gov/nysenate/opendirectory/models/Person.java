@@ -73,6 +73,10 @@ public class Person {
 	public HashMap<String, TreeSet<String>> getPermissions() {
 		return permissions;
 	}
+	public TreeSet<String> getCredentials(){
+		return credentials;
+	}
+	
 	
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -107,7 +111,7 @@ public class Person {
 	public void setPermissions (HashMap<String, TreeSet<String>> permissions){
 		this.permissions = permissions;
 	}
-	public void getCredentials (TreeSet<String> credentials){
+	public void setCredentials (TreeSet<String> credentials){
 		this.credentials = credentials;
 	}
 
