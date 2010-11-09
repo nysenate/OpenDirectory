@@ -26,7 +26,7 @@
 		<jsp:include page="header.jsp" />		
 			<div id="main">
 				<div id="search_entire">
-				<form>
+				<form id="all_search" action="/opendirectory/search" method="GET">
 					<label for="s"> Search for Employee:</label>
 					<input type="text" name="search" size="31" maxlength="255" value="" id="s" /> <a href="#advancedsearch" id="advanced"> Advanced Search</a>
 					<br></br>
