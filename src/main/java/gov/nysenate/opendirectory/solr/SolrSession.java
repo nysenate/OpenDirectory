@@ -45,6 +45,20 @@ public class SolrSession {
 			return null;
 		}
 	}
+	
+	public ArrayList<Person> loadPeopleByQuery(String query) {
+		//Do the query
+		QueryResponse results = solr.query(query);
+		SolrDocumentList profiles = results.getResults();
+		
+		//Transform the results
+		ArrayList<Person> people = new ArrayList<Person>();
+		for( SolrDocument profile : profiles ) {
+			people.add(loader.loadPerson(profile));
+		}
+		return people;
+	}
+	
 	public Person loadPersonByName(String name) {
 		
 		//Do the query
@@ -68,17 +82,7 @@ public class SolrSession {
 	}
 	
 	public ArrayList<Person> loadPeople() {
-		
-		//Do the query
-		QueryResponse results = solr.query("*:*");
-		SolrDocumentList profiles = results.getResults();
-		
-		//Transform the results
-		ArrayList<Person> people = new ArrayList<Person>();
-		for( SolrDocument profile : profiles ) {
-			people.add(loader.loadPerson(profile));
-		}
-		return people;
+		return loadPeopleByQuery("*");
 	}
 	
 	//Could use addBean function that comes with solrj but we need to 

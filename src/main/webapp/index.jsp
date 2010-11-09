@@ -28,9 +28,9 @@
 				<div id="search_entire">
 				<form id="all_search" action="/opendirectory/search" method="GET">
 					<label for="s"> Search for Employee:</label>
-					<input type="text" name="search" size="31" maxlength="255" value="" id="s" /> <a href="#advancedsearch" id="advanced"> Advanced Search</a>
+					<input type="text" name="query" size="31" maxlength="255" value="" id="s" /> <a href="#advancedsearch" id="advanced"> Advanced Search</a>
 					<br></br>
-					<input type="button" value ="Search" id="search_button"></input>
+					<input type="submit" value ="Search" id="search_button"></input>
 					<br/>
 					<br/>
 					</div>

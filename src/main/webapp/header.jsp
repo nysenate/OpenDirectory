@@ -10,11 +10,11 @@
 			<li><a href="/opendirectory/browse/department" class="nav">Department</a></li> |
 			<li><a href="/opendirectory/browse/location" class="nav">Location</a></li> |
 		</ul>
-		<div id="nav_search_entire">
+		<form id="nav_search_entire" action="/opendirectory/search" method="GET">
 		<label for="nav_search"> Search:</label>
-		<input type="text" name="nav_search" size="31" maxlength="255" value="" id="nav_search" />
-		<input type="button" value = "Search" id="nav_search_button"></input>
-		</div>
+		<input type="text" name="query" size="31" maxlength="255" value="" id="nav_search" />
+		<input type="submit" value = "Search" id="nav_search_button"></input>
+		</form>
 	</div>
 </div>
 	<% if (user == null) { %>

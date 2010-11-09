@@ -35,6 +35,11 @@
 		<servlet-class>gov.nysenate.opendirectory.servlets.IndexServlet</servlet-class>
 	</servlet>
 	
+	<servlet>
+		<servlet-name>SearchServlet</servlet-name>
+		<servlet-class>gov.nysenate.opendirectory.servlets.SearchServlet</servlet-class>
+	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>BrowseServlet</servlet-name>
 		<url-pattern>/browse</url-pattern>
@@ -78,6 +83,19 @@
 	<servlet-mapping>
 		<servlet-name>APIServlet</servlet-name>
 		<url-pattern>/api/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>SearchServlet</servlet-name>
+		<url-pattern>/search</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SearchServlet</servlet-name>
+		<url-pattern>/search/</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SearchServlet</servlet-name>
+		<url-pattern>/search/*</url-pattern>
 	</servlet-mapping>
 	
 </web-app>
