@@ -1,41 +1,36 @@
 package gov.nysenate.opendirectory.servlets;
 
-import gov.nysenate.opendirectory.solr.Solr;
+import gov.nysenate.opendirectory.servlets.utils.BaseServlet;
 
 import java.io.IOException;
-import java.util.StringTokenizer;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-public class APIServlet extends HttpServlet {
+public class APIServlet extends BaseServlet {
 	
-	private Solr solrServer;
-	
-	public APIServlet() {
-		//Only executed on startup
-		solrServer = new Solr().connect();
-	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		StringTokenizer tokens = new StringTokenizer(request.getRequestURI(),"/");
-		tokens.nextToken(); //Throw `opendirectory` away
-	    tokens.nextToken(); //Throw `user` away
-	    
-	    if (tokens.hasMoreTokens()) {
-	    	String version = tokens.nextToken();
-	    	
-	    	if(tokens.hasMoreTokens()) {
-	    		String command = tokens.nextToken();
-	    		
+		
+		String version = urls.getCommand(request);
+	    if (version != null) {
+	    	if(version.equals("1.0")) {
+	    		ArrayList<String> args = urls.getArgs(request);
+		    	if(!args.isEmpty()) {
+		    		//String command = args.remove(0);
+		    		//Finish this at some point
+		    		
+		    	} else {
+		    		//Do some sort of return about the options, instructions or w/e
+		    	}
 	    	} else {
-	    		
+	    		//List the versions that are appropriate
 	    	}
-	    	
 	    } else {
-	    	
+	    	//Give some sort of documentation
 	    }
+	    
 	}
 }

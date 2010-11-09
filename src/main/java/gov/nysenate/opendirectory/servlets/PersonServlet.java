@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
 public class PersonServlet extends HttpServlet {
+
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 		    StringTokenizer tokens = new StringTokenizer(request.getRequestURI(),"/");

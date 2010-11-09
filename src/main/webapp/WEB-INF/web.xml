@@ -30,6 +30,11 @@
 		<servlet-class>gov.nysenate.opendirectory.servlets.UserServlet</servlet-class>
 	</servlet>
 	
+	<servlet>
+		<servlet-name>IndexServlet</servlet-name>
+		<servlet-class>gov.nysenate.opendirectory.servlets.IndexServlet</servlet-class>
+	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>BrowseServlet</servlet-name>
 		<url-pattern>/browse</url-pattern>

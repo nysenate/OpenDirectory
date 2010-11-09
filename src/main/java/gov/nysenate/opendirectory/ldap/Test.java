@@ -27,10 +27,12 @@ import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.client.solrj.beans.*;
 
 public class Test {
+	
 	/**
 	 * @param args
 	 * @throws NamingException
 	 */
+	
 	public static void main(String[] args) throws NamingException {
 	
 		try {				
@@ -182,4 +184,5 @@ public class Test {
 		//Create the LDAP context from the environment
 		return new InitialDirContext(env);
 	}
+	
 }
