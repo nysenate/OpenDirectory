@@ -49,12 +49,40 @@ color: #FFFFFF
 	top: 20px;
 	right: 400px; 
   }
+  #user_options 
+  {
+  
+	font-size:14px;
+	text-decoration:underline;
+	position: absolute;
+	top: 50px;
+	right: 158px; 
+  
+  
+  }
+  
+  #user_options ul {
+  		display:inline;
+	  	list-icon-style:none;
+  	}
+  	#user_options li {
+  		padding:10px;
+  		display:inline;
+  	}
+  	#user_options a {
+  		color:white;
+  	}
+  	
+  	#user_options a:hover {
+  		text-decoration:none;
+  	}
+  
   #welcome
   {
   color:#FFFFFF;
   position: absolute;
-  top: 20px;
-  right: 300px;
+  top: 3px;
+  right: 185px;
   }
   #user_bar a:hover{
   color: #FFFFFF

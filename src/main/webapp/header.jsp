@@ -35,4 +35,12 @@
 				<div id="home">
 				<a href="/opendirectory/"> HOME </a>
 				</div>
+					<div id="user_options">
+						<ul id="user_options_list">
+							<li> <a href="/opendirectory/person/<%= user.getUid() %>"> My Profile </a> </li> 
+							<li> <a href=""> My Bookmarks </a> </li> 
+							<li> <a href=""> Edit Profile </a> </li> 
+						</ul>
+					
+					</div>
 	<% } %>

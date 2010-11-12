@@ -12,7 +12,7 @@
 			<jsp:include page="header.jsp" />
 			<div id="main">
 				<div id="pic">
-					<img src="/opendirectory/Desktop/einstein.jpg" width="100" height="100">
+					<img src="/opendirectory/img/einstein.jpg" width="100" height="100">
 				</div>
 				<span id="top_info" class="right">
 	
