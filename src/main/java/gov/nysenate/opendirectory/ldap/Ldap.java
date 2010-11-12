@@ -4,7 +4,9 @@ import gov.nysenate.opendirectory.models.Person;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.TreeSet;
 
 import javax.naming.AuthenticationException;
 import javax.naming.Context;
@@ -155,6 +157,24 @@ public class Ldap {
 		person.setLastName(getAttribute(attributes,"sn"));
 		person.setUid(getAttribute(attributes,"uid"));
 		person.setLocation(getAttribute(attributes,"l"));
+		
+		TreeSet<String> cred_default = new TreeSet<String>();
+		cred_default.add("public");
+		
+		HashMap<String, TreeSet<String>> permissions = new HashMap<String,TreeSet<String>>();
+		//for each field put in default permission
+		permissions.put("email", cred_default);
+		permissions.put("phone", cred_default);
+		permissions.put("state", cred_default);
+		permissions.put("department", cred_default);
+		permissions.put("title", cred_default);
+		permissions.put("id", cred_default);
+		permissions.put("firstName", cred_default);
+		permissions.put("lastName", cred_default);
+		permissions.put("location", cred_default);
+				
+		person.setPermissions(permissions);
+		person.setCredentials(cred_default);
 		
 		String fullName = getAttribute(attributes,"displayname");
 		if (fullName!=null)
