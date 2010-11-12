@@ -38,7 +38,7 @@ public class Person {
 	@Field
 	private String email;
 	
-	
+		
 	public String getFirstName() {
 		return firstName;
 	}
@@ -69,6 +69,13 @@ public class Person {
 	public String getEmail() {
 		return email;
 	}
+	public HashMap<String, TreeSet<String>> getPermissions() {
+		return permissions;
+	}
+	public TreeSet<String> getCredentials(){
+		return credentials;
+	}
+	
 	
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -99,6 +106,12 @@ public class Person {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public void setPermissions (HashMap<String, TreeSet<String>> permissions){
+		this.permissions = permissions;
+	}
+	public void setCredentials (TreeSet<String> credentials){
+		this.credentials = credentials;
 	}
 
 	public String toString() {

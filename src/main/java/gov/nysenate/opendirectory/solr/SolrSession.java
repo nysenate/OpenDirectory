@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.TreeSet;
 
+import org.apache.solr.analysis.KeywordTokenizerFactory;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
@@ -62,7 +64,7 @@ public class SolrSession {
 	public Person loadPersonByName(String name) {
 		
 		//Do the query
-		QueryResponse results = solr.query("fullname:"+name);
+		QueryResponse results = solr.query("fullName:"+name);
 		SolrDocumentList profiles = results.getResults();
 		
 		//Return null on no results
@@ -89,7 +91,9 @@ public class SolrSession {
 	//put the credentials (hashmap) into solr field.
 	private void addPerson(Person person) throws SolrServerException, IOException {
 		SolrInputDocument solr_person = new SolrInputDocument();
-		
+		String permissions = Permissions(person.getPermissions());
+		String credentials = person.getCredentials().toString().substring(1, person.getCredentials().toString().length()-1);
+			
 		solr_person.addField("otype", "person", 1.0f);
 		solr_person.addField("firstName", person.getFirstName(), 1.0f);
 		solr_person.addField("lastName", person.getLastName(), 1.0f);
@@ -101,9 +105,10 @@ public class SolrSession {
 		solr_person.addField("department", person.getDepartment(), 1.0f);
 		solr_person.addField("phone", person.getPhone(), 1.0f);
 		solr_person.addField("email", person.getEmail(), 1.0f);
-
-		//String credentials = new String();
-	
+		solr_person.addField("permissions", permissions);
+		solr_person.addField("user_credential", credentials);
+		
+		System.out.println(permissions);
 		solr.server.add(solr_person);
 	}
 	
@@ -140,14 +145,33 @@ public class SolrSession {
 		}
 		
 	}
-	public String Credentials(HashMap<String,TreeSet<String>> permissions)
+	
+	//Returns permissions for each field in "xml" string
+	public String Permissions(HashMap<String,TreeSet<String>> permissions)
 	{
+		Iterator<?> permission = permissions.keySet().iterator();
+		
+		//XML to be written
 		String credentials = new String();
+		credentials="<fields>";
 		
-		//permissions.get(key)--> iterate through the TreeSet
-		//write to credentials
-		//permissions.get("uid").iterator()
+		String key;
+		String credential_list;
+		String temp;
 		
+		while(permission.hasNext())
+		{
+			key = permission.next().toString();
+			credential_list = permissions.get(key).toString();
+			temp = credential_list.substring(1, credential_list.length()- 1);
+			
+			credentials+="<field name=\"" + key + "\" allow = \"" + 
+				temp + "\"/>"; 
+			
+		}
+		
+
+		credentials+="</fields>";
 		return credentials;
 		
 	}
