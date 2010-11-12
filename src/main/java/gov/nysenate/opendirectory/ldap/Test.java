@@ -41,12 +41,39 @@ public class Test {
 	 */
 	public static void main(String[] args) throws NamingException, SolrServerException, IOException {
 	
-		try {				
+		//try {				
+			
+			//Test secureloader
+			Solr test_solr = new Solr();
+			test_solr.connect();
+			
+			Person test_person = new Person();
+			TreeSet<String> creds = new TreeSet<String>();
+			
+			creds.add("charlie_senate");
+			
+			test_person.setCredentials(creds);
+			
+			SolrSession test_session = new SolrSession(test_person, test_solr);
+			Person result = new Person();
+			result = test_session.loadPersonByName("codetestname");
+			
+			System.out.println(result.getLastName());
+			System.out.println(result.getLocation());
+			System.out.println(result.getEmail());
+			System.out.println(result.getDepartment());
+			System.out.println(result.getFullName());
+			System.out.println(result.getFirstName());
 			
 			
+			/*SolrQuery query = new SolrQuery();
+			query.setQuery("id:codetes*");
+			query.setRows(1);
 			
+			QueryResponse rsp = server.query(query);
+			*/
 			
-			/*TEST INPUTTING A PERSON INTO SOLR
+			/*/TEST INPUTTING A PERSON INTO SOLR
 			Solr test_solr = new Solr();
 			test_solr.connect();
 			
@@ -70,21 +97,25 @@ public class Test {
 			credentials.add("delta_admin");
 			credentials.add("echo_GODMODE");
 			permission.put("location", new TreeSet<String>(credentials));
+			permission.put("fullName", new TreeSet<String>(credentials));
 			
 			credentials.add("foxtrot_senatorA");
+			
+			
 			test_person.setUid("codetest");
 			test_person.setDepartment("CODETEST_department");
 			test_person.setEmail("CODETEST_email");
 			test_person.setFirstName("CODETEST_first");
 			test_person.setLastName("CODETEST_last");
 			test_person.setLocation("CODETEST_location");
+			test_person.setFullName("codetestname");
 			test_person.setCredentials(new TreeSet<String>(credentials));
 			test_person.setPermissions(permission);
 			
 			SolrSession test_session = new SolrSession(test_person, test_solr);
 			
 			test_session.savePerson(test_person);	
-			/*
+			
 			
 			/*******PULL in INFO from LDAP*********
 			//Set the attributes to retrieve
@@ -191,8 +222,8 @@ public class Test {
 			*/
 		
 			
-		}
-		/*/If the authorization credentials are bad, we'll catch that here and report the failure
+		/*}
+		//If the authorization credentials are bad, we'll catch that here and report the failure
 		catch (AuthenticationException e) {
 			System.out.println("Authentication Failed!");
 		} catch (MalformedURLException e) {
@@ -201,10 +232,10 @@ public class Test {
 		} catch (SolrServerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/ catch (IOException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}*/
 		
 		//Bad queries aren't caught here, not sure how to do that yet.
 	}

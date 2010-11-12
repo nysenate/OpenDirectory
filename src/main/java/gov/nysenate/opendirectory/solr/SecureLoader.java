@@ -1,6 +1,13 @@
 package gov.nysenate.opendirectory.solr;
 
+import java.io.StringReader;
+import java.lang.reflect.Method;
+import java.util.TreeSet;
+
 import org.apache.solr.common.SolrDocument;
+import javax.xml.parsers.*;
+import org.xml.sax.InputSource;
+import org.w3c.dom.*;
 
 import gov.nysenate.opendirectory.models.Person;
 
@@ -15,17 +22,70 @@ public class SecureLoader {
 	public Person loadPerson(SolrDocument profile) {
 		//Do the loading here
 		Person person = new Person();
-		person.setFirstName((String)profile.getFieldValue("firstName"));
-		person.setLastName((String)profile.getFieldValue("lastName"));
-		person.setFullName((String)profile.getFieldValue("fullName"));
-		person.setDepartment((String)profile.getFieldValue("department"));
-		person.setLocation((String)profile.getFieldValue("location"));
-		person.setEmail((String)profile.getFieldValue("email"));
-		person.setPhone((String)profile.getFieldValue("phone"));
-		person.setTitle((String)profile.getFieldValue("title"));
-		person.setState((String)profile.getFieldValue("state"));
-		person.setUid((String)profile.getFieldValue("id"));
+		
+		//Dependent on matching user credentials and field credentials
+		//load into the person object		
+		String permissions_xml = (String)profile.getFieldValue("permissions");
+
+		try {
+	        DocumentBuilderFactory dbf =
+	            DocumentBuilderFactory.newInstance();
+	        DocumentBuilder db = dbf.newDocumentBuilder();
+	        InputSource is = new InputSource();
+	        is.setCharacterStream(new StringReader(permissions_xml));
+	        
+	        Document doc = db.parse(is);
+	       
+	        NodeList fields = doc.getDocumentElement().getChildNodes();
+	        //Node field = new Node();
+	        TreeSet<String> permissions = new TreeSet<String>();
+	        
+	        Boolean approved;
+	        
+	        for(int c=0; c<fields.getLength(); c++)
+	        {
+	        	approved=false;
+	        	permissions = Permission((String)fields.item(c).getAttributes().item(0).getNodeValue());
+	        	
+	        	String fieldname = (String)fields.item(c).getAttributes().item(1).getNodeValue();
+        		
+	        	String setFieldName = "set"+fieldname.substring(0, 1).toUpperCase()+fieldname.substring(1);
+        		Method setMethod = person.getClass().getMethod(setFieldName, String.class);
+        		
+        		for(String temp : permissions) {
+        			if(user.getCredentials().contains(temp) == true)
+		        	{
+	        			approved = true;
+		        	} 
+        		}
+        		
+        		if(approved) {
+        			setMethod.invoke(person, profile.getFieldValue(fieldname));
+        		}
+        		else{
+        			setMethod.invoke(person, (String)null);
+        		}
+	        }
+		}
+	    
+		catch (Exception e) {
+	        e.printStackTrace();
+	    }
 		return person;
+	}
+	
+	public TreeSet<String> Permission(String credentials){
+		
+		TreeSet<String> permissions = new TreeSet<String>();
+		
+		String[] credentialset = credentials.split(", ");
+		
+		for(String temp : credentialset)
+		{
+			permissions.add(temp);
+		}
+		
+		return permissions;
 	}
 	
 }

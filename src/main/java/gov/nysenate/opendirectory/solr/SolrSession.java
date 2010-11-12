@@ -31,7 +31,7 @@ public class SolrSession {
 	public Person loadPersonByName(String name) {
 		
 		//Do the query
-		QueryResponse results = solr.query("fullname:"+name);
+		QueryResponse results = solr.query("fullName:"+name);
 		SolrDocumentList profiles = results.getResults();
 		
 		//Return null on no results
@@ -130,7 +130,7 @@ public class SolrSession {
 		
 		//XML to be written
 		String credentials = new String();
-		credentials="<fields>\n";
+		credentials="<fields>";
 		
 		String key;
 		String credential_list;
@@ -143,7 +143,7 @@ public class SolrSession {
 			temp = credential_list.substring(1, credential_list.length()- 1);
 			
 			credentials+="<field name=\"" + key + "\" allow = \"" + 
-				temp + "\"/>\n"; 
+				temp + "\"/>"; 
 			
 		}
 		
