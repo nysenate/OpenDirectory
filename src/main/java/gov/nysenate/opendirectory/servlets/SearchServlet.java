@@ -24,6 +24,7 @@ public class SearchServlet extends BaseServlet {
 			for(Person result : results) {
 				System.out.println(result.getFirstName());
 			}
+			request.setAttribute("query", query);
 			request.setAttribute("results", results );
 		}
 		
