@@ -11,9 +11,13 @@
 		<div id="page">
 			<jsp:include page="header.jsp" />
 			<div id="main">
+				<div id="error">
 				<% if(error_message != null) { %>
+					
 					<%=error_message %>
+					<br></br>
 				<% } %>
+				</div>
 			
 				<form id="login_entire" action="/opendirectory/user/login" method="POST">
 					<label for="login_name">Username:</label>

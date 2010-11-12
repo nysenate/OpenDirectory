@@ -159,7 +159,20 @@ color: #FFFFFF
   	{
   	text-align: center;
   	}
-  	#query{font-weight:bold;}
+  	#query
+  	{
+  	font-weight:bold;
+  	font-style:italic;
+  	}
+  	#search_info
+  	{
+  	font-size:15px;
+  	}
+  	#error
+  	{
+  	text-align:center;
+  	color:red;
+  	}
 
   	.entity_button { display:inline; }
   	.entity_title { display:inline; font-weight:bold; }
