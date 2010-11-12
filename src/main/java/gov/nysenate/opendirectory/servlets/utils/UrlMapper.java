@@ -16,6 +16,7 @@ public class UrlMapper {
 	
 	public static void main(String[] args) {
 		UrlMapper urls = new UrlMapper();
+		System.out.println(urls.url("person","opendirectory"));
 		System.out.println(urls.getCommand("/opendirectory/solr/"));
 	}
 	
@@ -23,7 +24,7 @@ public class UrlMapper {
 		String url = "/"+context+"/";
 		
 		if(!controller.equals("index"))
-			url = controller+'/';
+			url += controller+'/';
 		
 		if(command!=null)
 			url += command;
@@ -31,7 +32,6 @@ public class UrlMapper {
 		for (String arg : args) {
 			url+='/'+arg;
 		}
-		
 		return url;
 	}
 	
@@ -48,7 +48,6 @@ public class UrlMapper {
 			url = url.substring(1);
 		
 		String[] tokens = url.split("/");
-		System.out.println(tokens.length);
 		if(tokens.length < 3) {
 			return null;
 		} else {

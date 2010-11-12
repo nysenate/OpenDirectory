@@ -25,6 +25,7 @@ public class BrowseServlet extends BaseServlet {
 		
 		try{
 			String command = urls.getCommand(request);
+			System.out.println(command);
 		    if (command != null) {
 		    	if ( command.equals("department")) {
 					request.setAttribute(

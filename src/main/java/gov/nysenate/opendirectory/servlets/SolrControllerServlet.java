@@ -1,6 +1,7 @@
 package gov.nysenate.opendirectory.servlets;
 
 import gov.nysenate.opendirectory.ldap.Ldap;
+import gov.nysenate.opendirectory.models.Person;
 import gov.nysenate.opendirectory.servlets.utils.BaseServlet;
 import gov.nysenate.opendirectory.servlets.utils.Request;
 
@@ -30,6 +31,9 @@ public class SolrControllerServlet extends BaseServlet {
 		    	} else if (command.equals("indexAll")) {
 		    		indexAll(self);
 		    		out.println("Indexed all Documents");
+		    	} else if (command.equals("indexExtras")) {
+		    		indexExtras(self);
+		    		out.println("Indexed all Extras");
 		    	} else if (command.equals("reindexAll")) {
 		    		removeAll(self);
 		    		indexAll(self);
@@ -59,5 +63,12 @@ public class SolrControllerServlet extends BaseServlet {
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void indexExtras(Request self) throws SolrServerException, IOException {
+		Person opendirectory = new Person();
+		opendirectory.setFullName("OpenDirectory");
+		opendirectory.setUid("opendirectory");
+		self.solrSession.savePerson(opendirectory);
 	}
 }
