@@ -33,14 +33,16 @@ import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.client.solrj.beans.*;
 
 public class Test {
+	
 	/**
 	 * @param args
 	 * @throws NamingException
 	 * @throws IOException 
 	 * @throws SolrServerException 
 	 */
-	public static void main(String[] args) throws NamingException, SolrServerException, IOException {
 	
+	public static void main(String[] args) throws NamingException, SolrServerException, IOException {
+
 		//try {				
 			
 			//Test secureloader
@@ -264,4 +266,5 @@ public class Test {
 		//Create the LDAP context from the environment
 		return new InitialDirContext(env);
 	}
+	
 }

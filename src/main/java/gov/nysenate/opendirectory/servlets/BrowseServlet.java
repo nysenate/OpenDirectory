@@ -1,9 +1,8 @@
 package gov.nysenate.opendirectory.servlets;
 
-import gov.nysenate.opendirectory.ldap.Ldap;
 import gov.nysenate.opendirectory.models.Person;
-import gov.nysenate.opendirectory.solr.Solr;
-import gov.nysenate.opendirectory.solr.SolrSession;
+import gov.nysenate.opendirectory.servlets.utils.BaseServlet;
+import gov.nysenate.opendirectory.servlets.utils.Request;
 
 
 import java.io.IOException;
@@ -12,72 +11,65 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.StringTokenizer;
 import java.util.TreeSet;
- 
-import javax.naming.NamingException;
+
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-public class BrowseServlet extends HttpServlet {
+public class BrowseServlet extends BaseServlet {
 	
-	private Solr solrServer;
-	
-	public BrowseServlet() {
-		//Only executed on startup
-		solrServer = new Solr().connect();
-	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Request self = new Request(this,request,response);
+		
 		try{
-			StringTokenizer tokens = new StringTokenizer(request.getRequestURI(),"/");
-			tokens.nextToken(); //Throw `OpenDirectory` away
-		    tokens.nextToken(); //Throw `browse` away
-		    if (tokens.hasMoreTokens()) {
-		    	String type = tokens.nextToken().toLowerCase();
-		    	if ( type.equals("department")) {
+			String command = urls.getCommand(request);
+		    if (command != null) {
+		    	if ( command.equals("department")) {
 					request.setAttribute(
 							"people",
-							GetPeopleSortedByString(
+							GetPeopleSortedByString(self,
 									Person.class.getMethod("getDepartment"),
 									new Person.ByDepartment()
 								)
 						);
-					getServletContext().getRequestDispatcher("/dept.jsp").forward(request, response);
+					self.render("/dept.jsp");
 					
-		    	} else if ( type.equals("firstname") ) {
+		    	} else if ( command.equals("firstname") ) {
 					request.setAttribute(
 							"people",
-							GetPeopleSortedByChar(
+							GetPeopleSortedByChar(self,
 									Person.class.getMethod("getFirstName"),
 									new Person.ByFirstName()
 								)
 						);
-					getServletContext().getRequestDispatcher("/first.jsp").forward(request, response);
+					self.render("/first.jsp");
 					
-		    	} else if ( type.equals("lastname") ) {
+		    	} else if ( command.equals("lastname") ) {
 					request.setAttribute("people",
-							GetPeopleSortedByChar(
+							GetPeopleSortedByChar(self,
 								Person.class.getMethod("getLastName"),
 								new Person.ByLastName())
 						);
-		    		getServletContext().getRequestDispatcher("/last.jsp").forward(request, response);
+		    		self.render("/last.jsp");
 		    		
-		    	} else if ( type.equals("location") ) {
+		    	} else if ( command.equals("location") ) {
 					request.setAttribute(
 							"people",
-							GetPeopleSortedByString(
+							GetPeopleSortedByString(self,
 									Person.class.getMethod("getLocation"),
 									new Person.ByLocation()
 								)
 						);
-					getServletContext().getRequestDispatcher("/loc.jsp").forward(request, response);
+					self.render("/loc.jsp");
 					
+		    	} else if ( command.equals("all") ) {
+		    		request.setAttribute("people", self.solrSession.loadPeople());
+		    		self.render("/showall.jsp");
 		    	}
 		    } else {
-		    	getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+		    	self.render("/index.jsp");
 		    }
 		} catch (NoSuchMethodException e) {
 			//If the method by name doesn't exist
@@ -88,9 +80,9 @@ public class BrowseServlet extends HttpServlet {
 		}
 	}
 		
-	private HashMap<String,TreeSet<Person>> GetPeopleSortedByChar(Method method, Comparator<Person> comparator) {
+	private HashMap<String,TreeSet<Person>> GetPeopleSortedByChar(Request self, Method method, Comparator<Person> comparator) {
 		try {
-			ArrayList<Person> people = solrServer.newSession(new Person()).loadPeople();
+			ArrayList<Person> people = self.solrSession.loadPeople();
 			HashMap<String,TreeSet<Person>> data = new HashMap<String,TreeSet<Person>>();
 			for(Person p : people) {
 				try {
@@ -102,7 +94,6 @@ public class BrowseServlet extends HttpServlet {
 							plist = new TreeSet<Person>(comparator);
 							data.put((String.valueOf(value.charAt(0))), plist);
 						}
-						System.out.println(p.getFullName());
 						plist.add(p);
 					}
 				} catch (NullPointerException e) {
@@ -121,9 +112,9 @@ public class BrowseServlet extends HttpServlet {
 		return null;
 	}
 
-	private HashMap<String,TreeSet<Person>> GetPeopleSortedByString(Method method, Comparator<Person> comparator) {
+	private HashMap<String,TreeSet<Person>> GetPeopleSortedByString(Request self,Method method, Comparator<Person> comparator) {
 		try {
-			ArrayList<Person> people = solrServer.newSession(new Person()).loadPeople();
+			ArrayList<Person> people = self.solrSession.loadPeople();
 			HashMap<String,TreeSet<Person>> data = new HashMap<String,TreeSet<Person>>();
 			for(Person p : people) {
 				try {
@@ -134,7 +125,6 @@ public class BrowseServlet extends HttpServlet {
 							plist = new TreeSet<Person>(comparator);
 							data.put(value, plist);
 						}
-						System.out.println(p.getFullName());
 						plist.add(p);
 					}
 				} catch (NullPointerException e) {

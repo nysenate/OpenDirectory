@@ -9,33 +9,39 @@
 	</head>
 	<body>
 		<div id="page">
-			<div id="header">
-				<a href="/opendirectory/"> <div id="logo"></div> </a>
-				<div id="nav_bar">Browse by:
-					<ul>
-						<li><a href="/opendirectory/browse/lastname" class="nav">Last name</a></li> |
-						<li><a href="/opendirectory/browse/firstname" class="nav">First name</a></li> |
-						<li><a href="/opendirectory/browse/department" class="nav">Department</a></li> |
-						<li><a href="/opendirectory/browse/location" class="nav">Location</a></li> |
-					</ul>
-					<div id="nav_search_entire">
-					<label for="nav_search"> Search:</label>
-					<input type="text" name="nav_search" size="31" maxlength="255" value="" id="nav_search" />
-					<input type="button" value = "Search" id="nav_search_button"></input>
+			<jsp:include page="header.jsp" />
+			<div id="main">
+				<div id="pic">
+					<img src="/opendirectory/Desktop/einstein.jpg" width="100" height="100">
+				</div>
+				<span id="top_info" class="right">
+	
+					<div id="name">
+						<b><%=person.getFullName()%></b>
 					</div>
+					<div id="info">
+						<p><%=person.getTitle() %> , <%=person.getLocation() %> - <%=person.getDepartment() %>  </p>
+						<p><%=person.getPhone() %>, <a href="mailto:<%=person.getEmail()%>"><%=person.getEmail() %></a> </p>
+						<br></br>
+					</div>
+				</span>
+				<div id="bio">
+					<b>Bio</b>
+					<p>I am awesome and so is the NYSS team working on OpenDirectory which will redefine the way government works </p>
 				</div>
 			</div>
-			<div id="main">
-				<b><%=person.getFullName()%></b>
-				<p>Title: <%=person.getTitle() %></p>
-				<p>Location: <%=person.getLocation() %></p>
-				<p>Department: <%=person.getDepartment() %></p>
-				<p>Phone: <%=person.getPhone() %></p>
-				<p>E-mail: <%=person.getEmail() %></p>
+			<div id="interests">
+				<b>Interests</b>
+				<p>Basketball, Baseball, Movies, Chess, Video Games, Other things</p>
 			</div>
-		</div>
-		<div id="forward_back">
-			<a HREF="javascript:history.go(-1)" class="forward_back">Back</a> | <a HREF="javascript:history.go(1)" class="forward_back">Forward</a>
+			<div id="skills">
+				<b>Skills</b>
+				<p>Web Development, Java, C++, PHP, C#, Python, Writing  </p>
+			</div>
+			<div id="add_info">
+				<b>Additional Information</b>
+				<p>Follow me on <a href=""> Twitter </a> and <a href=""> Facebook </a></p>
+			</div>
 		</div>
 	</body>
 </html>

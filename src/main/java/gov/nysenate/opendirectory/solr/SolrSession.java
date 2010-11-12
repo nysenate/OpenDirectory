@@ -9,7 +9,6 @@ import java.util.TreeSet;
 
 import org.apache.solr.analysis.KeywordTokenizerFactory;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.beans.Field;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
@@ -26,6 +25,40 @@ public class SolrSession {
 	public SolrSession(Person user, Solr solr) {
 		this.loader = new SecureLoader(user);
 		this.solr = solr;
+	}
+	
+	public Person loadPersonByUid(String uid) {
+		//Do the query
+		QueryResponse results = solr.query("id:"+uid);
+		SolrDocumentList profiles = results.getResults();
+		
+		//Return null on no results
+		if( profiles.getNumFound() == 0 ) {
+			return null;
+			
+		//Load a person from the profile if 1 result
+		} else if ( profiles.getNumFound() == 1 ) {
+			return loader.loadPerson(profiles.get(0));
+			
+		//Throw some sort of exception on multiple matches
+		} else {
+			//Too many people
+			//Throw some kind of error
+			return null;
+		}
+	}
+	
+	public ArrayList<Person> loadPeopleByQuery(String query) {
+		//Do the query
+		QueryResponse results = solr.query(query);
+		SolrDocumentList profiles = results.getResults();
+		
+		//Transform the results
+		ArrayList<Person> people = new ArrayList<Person>();
+		for( SolrDocument profile : profiles ) {
+			people.add(loader.loadPerson(profile));
+		}
+		return people;
 	}
 	
 	public Person loadPersonByName(String name) {
@@ -51,17 +84,7 @@ public class SolrSession {
 	}
 	
 	public ArrayList<Person> loadPeople() {
-		
-		//Do the query
-		QueryResponse results = solr.query("*:*");
-		SolrDocumentList profiles = results.getResults();
-		
-		//Transform the results
-		ArrayList<Person> people = new ArrayList<Person>();
-		for( SolrDocument profile : profiles ) {
-			people.add(loader.loadPerson(profile));
-		}
-		return people;
+		return loadPeopleByQuery("*");
 	}
 	
 	//Could use addBean function that comes with solrj but we need to 

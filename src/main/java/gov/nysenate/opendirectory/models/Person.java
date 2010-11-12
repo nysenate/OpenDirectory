@@ -15,7 +15,6 @@ public class Person {
 	public Person() {}
 	
 	private TreeSet<String> credentials;
-	
 	private HashMap<String,TreeSet<String>> permissions;
 	
 	@Field
@@ -201,5 +200,23 @@ public class Person {
 			}
 			return ret;
 		}
+	}
+	
+	static Person admin;
+	static Person anon;
+	
+	public static Person getAdmin() {
+		if(admin == null) {
+			admin = new Person();
+			
+		}
+		return admin;
+	}
+	
+	public static Person getAnon() {
+		if(anon == null) {
+			anon = new Person();
+		}
+		return anon;
 	}
 }
