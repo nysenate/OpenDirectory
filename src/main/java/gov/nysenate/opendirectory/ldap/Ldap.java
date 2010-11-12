@@ -161,19 +161,7 @@ public class Ldap {
 		TreeSet<String> cred_default = new TreeSet<String>();
 		cred_default.add("public");
 		
-		HashMap<String, TreeSet<String>> permissions = new HashMap<String,TreeSet<String>>();
-		//for each field put in default permission
-		permissions.put("email", cred_default);
-		permissions.put("phone", cred_default);
-		permissions.put("state", cred_default);
-		permissions.put("department", cred_default);
-		permissions.put("title", cred_default);
-		permissions.put("id", cred_default);
-		permissions.put("firstName", cred_default);
-		permissions.put("lastName", cred_default);
-		permissions.put("location", cred_default);
-				
-		person.setPermissions(permissions);
+		person.setPermissions(Person.getDefaultPermissions());
 		person.setCredentials(cred_default);
 		
 		String fullName = getAttribute(attributes,"displayname");

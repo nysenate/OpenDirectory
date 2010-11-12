@@ -50,12 +50,6 @@
 						</ul>
 					</div>
 				<% } %>
-					<div id="user_bar">
-					<a href="/opendirectory/user/login"> LOGIN </a>
-					</div>
-					<div id="home">
-					<a href="/opendirectory/"> HOME </a>
-					</div>
 			</div>
 	</body>
 </html>

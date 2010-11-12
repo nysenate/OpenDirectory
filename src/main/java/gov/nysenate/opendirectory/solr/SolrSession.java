@@ -29,7 +29,7 @@ public class SolrSession {
 	
 	public Person loadPersonByUid(String uid) {
 		//Do the query
-		QueryResponse results = solr.query("id:"+uid);
+		QueryResponse results = solr.query("uid:"+uid);
 		SolrDocumentList profiles = results.getResults();
 		
 		//Return null on no results
@@ -91,6 +91,7 @@ public class SolrSession {
 	//put the credentials (hashmap) into solr field.
 	private void addPerson(Person person) throws SolrServerException, IOException {
 		SolrInputDocument solr_person = new SolrInputDocument();
+		
 		String permissions = Permissions(person.getPermissions());
 		String credentials = person.getCredentials().toString().substring(1, person.getCredentials().toString().length()-1);
 			
@@ -98,7 +99,7 @@ public class SolrSession {
 		solr_person.addField("firstName", person.getFirstName(), 1.0f);
 		solr_person.addField("lastName", person.getLastName(), 1.0f);
 		solr_person.addField("title", person.getTitle(), 1.0f);
-		solr_person.addField("id", person.getUid(), 1.0f);
+		solr_person.addField("uid", person.getUid(), 1.0f);
 		solr_person.addField("fullName", person.getFullName(), 1.0f);
 		solr_person.addField("state", person.getState(), 1.0f);
 		solr_person.addField("location", person.getLocation(), 1.0f);

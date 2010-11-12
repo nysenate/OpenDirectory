@@ -6,6 +6,8 @@ import gov.nysenate.opendirectory.servlets.utils.BaseServlet;
 import gov.nysenate.opendirectory.servlets.utils.Request;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.TreeSet;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -69,6 +71,11 @@ public class SolrControllerServlet extends BaseServlet {
 		Person opendirectory = new Person();
 		opendirectory.setFullName("OpenDirectory");
 		opendirectory.setUid("opendirectory");
+		TreeSet<String> cred_default = new TreeSet<String>();
+		cred_default.add("public");
+				
+		opendirectory.setPermissions(Person.getDefaultPermissions());
+		opendirectory.setCredentials(cred_default);
 		self.solrSession.savePerson(opendirectory);
 	}
 }

@@ -21,9 +21,9 @@ public class Person {
 	private String firstName;
 	@Field
 	private String lastName;
-	@Field("Title")
+	@Field
 	private String title;
-	@Field("id")
+	@Field
 	private String uid;
 	@Field
 	private String fullName;
@@ -209,6 +209,12 @@ public class Person {
 		if(admin == null) {
 			admin = new Person();
 			admin.setFullName("Administrator");
+			
+			TreeSet<String> cred_default = new TreeSet<String>();
+			cred_default.add("public");
+			cred_default.add("admin");
+			admin.setPermissions(new HashMap<String,TreeSet<String>>());
+			admin.setCredentials(cred_default);	
 		}
 		return admin;
 	}
@@ -219,5 +225,28 @@ public class Person {
 			anon.setFullName("Anonymous User");
 		}
 		return anon;
+	}
+	
+	public static HashMap<String,TreeSet<String>> getDefaultPermissions() {
+		TreeSet<String> cred_default = new TreeSet<String>();
+		cred_default.add("public");
+		TreeSet<String> cred_admin = new TreeSet<String>();
+		cred_admin.add("admin");
+		
+		HashMap<String, TreeSet<String>> permissions = new HashMap<String,TreeSet<String>>();
+		//for each field put in default permission
+		permissions.put("email", cred_default);
+		permissions.put("phone", cred_default);
+		permissions.put("state", cred_default);
+		permissions.put("department", cred_default);
+		permissions.put("title", cred_default);
+		permissions.put("uid", cred_default);
+		permissions.put("firstName", cred_default);
+		permissions.put("fullName", cred_default);
+		permissions.put("lastName", cred_default);
+		permissions.put("location", cred_default);
+		permissions.put("user_credential", cred_admin);
+		
+		return permissions;
 	}
 }

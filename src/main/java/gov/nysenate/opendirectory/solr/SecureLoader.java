@@ -47,23 +47,30 @@ public class SecureLoader {
 	        	approved=false;
 	        	permissions = Permission((String)fields.item(c).getAttributes().item(0).getNodeValue());
 	        	
-	        	String fieldname = (String)fields.item(c).getAttributes().item(1).getNodeValue();
-        		
-	        	String setFieldName = "set"+fieldname.substring(0, 1).toUpperCase()+fieldname.substring(1);
-        		Method setMethod = person.getClass().getMethod(setFieldName, String.class);
-        		
-        		for(String temp : permissions) {
-        			if(user.getCredentials().contains(temp) == true)
-		        	{
-	        			approved = true;
-		        	} 
+        		if(user.equals(Person.getAdmin()))
+        			approved = true;
+        		else {
+	        		for(String temp : permissions) {
+	        			if(user.getCredentials().contains(temp) == true) {
+		        			approved = true;
+		        			break;
+			        	} 
+	        		}
         		}
-        		
-        		if(approved) {
-        			setMethod.invoke(person, profile.getFieldValue(fieldname));
-        		}
-        		else{
-        			setMethod.invoke(person, (String)null);
+        		String fieldname = (String)fields.item(c).getAttributes().item(1).getNodeValue();
+        		if(fieldname.equals("user_credential")) {
+        			if(approved)
+        				person.setCredentials(Permission((String)profile.getFieldValue("user_credential")));
+        			else
+        				person.setCredentials(null);
+        			
+        		} else {
+        			String setFieldName = "set"+fieldname.substring(0, 1).toUpperCase()+fieldname.substring(1);
+            		Method setMethod = person.getClass().getMethod(setFieldName, String.class);
+        			if(approved)
+        				setMethod.invoke(person, profile.getFieldValue(fieldname));
+        			else
+        				setMethod.invoke(person, (String)null);
         		}
 	        }
 		}

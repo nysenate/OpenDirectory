@@ -1,5 +1,6 @@
 <%@ page language="java" import="gov.nysenate.opendirectory.models.Person,java.util.ArrayList" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
 	ArrayList<Person> results = (ArrayList<Person>)request.getAttribute("results");
+	String search_query = (String)request.getAttribute("query");
 %>
 <html>
 	<head>
@@ -11,7 +12,7 @@
 		<div id="page">
 			<jsp:include page="header.jsp" />
 			<div id="main">
-				<h> Search Results:</h>
+				<h> Search Results for:</h> <h id="query"> <%= search_query %> </h>
 					<% if (results != null) { %>
 						<% for( Person result : results ) { %>
 						<div id="name_pic"></div>

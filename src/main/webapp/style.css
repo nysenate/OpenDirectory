@@ -159,6 +159,7 @@ color: #FFFFFF
   	{
   	text-align: center;
   	}
+  	#query{font-weight:bold;}
 
   	.entity_button { display:inline; }
   	.entity_title { display:inline; font-weight:bold; }

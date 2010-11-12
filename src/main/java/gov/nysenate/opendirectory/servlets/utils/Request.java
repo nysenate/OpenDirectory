@@ -29,8 +29,9 @@ public class Request {
 		httpSession = request.getSession(true);
 		
 		String uid = (String)httpSession.getAttribute("uid");
-		if( uid != null)
+		if( uid != null) {
 			user = servlet.solrServer.newSession(Person.getAdmin()).loadPersonByUid(uid);
+		}
 		else
 			user = Person.getAnon();
 		

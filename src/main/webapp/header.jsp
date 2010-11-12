@@ -19,12 +19,12 @@
 </div>
 	<% if (user == null) { %>
 	
-			<div id="user_bar">
-				<a href="/opendirectory/user/login"> LOGIN </a>
-			</div>
-			<div id="home">
-				<a href="/opendirectory/"> HOME </a>
-			</div>
+		<div id="user_bar">
+			<a href="/opendirectory/user/login"> LOGIN </a>
+		</div>
+		<div id="home">
+			<a href="/opendirectory/"> HOME </a>
+		</div>
 	
 	<% } else { %>
 	
@@ -33,16 +33,15 @@
 		</div>
 		<div id="user_bar">
 			<a href="/opendirectory/user/logout"> LOGOUT </a>
-			</div>
-				<div id="home">
-				<a href="/opendirectory/"> HOME </a>
-				</div>
-					<div id="user_options">
-						<ul id="user_options_list">
-							<li> <a href="/opendirectory/person/<%= user.getUid() %>"> My Profile </a> </li> 
-							<li> <a href=""> My Bookmarks </a> </li> 
-							<li> <a href=""> Edit Profile </a> </li> 
-						</ul>
-					
-					</div>
+		</div>
+		<div id="home">
+			<a href="/opendirectory/"> HOME </a>
+		</div>
+		<div id="user_options">
+			<ul id="user_options_list">
+				<li> <a href="/opendirectory/person/<%= user.getUid() %>"> My Profile </a> </li> 
+				<li> <a href=""> My Bookmarks </a> </li> 
+				<li> <a href=""> Edit Profile </a> </li> 
+			</ul>
+		</div>
 	<% } %>
