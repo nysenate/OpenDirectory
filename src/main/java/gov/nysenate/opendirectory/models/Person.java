@@ -223,6 +223,11 @@ public class Person {
 		if(anon == null) {
 			anon = new Person();
 			anon.setFullName("Anonymous User");
+			
+			TreeSet<String> cred_default = new TreeSet<String>();
+			cred_default.add("public");
+			anon.setPermissions(new HashMap<String, TreeSet<String>>());
+			anon.setCredentials(cred_default);
 		}
 		return anon;
 	}
@@ -249,4 +254,6 @@ public class Person {
 		
 		return permissions;
 	}
+	
+	
 }
