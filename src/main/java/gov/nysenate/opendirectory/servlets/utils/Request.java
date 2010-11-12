@@ -29,16 +29,18 @@ public class Request {
 		httpSession = request.getSession(true);
 		
 		String uid = (String)httpSession.getAttribute("uid");
-		if( uid != null) {
+		if( uid != null)
 			user = servlet.solrServer.newSession(Person.getAdmin()).loadPersonByUid(uid);
-		} else
+		else
 			user = Person.getAnon();
 		
 		solrSession = servlet.solrServer.newSession(user);
 	}
 	
 	public void render(String name) throws IOException, ServletException {
-		httpRequest.setAttribute("user",user);
+		if(!user.equals(Person.getAnon()))
+			httpRequest.setAttribute("user",user);
+		
 		httpRequest.setAttribute("urls",servlet.urls);
 		servlet.getServletContext().getRequestDispatcher(name).forward(httpRequest, httpResponse);
 	}

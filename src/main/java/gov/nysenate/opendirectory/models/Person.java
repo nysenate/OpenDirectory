@@ -195,7 +195,7 @@ public class Person {
 	public static Person getAdmin() {
 		if(admin == null) {
 			admin = new Person();
-			
+			admin.setFullName("Administrator");
 		}
 		return admin;
 	}
@@ -203,6 +203,7 @@ public class Person {
 	public static Person getAnon() {
 		if(anon == null) {
 			anon = new Person();
+			anon.setFullName("Anonymous User");
 		}
 		return anon;
 	}

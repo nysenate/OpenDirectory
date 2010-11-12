@@ -89,7 +89,7 @@ public class Ldap {
 			throw new NamingException("Must connect to server before querying");
 
 		NamingEnumeration<SearchResult> results = context.search(
-					"O=senate",
+					"",
 					"(&(objectClass=dominoPerson)(employeeid=*)(!(employeeid=999*))(!(employeeid=0000)))",
 					new SearchControls()
 				);
@@ -157,9 +157,9 @@ public class Ldap {
 		person.setLocation(getAttribute(attributes,"l"));
 		
 		String fullName = getAttribute(attributes,"displayname");
-		if ((fullName)!=null && fullName.endsWith("/senate")) {
-			fullName = fullName.substring(0, fullName.length()-7);
-		}
+		if (fullName!=null)
+			fullName = fullName.split("/")[0];
+		
 		person.setFullName(fullName);
 		return person;
 	}

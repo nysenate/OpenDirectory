@@ -82,7 +82,7 @@ public class SolrSession {
 	}
 	
 	public ArrayList<Person> loadPeople() {
-		return loadPeopleByQuery("*");
+		return loadPeopleByQuery("*:*");
 	}
 	
 	//Could use addBean function that comes with solrj but we need to 
