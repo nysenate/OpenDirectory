@@ -16,4 +16,5 @@ public class IndexServlet extends BaseServlet {
 		Request self = new Request(this,request,response);
 		self.render("/index.jsp");
 	}
+	
 }
