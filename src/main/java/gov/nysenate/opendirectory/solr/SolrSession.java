@@ -108,8 +108,7 @@ public class SolrSession {
 		solr_person.addField("email", person.getEmail(), 1.0f);
 		solr_person.addField("permissions", permissions);
 		solr_person.addField("user_credential", credentials);
-		
-		System.out.println(permissions);
+
 		solr.server.add(solr_person);
 	}
 	
@@ -173,6 +172,8 @@ public class SolrSession {
 		
 
 		credentials+="</fields>";
+		//System.out.println(credentials);
+		
 		return credentials;
 		
 	}

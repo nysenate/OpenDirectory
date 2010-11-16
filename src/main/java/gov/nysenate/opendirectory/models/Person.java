@@ -240,17 +240,19 @@ public class Person {
 		
 		HashMap<String, TreeSet<String>> permissions = new HashMap<String,TreeSet<String>>();
 		//for each field put in default permission
+		permissions.put("permissions", cred_admin);
+		permissions.put("user_credential", cred_admin);
+		permissions.put("uid", cred_default);
 		permissions.put("email", cred_default);
 		permissions.put("phone", cred_default);
 		permissions.put("state", cred_default);
 		permissions.put("department", cred_default);
 		permissions.put("title", cred_default);
-		permissions.put("uid", cred_default);
 		permissions.put("firstName", cred_default);
 		permissions.put("fullName", cred_default);
 		permissions.put("lastName", cred_default);
 		permissions.put("location", cred_default);
-		permissions.put("user_credential", cred_admin);
+		
 		
 		return permissions;
 	}
