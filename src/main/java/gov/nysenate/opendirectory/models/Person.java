@@ -255,5 +255,7 @@ public class Person {
 		return permissions;
 	}
 	
-	
+	public String toXml() {
+		return null;
+	}
 }
