@@ -5,7 +5,6 @@ import gov.nysenate.opendirectory.servlets.utils.BaseServlet;
 import gov.nysenate.opendirectory.servlets.utils.Request;
 
 import java.io.IOException;
-import java.util.TreeSet;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -24,7 +23,7 @@ public class UserServlet extends BaseServlet {
 	    	if(command.equals("login")) {
 	    		String uid = (String)self.httpSession.getAttribute("uid"); 
 	    		if( uid == null) {
-	    			self.render("/login.jsp");
+	    			self.render("login.jsp");
 	    		} else {	    			
 	    			self.redirect(urls.url("person",uid));
 	    		}
@@ -67,13 +66,13 @@ public class UserServlet extends BaseServlet {
 		    			//LDAP is down or something?
 		    			e.printStackTrace();
 		    			request.setAttribute("errorMessage", "The ldap server is down and you can't be authenticated. Please try again later.");
-		    			self.render("/login.jsp");
+		    			self.render("login.jsp");
 		    		}
 	    		
 	    		//Person is not in our database
 	    		} else {
 	    			request.setAttribute("errorMessage", "The user you have specified `"+cred+"` is invalid for the system.");
-	    			self.render("/login.jsp");
+	    			self.render("login.jsp");
 	    		}
 	    	} else {
 	    		self.redirect(urls.url("index"));

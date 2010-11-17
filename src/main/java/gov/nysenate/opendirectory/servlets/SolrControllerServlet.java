@@ -6,7 +6,6 @@ import gov.nysenate.opendirectory.servlets.utils.BaseServlet;
 import gov.nysenate.opendirectory.servlets.utils.Request;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.TreeSet;
 
 import javax.naming.NamingException;

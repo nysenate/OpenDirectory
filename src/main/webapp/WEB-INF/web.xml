@@ -34,7 +34,7 @@
 		<servlet-name>IndexServlet</servlet-name>
 		<servlet-class>gov.nysenate.opendirectory.servlets.IndexServlet</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>SearchServlet</servlet-name>
 		<servlet-class>gov.nysenate.opendirectory.servlets.SearchServlet</servlet-class>
@@ -100,7 +100,8 @@
 	
 	<servlet-mapping>
 		<servlet-name>IndexServlet</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>/home</url-pattern>
 	</servlet-mapping>
+	
 	
 </web-app>

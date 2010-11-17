@@ -1,15 +1,11 @@
 package gov.nysenate.opendirectory.servlets;
 
-import gov.nysenate.opendirectory.ldap.Ldap;
 import gov.nysenate.opendirectory.models.Person;
 import gov.nysenate.opendirectory.servlets.utils.BaseServlet;
 import gov.nysenate.opendirectory.servlets.utils.Request;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.StringTokenizer;
 
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +20,7 @@ public class PersonServlet extends BaseServlet {
 	    	try {
 	    		Person profile = self.solrSession.loadPersonByUid(uid);
 		    	request.setAttribute("person", profile);
-			    self.render("/profile.jsp");
+			    self.render("profile.jsp");
 	    	} catch (NullPointerException e) {
 	    		
 	    	}

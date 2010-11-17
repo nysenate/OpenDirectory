@@ -1,11 +1,12 @@
-<%@ page language="java" import="java.util.HashMap,java.util.TreeSet,java.util.StringTokenizer,gov.nysenate.opendirectory.models.Person"  %>
+<%@ page language="java" import="java.util.HashMap,java.util.TreeSet,java.util.StringTokenizer,gov.nysenate.opendirectory.models.Person,gov.nysenate.opendirectory.servlets.utils.UrlMapper"  %>
 <%! @SuppressWarnings("unchecked") %>
 <%  
+	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
 	HashMap<String,TreeSet<Person>> people = (HashMap<String,TreeSet<Person>>)request.getAttribute("people");
 %><html>
 	<head>
 		<title>Last Name Browse</title>
-		<link rel="stylesheet" type="text/css" href="/opendirectory/style.css" />
+		<link rel="stylesheet" type="text/css" href="<%=urls.url("css","style.css")%>" />
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready( function() {
@@ -45,7 +46,7 @@
 				<div id="<%=last%>"> 
 					<ul id="list_<%=nospace%>" class="people">
 						<% for(Person p : people.get(last)) { %>
-							<li> <a href="/opendirectory/person/<%=p.getUid()%>" class="people_url"><%=p.getFullName()%></a></li>
+							<li> <a href="<%=urls.url("person",p.getUid())%>" class="people_url"><%=p.getFullName()%></a></li>
 						<% } %>
 					</ul>
 				</div>

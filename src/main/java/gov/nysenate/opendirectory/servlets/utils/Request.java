@@ -43,7 +43,7 @@ public class Request {
 			httpRequest.setAttribute("user",user);
 		
 		httpRequest.setAttribute("urls",servlet.urls);
-		servlet.getServletContext().getRequestDispatcher(name).forward(httpRequest, httpResponse);
+		servlet.getServletContext().getRequestDispatcher("/jsp/"+name).forward(httpRequest, httpResponse);
 	}
 	
 	public void redirect(String name) throws IOException, ServletException {

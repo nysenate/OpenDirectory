@@ -14,7 +14,7 @@ public class IndexServlet extends BaseServlet {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Request self = new Request(this,request,response);
-		self.render("/index.jsp");
+		self.render("index.jsp");
 	}
 	
 }

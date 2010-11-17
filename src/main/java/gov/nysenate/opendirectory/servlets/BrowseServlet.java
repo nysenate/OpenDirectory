@@ -35,7 +35,7 @@ public class BrowseServlet extends BaseServlet {
 									new Person.ByDepartment()
 								)
 						);
-					self.render("/dept.jsp");
+					self.render("dept.jsp");
 					
 		    	} else if ( command.equals("firstname") ) {
 					request.setAttribute(
@@ -45,7 +45,7 @@ public class BrowseServlet extends BaseServlet {
 									new Person.ByFirstName()
 								)
 						);
-					self.render("/first.jsp");
+					self.render("first.jsp");
 					
 		    	} else if ( command.equals("lastname") ) {
 					request.setAttribute("people",
@@ -53,7 +53,7 @@ public class BrowseServlet extends BaseServlet {
 								Person.class.getMethod("getLastName"),
 								new Person.ByLastName())
 						);
-		    		self.render("/last.jsp");
+		    		self.render("last.jsp");
 		    		
 		    	} else if ( command.equals("location") ) {
 					request.setAttribute(
@@ -63,14 +63,14 @@ public class BrowseServlet extends BaseServlet {
 									new Person.ByLocation()
 								)
 						);
-					self.render("/loc.jsp");
+					self.render("loc.jsp");
 					
 		    	} else if ( command.equals("all") ) {
 		    		request.setAttribute("people", self.solrSession.loadPeople());
 		    		self.render("/showall.jsp");
 		    	}
 		    } else {
-		    	self.render("/index.jsp");
+		    	self.render("index.jsp");
 		    }
 		} catch (NoSuchMethodException e) {
 			//If the method by name doesn't exist

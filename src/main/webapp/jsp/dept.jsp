@@ -1,18 +1,20 @@
-<%@ page language="java" import="java.util.HashMap,java.util.TreeSet,java.util.StringTokenizer,gov.nysenate.opendirectory.models.Person"  %>
+<%@ page language="java" import="java.util.HashMap,java.util.TreeSet,java.util.StringTokenizer,gov.nysenate.opendirectory.models.Person,gov.nysenate.opendirectory.servlets.utils.UrlMapper"  %>
 <%! @SuppressWarnings("unchecked") %>
 <%  
+	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
 	HashMap<String,TreeSet<Person>> people = (HashMap<String,TreeSet<Person>>)request.getAttribute("people");
-%><html>
+%>
+<html>
 	<head>
-		<title>Location Browse</title>
-		<link rel="stylesheet" type="text/css" href="/opendirectory/style.css" />
+		<title>Department Browse</title>
+		<link rel="stylesheet" type="text/css" href="<%=urls.url("css","style.css")%>" />
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready( function() {
 				$(".entity_button").each( function() {
 					var button = $(this);
-					var loc = button.attr('id').split('_')[1];
-					var list = $("#list_"+loc);
+					var department = button.attr('id').split('_')[1];
+					var list = $("#list_"+department);
 					
 					$(this).toggle(
 						function() {
@@ -31,26 +33,29 @@
 	</head>
 	<body>
 		<div id="page">
-			<jsp:include page="header.jsp" />
+		<jsp:include page="header.jsp" />
 			<div id="main">
-				<% for(String loc : new TreeSet<String>(people.keySet()) ) {
-					StringTokenizer st = new StringTokenizer(loc," .-_'&");
+			<% for(String department : new TreeSet<String>(people.keySet()) ) {
+					StringTokenizer st = new StringTokenizer(department," .-_'&");
 					String nospace = "";
 					while( st.hasMoreElements()) nospace+=st.nextElement();
 					st = new StringTokenizer(nospace,"/");
 					nospace = "";
 					while( st.hasMoreElements()) nospace+="-"+st.nextElement();	%>
 					
-					<input type="button" value="+" id="button_<%=nospace%>" class="entity_button"></input> <span class="entity_title"><%=loc%></span> 
-					<div id="<%=loc%>"> 
+					<input type="button" value="+" id="button_<%=nospace%>" class="entity_button"></input> <span class="entity_title"><%=department%></span> 
+					<div id="<%=department%>"> 
 						<ul id="list_<%=nospace%>" class="people">
-							<% for(Person p : people.get(loc)) { %>
-								<li> <a href="/opendirectory/person/<%=p.getUid()%>" class="people_url"><%=p.getFullName()%></a></li>
+							<% for(Person p : people.get(department)) { %>
+								<li> <a href="<%=urls.url("person",p.getUid())%>" class="people_url"><%=p.getFullName()%></a></li>
 							<% } %>
 						</ul>
 					</div>
-				<% } %>
+			<% } %>
 			</div>
 		</div>
 	</body>
 </html>
+
+
+

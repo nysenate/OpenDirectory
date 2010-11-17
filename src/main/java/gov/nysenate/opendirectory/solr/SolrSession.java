@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-import org.apache.solr.analysis.KeywordTokenizerFactory;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
@@ -109,7 +108,6 @@ public class SolrSession {
 		solr_person.addField("permissions", permissions);
 		solr_person.addField("user_credential", credentials);
 		
-		System.out.println(permissions);
 		solr.server.add(solr_person);
 	}
 	

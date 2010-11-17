@@ -4,7 +4,6 @@ import gov.nysenate.opendirectory.models.Person;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.TreeSet;
 

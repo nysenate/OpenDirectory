@@ -1,9 +1,10 @@
-<%@ page language="java" import="gov.nysenate.opendirectory.models.Person" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
+<%@ page language="java" import="gov.nysenate.opendirectory.models.Person,gov.nysenate.opendirectory.servlets.utils.UrlMapper" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
+	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
 	Person person = (Person)request.getAttribute("person");
 %><!DOCTYPE html5>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="/opendirectory/style.css" />
+		<link rel="stylesheet" type="text/css" href="<%=urls.url("css","style.css")%>" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title><%=person.getFullName() %></title>
 	</head>
@@ -12,10 +13,10 @@
 			<jsp:include page="header.jsp" />
 			<div id="main">
 				<div id="pic">
-					<img src="/opendirectory/img/einstein.jpg" width="100" height="100">
+					<img src="<%=urls.url("img","einstein.jpg")%>" width="100" height="100">
 				</div>
-				<span id="top_info" class="right">
-	
+				<div id="top_info" class="right">
+				
 					<div id="name">
 						<b><%=person.getFullName()%></b>
 					</div>
@@ -24,7 +25,7 @@
 						<p><%=person.getPhone() %>, <a href="mailto:<%=person.getEmail()%>"><%=person.getEmail() %></a> </p>
 						<br></br>
 					</div>
-				</span>
+				</div>
 				<div id="bio">
 					<b>Bio</b>
 					<p>I am awesome and so is the NYSS team working on OpenDirectory which will redefine the way government works </p>

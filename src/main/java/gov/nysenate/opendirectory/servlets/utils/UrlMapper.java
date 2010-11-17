@@ -18,6 +18,7 @@ public class UrlMapper {
 		UrlMapper urls = new UrlMapper();
 		System.out.println(urls.url("person","opendirectory"));
 		System.out.println(urls.getCommand("/opendirectory/solr/"));
+		System.out.println(urls.url("css","style.css"));
 	}
 	
 	public String url(String controller,String command,String...args) {
@@ -25,6 +26,8 @@ public class UrlMapper {
 		
 		if(!controller.equals("index"))
 			url += controller+'/';
+		else
+			return url+"home";
 		
 		if(command!=null)
 			url += command;

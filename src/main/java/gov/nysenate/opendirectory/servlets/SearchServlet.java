@@ -28,7 +28,7 @@ public class SearchServlet extends BaseServlet {
 			request.setAttribute("results", results );
 		}
 		
-		self.render("/search.jsp");
+		self.render("search.jsp");
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
