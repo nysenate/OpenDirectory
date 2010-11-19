@@ -64,7 +64,7 @@ public class UrlMapper {
 		
 		String[] tokens = url.split("/");
 		if(tokens.length < 4)
-			return null;
+			return new ArrayList<String>();
 		else {
 			ArrayList<String> args = new ArrayList<String>();
 			for(int i=3; i < tokens.length; i++) {
