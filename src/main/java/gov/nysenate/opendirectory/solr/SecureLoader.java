@@ -58,10 +58,12 @@ public class SecureLoader {
 			        	} 
 	        		}
         		}
+        		
         		String fieldname = (String)fields.item(c).getAttributes().item(1).getNodeValue();
-        		if(fieldname.equals("user_credential")) {
+        		
+        		if(fieldname.equals("user_credential") || fieldname.equals("skills") || fieldname.equals("interests")) {
         			if(approved)
-        				person.setCredentials(Credentials((String)profile.getFieldValue("user_credential")));
+        				person.setCredentials(Credentials((String)profile.getFieldValue(fieldname)));
         			else
         				person.setCredentials(null);
         		} else if(fieldname.equals("permissions")){

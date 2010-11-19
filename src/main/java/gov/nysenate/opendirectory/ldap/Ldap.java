@@ -158,17 +158,13 @@ public class Ldap {
 		person.setUid(getAttribute(attributes,"uid"));
 		person.setLocation(getAttribute(attributes,"l"));
 		
-		TreeSet<String> cred_default = new TreeSet<String>();
-		cred_default.add("public");
-		
-		person.setPermissions(Person.getDefaultPermissions());
-		person.setCredentials(cred_default);
-		
 		String fullName = getAttribute(attributes,"displayname");
 		if (fullName!=null)
 			fullName = fullName.split("/")[0];
 		
 		person.setFullName(fullName);
+		
+		//Other person variables are set in SolrSession.java in AddPerson()
 		return person;
 	}
 }
