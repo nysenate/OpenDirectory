@@ -13,7 +13,7 @@
 			<jsp:include page="header.jsp" />
 			<div id="main">
 				<div id="pic">
-					<img src="<%=urls.url("img","einstein.jpg")%>" width="100" height="100">
+					<img src="<%=urls.url("img","einstein.jpg")%>" width="150" height="200">
 				</div>
 				<div id="top_info" class="right">
 				
@@ -27,7 +27,7 @@
 					</div>
 				</div>
 				<div id="bio">
-					<b>Bio</b>
+					<b>Biography</b>
 					<p>I am awesome and so is the NYSS team working on OpenDirectory which will redefine the way government works </p>
 				</div>
 			</div>

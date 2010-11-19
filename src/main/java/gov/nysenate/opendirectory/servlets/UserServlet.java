@@ -32,6 +32,8 @@ public class UserServlet extends BaseServlet {
     			self.httpSession.removeAttribute("uid");
 	    		
 	    		self.redirect(urls.url("index"));
+	    	} else if (command.equals("edit")) {
+	    		self.render("EditProfile.jsp");
 	    	}
 	    }
 		

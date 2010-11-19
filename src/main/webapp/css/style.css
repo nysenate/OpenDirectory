@@ -109,6 +109,10 @@ color: #FFFFFF
   {
 	float:left;
   }
+  #edit_pic 
+  {
+  float:eft;
+  }
   
   #nav_bar {
     color: white;
@@ -221,6 +225,21 @@ color: #FFFFFF
     margin: 20px;
     padding: 20px;
     background: #ffffff url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_block_footer_bg.png) repeat-x bottom left;
+}
+#edit_skills p
+{
+	font-style:italic;
+	font-size: 12px;
+}
+#edit_interests p
+{
+	font-style:italic;
+	font-size: 12px;
+}
+#edit_addinfo p
+{
+	font-weight:bold;
+	text-decoration:underline;
 }
 
 #name

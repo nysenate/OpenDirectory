@@ -18,7 +18,7 @@
 					<% if (results != null) { %>
 						<% for( Person result : results ) { %>
 						<div id="name_pic">
-							<img src="<%=urls.url("img","einstein.jpg")%>" width="50" height="50"/>
+							<img src="<%=urls.url("img","einstein.jpg")%>" width="100" height="100"/>
 							<a href="<%=urls.url("person",result.getUid())%>"> <%=result.getFullName()%></a>
 						</div>
 						<div id="search_info">
