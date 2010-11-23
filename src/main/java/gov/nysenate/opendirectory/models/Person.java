@@ -17,28 +17,30 @@ public class Person {
 	private TreeSet<String> credentials;
 	private HashMap<String,TreeSet<String>> permissions;
 	
-	@Field
+	private TreeSet<String> skills;
+	private TreeSet<String> interests;
+	
 	private String firstName;
-	@Field
 	private String lastName;
-	@Field
 	private String title;
-	@Field
 	private String uid;
-	@Field
 	private String fullName;
-	@Field
 	private String state;
-	@Field
 	private String location;
-	@Field
 	private String department;
-	@Field
 	private String phone;
-	@Field
 	private String email;
 	
-		
+	//additional Contact info
+	private String bio;
+	private String picture;
+	private String email2;
+	private String phone2;
+	private String twitter;
+	private String facebook;
+	private String linkedin;
+	private String IRC;
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -75,7 +77,36 @@ public class Person {
 	public TreeSet<String> getCredentials(){
 		return credentials;
 	}
-	
+	public String getBio(){
+		return bio;
+	}
+	public String getPic(){
+		return picture;
+	}
+	public String getLinkedin() {
+		return linkedin;
+	}
+	public String getFacebook() {
+		return facebook;
+	}
+	public String getTwitter() {
+		return twitter;
+	}
+	public String getPhone2() {
+		return phone2;
+	}
+	public String getEmail2() {
+		return email2;
+	}
+	public TreeSet<String> getInterests() {
+		return interests;
+	}
+	public TreeSet<String> getSkills() {
+		return skills;
+	}
+	public String getIRC() {
+		return IRC;
+	}
 	
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -113,7 +144,37 @@ public class Person {
 	public void setCredentials (TreeSet<String> credentials){
 		this.credentials = credentials;
 	}
-
+	public void setBio(String bio){
+		this.bio = bio;
+	}
+	public void setPic(String picture){
+		this.picture = picture;
+	}
+	public void setSkills(TreeSet<String> skills) {
+		this.skills = skills;
+	}
+	public void setInterests(TreeSet<String> interests) {
+		this.interests = interests;
+	}
+	public void setEmail2(String email2) {
+		this.email2 = email2;
+	}
+	public void setPhone2(String phone2) {
+		this.phone2 = phone2;
+	}
+	public void setTwitter(String twitter) {
+		this.twitter = twitter;
+	}
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+	public void setLinkedin(String linkedin) {
+		this.linkedin = linkedin;
+	}
+	public void setIRC(String iRC) {
+		IRC = iRC;
+	}
+	
 	public String toString() {
 		StringBuilder out = new StringBuilder();
 		out.append(fullName+"("+uid+")");
@@ -240,17 +301,29 @@ public class Person {
 		
 		HashMap<String, TreeSet<String>> permissions = new HashMap<String,TreeSet<String>>();
 		//for each field put in default permission
+		permissions.put("permissions", cred_admin);
+		permissions.put("user_credential", cred_admin);
+		permissions.put("uid", cred_default);
 		permissions.put("email", cred_default);
 		permissions.put("phone", cred_default);
 		permissions.put("state", cred_default);
 		permissions.put("department", cred_default);
 		permissions.put("title", cred_default);
-		permissions.put("uid", cred_default);
 		permissions.put("firstName", cred_default);
 		permissions.put("fullName", cred_default);
 		permissions.put("lastName", cred_default);
 		permissions.put("location", cred_default);
-		permissions.put("user_credential", cred_admin);
+		permissions.put("bio", cred_default);
+		permissions.put("picture", cred_default);
+		permissions.put("email2", cred_default);
+		permissions.put("phone2", cred_default);
+		permissions.put("twitter", cred_default);
+		permissions.put("facebook", cred_default);
+		permissions.put("linkedin", cred_default);
+		permissions.put("irc", cred_default);
+		permissions.put("skills", cred_default);
+		permissions.put("interests", cred_default);
+		
 		
 		return permissions;
 	}

@@ -91,9 +91,38 @@ public class SolrSession {
 	private void addPerson(Person person) throws SolrServerException, IOException {
 		SolrInputDocument solr_person = new SolrInputDocument();
 		
+		//If this person is just being pulled in from LDAP and is going to be added into Solr
+		if(person.getPermissions()==null)
+		{
+			//Initialize the rest of the person variables
+			TreeSet<String> cred_default = new TreeSet<String>();
+			cred_default.add("public");
+			
+			person.setPermissions(Person.getDefaultPermissions());
+			person.setCredentials(cred_default);
+			
+			person.setBio("");
+			person.setEmail2("");
+			person.setPhone2("");
+			person.setTwitter("");
+			person.setFacebook("");
+			person.setLinkedin("");
+			person.setIRC("");
+			person.setSkills(null);
+			person.setInterests(null);
+		}	
+		
 		String permissions = Permissions(person.getPermissions());
 		String credentials = person.getCredentials().toString().substring(1, person.getCredentials().toString().length()-1);
-			
+		String skills="";
+		String interests="";
+		
+		if(person.getSkills()!=null)
+			skills = person.getSkills().toString().substring(1, person.getSkills().toString().length()-1);
+		
+		if(person.getInterests()!=null)
+			interests = person.getInterests().toString().substring(1, person.getInterests().toString().length()-1);
+		
 		solr_person.addField("otype", "person", 1.0f);
 		solr_person.addField("firstName", person.getFirstName(), 1.0f);
 		solr_person.addField("lastName", person.getLastName(), 1.0f);
@@ -105,8 +134,22 @@ public class SolrSession {
 		solr_person.addField("department", person.getDepartment(), 1.0f);
 		solr_person.addField("phone", person.getPhone(), 1.0f);
 		solr_person.addField("email", person.getEmail(), 1.0f);
+		
 		solr_person.addField("permissions", permissions);
 		solr_person.addField("user_credential", credentials);
+		
+		
+		//additional contact info
+		solr_person.addField("bio", person.getBio(), 1.0f);
+		solr_person.addField("picture", person.getPic(), 1.0f);
+		solr_person.addField("email2", person.getEmail2(), 1.0f);
+		solr_person.addField("phone2", person.getPhone2(), 1.0f);
+		solr_person.addField("twitter", person.getTwitter(), 1.0f);
+		solr_person.addField("facebook", person.getFacebook(), 1.0f);
+		solr_person.addField("linkedin", person.getLinkedin(), 1.0f);
+		solr_person.addField("irc", person.getIRC(), 1.0f);
+		solr_person.addField("skills", skills, 1.0f);
+		solr_person.addField("interests", interests,1.0f);
 		
 		solr.server.add(solr_person);
 	}
@@ -122,8 +165,9 @@ public class SolrSession {
 		}
 		solr.server.commit();
 	}
-	
-/*	To be figured out... need to figure out annotations with Graylin
+
+/* FOR DYNAMIC FIELDS	
+ *	To be figured out... need to figure out annotations with Graylin
  * public AnnotatedField getAnnotatedField(Field field) {
 		org.apache.solr.client.solrj.beans.Field lf = field.getAnnotation(org.apache.solr.client.solrj.beans.Field.class);
 		if(lf != null) {
@@ -171,6 +215,8 @@ public class SolrSession {
 		
 
 		credentials+="</fields>";
+		//System.out.println(credentials);
+		
 		return credentials;
 		
 	}

@@ -49,16 +49,24 @@ public class Test {
 			Solr test_solr = new Solr();
 			test_solr.connect();
 			
-			Person test_person = new Person();
-			TreeSet<String> creds = new TreeSet<String>();
-			
-			creds.add("charlie_senate");
-			
-			test_person.setCredentials(creds);
-			
-			SolrSession test_session = new SolrSession(test_person, test_solr);
+			SolrSession test_session = new SolrSession(Person.getAdmin(), test_solr);
 			Person result = new Person();
-			result = test_session.loadPersonByName("codetestname");
+			result = test_session.loadPersonByName("Jared\\ Williams");
+			TreeSet<String> skills= new TreeSet<String>();
+			skills.add("java");
+			skills.add("programming");
+			
+//			//result.
+			//result.setSkills(skills);
+			
+			//System.out.println(result.getPermissions().get("uid"));
+			//test_solr.delete("Jared\\ Williams");
+			
+			System.out.println("deleted");
+			
+			test_session.savePerson(result);
+			
+			result = test_session.loadPersonByName("Jared\\ Williams");
 			
 			System.out.println(result.getLastName());
 			System.out.println(result.getLocation());
@@ -66,7 +74,8 @@ public class Test {
 			System.out.println(result.getDepartment());
 			System.out.println(result.getFullName());
 			System.out.println(result.getFirstName());
-			
+			System.out.println(result.getPermissions());
+			System.out.println(result.getSkills());
 			
 			/*SolrQuery query = new SolrQuery();
 			query.setQuery("id:codetes*");

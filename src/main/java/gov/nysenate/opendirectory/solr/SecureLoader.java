@@ -3,6 +3,7 @@ package gov.nysenate.opendirectory.solr;
 import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.util.TreeSet;
+import java.util.HashMap;
 
 import org.apache.solr.common.SolrDocument;
 import javax.xml.parsers.*;
@@ -35,35 +36,51 @@ public class SecureLoader {
 	        is.setCharacterStream(new StringReader(permissions_xml));
 	        
 	        Document doc = db.parse(is);
-	       
 	        NodeList fields = doc.getDocumentElement().getChildNodes();
-	        //Node field = new Node();
-	        TreeSet<String> permissions = new TreeSet<String>();
+	        
+	        //This is the TreeSet that will house credentials for each field
+	        TreeSet<String> field_credentials = new TreeSet<String>();
 	        
 	        Boolean approved;
 	        
 	        for(int c=0; c<fields.getLength(); c++)
 	        {
 	        	approved=false;
-	        	permissions = Permission((String)fields.item(c).getAttributes().item(0).getNodeValue());
+	        	field_credentials = Credentials((String)fields.item(c).getAttributes().item(0).getNodeValue());
 	        	
         		if(user.equals(Person.getAdmin()))
         			approved = true;
         		else {
-	        		for(String temp : permissions) {
+	        		for(String temp : field_credentials) {
 	        			if(user.getCredentials().contains(temp) == true) {
 		        			approved = true;
 		        			break;
 			        	} 
 	        		}
         		}
+        		
         		String fieldname = (String)fields.item(c).getAttributes().item(1).getNodeValue();
-        		if(fieldname.equals("user_credential")) {
+        		
+        		if(fieldname.equals("user_credential") || fieldname.equals("skills") || fieldname.equals("interests")) {
         			if(approved)
-        				person.setCredentials(Permission((String)profile.getFieldValue("user_credential")));
+        				person.setCredentials(Credentials((String)profile.getFieldValue(fieldname)));
         			else
         				person.setCredentials(null);
-        			
+        		} else if(fieldname.equals("permissions")){
+        			if(!approved)
+        				person.setPermissions(null);
+        			else{
+        				HashMap<String, TreeSet<String>> permission = new HashMap<String, TreeSet<String>>();
+        		        
+        				for(int i=0; i<fields.getLength(); i++)
+        				{
+        					field_credentials= Credentials((String)fields.item(i).getAttributes().item(0).getNodeValue());
+        					fieldname = (String)fields.item(i).getAttributes().item(1).getNodeValue();
+        					permission.put(fieldname, field_credentials);
+        				}
+        				
+        				person.setPermissions(permission);
+        			}
         		} else {
         			String setFieldName = "set"+fieldname.substring(0, 1).toUpperCase()+fieldname.substring(1);
             		Method setMethod = person.getClass().getMethod(setFieldName, String.class);
@@ -81,18 +98,18 @@ public class SecureLoader {
 		return person;
 	}
 	
-	public TreeSet<String> Permission(String credentials){
+	public TreeSet<String> Credentials(String credentials){
 		
-		TreeSet<String> permissions = new TreeSet<String>();
+		TreeSet<String> Credentials = new TreeSet<String>();
 		
 		String[] credentialset = credentials.split(", ");
 		
 		for(String temp : credentialset)
 		{
-			permissions.add(temp);
+			Credentials.add(temp);
 		}
 		
-		return permissions;
+		return Credentials;
 	}
 	
 }
