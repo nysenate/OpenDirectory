@@ -171,6 +171,9 @@ color: #FFFFFF
   	#search_info
   	{
   	font-size:15px;
+  	position: relative;
+  	left: 120px;
+  	bottom:70px;
   	}
   	#error
   	{
@@ -253,6 +256,10 @@ color: #FFFFFF
 #bio b
 {
 	font-size:24px;
+	
 }
+
 #footer {}
+
+
 

@@ -14,19 +14,23 @@
 		<div id="page">
 			<jsp:include page="header.jsp" />
 			<div id="main">
-				<h2> Search Results for:</h2> <h2 id="query"> <%= search_query %> </h2><br></br>
+				<h2> Search Results for:</h2> <h2 id="query"> <%= search_query %> </h2>
 					<% if (results != null) { %>
 						<% for( Person result : results ) { %>
 						<div id="name_pic">
 							<img src="<%=urls.url("img","einstein.jpg")%>" width="100" height="100"/>
-							<a href="<%=urls.url("person",result.getUid())%>"> <%=result.getFullName()%></a>
 						</div>
 						<div id="search_info">
+							<a href="<%=urls.url("person",result.getUid())%>"> <%=result.getFullName()%></a>
 							<p><%=result.getTitle() %> , <%=result.getLocation() %> - <%=result.getDepartment() %>  </p>
 						</div>
 						<% } %>
 					<% } else { %>
-						No query supplied 
+						<%if (results == null) { %>
+						
+						<p> Your Search did not return any results</p>
+						
+						<%} %>
 					<% } %>
 			</div>
 		</div>

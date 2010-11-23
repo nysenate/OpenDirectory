@@ -26,6 +26,8 @@
 						<br></br>
 					</div>
 				</div>
+				<br></br>
+				<br></br>
 				<div id="bio">
 					<b>Biography</b>
 					<p>I am awesome and so is the NYSS team working on OpenDirectory which will redefine the way government works </p>
