@@ -437,7 +437,7 @@
    <field name="linkedin" type="textgen" indexed="false" stored="true"/>
    <field name="twitter" type="textgen" indexed="false" stored="true"/>
    <field name="irc" type="textgen" indexed="true" stored="true"/>
-   <field name="picture" type="text" indexed="false" stored="true"/>
+   <field name="picture" type="text" indexed="true" stored="true"/>
    <field name="email2" type="textgen" indexed="true" stored="true"/>
    <field name="phone2" type="textgen" indexed="true" stored="true"/>
    <field name="permissions" type="string" indexed="false" stored="true"/>

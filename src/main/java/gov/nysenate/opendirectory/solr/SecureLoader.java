@@ -62,6 +62,8 @@ public class SecureLoader {
         		String fieldname = (String)fields.item(c).getAttributes().item(1).getNodeValue();
         		
         		if(fieldname.equals("user_credential") || fieldname.equals("skills") || fieldname.equals("interests")) {
+        			
+        			//System.out.println(fieldname);
         			if(approved)
         				person.setCredentials(Credentials((String)profile.getFieldValue(fieldname)));
         			else

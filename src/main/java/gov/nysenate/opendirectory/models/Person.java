@@ -14,6 +14,8 @@ public class Person {
 	
 	public Person() {}
 	
+	
+	//VARIABLES NEED TO BE EXACT STRING MATCHES OF SOLR SCHEMA.XML
 	private TreeSet<String> credentials;
 	private HashMap<String,TreeSet<String>> permissions;
 	
@@ -39,7 +41,7 @@ public class Person {
 	private String twitter;
 	private String facebook;
 	private String linkedin;
-	private String IRC;
+	private String irc;
 	
 	public String getFirstName() {
 		return firstName;
@@ -80,7 +82,7 @@ public class Person {
 	public String getBio(){
 		return bio;
 	}
-	public String getPic(){
+	public String getPicture(){
 		return picture;
 	}
 	public String getLinkedin() {
@@ -104,8 +106,8 @@ public class Person {
 	public TreeSet<String> getSkills() {
 		return skills;
 	}
-	public String getIRC() {
-		return IRC;
+	public String getIrc() {
+		return irc;
 	}
 	
 	public void setFirstName(String firstName) {
@@ -147,7 +149,7 @@ public class Person {
 	public void setBio(String bio){
 		this.bio = bio;
 	}
-	public void setPic(String picture){
+	public void setPicture(String picture){
 		this.picture = picture;
 	}
 	public void setSkills(TreeSet<String> skills) {
@@ -171,8 +173,8 @@ public class Person {
 	public void setLinkedin(String linkedin) {
 		this.linkedin = linkedin;
 	}
-	public void setIRC(String iRC) {
-		IRC = iRC;
+	public void setIrc(String IRC) {
+		this.irc = IRC;
 	}
 	
 	public String toString() {

@@ -101,15 +101,16 @@ public class SolrSession {
 			person.setPermissions(Person.getDefaultPermissions());
 			person.setCredentials(cred_default);
 			
-			person.setBio("");
-			person.setEmail2("");
-			person.setPhone2("");
-			person.setTwitter("");
-			person.setFacebook("");
-			person.setLinkedin("");
-			person.setIRC("");
+			person.setBio(" ");
+			person.setEmail2(" ");
+			person.setPhone2(" ");
+			person.setTwitter(" ");
+			person.setFacebook(" ");
+			person.setLinkedin(" ");
+			person.setIrc(" ");
 			person.setSkills(null);
 			person.setInterests(null);
+			person.setPicture(" ");
 		}	
 		
 		String permissions = Permissions(person.getPermissions());
@@ -141,13 +142,13 @@ public class SolrSession {
 		
 		//additional contact info
 		solr_person.addField("bio", person.getBio(), 1.0f);
-		solr_person.addField("picture", person.getPic(), 1.0f);
+		solr_person.addField("picture", person.getPicture(), 1.0f);
 		solr_person.addField("email2", person.getEmail2(), 1.0f);
 		solr_person.addField("phone2", person.getPhone2(), 1.0f);
 		solr_person.addField("twitter", person.getTwitter(), 1.0f);
 		solr_person.addField("facebook", person.getFacebook(), 1.0f);
 		solr_person.addField("linkedin", person.getLinkedin(), 1.0f);
-		solr_person.addField("irc", person.getIRC(), 1.0f);
+		solr_person.addField("irc", person.getIrc(), 1.0f);
 		solr_person.addField("skills", skills, 1.0f);
 		solr_person.addField("interests", interests,1.0f);
 		
