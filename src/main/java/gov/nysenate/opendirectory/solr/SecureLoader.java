@@ -19,7 +19,7 @@ public class SecureLoader {
 	public SecureLoader(Person user) {
 		this.user = user;
 	}
-	
+			
 	public Person loadPerson(SolrDocument profile) {
 		//Do the loading here
 		Person person = new Person();
@@ -27,7 +27,7 @@ public class SecureLoader {
 		//Dependent on matching user credentials and field credentials
 		//load into the person object		
 		String permissions_xml = (String)profile.getFieldValue("permissions");
-
+		
 		try {
 	        DocumentBuilderFactory dbf =
 	            DocumentBuilderFactory.newInstance();
@@ -62,8 +62,6 @@ public class SecureLoader {
         		String fieldname = (String)fields.item(c).getAttributes().item(1).getNodeValue();
         		
         		if(fieldname.equals("user_credential") || fieldname.equals("skills") || fieldname.equals("interests")) {
-        			
-        			//System.out.println(fieldname);
         			if(approved)
         				person.setCredentials(Credentials((String)profile.getFieldValue(fieldname)));
         			else
@@ -83,7 +81,14 @@ public class SecureLoader {
         				
         				person.setPermissions(permission);
         			}
-        		} else {
+        		} else if(fieldname.equals("bookmarks")){
+        			if(!approved)
+        				person.setBookmarks(null);
+        			else{
+        				person.setBookmarks(loadBookmarks((String)profile.getFieldValue("bookmarks")));
+        			}
+        		}
+        		else {
         			String setFieldName = "set"+fieldname.substring(0, 1).toUpperCase()+fieldname.substring(1);
             		Method setMethod = person.getClass().getMethod(setFieldName, String.class);
         			if(approved)
@@ -99,7 +104,37 @@ public class SecureLoader {
 	    }
 		return person;
 	}
-	
+
+	public HashMap<String, TreeSet<String>> loadBookmarks(String bookmarks_xml){
+		HashMap<String, TreeSet<String>> bookmark = new HashMap<String, TreeSet<String>>();
+	       
+		try {
+	        DocumentBuilderFactory dbf =
+	            DocumentBuilderFactory.newInstance();
+	        DocumentBuilder db = dbf.newDocumentBuilder();
+	        InputSource is = new InputSource();
+	        is.setCharacterStream(new StringReader(bookmarks_xml));
+	        
+	        Document doc = db.parse(is);
+	        NodeList users = doc.getDocumentElement().getChildNodes();
+	        	        
+	        //This is the TreeSet that will house fullnames for each userID
+	        TreeSet<String> fullname = new TreeSet<String>();
+	        String userid;
+	        
+	        for(int c=0; c<users.getLength(); c++){
+				fullname= Credentials((String)users.item(c).getAttributes().item(0).getNodeValue());
+				userid = (String)users.item(c).getAttributes().item(1).getNodeValue();
+				bookmark.put(userid, fullname);
+	        }
+		}
+		catch (Exception e) {
+	        e.printStackTrace();
+	    }
+		
+		return bookmark;
+	}
+
 	public TreeSet<String> Credentials(String credentials){
 		
 		TreeSet<String> Credentials = new TreeSet<String>();

@@ -101,19 +101,28 @@ public class SolrSession {
 			person.setPermissions(Person.getDefaultPermissions());
 			person.setCredentials(cred_default);
 			
-			person.setBio(" ");
-			person.setEmail2(" ");
-			person.setPhone2(" ");
-			person.setTwitter(" ");
-			person.setFacebook(" ");
-			person.setLinkedin(" ");
-			person.setIrc(" ");
+			person.setBio("");
+			person.setEmail2("");
+			person.setPhone2("");
+			person.setTwitter("");
+			person.setFacebook("");
+			person.setLinkedin("");
+			person.setIrc("");
 			person.setSkills(null);
 			person.setInterests(null);
-			person.setPicture(" ");
+			person.setBookmarks(null);
+			person.setPicture("");
 		}	
 		
+		//to pull in HashMap Permissions 
 		String permissions = Permissions(person.getPermissions());
+		
+		//to pull in HashMap bookmarks
+		String bookmarks="";
+		if(person.getBookmarks()!=null)
+			bookmarks= Bookmarks(person.getBookmarks());
+		
+		//to pull in interests and skills TreeSets
 		String credentials = person.getCredentials().toString().substring(1, person.getCredentials().toString().length()-1);
 		String skills="";
 		String interests="";
@@ -123,7 +132,7 @@ public class SolrSession {
 		
 		if(person.getInterests()!=null)
 			interests = person.getInterests().toString().substring(1, person.getInterests().toString().length()-1);
-		
+			
 		solr_person.addField("otype", "person", 1.0f);
 		solr_person.addField("firstName", person.getFirstName(), 1.0f);
 		solr_person.addField("lastName", person.getLastName(), 1.0f);
@@ -138,7 +147,8 @@ public class SolrSession {
 		
 		solr_person.addField("permissions", permissions);
 		solr_person.addField("user_credential", credentials);
-		
+		//add bookmarks
+		solr_person.addField("bookmarks", bookmarks);
 		
 		//additional contact info
 		solr_person.addField("bio", person.getBio(), 1.0f);
@@ -199,26 +209,46 @@ public class SolrSession {
 		String credentials = new String();
 		credentials="<fields>";
 		
-		String key;
+		String field;
 		String credential_list;
-		String temp;
+		String access_level;
 		
 		while(permission.hasNext())
 		{
-			key = permission.next().toString();
-			credential_list = permissions.get(key).toString();
-			temp = credential_list.substring(1, credential_list.length()- 1);
+			field = permission.next().toString();
+			credential_list = permissions.get(field).toString();
+			access_level = credential_list.substring(1, credential_list.length()- 1);
 			
-			credentials+="<field name=\"" + key + "\" allow = \"" + 
-				temp + "\"/>"; 
+			credentials+="<field name=\"" + field + "\" allow = \"" + 
+				access_level + "\"/>"; 
 			
 		}
-		
-
 		credentials+="</fields>";
-		//System.out.println(credentials);
-		
 		return credentials;
+	}
+	
+	public String Bookmarks(HashMap<String, TreeSet<String>> BOOKMARK)
+	{
+		Iterator<?> bookmark_iterator = BOOKMARK.keySet().iterator();
 		
+		//XML to be written
+		String bookmarks= new String();
+		bookmarks="<users>";
+		
+		String id;
+		String employee_list;
+		String fullname;
+		
+		while(bookmark_iterator.hasNext())
+		{
+			id = bookmark_iterator.next().toString();
+			employee_list = BOOKMARK.get(id).toString();
+			fullname = employee_list.substring(1, employee_list.length()-1);
+			
+			bookmarks+="<user id=\"" + id + "\" fullName = \"" + fullname + "\"/>";
+		}
+		
+		bookmarks+="</users>";
+		return bookmarks;
 	}
 }

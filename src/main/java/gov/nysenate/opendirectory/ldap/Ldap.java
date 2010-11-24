@@ -167,8 +167,8 @@ public class Ldap {
 		return person;
 	}
 }
-/*
-	try {
+
+/*	try {
 		//create the default set of Search Controls
 		SearchControls controls = new SearchControls();
 		

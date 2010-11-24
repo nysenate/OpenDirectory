@@ -16,8 +16,19 @@ public class Person {
 	
 	
 	//VARIABLES NEED TO BE EXACT STRING MATCHES OF SOLR SCHEMA.XML
+	/*If you want to add variables, you also have to add in logic in 
+	 * SolrSession.addPerson(), SecureLoader.loadPerson(), and Person.getDefaultPermissions()
+	 * 
+	 * If you want to add a Hashmap you also have to copy logic in 
+	 * SolrSession.Permissions() and SolrSession.Bookmarks().
+	 * Also, pay particular attention to SecureLoader.loadPerson() and 
+	 * see the if statements regarding the fields "permission" and "bookmarks"
+	 */
+	
+	
 	private TreeSet<String> credentials;
 	private HashMap<String,TreeSet<String>> permissions;
+	private HashMap<String, TreeSet<String>> bookmarks;
 	
 	private TreeSet<String> skills;
 	private TreeSet<String> interests;
@@ -109,7 +120,13 @@ public class Person {
 	public String getIrc() {
 		return irc;
 	}
+	public HashMap<String, TreeSet<String>> getBookmarks() {
+		return bookmarks;
+	}
 	
+	public void setBookmarks(HashMap<String, TreeSet<String>> bookmarks) {
+		this.bookmarks = bookmarks;
+	}
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -273,11 +290,11 @@ public class Person {
 			admin = new Person();
 			admin.setFullName("Administrator");
 			
-			TreeSet<String> cred_default = new TreeSet<String>();
-			cred_default.add("public");
-			cred_default.add("admin");
+			TreeSet<String> cred_admin = new TreeSet<String>();
+			cred_admin.add("public");
+			cred_admin.add("admin");
 			admin.setPermissions(new HashMap<String,TreeSet<String>>());
-			admin.setCredentials(cred_default);	
+			admin.setCredentials(cred_admin);	
 		}
 		return admin;
 	}
@@ -305,6 +322,8 @@ public class Person {
 		//for each field put in default permission
 		permissions.put("permissions", cred_admin);
 		permissions.put("user_credential", cred_admin);
+		permissions.put("bookmarks", cred_admin);
+		
 		permissions.put("uid", cred_default);
 		permissions.put("email", cred_default);
 		permissions.put("phone", cred_default);
@@ -325,7 +344,6 @@ public class Person {
 		permissions.put("irc", cred_default);
 		permissions.put("skills", cred_default);
 		permissions.put("interests", cred_default);
-		
 		
 		return permissions;
 	}
