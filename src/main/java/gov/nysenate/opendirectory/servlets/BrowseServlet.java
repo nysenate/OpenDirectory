@@ -28,6 +28,7 @@ public class BrowseServlet extends BaseServlet {
 			System.out.println(command);
 		    if (command != null) {
 		    	if ( command.equals("department")) {
+		    		long start = System.nanoTime();
 					request.setAttribute(
 							"people",
 							GetPeopleSortedByString(self,
@@ -35,9 +36,11 @@ public class BrowseServlet extends BaseServlet {
 									new Person.ByDepartment()
 								)
 						);
+					System.out.println("Sort by Department: "+(System.nanoTime()-start)/1000000f+" milliseconds");
 					self.render("dept.jsp");
 					
 		    	} else if ( command.equals("firstname") ) {
+		    		long start = System.nanoTime();
 					request.setAttribute(
 							"people",
 							GetPeopleSortedByChar(self,
@@ -45,17 +48,21 @@ public class BrowseServlet extends BaseServlet {
 									new Person.ByFirstName()
 								)
 						);
+					System.out.println("Sort by Firstname: "+(System.nanoTime()-start)/1000000f+" milliseconds");
 					self.render("first.jsp");
 					
 		    	} else if ( command.equals("lastname") ) {
+		    		long start = System.nanoTime();
 					request.setAttribute("people",
 							GetPeopleSortedByChar(self,
 								Person.class.getMethod("getLastName"),
 								new Person.ByLastName())
 						);
+					System.out.println("Sort by LastName: "+(System.nanoTime()-start)/1000000f+" milliseconds");
 		    		self.render("last.jsp");
 		    		
 		    	} else if ( command.equals("location") ) {
+		    		long start = System.nanoTime();
 					request.setAttribute(
 							"people",
 							GetPeopleSortedByString(self,
@@ -63,6 +70,7 @@ public class BrowseServlet extends BaseServlet {
 									new Person.ByLocation()
 								)
 						);
+					System.out.println("Sort by Location: "+(System.nanoTime()-start)/1000000f+" milliseconds");
 					self.render("loc.jsp");
 					
 		    	} else if ( command.equals("all") ) {
@@ -83,7 +91,9 @@ public class BrowseServlet extends BaseServlet {
 		
 	private HashMap<String,TreeSet<Person>> GetPeopleSortedByChar(Request self, Method method, Comparator<Person> comparator) {
 		try {
+			long start = System.nanoTime();
 			ArrayList<Person> people = self.solrSession.loadPeople();
+			System.out.println("loading people in: "+(System.nanoTime()-start)/1000000f+" milliseconds");
 			HashMap<String,TreeSet<Person>> data = new HashMap<String,TreeSet<Person>>();
 			for(Person p : people) {
 				try {
@@ -115,7 +125,9 @@ public class BrowseServlet extends BaseServlet {
 
 	private HashMap<String,TreeSet<Person>> GetPeopleSortedByString(Request self,Method method, Comparator<Person> comparator) {
 		try {
+			long start = System.nanoTime();
 			ArrayList<Person> people = self.solrSession.loadPeople();
+			System.out.println((System.nanoTime()-start)/1000000f+" ms - Load People");
 			HashMap<String,TreeSet<Person>> data = new HashMap<String,TreeSet<Person>>();
 			for(Person p : people) {
 				try {

@@ -52,9 +52,9 @@ public class Test {
 			SolrSession test_session = new SolrSession(Person.getAdmin(), test_solr);
 			Person result = new Person();
 			result = test_session.loadPersonByName("Jared\\ Williams");
-			TreeSet<String> skills= new TreeSet<String>();
-			skills.add("java");
-			skills.add("programming");
+			TreeSet<String> fullname= new TreeSet<String>();
+			fullname.add("Jared Chausow");
+			//result.getBookmarks().put("chausow", fullname);
 			
 //			//result.
 			//result.setSkills(skills);
@@ -76,6 +76,7 @@ public class Test {
 			System.out.println(result.getFirstName());
 			System.out.println(result.getPermissions());
 			System.out.println(result.getSkills());
+			System.out.println(result.getBookmarks());
 			
 			/*SolrQuery query = new SolrQuery();
 			query.setQuery("id:codetes*");
