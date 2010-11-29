@@ -6,6 +6,7 @@ import gov.nysenate.opendirectory.servlets.utils.BaseServlet;
 import gov.nysenate.opendirectory.servlets.utils.Request;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.TreeSet;
 
 import javax.naming.NamingException;
@@ -70,14 +71,17 @@ public class SolrControllerServlet extends BaseServlet {
 	}
 	
 	private void indexExtras(Request self) throws SolrServerException, IOException {
+		
 		Person opendirectory = new Person();
 		opendirectory.setFullName("OpenDirectory");
+		opendirectory.setFirstName("SenBook");
 		opendirectory.setUid("opendirectory");
-		TreeSet<String> cred_default = new TreeSet<String>();
-		cred_default.add("public");
-				
+		opendirectory.setBio("Origionally code named SenBook, the project was then renamed OpenDirectory and development began in the Java Servlets Environment as part of an RPI capstone course.");
+		opendirectory.setSkills(new TreeSet<String>(Arrays.asList("Java","Solr","Ldap","Varnish")));
+		opendirectory.setInterests(new TreeSet<String>(Arrays.asList("Python","Open Source")));
+		
 		opendirectory.setPermissions(Person.getDefaultPermissions());
-		opendirectory.setCredentials(cred_default);
+		opendirectory.setCredentials(new TreeSet<String>(Arrays.asList("public","senate")));
 		self.solrSession.savePerson(opendirectory);
 		self.solrSession.optimize();
 	}

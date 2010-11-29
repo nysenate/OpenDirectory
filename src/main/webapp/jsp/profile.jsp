@@ -30,20 +30,20 @@
 				<br></br>
 				<div id="bio">
 					<b>Biography</b>
-					<p>I am awesome and so is the NYSS team working on OpenDirectory which will redefine the way government works </p>
+					<p><%=person.getBio() %></p>
 				</div>
 			</div>
 			<div id="interests">
 				<b>Interests</b>
-				<p>Basketball, Baseball, Movies, Chess, Video Games, Other things</p>
+				<p><%=person.getInterests().toString().substring(1,person.getInterests().toString().length()-1) %></p>
 			</div>
 			<div id="skills">
 				<b>Skills</b>
-				<p>Web Development, Java, C++, PHP, C#, Python, Writing  </p>
+				<p><%=person.getSkills().toString().substring(1,person.getSkills().toString().length()-1) %></p>
 			</div>
 			<div id="add_info">
 				<b>Additional Information</b>
-				<p>Follow me on <a href=""> Twitter </a> and <a href=""> Facebook </a></p>
+				<p>Follow me on <a href="<%= person.getTwitter() %>"> Twitter </a> and <a href="<%= person.getFacebook() %>"> Facebook </a></p>
 			</div>
 		</div>
 	</body>

@@ -330,35 +330,33 @@ public class Person {
 	}
 	
 	public static HashMap<String,TreeSet<String>> getDefaultPermissions() {
-		TreeSet<String> cred_default = new TreeSet<String>(Arrays.asList("public"));
-		TreeSet<String> cred_admin = new TreeSet<String>(Arrays.asList("admin"));
 		
 		HashMap<String, TreeSet<String>> permissions = new HashMap<String,TreeSet<String>>();
 		//for each field put in default permission
-		permissions.put("permissions", cred_admin);
-		permissions.put("user_credential", cred_admin);
-		permissions.put("bookmarks", cred_admin);
+		permissions.put("permissions", new TreeSet<String>(Arrays.asList("admin")));
+		permissions.put("user_credential", new TreeSet<String>(Arrays.asList("admin")));
+		permissions.put("bookmarks", new TreeSet<String>(Arrays.asList("admin")));
 		
-		permissions.put("uid", cred_default);
-		permissions.put("email", cred_default);
-		permissions.put("phone", cred_default);
-		permissions.put("state", cred_default);
-		permissions.put("department", cred_default);
-		permissions.put("title", cred_default);
-		permissions.put("firstName", cred_default);
-		permissions.put("fullName", cred_default);
-		permissions.put("lastName", cred_default);
-		permissions.put("location", cred_default);
-		permissions.put("bio", cred_default);
-		permissions.put("picture", cred_default);
-		permissions.put("email2", cred_default);
-		permissions.put("phone2", cred_default);
-		permissions.put("twitter", cred_default);
-		permissions.put("facebook", cred_default);
-		permissions.put("linkedin", cred_default);
-		permissions.put("irc", cred_default);
-		permissions.put("skills", cred_default);
-		permissions.put("interests", cred_default);
+		permissions.put("uid", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("email", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("phone", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("state", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("department", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("title", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("firstName", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("fullName", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("lastName", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("location", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("bio", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("picture", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("email2", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("phone2", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("twitter", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("facebook", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("linkedin", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("irc", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("skills", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("interests", new TreeSet<String>(Arrays.asList("public")));
 		
 		return permissions;
 	}
