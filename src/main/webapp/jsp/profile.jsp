@@ -29,21 +29,29 @@
 				<br></br>
 				<br></br>
 				<div id="bio">
+					<% if(person.getBio()!=null) { %>
 					<b>Biography</b>
 					<p><%=person.getBio() %></p>
+					<% } %>
 				</div>
 			</div>
 			<div id="interests">
-				<b>Interests</b>
-				<p><%=person.getInterests().toString().substring(1,person.getInterests().toString().length()-1) %></p>
+				<% if(person.getInterests()!=null) { %>
+					<b>Interests</b>
+					<p><%=person.getInterests().toString().substring(1,person.getInterests().toString().length()-1) %></p>
+				<% } %>
 			</div>
 			<div id="skills">
+				<% if(person.getSkills()!=null) { %>
 				<b>Skills</b>
 				<p><%=person.getSkills().toString().substring(1,person.getSkills().toString().length()-1) %></p>
+				<% } %>
 			</div>
 			<div id="add_info">
+				<% if(person.getInterests()!=null) { %>
 				<b>Additional Information</b>
 				<p>Follow me on <a href="<%= person.getTwitter() %>"> Twitter </a> and <a href="<%= person.getFacebook() %>"> Facebook </a></p>
+				<% } %>
 			</div>
 		</div>
 	</body>
