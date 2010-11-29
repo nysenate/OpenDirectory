@@ -1,10 +1,9 @@
 package gov.nysenate.opendirectory.models;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.TreeSet;
-
-import org.apache.solr.client.solrj.beans.Field;
 
 public class Person {
 	/** 
@@ -12,7 +11,25 @@ public class Person {
 	 * Java Expressions Language (EL) of JSP 2.0+
 	**/
 	
-	public Person() {}
+	public Person() {
+		
+		//Need to set defaults for everything else here...
+		setBio("");
+		setEmail2("");
+		setPhone2("");
+		setTwitter("");
+		setFacebook("");
+		setLinkedin("");
+		setIrc("");
+		setSkills(null);
+		setInterests(null);
+		setBookmarks(null);
+		setPicture("");
+		
+		//All people must have permissions and credentials
+		setPermissions(Person.getDefaultPermissions());
+		setCredentials(new TreeSet<String>(Arrays.asList("public")));
+	}
 	
 	
 	//VARIABLES NEED TO BE EXACT STRING MATCHES OF SOLR SCHEMA.XML
@@ -28,7 +45,7 @@ public class Person {
 	
 	private TreeSet<String> credentials;
 	private HashMap<String,TreeSet<String>> permissions;
-	private HashMap<String, TreeSet<String>> bookmarks;
+	private HashMap<String, String> bookmarks;
 	
 	private TreeSet<String> skills;
 	private TreeSet<String> interests;
@@ -120,11 +137,11 @@ public class Person {
 	public String getIrc() {
 		return irc;
 	}
-	public HashMap<String, TreeSet<String>> getBookmarks() {
+	public HashMap<String, String> getBookmarks() {
 		return bookmarks;
 	}
 	
-	public void setBookmarks(HashMap<String, TreeSet<String>> bookmarks) {
+	public void setBookmarks(HashMap<String, String> bookmarks) {
 		this.bookmarks = bookmarks;
 	}
 	public void setFirstName(String firstName) {
@@ -313,10 +330,8 @@ public class Person {
 	}
 	
 	public static HashMap<String,TreeSet<String>> getDefaultPermissions() {
-		TreeSet<String> cred_default = new TreeSet<String>();
-		cred_default.add("public");
-		TreeSet<String> cred_admin = new TreeSet<String>();
-		cred_admin.add("admin");
+		TreeSet<String> cred_default = new TreeSet<String>(Arrays.asList("public"));
+		TreeSet<String> cred_admin = new TreeSet<String>(Arrays.asList("admin"));
 		
 		HashMap<String, TreeSet<String>> permissions = new HashMap<String,TreeSet<String>>();
 		//for each field put in default permission

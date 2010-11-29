@@ -30,8 +30,8 @@ public class UserServlet extends BaseServlet {
 	    		
 	    	} else if (command.equals("logout")) {
     			self.httpSession.removeAttribute("uid");
-	    		
 	    		self.redirect(urls.url("index"));
+	    		
 	    	} else if (command.equals("edit")) {
 	    		self.render("EditProfile.jsp");
 	    	}

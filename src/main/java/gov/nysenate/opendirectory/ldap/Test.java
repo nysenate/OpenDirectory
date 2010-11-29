@@ -54,7 +54,7 @@ public class Test {
 			result = test_session.loadPersonByName("Jared\\ Williams");
 			TreeSet<String> fullname= new TreeSet<String>();
 			fullname.add("Jared Chausow");
-			result.getBookmarks().put("chausow", fullname);
+			//result.getBookmarks().put("chausow", fullname);
 			
 //			//result.
 			//result.setSkills(skills);

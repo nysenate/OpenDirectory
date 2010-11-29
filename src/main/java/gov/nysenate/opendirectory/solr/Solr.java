@@ -5,29 +5,50 @@ import gov.nysenate.opendirectory.models.Person;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer;
 import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.core.CoreContainer;
+import org.xml.sax.SAXException;
 
 public class Solr {
 	
 	protected SolrServer server;
-	
+	protected SolrQuery query;
 	public Solr() {
 		server = null;
+		query = new SolrQuery();
 	}
 
 	public Solr connect() {
 		try {
-			//Could use EmbeddedSolrServer(), depends on how we are setting up the environments?
+			/*
+			try {
+				//Could use EmbeddedSolrServer(), depends on how we are setting up the environments?
+				System.setProperty("solr.solr.home", "/usr/local/solr");
+				server = (SolrServer)new EmbeddedSolrServer(new CoreContainer.Initializer().initialize(),"");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			*/
 			server = (SolrServer)new CommonsHttpSolrServer("http://localhost:8080/solr/");
 			return this;
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-			return null;
 		}
+		return null;
 	}
 	
 	public SolrSession newSession(Person user) {
@@ -40,11 +61,10 @@ public class Solr {
 	
 	public QueryResponse query(String term, int results) {
 		try {
-			SolrQuery query = new SolrQuery();
 			query.setQuery(term);
 			query.setRows(results);
 			return server.query(query);
-
+			
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 			return null;

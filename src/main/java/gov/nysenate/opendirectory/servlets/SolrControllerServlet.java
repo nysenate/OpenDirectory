@@ -30,15 +30,17 @@ public class SolrControllerServlet extends BaseServlet {
 		    		removeAll(self);
 		    		out.println("Removed all documents");
 		    	} else if (command.equals("indexAll")) {
-		    		indexAll(self);
+		    		indexLdap(self);
+		    		indexExtras(self);
 		    		out.println("Indexed all Documents");
 		    	} else if (command.equals("indexExtras")) {
 		    		indexExtras(self);
 		    		out.println("Indexed all Extras");
 		    	} else if (command.equals("reindexAll")) {
 		    		removeAll(self);
-		    		indexAll(self);
-		    		out.println("Remove and Reindexed All documents");
+		    		indexLdap(self);
+		    		indexExtras(self);
+		    		out.println("Removed and Reindexed All documents");
 		    	} else {
 		    		out.println("Unknown command: "+command);
 		    		out.println("Recognized Commands are: removeAll,indexAll, and reindexAll");
@@ -58,9 +60,10 @@ public class SolrControllerServlet extends BaseServlet {
 		self.solrSession.deleteAll();
 	}
 	
-	private void indexAll(Request self) throws SolrServerException, IOException  {
+	private void indexLdap(Request self) throws SolrServerException, IOException  {
 		try{
 			self.solrSession.savePeople(new Ldap().connect().getPeople());
+			self.solrSession.optimize();
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -76,5 +79,6 @@ public class SolrControllerServlet extends BaseServlet {
 		opendirectory.setPermissions(Person.getDefaultPermissions());
 		opendirectory.setCredentials(cred_default);
 		self.solrSession.savePerson(opendirectory);
+		self.solrSession.optimize();
 	}
 }
