@@ -42,6 +42,19 @@ public class UserServlet extends BaseServlet {
 	    	} else if (command.equals("edit")) {
 	    		self.httpRequest.setAttribute("person", self.user);
 	    		self.render("EditProfile.jsp");
+	    		
+	    	} else if (command.equals("addbookmark")) {
+	    		
+	    		try {
+	    			String uid = urls.getArgs(request).iterator().next();
+		    		self.user.getBookmarks().add(self.solrSession.loadPersonByUid(uid));
+					self.solrSession.savePerson(self.user);
+					self.redirect(urls.url("person",uid));
+				} catch (SolrServerException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    		
 	    	}
 	    }
 		

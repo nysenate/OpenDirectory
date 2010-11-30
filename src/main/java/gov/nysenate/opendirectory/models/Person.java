@@ -1,5 +1,6 @@
 package gov.nysenate.opendirectory.models;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -45,7 +46,7 @@ public class Person {
 	
 	private TreeSet<String> credentials;
 	private HashMap<String,TreeSet<String>> permissions;
-	private HashMap<String, String> bookmarks;
+	private ArrayList<Person> bookmarks;
 	
 	private TreeSet<String> skills;
 	private TreeSet<String> interests;
@@ -137,11 +138,11 @@ public class Person {
 	public String getIrc() {
 		return irc;
 	}
-	public HashMap<String, String> getBookmarks() {
+	public ArrayList<Person> getBookmarks() {
 		return bookmarks;
 	}
 	
-	public void setBookmarks(HashMap<String, String> bookmarks) {
+	public void setBookmarks(ArrayList<Person> bookmarks) {
 		this.bookmarks = bookmarks;
 	}
 	public void setFirstName(String firstName) {
