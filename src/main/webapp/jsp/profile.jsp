@@ -1,6 +1,7 @@
 <%@ page language="java" import="gov.nysenate.opendirectory.models.Person,gov.nysenate.opendirectory.servlets.utils.UrlMapper" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
 	Person person = (Person)request.getAttribute("person");
+	Person user = (Person)request.getAttribute("user");
 %><!DOCTYPE html5>
 <html>
 	<head>
@@ -23,6 +24,7 @@
 					<div id="info">
 						<p><%=person.getTitle() %> , <%=person.getLocation() %> - <%=person.getDepartment() %>  </p>
 						<p><%=person.getPhone() %>, <a href="mailto:<%=person.getEmail()%>"><%=person.getEmail() %></a> </p>
+						<a href="<%=urls.url("user","addbookmark",person.getUid())%>"> Add Me to Your Bookmarks!</a>
 						<br></br>
 					</div>
 				</div>
