@@ -1,8 +1,8 @@
 <%@ page language="java" import="gov.nysenate.opendirectory.models.Person,gov.nysenate.opendirectory.servlets.utils.UrlMapper,java.util.TreeSet,java.util.HashMap" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
-	Person person = (Person)request.getAttribute("person");
+	Person user = (Person)request.getAttribute("user");
 	String message = (String)request.getAttribute("message");
-	HashMap<String,TreeSet<String>> permissions = person.getPermissions();
+	HashMap<String,TreeSet<String>> permissions = user.getPermissions();
 %><%!
 
 public String writeRadio(String name, String type, boolean checked) {
@@ -34,38 +34,59 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 				<form action="" method="POST">
 					<div id="edit_pic">
 						<img src="<%=urls.url("img","einstein.jpg")%>" width="200" height="200">
-						<br></br>
+						<br/><br/>
 						<a href=""> Change Profile Picture </a>
-						<br></br>
 					</div>
-					<div id="edit_bio">
-						<br></br>
-						<b>Biography</b>
-						<%= writeRadios("bio",permissions.get("bio")) %>
-						<br></br>
-						<textarea name="bio" cols="100" rows="5"><%=person.getBio()%></textarea><br></br>
+					<br/>
+					<div id="edit_contactinfo">
+						<br/><br/>
+						<p>Contact Information</p>
+						<b>E-mail</b>: <%=user.getEmail()%> <%= writeRadios("email",permissions.get("email")) %>
+						<br/><br/>
+						<b>Phone</b>: <%=user.getPhone()%> <%= writeRadios("phone",permissions.get("phone")) %>
+						<br/><br/>
+						<b>Department</b>: <%=user.getDepartment()%> <%= writeRadios("department",permissions.get("department")) %>
+						<br/><br/>
+						<b>Title</b>: <%=user.getTitle()%> <%= writeRadios("title",permissions.get("title")) %>
+						<br/><br/>
+						<b>Location</b>: <%=user.getLocation()%> <%= writeRadios("location",permissions.get("location")) %>
+						<br/><br/>
 					</div>
-					<div id="edit_skills">
-						<b>Skills</b>
-						<%= writeRadios("skills",permissions.get("skills")) %>
-						<p>**Separate Skills With a Comma or Semicolon</p>
-						<textarea name="skills" cols="100" rows="5"><%=person.getSkills().toString().substring(1,person.getSkills().toString().length()-1) %></textarea><br>
-					</div>
-					<div id="edit_interests">
-						<br></br>
-						<b>Interests</b>
-						<%= writeRadios("interests",permissions.get("interests")) %>
-						<p>**Separate Interests With a Comma or Semicolon</p>
-						<textarea name="interests" cols="100" rows="5"><%=person.getInterests().toString().substring(1,person.getInterests().toString().length()-1) %></textarea><br>
-					</div>
+					<br/>
 					<div id="edit_addinfo">
 						<p>Additional Contact Information</p>
-						<b>E-mail</b> <input type="text"></input><%= writeRadios("email",permissions.get("email")) %>
+						<b>E-mail</b> <input type="text"><%= writeRadios("email2",permissions.get("email2")) %>
 						<br></br>
-						<b>Phone</b> <input type="text"></input><%= writeRadios("phone",permissions.get("phone")) %>
+						<b>Phone</b> <input type="text"></input><%= writeRadios("phone2",permissions.get("phone2")) %>
 						<br></br>
 						<b>IRC Alias</b> <input type="text"></input><%= writeRadios("irc",permissions.get("irc")) %>
-						<br></br>
+					</div>
+					<br/>
+					<div id="edit_generalinfo">
+						<p>General Information</p>
+						<div id="edit_bio">
+							<b>Biography</b>
+							<%= writeRadios("bio",permissions.get("bio")) %>
+							<br></br>
+							<textarea name="bio" cols="100" rows="5"><%=user.getBio()%></textarea><br></br>
+						</div>
+						<div id="edit_skills">
+							<b>Skills</b>
+							<%= writeRadios("skills",permissions.get("skills")) %>
+							<p>**Separate Skills With a Comma or Semicolon</p>
+							<textarea name="skills" cols="100" rows="2"><%=user.getSkills().toString().substring(1,user.getSkills().toString().length()-1) %></textarea><br>
+						</div>
+						<div id="edit_interests">
+							<br></br>
+							<b>Interests</b>
+							<%= writeRadios("interests",permissions.get("interests")) %>
+							<p>**Separate Interests With a Comma or Semicolon</p>
+							<textarea name="interests" cols="100" rows="2"><%=user.getInterests().toString().substring(1,user.getInterests().toString().length()-1) %></textarea><br>
+						</div>
+					</div>
+					<br/>
+					<div id="edit_socialinfo">
+						<p>Social Links</p>
 						<b>LinkedIn</b> <input type="text"></input><%= writeRadios("linkedin",permissions.get("linkedin")) %>
 						<br></br>
 						<b>FaceBook</b> <input type="text"></input><%= writeRadios("facebook",permissions.get("facebook")) %>

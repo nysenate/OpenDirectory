@@ -29,7 +29,6 @@ public class SolrSession {
 		for(int i=0; i<10; i++)
 			solr.loadPeople();
 		
-		
 		/*
 		//Test bookmark writing
 		HashMap<String,String> bookmarks = new HashMap<String,String>();
