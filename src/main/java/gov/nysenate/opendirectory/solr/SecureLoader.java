@@ -166,41 +166,6 @@ public class SecureLoader {
 		long end = System.nanoTime();
 		//System.out.println((end-start)/1000f+" microsecond load");
 		
-		/*
-		try {
-			
-			// Get and parse the XML permissions doc
-			// Its very important that this document have no whitespace
-			// as blank child text nodes are not filtered out below
-			long start = System.nanoTime();
-	        source.setCharacterStream(new StringReader((String)profile.getFieldValue("permissions")));
-			NodeList fields = builder.parse(source).getDocumentElement().getChildNodes();
-	        long parsed = System.nanoTime();
-	        
-	        for(int c=0; c<fields.getLength(); c++) {
-	        	
-        		//If they don't have permissions, skip this field
-        		if(!isApproved(user,fields.item(c)))
-    				continue;
-        		
-        		//Load the field in question
-        		String fieldname = (String)fields.item(c).getAttributes().item(1).getNodeValue();
-        		Object fieldvalue = profile.getFieldValue(fieldname);
-        		
-        		//Handle the field setting
-        		setField(person,fields,fieldname,fieldvalue);
-	        }
-	        long end = System.nanoTime();
-	        System.out.println((end-start)/1000f+" microseconds total. "+((parsed-start)/1000f)/((end-start)/1000f)+"% on parsing.");
-	        
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 		return person;
 	}
 
@@ -243,7 +208,7 @@ public class SecureLoader {
 	}
 	
 	public TreeSet<String> loadStringSet(String str) {
-		if(str==null)
+		if(str==null || str.isEmpty())
 			return new TreeSet<String>();
 		return new TreeSet<String>(Arrays.asList(str.split(", ")));
 	}
