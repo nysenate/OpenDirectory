@@ -1,10 +1,10 @@
 package gov.nysenate.opendirectory.models;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.TreeSet;
-
-import org.apache.solr.client.solrj.beans.Field;
 
 public class Person {
 	/** 
@@ -12,33 +12,66 @@ public class Person {
 	 * Java Expressions Language (EL) of JSP 2.0+
 	**/
 	
-	public Person() {}
+	public Person() {
+		
+		//Need to set defaults for everything else here...
+		setBio("");
+		setEmail2("");
+		setPhone2("");
+		setTwitter("");
+		setFacebook("");
+		setLinkedin("");
+		setIrc("");
+		setSkills(new TreeSet<String>());
+		setInterests(new TreeSet<String>());
+		setBookmarks(new ArrayList<Person>());
+		setPicture("");
+		
+		//All people must have permissions and credentials
+		setPermissions(Person.getDefaultPermissions());
+		setCredentials(new TreeSet<String>(Arrays.asList("public")));
+	}
+	
+	
+	//VARIABLES NEED TO BE EXACT STRING MATCHES OF SOLR SCHEMA.XML
+	/*If you want to add variables, you also have to add in logic in 
+	 * SolrSession.addPerson(), SecureLoader.loadPerson(), and Person.getDefaultPermissions()
+	 * 
+	 * If you want to add a Hashmap you also have to copy logic in 
+	 * SolrSession.Permissions() and SolrSession.Bookmarks().
+	 * Also, pay particular attention to SecureLoader.loadPerson() and 
+	 * see the if statements regarding the fields "permission" and "bookmarks"
+	 */
+	
 	
 	private TreeSet<String> credentials;
 	private HashMap<String,TreeSet<String>> permissions;
+	private ArrayList<Person> bookmarks;
 	
-	@Field
+	private TreeSet<String> skills;
+	private TreeSet<String> interests;
+	
 	private String firstName;
-	@Field
 	private String lastName;
-	@Field
 	private String title;
-	@Field
 	private String uid;
-	@Field
 	private String fullName;
-	@Field
 	private String state;
-	@Field
 	private String location;
-	@Field
 	private String department;
-	@Field
 	private String phone;
-	@Field
 	private String email;
 	
-		
+	//additional Contact info
+	private String bio;
+	private String picture;
+	private String email2;
+	private String phone2;
+	private String twitter;
+	private String facebook;
+	private String linkedin;
+	private String irc;
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -75,8 +108,43 @@ public class Person {
 	public TreeSet<String> getCredentials(){
 		return credentials;
 	}
+	public String getBio(){
+		return bio;
+	}
+	public String getPicture(){
+		return picture;
+	}
+	public String getLinkedin() {
+		return linkedin;
+	}
+	public String getFacebook() {
+		return facebook;
+	}
+	public String getTwitter() {
+		return twitter;
+	}
+	public String getPhone2() {
+		return phone2;
+	}
+	public String getEmail2() {
+		return email2;
+	}
+	public TreeSet<String> getInterests() {
+		return interests;
+	}
+	public TreeSet<String> getSkills() {
+		return skills;
+	}
+	public String getIrc() {
+		return irc;
+	}
+	public ArrayList<Person> getBookmarks() {
+		return bookmarks;
+	}
 	
-	
+	public void setBookmarks(ArrayList<Person> bookmarks) {
+		this.bookmarks = bookmarks;
+	}
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -113,7 +181,37 @@ public class Person {
 	public void setCredentials (TreeSet<String> credentials){
 		this.credentials = credentials;
 	}
-
+	public void setBio(String bio){
+		this.bio = bio;
+	}
+	public void setPicture(String picture){
+		this.picture = picture;
+	}
+	public void setSkills(TreeSet<String> skills) {
+		this.skills = skills;
+	}
+	public void setInterests(TreeSet<String> interests) {
+		this.interests = interests;
+	}
+	public void setEmail2(String email2) {
+		this.email2 = email2;
+	}
+	public void setPhone2(String phone2) {
+		this.phone2 = phone2;
+	}
+	public void setTwitter(String twitter) {
+		this.twitter = twitter;
+	}
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+	public void setLinkedin(String linkedin) {
+		this.linkedin = linkedin;
+	}
+	public void setIrc(String IRC) {
+		this.irc = IRC;
+	}
+	
 	public String toString() {
 		StringBuilder out = new StringBuilder();
 		out.append(fullName+"("+uid+")");
@@ -210,11 +308,11 @@ public class Person {
 			admin = new Person();
 			admin.setFullName("Administrator");
 			
-			TreeSet<String> cred_default = new TreeSet<String>();
-			cred_default.add("public");
-			cred_default.add("admin");
+			TreeSet<String> cred_admin = new TreeSet<String>();
+			cred_admin.add("public");
+			cred_admin.add("admin");
 			admin.setPermissions(new HashMap<String,TreeSet<String>>());
-			admin.setCredentials(cred_default);	
+			admin.setCredentials(cred_admin);	
 		}
 		return admin;
 	}
@@ -233,24 +331,33 @@ public class Person {
 	}
 	
 	public static HashMap<String,TreeSet<String>> getDefaultPermissions() {
-		TreeSet<String> cred_default = new TreeSet<String>();
-		cred_default.add("public");
-		TreeSet<String> cred_admin = new TreeSet<String>();
-		cred_admin.add("admin");
 		
 		HashMap<String, TreeSet<String>> permissions = new HashMap<String,TreeSet<String>>();
 		//for each field put in default permission
-		permissions.put("email", cred_default);
-		permissions.put("phone", cred_default);
-		permissions.put("state", cred_default);
-		permissions.put("department", cred_default);
-		permissions.put("title", cred_default);
-		permissions.put("uid", cred_default);
-		permissions.put("firstName", cred_default);
-		permissions.put("fullName", cred_default);
-		permissions.put("lastName", cred_default);
-		permissions.put("location", cred_default);
-		permissions.put("user_credential", cred_admin);
+		permissions.put("permissions", new TreeSet<String>(Arrays.asList("admin")));
+		permissions.put("user_credential", new TreeSet<String>(Arrays.asList("admin")));
+		permissions.put("bookmarks", new TreeSet<String>(Arrays.asList("admin")));
+		
+		permissions.put("uid", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("email", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("phone", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("state", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("department", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("title", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("firstName", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("fullName", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("lastName", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("location", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("bio", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("picture", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("email2", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("phone2", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("twitter", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("facebook", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("linkedin", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("irc", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("skills", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("interests", new TreeSet<String>(Arrays.asList("public")));
 		
 		return permissions;
 	}

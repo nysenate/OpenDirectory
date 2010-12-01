@@ -6,6 +6,7 @@ import gov.nysenate.opendirectory.servlets.utils.BaseServlet;
 import gov.nysenate.opendirectory.servlets.utils.Request;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.TreeSet;
 
 import javax.naming.NamingException;
@@ -30,15 +31,17 @@ public class SolrControllerServlet extends BaseServlet {
 		    		removeAll(self);
 		    		out.println("Removed all documents");
 		    	} else if (command.equals("indexAll")) {
-		    		indexAll(self);
+		    		indexLdap(self);
+		    		indexExtras(self);
 		    		out.println("Indexed all Documents");
 		    	} else if (command.equals("indexExtras")) {
 		    		indexExtras(self);
 		    		out.println("Indexed all Extras");
 		    	} else if (command.equals("reindexAll")) {
 		    		removeAll(self);
-		    		indexAll(self);
-		    		out.println("Remove and Reindexed All documents");
+		    		indexLdap(self);
+		    		indexExtras(self);
+		    		out.println("Removed and Reindexed All documents");
 		    	} else {
 		    		out.println("Unknown command: "+command);
 		    		out.println("Recognized Commands are: removeAll,indexAll, and reindexAll");
@@ -58,23 +61,33 @@ public class SolrControllerServlet extends BaseServlet {
 		self.solrSession.deleteAll();
 	}
 	
-	private void indexAll(Request self) throws SolrServerException, IOException  {
+	private void indexLdap(Request self) throws SolrServerException, IOException  {
 		try{
 			self.solrSession.savePeople(new Ldap().connect().getPeople());
+			self.solrSession.optimize();
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	private void indexExtras(Request self) throws SolrServerException, IOException {
+		
 		Person opendirectory = new Person();
-		opendirectory.setFullName("OpenDirectory");
 		opendirectory.setUid("opendirectory");
-		TreeSet<String> cred_default = new TreeSet<String>();
-		cred_default.add("public");
-				
+		opendirectory.setFirstName("SenBook");
+		opendirectory.setFullName("OpenDirectory");
+		opendirectory.setEmail("opendirectory@nysenate.gov");
+		opendirectory.setTitle("New Age Techno Contact Service");
+		opendirectory.setDepartment("Office of the CIO");
+		opendirectory.setPhone("1-866-OPENDIR");
+		opendirectory.setLocation("Big Back Office, Agency 4");
+		opendirectory.setBio("Origionally code named SenBook, the project was then renamed OpenDirectory and development began in the Java Servlets Environment as part of an RPI capstone course.");
+		opendirectory.setSkills(new TreeSet<String>(Arrays.asList("Java","Solr","Ldap","Varnish")));
+		opendirectory.setInterests(new TreeSet<String>(Arrays.asList("Python","Open Source")));
+		
 		opendirectory.setPermissions(Person.getDefaultPermissions());
-		opendirectory.setCredentials(cred_default);
+		opendirectory.setCredentials(new TreeSet<String>(Arrays.asList("public","senate")));
 		self.solrSession.savePerson(opendirectory);
+		self.solrSession.optimize();
 	}
 }

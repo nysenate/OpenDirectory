@@ -421,18 +421,29 @@
 
    <field name="uid" type="string" indexed="true" stored="true" required="true" />
    <field name="otype" type="string" indexed="true" stored="true" required="true" />
-   <field name="firstName" type="string" indexed="true" stored="true" />
-   <field name="lastName" type="string" indexed="true" stored="true"/>
-   <field name="title" type="string" indexed="true" stored="true"/>
-   <field name="fullName" type="string" indexed="true" stored="true"/>
-   <field name="state" type="string" indexed="true" stored="true" />
-   <field name="location" type="string" indexed="true" stored="true"/>
-   <field name="department" type="string" indexed="true" stored="true" />
-   <field name="phone" type="string" indexed="true" stored="true"/>
-   <field name="email"  type="string" indexed="true" stored="true"/>
+   <field name="firstName" type="textgen" indexed="true" stored="true" />
+   <field name="lastName" type="textgen" indexed="true" stored="true"/>
+   <field name="title" type="textgen" indexed="true" stored="true"/>
+   <field name="fullName" type="textgen" indexed="true" stored="true"/>
+   <field name="state" type="textgen" indexed="true" stored="true" />
+   <field name="location" type="textgen" indexed="true" stored="true"/>
+   <field name="department" type="textgen" indexed="true" stored="true" />
+   <field name="phone" type="textgen" indexed="true" stored="true"/>
+   <field name="email"  type="textgen" indexed="true" stored="true"/>
+   <field name="skills" type="textgen" indexed="true" stored="true"/>
+   <field name="interests" type="textgen" indexed="true" stored="true"/>
+   <field name="bio" type="textgen" indexed="true" stored="true"/>
+   <field name="facebook" type="textgen" indexed="false" stored="true"/>
+   <field name="linkedin" type="textgen" indexed="false" stored="true"/>
+   <field name="twitter" type="textgen" indexed="false" stored="true"/>
+   <field name="irc" type="textgen" indexed="true" stored="true"/>
+   <field name="picture" type="text" indexed="false" stored="true"/>
+   <field name="email2" type="textgen" indexed="true" stored="true"/>
+   <field name="phone2" type="textgen" indexed="true" stored="true"/>
+   <field name="bookmarks" type="string" indexed="false" stored="true"/>
    <field name="permissions" type="string" indexed="false" stored="true"/>
    <field name="user_credential" type="string" indexed="false" stored="true" />
-
+	
 <!--   <field name="id" type="string" indexed="true" stored="true" required="true" /> 
    <field name="sku" type="textTight" indexed="true" stored="true" omitNorms="true"/>
    <field name="name" type="textgen" indexed="true" stored="true"/>
@@ -531,7 +542,7 @@
  <uniqueKey>uid</uniqueKey>
 
  <!-- field for the QueryParser to use when an explicit fieldname is absent -->
- <defaultSearchField>fullName</defaultSearchField>
+ <defaultSearchField>text</defaultSearchField>
 
  <!-- SolrQueryParser configuration: defaultOperator="AND|OR" -->
  <solrQueryParser defaultOperator="OR"/>
@@ -539,14 +550,19 @@
   <!-- copyField commands copy one field to another at the time a document
         is added to the index.  It's used either to index the same field differently,
         or to add multiple fields to the same field for easier/faster searching.  -->
-	<!--
-   <copyField source="cat" dest="text"/>
-   <copyField source="name" dest="text"/>
-   <copyField source="manu" dest="text"/>
-   <copyField source="features" dest="text"/>
-   <copyField source="includes" dest="text"/>
-   <copyField source="manu" dest="manu_exact"/>
-	 -->
+	 
+   <copyField source="fullName" dest="text"/>
+   <copyField source="phone" dest="text"/>
+   <copyField source="title" dest="text"/>
+   <copyField source="location" dest="text"/>
+   <copyField source="department" dest="text"/>
+   <copyField source="email" dest="text"/>
+   <copyField source="skills" dest="text"/>
+   <copyField source="interests" dest="text"/>
+   <copyField source="irc" dest="text"/>
+   <copyField source="email2" dest="text"/>
+   <copyField source="phone2" dest="text"/>
+	 
    <!-- Above, multiple source fields are copied to the [text] field. 
 	  Another way to map multiple source fields to the same 
 	  destination field is to use the dynamic field syntax. 

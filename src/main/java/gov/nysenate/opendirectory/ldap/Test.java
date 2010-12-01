@@ -5,6 +5,8 @@ import gov.nysenate.opendirectory.solr.SolrSession;
 import gov.nysenate.opendirectory.solr.Solr;
 
 import java.io.IOException;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,20 +47,49 @@ public class Test {
 
 		//try {				
 			
-			//Test secureloader
+			//Test VCARD writing
 			Solr test_solr = new Solr();
 			test_solr.connect();
 			
-			Person test_person = new Person();
-			TreeSet<String> creds = new TreeSet<String>();
-			
-			creds.add("charlie_senate");
-			
-			test_person.setCredentials(creds);
-			
-			SolrSession test_session = new SolrSession(test_person, test_solr);
+			SolrSession test_session = new SolrSession(Person.getAdmin(), test_solr);
 			Person result = new Person();
-			result = test_session.loadPersonByName("codetestname");
+			result = test_session.loadPersonByName("Jared\\ Williams");
+			
+			OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("example.vcf"), "UTF-8");
+
+			StringBuilder mResult = new StringBuilder();
+			mResult.append("BEGIN:VCARD\r\n");
+			mResult.append("VERSION:2.1");
+			mResult.append("\r\nN:").append(result.getLastName()).append(";").append(result.getFirstName()).append(";;;");
+			mResult.append("\r\nFN:").append(result.getFullName());
+			mResult.append("\r\nTEL;TYPE=WORK:").append(result.getPhone());
+			mResult.append("\r\nEMAIL;TYPE=PREF;TYPE=INTERNET:").append(result.getEmail());
+			mResult.append("\r\nEND:VCARD\r\n");
+			String vcardString = mResult.toString();
+			
+			writer.write(vcardString);
+			writer.close();
+			System.out.println(vcardString);
+			
+			/*Test secureloader
+			Solr test_solr = new Solr();
+			test_solr.connect();
+			
+			SolrSession test_session = new SolrSession(Person.getAdmin(), test_solr);
+			Person result = new Person();
+			result = test_session.loadPersonByName("Jared\\ Williams");
+			TreeSet<String> fullname= new TreeSet<String>();
+			fullname.add("Jared Chausow");
+			result.getBookmarks().put("chausow", fullname);
+			
+			//System.out.println(result.getPermissions().get("uid"));
+			test_solr.delete("Jared\\ Williams");
+			
+			System.out.println("deleted");
+			
+			test_session.savePerson(result);
+			
+			result = test_session.loadPersonByName("Jared\\ Williams");
 			
 			System.out.println(result.getLastName());
 			System.out.println(result.getLocation());
@@ -66,8 +97,12 @@ public class Test {
 			System.out.println(result.getDepartment());
 			System.out.println(result.getFullName());
 			System.out.println(result.getFirstName());
-			
-			
+			System.out.println(result.getPermissions());
+			System.out.println(result.getSkills());
+			System.out.println(result.getBookmarks());
+			*/
+		
+		
 			/*SolrQuery query = new SolrQuery();
 			query.setQuery("id:codetes*");
 			query.setRows(1);

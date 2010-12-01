@@ -1,6 +1,6 @@
 package gov.nysenate.opendirectory.servlets.utils;
 
-import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -42,7 +42,7 @@ public class UrlMapper {
 		return getCommand(request.getRequestURI());
 	}
 
-	public ArrayList<String> getArgs(HttpServletRequest request) {
+	public Vector<String> getArgs(HttpServletRequest request) {
 		return getArgs(request.getRequestURI());
 	}
 	
@@ -58,20 +58,18 @@ public class UrlMapper {
 		}
 	}
 	
-	public ArrayList<String> getArgs(String url) {
+	public Vector<String> getArgs(String url) {
 		if(url.startsWith("/"))
 			url = url.substring(1);
 		
 		String[] tokens = url.split("/");
-		if(tokens.length < 4)
-			return new ArrayList<String>();
-		else {
-			ArrayList<String> args = new ArrayList<String>();
+		Vector<String> args = new Vector<String>();
+		if(tokens.length > 3) {
 			for(int i=3; i < tokens.length; i++) {
 				args.add(tokens[i]);
 			}
-			return args;
 		}
+		return args;
 	}
 	
 	@SuppressWarnings("serial")

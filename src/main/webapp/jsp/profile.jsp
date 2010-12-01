@@ -1,6 +1,7 @@
 <%@ page language="java" import="gov.nysenate.opendirectory.models.Person,gov.nysenate.opendirectory.servlets.utils.UrlMapper" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
 	Person person = (Person)request.getAttribute("person");
+	Person user = (Person)request.getAttribute("user");
 %><!DOCTYPE html5>
 <html>
 	<head>
@@ -13,7 +14,7 @@
 			<jsp:include page="header.jsp" />
 			<div id="main">
 				<div id="pic">
-					<img src="<%=urls.url("img","einstein.jpg")%>" width="100" height="100">
+					<img src="<%=urls.url("img","einstein.jpg")%>" width="150" height="200">
 				</div>
 				<div id="top_info" class="right">
 				
@@ -23,25 +24,35 @@
 					<div id="info">
 						<p><%=person.getTitle() %> , <%=person.getLocation() %> - <%=person.getDepartment() %>  </p>
 						<p><%=person.getPhone() %>, <a href="mailto:<%=person.getEmail()%>"><%=person.getEmail() %></a> </p>
+						<a href="<%=urls.url("user","addbookmark",person.getUid())%>"> Add Me to Your Bookmarks!</a>
 						<br></br>
 					</div>
 				</div>
+				<br></br>
 				<div id="bio">
-					<b>Bio</b>
-					<p>I am awesome and so is the NYSS team working on OpenDirectory which will redefine the way government works </p>
+					<% if(person.getBio()!=null && !person.getBio().isEmpty()) { %>
+						<b>Biography</b>
+						<p><%=person.getBio() %></p>
+					<% } %>
 				</div>
 			</div>
-			<div id="interests">
-				<b>Interests</b>
-				<p>Basketball, Baseball, Movies, Chess, Video Games, Other things</p>
-			</div>
-			<div id="skills">
-				<b>Skills</b>
-				<p>Web Development, Java, C++, PHP, C#, Python, Writing  </p>
-			</div>
+			<% if(person.getInterests()!=null && !person.getInterests().isEmpty()) { %>
+				<div id="interests">
+					<b>Interests</b>
+					<p><%=person.getInterests().toString().substring(1,person.getInterests().toString().length()-1) %></p>
+				</div>
+			<% } %>
+			<% if(person.getSkills()!=null && !person.getSkills().isEmpty()) { %>
+				<div id="skills">
+					<b>Skills</b>
+					<p><%=person.getSkills().toString().substring(1,person.getSkills().toString().length()-1) %></p>
+				</div>
+			<% } %>
 			<div id="add_info">
-				<b>Additional Information</b>
-				<p>Follow me on <a href=""> Twitter </a> and <a href=""> Facebook </a></p>
+				<% if(person.getInterests()!=null) { %>
+					<b>Additional Information</b>
+					<p>Follow me on <a href="<%= person.getTwitter() %>"> Twitter </a> and <a href="<%= person.getFacebook() %>"> Facebook </a></p>
+				<% } %>
 			</div>
 		</div>
 	</body>

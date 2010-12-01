@@ -3,6 +3,7 @@ package gov.nysenate.opendirectory.ldap;
 import gov.nysenate.opendirectory.models.Person;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.TreeSet;
@@ -146,6 +147,8 @@ public class Ldap {
 	
 	public Person loadPerson(SearchResult record) throws NamingException {
 		Person person = new Person();
+		
+		//Copy non-internal/payroll LDAP values into the person object 
 		Attributes attributes = record.getAttributes();
 		person.setEmail(getAttribute(attributes,"mail"));
 		person.setPhone(getAttribute(attributes,"telephonenumber"));
@@ -157,79 +160,15 @@ public class Ldap {
 		person.setUid(getAttribute(attributes,"uid"));
 		person.setLocation(getAttribute(attributes,"l"));
 		
-		TreeSet<String> cred_default = new TreeSet<String>();
-		cred_default.add("public");
-		
-		person.setPermissions(Person.getDefaultPermissions());
-		person.setCredentials(cred_default);
-		
+		//Get the full name (w/ suffix and mi) and fix it up for display
 		String fullName = getAttribute(attributes,"displayname");
 		if (fullName!=null)
 			fullName = fullName.split("/")[0];
-		
 		person.setFullName(fullName);
+		
+		//Override default permissions to mark as a senate member (public and senate permissions)
+		person.setCredentials(new TreeSet<String>(Arrays.asList("senate","public")));
+		
 		return person;
 	}
 }
-/*
-	try {
-		//create the default set of Search Controls
-		SearchControls controls = new SearchControls();
-		
-		//Connection credentials (null,null) = anonymous
-		String cred = null;
-		String pass = null;
-		
-		//The DirContext represents our connection with ldap
-		DirContext ldap = getLdap(cred,pass);
-		
-		//Set up the search filters. LDAP will apply the searchFilter within the domain specified
-		String domainFilter = "O=senate"; 			//organization = senate
-		String searchFilter = "(givenname=Jared)"; 	//first name = Jared
-
-		//Execute our search over the `O=senate` ldap domain
-		//with the `givenname=Jared` query and default controls  
-		NamingEnumeration<SearchResult> results = ldap.search(domainFilter,searchFilter,controls);
-		
-		//Iterate through our results
-		int resultNum = 1;
-		System.out.println("Results for query: `"+searchFilter+"`");
-		while (results.hasMore()) {
-			SearchResult result = results.next();
-			
-			//Get the result attributes and all of their IDs
-			Attributes attributes = result.getAttributes();
-			NamingEnumeration<String> ids = result.getAttributes().getIDs();
-			
-			//Iterate through our attributes
-			System.out.println("Result "+resultNum+": "+result.getName());
-			while( ids.hasMore() ) {
-				String id = ids.next();
-				//Get all the values for that attribute (could be a list)
-				NamingEnumeration<?> values = attributes.get(id).getAll();
-				
-				//Iterate through those values
-				StringBuilder row = new StringBuilder("\t").append(id).append(": ");
-				while(values.hasMore()) {
-					row.append(values.next());
-					if (values.hasMore()) {
-						row.append(", ");
-					}
-				}
-				
-				System.out.println(row);
-			}
-			
-			resultNum++;
-		}
-	
-	//If the authorization credentials are bad, we'll catch that here and report the failure
-	} catch (AuthenticationException e) {
-		System.out.println("Authentication Failed!");
-	}
-	
-	//Bad queries aren't caught here, not sure how to do that yet.
-}
-	
-}
-*/

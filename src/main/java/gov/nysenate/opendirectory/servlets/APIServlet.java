@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TreeSet;
+import java.util.Vector;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -59,7 +60,7 @@ public class APIServlet extends BaseServlet {
 		}
 		
 		
-		public void execute(ArrayList<String> args) throws IOException {
+		public void execute(Vector<String> args) throws IOException {
 			//Branch on Command
 			if(!args.isEmpty()) {
 	    		String command = args.remove(0);
@@ -80,7 +81,7 @@ public class APIServlet extends BaseServlet {
 	    	}
 		}
 		
-		public void doSearch(ArrayList<String> args) throws IOException {
+		public void doSearch(Vector<String> args) throws IOException {
 			if(!args.isEmpty()) {
 				
 				String format = args.get(0);
@@ -101,7 +102,7 @@ public class APIServlet extends BaseServlet {
 			}
 		}
 		
-		public void doPerson(ArrayList<String> args) throws IOException {
+		public void doPerson(Vector<String> args) throws IOException {
 			
 			//Branch on filter method    			
 			if(!args.isEmpty()) {

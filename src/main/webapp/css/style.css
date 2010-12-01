@@ -109,6 +109,10 @@ color: #FFFFFF
   {
 	float:left;
   }
+  #edit_pic 
+  {
+  float:eft;
+  }
   
   #nav_bar {
     color: white;
@@ -167,6 +171,9 @@ color: #FFFFFF
   	#search_info
   	{
   	font-size:15px;
+  	position: relative;
+  	left: 120px;
+  	bottom:70px;
   	}
   	#error
   	{
@@ -223,6 +230,38 @@ color: #FFFFFF
     background: #ffffff url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_block_footer_bg.png) repeat-x bottom left;
 }
 
+#edit_generalinfo p
+{
+	font-weight:bold;
+	text-decoration:underline;
+}
+#edit_socialinfo p
+{
+	font-weight:bold;
+	text-decoration:underline;
+}
+#edit_skills p
+{
+	font-style:italic;
+	font-size: 12px;
+}
+#edit_interests p
+{
+	font-style:italic;
+	font-size: 12px;
+}
+#edit_addinfo p
+{
+	font-weight:bold;
+	text-decoration:underline;
+}
+#edit_contactinfo p
+{
+	font-weight:bold;
+	text-decoration:underline;
+}
+
+
 #name
 {
 	font-size: 30px;
@@ -234,6 +273,10 @@ color: #FFFFFF
 #bio b
 {
 	font-size:24px;
+	
 }
+
 #footer {}
+
+
 
