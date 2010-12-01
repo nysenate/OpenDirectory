@@ -1,5 +1,6 @@
 package gov.nysenate.opendirectory.models;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -14,17 +15,17 @@ public class Person {
 	public Person() {
 		
 		//Need to set defaults for everything else here...
-		setBio(null);
-		setEmail2(null);
-		setPhone2(null);
-		setTwitter(null);
-		setFacebook(null);
-		setLinkedin(null);
-		setIrc(null);
-		setSkills(null);
-		setInterests(null);
-		setBookmarks(null);
-		setPicture(null);
+		setBio("");
+		setEmail2("");
+		setPhone2("");
+		setTwitter("");
+		setFacebook("");
+		setLinkedin("");
+		setIrc("");
+		setSkills(new TreeSet<String>());
+		setInterests(new TreeSet<String>());
+		setBookmarks(new ArrayList<Person>());
+		setPicture("");
 		
 		//All people must have permissions and credentials
 		setPermissions(Person.getDefaultPermissions());
@@ -45,7 +46,7 @@ public class Person {
 	
 	private TreeSet<String> credentials;
 	private HashMap<String,TreeSet<String>> permissions;
-	private HashMap<String, String> bookmarks;
+	private ArrayList<Person> bookmarks;
 	
 	private TreeSet<String> skills;
 	private TreeSet<String> interests;
@@ -137,11 +138,11 @@ public class Person {
 	public String getIrc() {
 		return irc;
 	}
-	public HashMap<String, String> getBookmarks() {
+	public ArrayList<Person> getBookmarks() {
 		return bookmarks;
 	}
 	
-	public void setBookmarks(HashMap<String, String> bookmarks) {
+	public void setBookmarks(ArrayList<Person> bookmarks) {
 		this.bookmarks = bookmarks;
 	}
 	public void setFirstName(String firstName) {

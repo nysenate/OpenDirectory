@@ -29,7 +29,6 @@
 					</div>
 				</div>
 				<br></br>
-				<br></br>
 				<div id="bio">
 					<% if(person.getBio()!=null && !person.getBio().isEmpty()) { %>
 						<b>Biography</b>

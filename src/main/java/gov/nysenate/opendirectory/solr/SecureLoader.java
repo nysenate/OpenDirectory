@@ -12,7 +12,7 @@ import javax.xml.parsers.*;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.w3c.dom.*;
+//import org.w3c.dom.*;
 
 import gov.nysenate.opendirectory.models.Person;
 
@@ -21,11 +21,15 @@ public class SecureLoader {
 	private DocumentBuilder builder;
 	private InputSource source;
 	private Person user;
+	private SolrSession session;
 	
 	public static void main(String[] args) {
 		
-		SecureLoader loader = new SecureLoader(Person.getAnon());
+		SolrSession session = new Solr().connect().newSession(Person.getAdmin());
+		//SecureLoader loader = new SecureLoader(Person.getAnon(),session);
 		
+		session.loadPersonByUid("opendirectory");
+		/*
 		String sethash = "uid:public:phone:public, senate:permissions:admin:phone2:senate";
 		String stringset = "javascript, python, soccer";
 		String stringhash = "bush2:Annabel Bush:williams:Jared Williams:hoppin:Andrew Hoppin";
@@ -122,9 +126,9 @@ public class SecureLoader {
 		*/
 	}
 	
-	public SecureLoader(Person user) {
+	public SecureLoader(Person user,SolrSession session) {
 		this.user = user;
-		
+		this.session = session;
 		try {
 			//Per-instance objects, might want to make these class static at some point, probably a minor issue? 
 			this.builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -150,7 +154,7 @@ public class SecureLoader {
 		//Do the loading here
 		Person person = new Person();
 		
-		long start = System.nanoTime();
+		//long start = System.nanoTime();
 		String permissions = (String)profile.getFieldValue("permissions");
 		String[] parts = permissions.split(":");
 		for(int j=0; j<parts.length-1; j+=2) {
@@ -163,9 +167,10 @@ public class SecureLoader {
 			
 			setFieldValue(person,permissions,fieldname,fieldvalue);
 		}
-		long end = System.nanoTime();
+		//long end = System.nanoTime();
 		//System.out.println((end-start)/1000f+" microsecond load");
 		
+		System.out.println("Num Bookmarks: "+person.getBookmarks().size());
 		return person;
 	}
 
@@ -213,12 +218,35 @@ public class SecureLoader {
 		return new TreeSet<String>(Arrays.asList(str.split(", ")));
 	}
 	
+	public ArrayList<Person> loadBookmarks(String str,Person person) {
+		
+		//Handle the empty case
+		if(str==null || str.isEmpty())
+			return new ArrayList<Person>();
+		
+		String query = "";
+		
+		for(String uid : str.split(", ")) {
+			
+			//Avoid recursion, shouldn't happen anyway..
+			if(uid.equals(person.getUid()))
+				continue;
+			
+			if (query.isEmpty())
+				query = "uid:"+uid;
+			else
+				query += " OR uid:"+uid;
+		}
+		
+		return session.loadPeopleByQuery(query);
+	}
+	
 	private void setFieldValue(Person person, String permissions, String fieldname, Object fieldvalue) {
 		//Switch in the fieldname for speed
 		if(fieldname.equals("bio"))
 			person.setBio((String)fieldvalue);
 		else if(fieldname.equals("bookmarks"))
-			person.setBookmarks(loadStringHash((String)fieldvalue));
+			person.setBookmarks(loadBookmarks((String)fieldvalue,person));
 		else if(fieldname.equals("department"))
 			person.setDepartment((String)fieldvalue);
 		else if(fieldname.equals("email"))
