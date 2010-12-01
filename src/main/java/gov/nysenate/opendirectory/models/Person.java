@@ -15,17 +15,17 @@ public class Person {
 	public Person() {
 		
 		//Need to set defaults for everything else here...
-		setBio(null);
-		setEmail2(null);
-		setPhone2(null);
-		setTwitter(null);
-		setFacebook(null);
-		setLinkedin(null);
-		setIrc(null);
-		setSkills(null);
-		setInterests(null);
-		setBookmarks(null);
-		setPicture(null);
+		setBio("");
+		setEmail2("");
+		setPhone2("");
+		setTwitter("");
+		setFacebook("");
+		setLinkedin("");
+		setIrc("");
+		setSkills(new TreeSet<String>());
+		setInterests(new TreeSet<String>());
+		setBookmarks(new ArrayList<Person>());
+		setPicture("");
 		
 		//All people must have permissions and credentials
 		setPermissions(Person.getDefaultPermissions());

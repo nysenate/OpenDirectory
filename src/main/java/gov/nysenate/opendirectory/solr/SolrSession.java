@@ -2,7 +2,6 @@ package gov.nysenate.opendirectory.solr;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -13,7 +12,6 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
-//import java.lang.reflect.Field;
 
 import gov.nysenate.opendirectory.models.Person;
 
@@ -88,6 +86,10 @@ public class SolrSession {
 		//Execute the query
 		long start = System.nanoTime();
 		QueryResponse results = solr.query(query,2000);
+		
+		if(results==null)
+			return new ArrayList<Person>();
+		
 		SolrDocumentList profiles = results.getResults();
 		System.out.println((System.nanoTime()-start)/1000000f+" ms - query to solr");
 		

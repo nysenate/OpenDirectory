@@ -1,6 +1,5 @@
 package gov.nysenate.opendirectory.servlets;
 
-import gov.nysenate.opendirectory.models.Person;
 import gov.nysenate.opendirectory.servlets.utils.BaseServlet;
 import gov.nysenate.opendirectory.servlets.utils.Request;
 
@@ -18,8 +17,7 @@ public class PersonServlet extends BaseServlet {
 	    String uid = urls.getCommand(request);
 	    if(uid != null) {
 	    	try {
-	    		Person profile = self.solrSession.loadPersonByUid(uid);
-		    	request.setAttribute("person", profile);
+		    	request.setAttribute("person", self.solrSession.loadPersonByUid(uid));
 			    self.render("profile.jsp");
 	    	} catch (NullPointerException e) {
 	    		
