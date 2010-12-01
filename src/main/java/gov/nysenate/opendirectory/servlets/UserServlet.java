@@ -42,6 +42,9 @@ public class UserServlet extends BaseServlet {
 	    	} else if (command.equals("edit")) {
 	    		self.httpRequest.setAttribute("person", self.user);
 	    		self.render("EditProfile.jsp");
+	    		
+	    	} else if (command.equals("edit")) {
+	    		self.render("Bookmarks.jsp");
 	    	}
 	    }
 		

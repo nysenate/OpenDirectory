@@ -175,6 +175,13 @@ color: #FFFFFF
   	left: 120px;
   	bottom:70px;
   	}
+  	#bookmark_info
+  	{
+  	font-size:15px;
+  	position: relative;
+  	left: 120px;
+  	bottom:70px;
+  	}
   	#error
   	{
   	text-align:center;
