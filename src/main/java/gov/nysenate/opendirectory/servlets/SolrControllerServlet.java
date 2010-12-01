@@ -73,9 +73,14 @@ public class SolrControllerServlet extends BaseServlet {
 	private void indexExtras(Request self) throws SolrServerException, IOException {
 		
 		Person opendirectory = new Person();
-		opendirectory.setFullName("OpenDirectory");
-		opendirectory.setFirstName("SenBook");
 		opendirectory.setUid("opendirectory");
+		opendirectory.setFirstName("SenBook");
+		opendirectory.setFullName("OpenDirectory");
+		opendirectory.setEmail("opendirectory@nysenate.gov");
+		opendirectory.setTitle("New Age Techno Contact Service");
+		opendirectory.setDepartment("Office of the CIO");
+		opendirectory.setPhone("1-866-OPENDIR");
+		opendirectory.setLocation("Big Back Office, Agency 4");
 		opendirectory.setBio("Origionally code named SenBook, the project was then renamed OpenDirectory and development began in the Java Servlets Environment as part of an RPI capstone course.");
 		opendirectory.setSkills(new TreeSet<String>(Arrays.asList("Java","Solr","Ldap","Varnish")));
 		opendirectory.setInterests(new TreeSet<String>(Arrays.asList("Python","Open Source")));

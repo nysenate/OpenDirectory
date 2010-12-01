@@ -5,16 +5,13 @@ import gov.nysenate.opendirectory.models.Person;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer;
+//import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer;
 import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.core.CoreContainer;
-import org.xml.sax.SAXException;
+//import org.apache.solr.core.CoreContainer;
 
 public class Solr {
 	

@@ -2,7 +2,6 @@ package gov.nysenate.opendirectory.solr;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -13,7 +12,6 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
-//import java.lang.reflect.Field;
 
 import gov.nysenate.opendirectory.models.Person;
 
@@ -28,7 +26,6 @@ public class SolrSession {
 		
 		for(int i=0; i<10; i++)
 			solr.loadPeople();
-		
 		
 		/*
 		//Test bookmark writing
@@ -56,7 +53,7 @@ public class SolrSession {
 	
 	public SolrSession(Person user, Solr solr) {
 		this.solr = solr;
-		this.loader = new SecureLoader(user);
+		this.loader = new SecureLoader(user,this);
 	}
 	
 	public Person loadPersonByUid(String uid) {
@@ -89,6 +86,10 @@ public class SolrSession {
 		//Execute the query
 		long start = System.nanoTime();
 		QueryResponse results = solr.query(query,2000);
+		
+		if(results==null)
+			return new ArrayList<Person>();
+		
 		SolrDocumentList profiles = results.getResults();
 		System.out.println((System.nanoTime()-start)/1000000f+" ms - query to solr");
 		
@@ -149,7 +150,7 @@ public class SolrSession {
 		
 		solr_person.addField("permissions", writeSetHash(person.getPermissions()));
 		solr_person.addField("user_credential", writeStringSet(person.getCredentials()));
-		solr_person.addField("bookmarks", writeStringHash(person.getBookmarks()));
+		solr_person.addField("bookmarks", writeBookmarks(person.getBookmarks()));
 		
 		//additional contact info
 		solr_person.addField("bio", person.getBio(), 1.0f);
@@ -237,6 +238,15 @@ public class SolrSession {
 		return str.substring(1, str.length()-1);
 	}
 	
+	public String writeBookmarks(ArrayList<Person> marks) {
+		String str = "";
+		for(Person mark : marks)
+			if(str.isEmpty())
+				str = mark.getUid();
+			else
+				str += ", "+mark.getUid();
+		return str;
+	}
 	
 	
 	//Returns permissions for each field in "xml" string

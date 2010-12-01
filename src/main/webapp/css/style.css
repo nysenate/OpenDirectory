@@ -236,6 +236,17 @@ color: #FFFFFF
     padding: 20px;
     background: #ffffff url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_block_footer_bg.png) repeat-x bottom left;
 }
+
+#edit_generalinfo p
+{
+	font-weight:bold;
+	text-decoration:underline;
+}
+#edit_socialinfo p
+{
+	font-weight:bold;
+	text-decoration:underline;
+}
 #edit_skills p
 {
 	font-style:italic;
@@ -251,6 +262,12 @@ color: #FFFFFF
 	font-weight:bold;
 	text-decoration:underline;
 }
+#edit_contactinfo p
+{
+	font-weight:bold;
+	text-decoration:underline;
+}
+
 
 #name
 {
