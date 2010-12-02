@@ -14,6 +14,7 @@
 				<jsp:include page="header.jsp" />
 				<div id="main">
 				<h> My Bookmarks </h>
+				<br></br>
 					<% if (user_bookmarks != null) { %>
 						<% for(Person bookmark : user_bookmarks) {%>
 						<div id="name_pic">
@@ -21,6 +22,8 @@
 						</div>
 						<div id="bookmark_info">
 							<a href="<%=urls.url("person",bookmark.getUid())%>"> <%=bookmark.getFullName()%></a>
+							<p> <%=bookmark.getTitle() %> , <%=bookmark.getPhone() %></p>
+							<a href="mailto:<%=bookmark.getEmail() %>"><%=bookmark.getEmail() %></a>
 						</div>
 						<% } %>
 					<% } %>	
