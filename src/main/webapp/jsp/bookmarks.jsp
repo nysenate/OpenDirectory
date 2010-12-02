@@ -1,11 +1,7 @@
-<%@ page language="java" import="gov.nysenate.opendirectory.servlets.utils.UrlMapper"  %><%  
+<%@ page language="java" import="java.util.ArrayList,gov.nysenate.opendirectory.servlets.utils.UrlMapper,gov.nysenate.opendirectory.models.Person"  %><%  
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
     Person user = (Person)request.getAttribute("user");
-    HashMap <String, String> user_bookmark = user.getBookMarks();
-    
-    for(String uid : user_bookmark.keySet()) {
-    	user_bookmark.get(uid);
-    }
+    ArrayList<Person> user_bookmarks = user.getBookmarks();
 %>
 <html>
 	<head>
@@ -18,14 +14,16 @@
 				<jsp:include page="header.jsp" />
 				<div id="main">
 				<h> My Bookmarks </h>
-					<% if (user_bookmark != null) { %>
-						<% for(String uid : user_bookmark.keySet()) {%>
+					<% if (user_bookmarks != null) { %>
+						<% for(Person bookmark : user_bookmarks) {%>
 						<div id="name_pic">
 								<img src="<%=urls.url("img","einstein.jpg")%>" width="100" height="100"/>
 						</div>
 						<div id="bookmark_info">
-							<a href="<%=urls.url("person",user_bookmark.getUid())%>"> <%=user_bookmark.getFullName()%></a>
-						</div>		
+							<a href="<%=urls.url("person",bookmark.getUid())%>"> <%=bookmark.getFullName()%></a>
+						</div>
+						<% } %>
+					<% } %>	
 				</div>		
 		</body>
 </html>

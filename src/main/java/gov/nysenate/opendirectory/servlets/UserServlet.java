@@ -43,10 +43,6 @@ public class UserServlet extends BaseServlet {
 	    		self.httpRequest.setAttribute("person", self.user);
 	    		self.render("EditProfile.jsp");
 	    		
-<<<<<<< HEAD:src/main/java/gov/nysenate/opendirectory/servlets/UserServlet.java
-	    	} else if (command.equals("edit")) {
-	    		self.render("Bookmarks.jsp");
-=======
 	    	} else if (command.equals("addbookmark")) {
 	    		
 	    		try {
@@ -58,8 +54,9 @@ public class UserServlet extends BaseServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+	    	} else if (command.equals("bookmarks")) {
+	    		self.render("bookmarks.jsp");
 	    		
->>>>>>> 24f7af6113dcafd45ec679e806dc86918cce071a:src/main/java/gov/nysenate/opendirectory/servlets/UserServlet.java
 	    	}
 	    }
 		
