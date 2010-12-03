@@ -20,6 +20,9 @@
 						<div id="name_pic">
 								<img src="<%=urls.url("img","einstein.jpg")%>" width="100" height="100"/>
 						</div>
+						<div id="remove">		
+								<a href="<%=urls.url("user","bookmarks","remove", bookmark.getUid())%>"> Remove From Bookmarks </a>
+						</div>
 						<div id="bookmark_info">
 							<a href="<%=urls.url("person",bookmark.getUid())%>"> <%=bookmark.getFullName()%></a>
 							<p> <%=bookmark.getTitle() %> , <%=bookmark.getPhone() %></p>
