@@ -34,7 +34,7 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 				<form action="" ENCTYPE='multipart/form-data' method="POST">
 					<div id="edit_pic">
 						<% if(user.getPicture()!=null && !user.getPicture().isEmpty()) { %>
-							<img src="<%=urls.url(user.getPicture())%>" width="200" height="200">
+							<img src="<%=user.getPicture()%>" width="200" height="200">
 						<% } else { %>
 							<img src="<%=urls.url("img","einstein.jpg")%>" width="200" height="200">
 						<% } %>

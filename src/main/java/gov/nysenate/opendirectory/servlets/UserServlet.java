@@ -163,7 +163,7 @@ public class UserServlet extends BaseServlet {
 								System.out.println("Writing to: "+fullname);
 								File file = new File(fullname);
 								item.write(file);
-								self.user.setPicture("img/avatars/"+filename);
+								self.user.setPicture(urls.url("img/avatars/"+filename));
 								self.solrSession.savePerson(self.user);
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
