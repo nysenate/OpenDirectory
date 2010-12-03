@@ -4,9 +4,7 @@ import gov.nysenate.opendirectory.models.Person;
 import gov.nysenate.opendirectory.solr.SolrSession;
 import gov.nysenate.opendirectory.solr.Solr;
 
-import java.io.IOException;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,8 +43,41 @@ public class Test {
 	
 	public static void main(String[] args) throws NamingException, SolrServerException, IOException {
 
-		//try {				
-			
+	
+			 /*the above code represents for uploading file and images using java. download the file the folliwing code
+		         FileInputStream fis = null;
+			 String location=getLocation(locationKey);
+		 if(!location.endsWith("
+		")) location=location+"
+		";
+		 int index=fileName.lastIndexOf('.');
+		 String docType=fileName.substring(index+1,fileName.length());
+		 String docName=fileName.substring(0,index);
+			 try { fis = new FileInputStream(location+fileName);
+		 int noOfBytes = fis.available();
+		 byte[] dataBytes = new byte[noOfBytes];
+		 fis.read(dataBytes);
+		 writeToServletOutputStream(response,docType,docName,dataBytes);
+		 } catch (FileNotFoundException f) { } finally { if(fis != null) { fis.close();
+		 } }	 for image downloading u have u have to use this data FileInputStream fis = null;
+			 byte[] dataBytes=null;
+		 try { fis = new FileInputStream(filePath);
+		 int noOfBytes = fis.available();
+		 dataBytes = new byte[noOfBytes];
+		 fis.read(dataBytes);
+		 } catch (FileNotFoundException f) { } finally { if(fis != null) { fis.close();
+		 } } return dataBytes;
+		 for image downloading the bytes that are returned that has to be kept request.getSession().setAttribute("imageData",CommonUtils.getImageData(request,imageLoc));
+		 keep that in session attribute in java class access that session attribute in jsp page1 i used the following code  picture.jsp file another file in this u have to write the following code dynamically the code is <% ServletOutputStream sos=null;
+		 byte[] baos = (byte[])session.getAttribute("imageData");
+		 try { if(baos!=null) { response.setContentType("image/gif");
+		 sos= response.getOutputStream();
+		 sos.write(baos);
+		 System.out.println("inside the if block in picture jsp");
+		 } sos.flush();
+		 } catch(Exception e) { e.printStackTrace();
+		 } */
+
 			//Test VCARD writing
 			Solr test_solr = new Solr();
 			test_solr.connect();
