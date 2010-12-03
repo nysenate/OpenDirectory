@@ -14,7 +14,11 @@
 			<jsp:include page="header.jsp" />
 			<div id="main">
 				<div id="pic">
-					<img src="<%=urls.url("img","einstein.jpg")%>" width="150" height="200">
+					<% if(person.getPicture()!=null && !person.getPicture().isEmpty()) { %>
+						<img src="<%=urls.url(person.getPicture())%>" width="150" height="200">
+					<% } else { %>
+						<img src="<%=urls.url("img","einstein.jpg")%>" width="150" height="200">
+					<% } %>
 				</div>
 				<div id="top_info" class="right">
 				

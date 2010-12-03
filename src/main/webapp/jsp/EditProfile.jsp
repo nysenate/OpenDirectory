@@ -31,11 +31,15 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 				<% if(message!=null) { %>
 					<b><%=message%></b>
 				<% } %>
-				<form action="" method="POST">
+				<form action="" ENCTYPE='multipart/form-data' method="POST">
 					<div id="edit_pic">
-						<img src="<%=urls.url("img","einstein.jpg")%>" width="200" height="200">
+						<% if(user.getPicture()!=null && !user.getPicture().isEmpty()) { %>
+							<img src="<%=urls.url(user.getPicture())%>" width="200" height="200">
+						<% } else { %>
+							<img src="<%=urls.url("img","einstein.jpg")%>" width="200" height="200">
+						<% } %>
 						<br/><br/>
-						<a href=""> Change Profile Picture </a>
+						<b>Change Profile Picture</b>: <input type="file" name="avatar" />
 					</div>
 					<br/>
 					<div id="edit_contactinfo">

@@ -24,10 +24,12 @@ public class UrlMapper {
 	public String url(String controller,String command,String...args) {
 		String url = "/"+context+"/";
 		
-		if(!controller.equals("index"))
-			url += controller+'/';
-		else
+		if(controller.equals("index"))
 			return url+"home";
+		else if(controller.startsWith("img"))
+			url += controller;
+		else
+			url += controller+'/';
 		
 		if(command!=null)
 			url += command;

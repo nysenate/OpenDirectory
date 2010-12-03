@@ -5,6 +5,7 @@ import gov.nysenate.opendirectory.models.Person;
 import gov.nysenate.opendirectory.servlets.utils.BaseServlet;
 import gov.nysenate.opendirectory.servlets.utils.Request;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +19,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.solr.client.solrj.SolrServerException;
 
 
@@ -144,6 +149,33 @@ public class UserServlet extends BaseServlet {
 	    				setFieldValue(self.user,key,value);
 	    			}
 	    		}
+
+
+	    		
+	    		try {
+	    			ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory());
+	    			ArrayList<FileItem> files = (ArrayList<FileItem>)upload.parseRequest(request);
+					for(FileItem item : files) {
+						if(!item.isFormField()) {
+							try {
+								String filename = self.user.getUid()+item.getName().substring(item.getName().lastIndexOf('.'));
+								String fullname = "/home/opendirectory/OpenDirectory/src/main/webapp/img/avatars/"+filename;
+								System.out.println("Writing to: "+fullname);
+								File file = new File(fullname);
+								item.write(file);
+								self.user.setPicture("img/avatars/"+filename);
+								self.solrSession.savePerson(self.user);
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					}
+				} catch (FileUploadException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	    		
 	    		try {
 					self.solrSession.savePerson(self.user);
 				} catch (SolrServerException e) {
