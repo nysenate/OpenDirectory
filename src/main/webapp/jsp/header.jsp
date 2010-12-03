@@ -41,7 +41,7 @@
 		<div id="user_options">
 			<ul id="user_options_list">
 				<li> <a href="<%=urls.url("person",user.getUid())%>"> My Profile </a> </li> 
-				<li> <a href="<%=urls.url("person",user.getUid(),"bookmarks")%>"> My Bookmarks </a> </li> 
+				<li> <a href="<%=urls.url("user","bookmarks")%>"> My Bookmarks </a> </li> 
 				<li> <a href="<%=urls.url("user","edit")%>"> Edit Profile </a> </li> 
 			</ul>
 		</div>

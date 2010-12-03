@@ -54,6 +54,8 @@ public class UserServlet extends BaseServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+	    	} else if (command.equals("bookmarks")) {
+	    		self.render("bookmarks.jsp");
 	    		
 	    	}
 	    }
