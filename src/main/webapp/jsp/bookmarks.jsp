@@ -13,12 +13,16 @@
 			<div id="page">
 				<jsp:include page="header.jsp" />
 				<div id="main">
-				<h> My Bookmarks </h>
+				<h> My Bookmarks</h>
 				<br></br>
 					<% if (user_bookmarks != null) { %>
 						<% for(Person bookmark : user_bookmarks) {%>
 						<div id="name_pic">
-								<img src="<%=urls.url("img","einstein.jpg")%>" width="100" height="100"/>
+							<% if(bookmark.getPicture()!=null && !bookmark.getPicture().isEmpty()) { %>
+								<img src="<%=bookmark.getPicture()%>" width="100" height="100">
+							<% } else { %>
+								<img src="<%=urls.url("img","einstein.jpg")%>" width="100" height="100">
+							<% } %>
 						</div>
 						<div id="remove">		
 								<a href="<%=urls.url("user","bookmarks","remove", bookmark.getUid())%>"> Remove From Bookmarks </a>
@@ -31,5 +35,6 @@
 						<% } %>
 					<% } %>	
 				</div>		
+			</div>
 		</body>
 </html>

@@ -18,7 +18,11 @@
 					<% if (results != null) { %>
 						<% for( Person result : results ) { %>
 						<div id="name_pic">
-							<img src="<%=urls.url("img","einstein.jpg")%>" width="100" height="100"/>
+							<% if(result.getPicture()!=null && !result.getPicture().isEmpty()) { %>
+								<img src="<%=result.getPicture()%>" width="100" height="100">
+							<% } else { %>
+								<img src="<%=urls.url("img","einstein.jpg")%>" width="100" height="100">
+							<% } %>
 						</div>
 						<div id="search_info">
 							<a href="<%=urls.url("person",result.getUid())%>"> <%=result.getFullName()%></a>

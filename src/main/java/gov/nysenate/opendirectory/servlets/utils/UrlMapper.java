@@ -26,7 +26,7 @@ public class UrlMapper {
 		
 		if(controller.equals("index"))
 			return url+"home";
-		else if(controller.startsWith("img"))
+		else if(controller.startsWith("img/"))
 			url += controller;
 		else
 			url += controller+'/';
