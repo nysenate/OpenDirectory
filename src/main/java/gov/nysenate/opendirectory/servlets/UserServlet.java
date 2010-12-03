@@ -6,10 +6,12 @@ import gov.nysenate.opendirectory.servlets.utils.BaseServlet;
 import gov.nysenate.opendirectory.servlets.utils.Request;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.TreeSet;
+import java.util.Vector;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -43,20 +45,47 @@ public class UserServlet extends BaseServlet {
 	    		self.httpRequest.setAttribute("person", self.user);
 	    		self.render("EditProfile.jsp");
 	    		
-	    	} else if (command.equals("addbookmark")) {
-	    		
-	    		try {
-	    			String uid = urls.getArgs(request).iterator().next();
-		    		self.user.getBookmarks().add(self.solrSession.loadPersonByUid(uid));
-					self.solrSession.savePerson(self.user);
-					self.redirect(urls.url("person",uid));
-				} catch (SolrServerException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 	    	} else if (command.equals("bookmarks")) {
-	    		self.render("bookmarks.jsp");
-	    		
+	    		Vector<String> args = urls.getArgs(request);
+	    		if(args.isEmpty()) {
+	    			self.render("bookmarks.jsp");
+	    			
+	    		} else {
+	    			if(args.size()==2) {
+		    			if(args.get(0).equals("add")) {
+		    	    		try {
+		    		    		self.user.getBookmarks().add(self.solrSession.loadPersonByUid(args.get(1)));
+		    					self.solrSession.savePerson(self.user);
+		    					self.redirect(urls.url("person",args.get(1)));
+		    				} catch (SolrServerException e) {
+		    					// TODO Auto-generated catch block
+		    					e.printStackTrace();
+		    				}
+		    				
+			    		} else if(args.get(0).equals("remove")) {
+			    			try {
+			    				ArrayList<Person> bookmarks = self.user.getBookmarks();
+				    			for(Person p : bookmarks)
+				    				if(p.getUid().equals(args.get(1))) {
+				    					bookmarks.remove(p);
+				    					System.out.println("Now only "+bookmarks.size()+" bookmarks");
+				    					break;
+				    				}
+		    					self.solrSession.savePerson(self.user);
+		    					self.redirect(urls.url("user","bookmarks"));
+		    				} catch (SolrServerException e) {
+		    					// TODO Auto-generated catch block
+		    					e.printStackTrace();
+		    				}
+			    		} else {
+			    			//Exception!!!!
+			    			System.out.println("Bad bookmarks command: "+args.get(0));
+			    		}
+	    			} else {
+	    				//Improper number of arguments
+	    				System.out.println("Improper number of arguments: "+args.size());
+	    			}
+	    		}
 	    	}
 	    }
 		
