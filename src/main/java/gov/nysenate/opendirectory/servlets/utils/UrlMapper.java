@@ -1,6 +1,5 @@
 package gov.nysenate.opendirectory.servlets.utils;
 
-import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
