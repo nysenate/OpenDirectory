@@ -6,6 +6,12 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.TreeSet;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 public class Person {
 	/** 
 	 * Designed according to JavaBean specs for use in the
@@ -362,7 +368,48 @@ public class Person {
 		return permissions;
 	}
 	
-	public String toXml() {
-		return null;
+	public Element createLeaf(Document doc, String name, String value) {
+		Element leaf = doc.createElement(name);
+		if(value!=null)
+			leaf.appendChild(doc.createTextNode(value));
+		return leaf;
+	}
+	
+	public void appendLeaf(Document doc, Element root, String name, String value) {
+		root.appendChild(createLeaf(doc,name,value));
+	}
+	
+	public Document toXml() throws ParserConfigurationException {
+		Document xml = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+		Element person = xml.createElement("person");
+			appendLeaf(xml,person,"uid",getUid());
+			appendLeaf(xml,person,"fullName",getFullName());
+			appendLeaf(xml,person,"firstName",getFirstName());
+			appendLeaf(xml,person,"lastName",getLastName());
+			appendLeaf(xml,person,"location",getLocation());
+			appendLeaf(xml,person,"department",getDepartment());
+			appendLeaf(xml,person,"phone",getPhone());
+			appendLeaf(xml,person,"phone2",getPhone2());
+			appendLeaf(xml,person,"email",getEmail());
+			appendLeaf(xml,person,"email2",getEmail2());
+			appendLeaf(xml,person,"title",getTitle());
+			appendLeaf(xml,person,"irc",getIrc());
+			appendLeaf(xml,person,"twitter",getTwitter());
+			appendLeaf(xml,person,"facebook",getFacebook());
+			appendLeaf(xml,person,"linkedin",getLinkedin());
+			appendLeaf(xml,person,"state",getState());
+			appendLeaf(xml,person,"bio",getBio());
+			
+			Element skills = xml.createElement("skills");
+			for(String skill : getSkills())
+				appendLeaf(xml,skills,"skill",skill);
+			person.appendChild(skills);
+			
+			Element interests = xml.createElement("interests");
+			for(String interest: getInterests())
+				appendLeaf(xml,interests,"interest",interest);
+			person.appendChild(interests);
+		xml.appendChild(person);
+		return xml;
 	}
 }
