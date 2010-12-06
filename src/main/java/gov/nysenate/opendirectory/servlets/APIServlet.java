@@ -2,6 +2,7 @@ package gov.nysenate.opendirectory.servlets;
 
 import gov.nysenate.opendirectory.models.Person;
 import gov.nysenate.opendirectory.utils.Request;
+import gov.nysenate.opendirectory.utils.XmlUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,9 +14,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -30,6 +28,27 @@ import org.w3c.dom.Element;
 
 @SuppressWarnings("serial")
 public class APIServlet extends BaseServlet {
+	//TODO Documentation must be produced
+	
+	Transformer xmlTransformer;
+	
+	public APIServlet() throws ServletException {
+		super();
+		
+		//Load the Transformer resource. If this fails the servlet should die.
+		try {
+			xmlTransformer = TransformerFactory.newInstance().newTransformer();
+			xmlTransformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			xmlTransformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+		} catch (TransformerConfigurationException e) {
+			e.printStackTrace();
+			throw new ServletException("xmlTransformer Configuration Error",e);
+		} catch (TransformerFactoryConfigurationError e) {
+			e.printStackTrace();
+			throw new ServletException("TransformerFactory Configuration Error",e);
+		}
+
+	}
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -182,64 +201,41 @@ public class APIServlet extends BaseServlet {
 	
 		
 		public void writeException(ApiException exception) {
+			
 			Document xml;
 			try {
-				xml = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+				xml = XmlUtils.newDocument();
 				Element response = xml.createElement("response");
 					Element metadata = xml.createElement("metadata");
-						appendLeaf(xml,metadata,"status","success");
-						appendLeaf(xml,metadata,"message",exception.getMessage());
-						appendLeaf(xml,metadata,"total","");
+						XmlUtils.appendLeaf(xml,metadata,"status","success");
+						XmlUtils.appendLeaf(xml,metadata,"message",exception.getMessage());
+						XmlUtils.appendLeaf(xml,metadata,"total","");
 					response.appendChild(metadata);
 					Element data = xml.createElement("data");
 					response.appendChild(data);
 				xml.appendChild(response);
+				xmlTransformer.transform(new DOMSource(xml), new StreamResult(out));
 				
-				Transformer transformer = TransformerFactory.newInstance().newTransformer();
-				transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-				transformer.transform(new DOMSource(xml), new StreamResult(out));
-				
-			} catch (ParserConfigurationException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (TransformerConfigurationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (TransformerFactoryConfigurationError e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (TransformerException e) {
-				// TODO Auto-generated catch block
+				// TODO handle writeException Xml TransformationException
 				e.printStackTrace();
 			}
-			
 			
 		}
 		
 		public void writeException(ApiException e, String format) {
 			
 		}
-
-		public Element createLeaf(Document doc, String name, String value) {
-			Element leaf = doc.createElement(name);
-			if(value!=null)
-				leaf.appendChild(doc.createTextNode(value));
-			return leaf;
-		}
-		
-		public void appendLeaf(Document doc, Element root, String name, String value) {
-			root.appendChild(createLeaf(doc,name,value));
-		}
 		
 		public void writeResponse(ArrayList<Person> results, String format) {
+			
 			try {
-				Document xml = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+				Document xml = XmlUtils.newDocument();
 				Element response = xml.createElement("response");
 					Element metadata = xml.createElement("metadata");
-						appendLeaf(xml,metadata,"status","success");
-						appendLeaf(xml,metadata,"message","");
-						appendLeaf(xml,metadata,"total",String.valueOf(results.size()));
+						XmlUtils.appendLeaf(xml,metadata,"status","success");
+						XmlUtils.appendLeaf(xml,metadata,"message","");
+						XmlUtils.appendLeaf(xml,metadata,"total",String.valueOf(results.size()));
 					response.appendChild(metadata);
 					Element data = xml.createElement("data");
 						for(Person p : results) {
@@ -247,23 +243,10 @@ public class APIServlet extends BaseServlet {
 						}
 					response.appendChild(data);
 				xml.appendChild(response);
+				xmlTransformer.transform(new DOMSource(xml), new StreamResult(out));
 				
-				Transformer transformer = TransformerFactory.newInstance().newTransformer();
-				transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-				transformer.transform(new DOMSource(xml), new StreamResult(out));
-				
-			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (TransformerConfigurationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (TransformerException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (TransformerFactoryConfigurationError e) {
-				// TODO Auto-generated catch block
+				// TODO Handle case where transformer fails, bad data perhaps?
 				e.printStackTrace();
 			}
 		}

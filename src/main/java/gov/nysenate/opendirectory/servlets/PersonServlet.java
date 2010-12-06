@@ -58,7 +58,10 @@ public class PersonServlet extends BaseServlet {
 	    		throw new PersonServletException("Invalid command `"+command+"` was supplied.");
 	    	
 	    } catch (PersonServletException e) {
-	    	
+	    	System.out.println(e.getMessage());
+	    	if(e.getCause()!=null)
+	    		e.getCause().printStackTrace();
+	    	self.redirect(urls.url("index"));
 	    }
 	    
 	}

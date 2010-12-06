@@ -16,10 +16,14 @@ public class XmlUtils {
 			try {
 				builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
+				// TODO come up with some sort of recovery process
 				e.printStackTrace();
 			}
 		return builder;
+	}
+	
+	public static Document newDocument() {
+		return getBuilder().newDocument();
 	}
 	
 	public static Element createLeaf(Document doc, String name, String value) {
@@ -32,7 +36,6 @@ public class XmlUtils {
 	public static void appendLeaf(Document doc, Element root, String name, String value) {
 		root.appendChild(createLeaf(doc,name,value));
 	}
-	
 	
 	/*
 	//Returns permissions for each field in "xml" string

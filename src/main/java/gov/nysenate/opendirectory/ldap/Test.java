@@ -7,32 +7,14 @@ import gov.nysenate.opendirectory.solr.Solr;
 import java.io.IOException;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.TreeSet;
 
-import javax.naming.AuthenticationException;
 import javax.naming.Context;
-import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
-import javax.naming.directory.Attributes;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
-import javax.naming.directory.SearchControls;
-import javax.naming.directory.SearchResult;
 
-import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
-import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.common.SolrDocumentList;
-import org.apache.solr.common.SolrInputDocument;
-import org.apache.solr.client.solrj.beans.*;
 
 public class Test {
 	
@@ -264,25 +246,15 @@ public class Test {
 		catch (AuthenticationException e) {
 			System.out.println("Authentication Failed!");
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SolrServerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
 		
 		//Bad queries aren't caught here, not sure how to do that yet.
 	}
-	
-
-	private static SolrServer getSolrServer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 	public static DirContext getLdap(String cred, String pwd) throws NamingException {
 		Hashtable<String,String> env = new Hashtable<String,String>();

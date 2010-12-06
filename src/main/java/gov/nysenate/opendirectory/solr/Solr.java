@@ -31,13 +31,10 @@ public class Solr {
 				System.setProperty("solr.solr.home", "/usr/local/solr");
 				server = (SolrServer)new EmbeddedSolrServer(new CoreContainer.Initializer().initialize(),"");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SAXException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			*/
