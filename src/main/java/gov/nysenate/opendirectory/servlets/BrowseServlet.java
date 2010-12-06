@@ -1,8 +1,7 @@
 package gov.nysenate.opendirectory.servlets;
 
 import gov.nysenate.opendirectory.models.Person;
-import gov.nysenate.opendirectory.servlets.utils.BaseServlet;
-import gov.nysenate.opendirectory.servlets.utils.Request;
+import gov.nysenate.opendirectory.utils.Request;
 
 
 import java.io.IOException;
@@ -19,77 +18,82 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
 public class BrowseServlet extends BaseServlet {
+	// TODO This bucketting could probably be done in a much better way
+	
+	public class BrowseServletException extends Exception {
+		public BrowseServletException(String m) { super(m); }
+		public BrowseServletException(String m, Throwable t) { super(m,t); }
+	}
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Request self = new Request(this,request,response);
 		
-		try{
-			String command = urls.getCommand(request);
-			System.out.println(command);
-		    if (command != null) {
-		    	if ( command.equals("department")) {
-		    		long start = System.nanoTime();
-					request.setAttribute(
-							"people",
-							GetPeopleSortedByString(self,
-									Person.class.getMethod("getDepartment"),
-									new Person.ByDepartment()
-								)
-						);
-					System.out.println("Sort by Department: "+(System.nanoTime()-start)/1000000f+" milliseconds");
-					self.render("dept.jsp");
-					
-		    	} else if ( command.equals("firstname") ) {
-		    		long start = System.nanoTime();
-					request.setAttribute(
-							"people",
-							GetPeopleSortedByChar(self,
-									Person.class.getMethod("getFirstName"),
-									new Person.ByFirstName()
-								)
-						);
-					System.out.println("Sort by Firstname: "+(System.nanoTime()-start)/1000000f+" milliseconds");
-					self.render("first.jsp");
-					
-		    	} else if ( command.equals("lastname") ) {
-		    		long start = System.nanoTime();
-					request.setAttribute("people",
-							GetPeopleSortedByChar(self,
-								Person.class.getMethod("getLastName"),
-								new Person.ByLastName())
-						);
-					System.out.println("Sort by LastName: "+(System.nanoTime()-start)/1000000f+" milliseconds");
-		    		self.render("last.jsp");
-		    		
-		    	} else if ( command.equals("location") ) {
-		    		long start = System.nanoTime();
-					request.setAttribute(
-							"people",
-							GetPeopleSortedByString(self,
-									Person.class.getMethod("getLocation"),
-									new Person.ByLocation()
-								)
-						);
-					System.out.println("Sort by Location: "+(System.nanoTime()-start)/1000000f+" milliseconds");
-					self.render("loc.jsp");
-					
-		    	} else if ( command.equals("all") ) {
-		    		request.setAttribute("people", self.solrSession.loadPeople());
-		    		self.render("/showall.jsp");
-		    	}
-		    } else {
-		    	self.render("index.jsp");
-		    }
-		} catch (NoSuchMethodException e) {
-			//If the method by name doesn't exist
-			System.out.println(e);
-		} catch (SecurityException e) {
-			//If the method isn't gettable I think? not sure what `security` means
-			System.out.println(e);
+		try {
+			try {
+				String command = urls.getCommand(request);
+				System.out.println(command);
+			    if (command != null) {
+			    	if ( command.equals("department")) {
+			    		long start = System.nanoTime();
+						request.setAttribute( "people",
+								GetPeopleSortedByString(self,
+											Person.class.getMethod("getDepartment"),
+											new Person.ByDepartment()
+										));
+						System.out.println("Sort by Department: "+(System.nanoTime()-start)/1000000f+" milliseconds");
+						self.render("dept.jsp");
+						
+			    	} else if ( command.equals("firstname") ) {
+			    		long start = System.nanoTime();
+						request.setAttribute( "people",
+								GetPeopleSortedByChar(self,
+										Person.class.getMethod("getFirstName"),
+										new Person.ByFirstName()
+									));
+						System.out.println("Sort by Firstname: "+(System.nanoTime()-start)/1000000f+" milliseconds");
+						self.render("first.jsp");
+						
+			    	} else if ( command.equals("lastname") ) {
+			    		long start = System.nanoTime();
+						request.setAttribute( "people",
+								GetPeopleSortedByChar(self,
+										Person.class.getMethod("getLastName"),
+										new Person.ByLastName()
+									));
+						System.out.println("Sort by LastName: "+(System.nanoTime()-start)/1000000f+" milliseconds");
+			    		self.render("last.jsp");
+			    		
+			    	} else if ( command.equals("location") ) {
+			    		long start = System.nanoTime();
+						request.setAttribute( "people",
+								GetPeopleSortedByString(self,
+										Person.class.getMethod("getLocation"),
+										new Person.ByLocation()
+									));
+						System.out.println("Sort by Location: "+(System.nanoTime()-start)/1000000f+" milliseconds");
+						self.render("loc.jsp");
+						
+			    	}
+			    	
+			    } else {
+			    	self.render("index.jsp");
+			    }
+			} catch (NoSuchMethodException e) {
+				throw new BrowseServletException("Somehow the Java bean methods don't exist.");
+			} catch (SecurityException e) {
+				throw new BrowseServletException("Somehow the BrowseServlet does not have permissions to access the getMethods.");
+			}
+			
+		} catch (BrowseServletException e) {
+			System.out.println(e.getMessage());
+			if(e.getCause()!=null)
+				e.getCause().printStackTrace();
+			// TODO something reasonable to resolve things here
 		}
+		
 	}
 		
-	private HashMap<String,TreeSet<Person>> GetPeopleSortedByChar(Request self, Method method, Comparator<Person> comparator) {
+	private HashMap<String,TreeSet<Person>> GetPeopleSortedByChar(Request self, Method method, Comparator<Person> comparator) throws BrowseServletException {
 		try {
 			long start = System.nanoTime();
 			ArrayList<Person> people = self.solrSession.loadPeople();
@@ -123,7 +127,7 @@ public class BrowseServlet extends BaseServlet {
 		return null;
 	}
 
-	private HashMap<String,TreeSet<Person>> GetPeopleSortedByString(Request self,Method method, Comparator<Person> comparator) {
+	private HashMap<String,TreeSet<Person>> GetPeopleSortedByString(Request self,Method method, Comparator<Person> comparator) throws BrowseServletException {
 		try {
 			long start = System.nanoTime();
 			ArrayList<Person> people = self.solrSession.loadPeople();

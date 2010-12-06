@@ -1,4 +1,4 @@
-package gov.nysenate.opendirectory.servlets.utils;
+package gov.nysenate.opendirectory.utils;
 
 import java.util.Vector;
 
@@ -8,11 +8,11 @@ public class UrlMapper {
 
 	public final String context = "opendirectory";
 	
-	public UrlMapper() {}
-	
-	public String url(String controller) {
-		return url(controller,null);
-	}
+	@SuppressWarnings("serial")
+	public class UrlException extends Exception {
+		public UrlException() { super(); }
+		public UrlException(String msg) { super(msg); }
+	};
 	
 	public static void main(String[] args) {
 		UrlMapper urls = new UrlMapper();
@@ -21,31 +21,31 @@ public class UrlMapper {
 		System.out.println(urls.url("css","style.css"));
 	}
 	
+	public String url(String controller) { return url(controller,null);	}
+	
 	public String url(String controller,String command,String...args) {
+		
+		//Always insert the context
 		String url = "/"+context+"/";
 		
+		//Need to redirect to the home page
 		if(controller.equals("index"))
 			return url+"home";
-		else if(controller.startsWith("img/"))
-			url += controller;
-		else
-			url += controller+'/';
 		
-		if(command!=null)
-			url += command;
+		//If the controller contains a / its assumed to be the full path
+		if(controller.contains("/"))
+			return url + controller;
 		
-		for (String arg : args) {
+		//Build according to normal rules for all other cases
+		url += controller+'/'+((command!=null) ? command : "");		
+		for (String arg : args) 
 			url+='/'+arg;
-		}
+		
 		return url;
 	}
 	
 	public String getCommand(HttpServletRequest request) {
 		return getCommand(request.getRequestURI());
-	}
-
-	public Vector<String> getArgs(HttpServletRequest request) {
-		return getArgs(request.getRequestURI());
 	}
 	
 	public String getCommand(String url) {
@@ -58,6 +58,10 @@ public class UrlMapper {
 		} else {
 			return tokens[2];
 		}
+	}
+	
+	public Vector<String> getArgs(HttpServletRequest request) {
+		return getArgs(request.getRequestURI());
 	}
 	
 	public Vector<String> getArgs(String url) {
@@ -74,9 +78,4 @@ public class UrlMapper {
 		return args;
 	}
 	
-	@SuppressWarnings("serial")
-	public class UrlException extends Exception {
-		public UrlException() { super(); }
-		public UrlException(String msg) { super(msg); }
-	};
 }

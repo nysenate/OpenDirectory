@@ -53,7 +53,7 @@ public class Test {
 			
 			SolrSession test_session = new SolrSession(Person.getAdmin(), test_solr);
 			Person result = new Person();
-			result = test_session.loadPersonByName("Jared\\ Williams");
+			result = test_session.loadPersonByUid("williams");
 			
 			OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("example.vcf"), "UTF-8");
 

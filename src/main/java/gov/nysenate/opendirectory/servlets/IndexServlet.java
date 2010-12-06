@@ -1,7 +1,6 @@
 package gov.nysenate.opendirectory.servlets;
 
-import gov.nysenate.opendirectory.servlets.utils.BaseServlet;
-import gov.nysenate.opendirectory.servlets.utils.Request;
+import gov.nysenate.opendirectory.utils.Request;
 
 import java.io.IOException;
 

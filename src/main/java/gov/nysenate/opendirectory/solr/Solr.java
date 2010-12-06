@@ -17,6 +17,7 @@ public class Solr {
 	
 	protected SolrServer server;
 	protected SolrQuery query;
+	
 	public Solr() {
 		server = null;
 		query = new SolrQuery();

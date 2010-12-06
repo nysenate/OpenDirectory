@@ -3,9 +3,6 @@ package gov.nysenate.opendirectory.solr;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.TreeSet;
 
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -14,11 +11,18 @@ import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
 
 import gov.nysenate.opendirectory.models.Person;
+import gov.nysenate.opendirectory.utils.SerialUtils;
 
 public class SolrSession {
 
 	private Solr solr;
 	private SecureLoader loader;
+	
+	@SuppressWarnings("serial")
+	public class SolrSessionException extends Exception {
+		public SolrSessionException(String m) { super(); }
+		public SolrSessionException(String m ,Throwable t) { super(m,t); }
+	}
 	
 	public static void main(String[] args) {
 		
@@ -62,20 +66,17 @@ public class SolrSession {
 		QueryResponse results = solr.query("uid:"+uid);
 		SolrDocumentList profiles = results.getResults();
 		
-		//Return null on no results
-		if( profiles.getNumFound() == 0 ) {
+		//Return null on no results, sometimes getResults returns null
+		if( profiles==null || profiles.getNumFound() == 0 ) {
 			return null;
 			
 		//Load a person from the profile if 1 result
 		} else if ( profiles.getNumFound() == 1 ) {
 			return loader.loadPerson(profiles.get(0));
 			
-		//Throw some sort of exception on multiple matches
-		} else {
-			//Too many people
-			//TODO: Throw some kind of error
+		//This should never happen since uid is unique in the SOLR config file.
+		} else
 			return null;
-		}
 	}
 	
 	public ArrayList<Person> loadPeopleByQuery(String query) {
@@ -93,37 +94,18 @@ public class SolrSession {
 		SolrDocumentList profiles = results.getResults();
 		System.out.println((System.nanoTime()-start)/1000000f+" ms - query to solr");
 		
+		if(profiles==null)
+			return new ArrayList<Person>();
+		
 		//Transform the results
 		start = System.nanoTime();
 		ArrayList<Person> people = new ArrayList<Person>();
-		for( SolrDocument profile : profiles ) {
+		for( SolrDocument profile : profiles )
 			people.add(loader.loadPerson(profile));
-		}
+		
 		System.out.println((System.nanoTime()-start)/1000000f+" ms - load Person array");
 		
 		return people;
-	}
-	
-	public Person loadPersonByName(String name) {
-		
-		//Do the query
-		QueryResponse results = solr.query("fullName:"+name);
-		SolrDocumentList profiles = results.getResults();
-		
-		//Return null on no results
-		if( profiles.getNumFound() == 0 ) {
-			return null;
-			
-		//Load a person from the profile if 1 result
-		} else if ( profiles.getNumFound() == 1 ) {
-			return loader.loadPerson(profiles.get(0));
-			
-		//Throw some sort of exception on multiple matches
-		} else {
-			//Too many people
-			//TODO: Throw some kind of error
-			return null;
-		}
 	}
 	
 	public ArrayList<Person> loadPeople() {
@@ -148,9 +130,9 @@ public class SolrSession {
 		solr_person.addField("phone", person.getPhone(), 1.0f);
 		solr_person.addField("email", person.getEmail(), 1.0f);
 		
-		solr_person.addField("permissions", writeSetHash(person.getPermissions()));
-		solr_person.addField("user_credential", writeStringSet(person.getCredentials()));
-		solr_person.addField("bookmarks", writeBookmarks(person.getBookmarks()));
+		solr_person.addField("permissions", SerialUtils.writeSetHash(person.getPermissions()));
+		solr_person.addField("user_credential", SerialUtils.writeStringSet(person.getCredentials()));
+		solr_person.addField("bookmarks", SerialUtils.writeBookmarks(person.getBookmarks()));
 		
 		//additional contact info
 		solr_person.addField("bio", person.getBio(), 1.0f);
@@ -161,8 +143,8 @@ public class SolrSession {
 		solr_person.addField("facebook", person.getFacebook(), 1.0f);
 		solr_person.addField("linkedin", person.getLinkedin(), 1.0f);
 		solr_person.addField("irc", person.getIrc(), 1.0f);
-		solr_person.addField("skills", writeStringSet(person.getSkills()), 1.0f);
-		solr_person.addField("interests", writeStringSet(person.getInterests()), 1.0f);
+		solr_person.addField("skills", SerialUtils.writeStringSet(person.getSkills()), 1.0f);
+		solr_person.addField("interests", SerialUtils.writeStringSet(person.getInterests()), 1.0f);
 		
 		solr.server.add(solr_person);
 	}
@@ -181,17 +163,6 @@ public class SolrSession {
 	public void optimize() throws SolrServerException, IOException {
 		solr.server.optimize();
 	}
-
-/* FOR DYNAMIC FIELDS	
- *	To be figured out... need to figure out annotations with Graylin
- * public AnnotatedField getAnnotatedField(Field field) {
-		org.apache.solr.client.solrj.beans.Field lf = field.getAnnotation(org.apache.solr.client.solrj.beans.Field.class);
-		if(lf != null) {
-			return new AnnotatedField(lf);
-		}
-		return null;		
-	}
-*/
 	
 	public void deleteAll() {
 		try {
@@ -202,100 +173,5 @@ public class SolrSession {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public String writeStringHash(HashMap<String, String> map) {
-		if(map==null)
-			return "";
-		
-		String str = "";
-		for(String key : map.keySet()) {
-			if(!str.isEmpty())
-				str+=":";
-			str+=key+":"+map.get(key);
-		}
-		return str;
-	}
-	
-	public String writeSetHash(HashMap<String, TreeSet<String>> map) {
-		if(map==null)
-			return "";
-		
-		String str = "";
-		for(String key : map.keySet()) {
-			if(!str.isEmpty())
-				str+=":";
-			str+=key+":"+writeStringSet(map.get(key));
-		}
-		return str;
-	}
-	
-	public String writeStringSet(TreeSet<String> set) {
-		if(set==null)
-			return "";
-		
-		String str = set.toString();
-		return str.substring(1, str.length()-1);
-	}
-	
-	public String writeBookmarks(ArrayList<Person> marks) {
-		String str = "";
-		for(Person mark : marks)
-			if(str.isEmpty())
-				str = mark.getUid();
-			else
-				str += ", "+mark.getUid();
-		return str;
-	}
-	
-	
-	//Returns permissions for each field in "xml" string
-	public String Permissions(HashMap<String,TreeSet<String>> permissions)
-	{
-		Iterator<?> permission = permissions.keySet().iterator();
-		
-		//XML to be written
-		String credentials = new String();
-		credentials="<fields>";
-		
-		String field;
-		String credential_list;
-		String access_level;
-		
-		while(permission.hasNext())
-		{
-			field = permission.next().toString();
-			credential_list = permissions.get(field).toString();
-			access_level = credential_list.substring(1, credential_list.length()- 1);
-			
-			credentials+="<field name=\"" + field + "\" allow = \"" + 
-				access_level + "\"/>"; 
-		}
-		credentials+="</fields>";
-		return credentials;
-	}
-	
-	public String Bookmarks(HashMap<String, TreeSet<String>> BOOKMARK)
-	{
-		Iterator<?> bookmark_iterator = BOOKMARK.keySet().iterator();
-		
-		//XML to be written
-		String bookmarks= new String();
-		bookmarks="<users>";
-		
-		String id;
-		String employee_list;
-		String fullname;
-		
-		while(bookmark_iterator.hasNext()) {
-			id = bookmark_iterator.next().toString();
-			employee_list = BOOKMARK.get(id).toString();
-			fullname = employee_list.substring(1, employee_list.length()-1);
-			
-			bookmarks+="<user id=\"" + id + "\" fullName = \"" + fullname + "\"/>";
-		}
-		
-		bookmarks+="</users>";
-		return bookmarks;
 	}
 }

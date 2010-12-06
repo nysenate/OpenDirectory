@@ -1,8 +1,7 @@
 package gov.nysenate.opendirectory.servlets;
 
 import gov.nysenate.opendirectory.models.Person;
-import gov.nysenate.opendirectory.servlets.utils.BaseServlet;
-import gov.nysenate.opendirectory.servlets.utils.Request;
+import gov.nysenate.opendirectory.utils.Request;
 
 import java.io.IOException;
 import java.util.Vector;
@@ -12,16 +11,38 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 @SuppressWarnings("serial")
 public class PersonServlet extends BaseServlet {
 
+	public class PersonServletException extends Exception {
+		public PersonServletException(String m) { super(m); }
+		public PersonServletException(String m, Throwable t) { super(m,t); }
+	}
+	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Request self = new Request(this,request,response);
 	    String uid = urls.getCommand(request);
-	    if(uid != null) {
+	    
+	    try {
+		    if(uid == null)
+		    	throw new PersonServletException("No uid was supplied");
+		    
+		    Person person = self.solrSession.loadPersonByUid(uid);
+		    if(person==null)
+		    	throw new PersonServletException("Bad uid was supplied");
+		    
 	    	Vector<String> args = urls.getArgs(request);
-	    	Person person = self.solrSession.loadPersonByUid(uid);
-	    	if(args.size()==1 && args.get(0).equals("vcard.vcf")) { 
+	    	if(args.size()==0)
+	    		throw new PersonServletException("Not no command was supplied");
+	    	
+	    	String command = args.get(0);
+	    	if(command.equals("profile")) {
+		    	request.setAttribute("person", person);
+		    	self.render("profile.jsp");
+		    	
+	    	} else if (command.equals("vcard")) {
+	    		// TODO vcard needs to get fixed up, maybe Jared can do this?
 	    		ServletOutputStream out = response.getOutputStream();
 	    		StringBuilder mResult = new StringBuilder();
 				mResult.append("BEGIN:VCARD\r\n");
@@ -32,17 +53,13 @@ public class PersonServlet extends BaseServlet {
 				mResult.append("\r\nEMAIL;TYPE=PREF;TYPE=INTERNET:").append(person.getEmail());
 				mResult.append("\r\nEND:VCARD\r\n");
 				out.print(mResult.toString());
-	    	}
-	    	else if (args.isEmpty()) {
-		    	try {
-			    	request.setAttribute("person", person);
-				    self.render("profile.jsp");
-		    	} catch (NullPointerException e) {
-		    		
-		    	}
-	    	}
-	    } else {
-	    	//No UID supplied so...
+				
+	    	} else
+	    		throw new PersonServletException("Invalid command `"+command+"` was supplied.");
+	    	
+	    } catch (PersonServletException e) {
+	    	
 	    }
+	    
 	}
 }

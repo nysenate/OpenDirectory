@@ -1,13 +1,14 @@
 package gov.nysenate.opendirectory.models;
 
+import gov.nysenate.opendirectory.solr.SolrSession;
+import gov.nysenate.opendirectory.utils.SerialUtils;
+import gov.nysenate.opendirectory.utils.XmlUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.TreeSet;
-
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -18,27 +19,6 @@ public class Person {
 	 * Java Expressions Language (EL) of JSP 2.0+
 	**/
 	
-	public Person() {
-		
-		//Need to set defaults for everything else here...
-		setBio("");
-		setEmail2("");
-		setPhone2("");
-		setTwitter("");
-		setFacebook("");
-		setLinkedin("");
-		setIrc("");
-		setSkills(new TreeSet<String>());
-		setInterests(new TreeSet<String>());
-		setBookmarks(new ArrayList<Person>());
-		setPicture("");
-		
-		//All people must have permissions and credentials
-		setPermissions(Person.getDefaultPermissions());
-		setCredentials(new TreeSet<String>(Arrays.asList("public")));
-	}
-	
-	
 	//VARIABLES NEED TO BE EXACT STRING MATCHES OF SOLR SCHEMA.XML
 	/*If you want to add variables, you also have to add in logic in 
 	 * SolrSession.addPerson(), SecureLoader.loadPerson(), and Person.getDefaultPermissions()
@@ -48,7 +28,6 @@ public class Person {
 	 * Also, pay particular attention to SecureLoader.loadPerson() and 
 	 * see the if statements regarding the fields "permission" and "bookmarks"
 	 */
-	
 	
 	private TreeSet<String> credentials;
 	private HashMap<String,TreeSet<String>> permissions;
@@ -77,6 +56,37 @@ public class Person {
 	private String facebook;
 	private String linkedin;
 	private String irc;
+	
+	public Person() {
+		
+		setFirstName("");
+		setLastName("");
+		setTitle("");
+		setUid("");
+		setFullName("");
+		setState("");
+		setLocation("");
+		setDepartment("");
+		setPhone("");
+		setEmail("");
+		
+		//Need to set NON-NULL!!! defaults for everything here
+		setBio("");
+		setEmail2("");
+		setPhone2("");
+		setTwitter("");
+		setFacebook("");
+		setLinkedin("");
+		setIrc("");
+		setSkills(new TreeSet<String>());
+		setInterests(new TreeSet<String>());
+		setBookmarks(new ArrayList<Person>());
+		setPicture("");
+		
+		//All people must have permissions and credentials
+		setPermissions(Person.getDefaultPermissions());
+		setCredentials(new TreeSet<String>(Arrays.asList("public")));
+	}
 	
 	public String getFirstName() {
 		return firstName;
@@ -240,10 +250,7 @@ public class Person {
 						ret = a.location.compareToIgnoreCase(b.location);
 						if (ret == 0) {
 							ret = a.uid.compareToIgnoreCase(b.uid);
-						}
-					}
-				}
-			}
+						}}}}
 			return ret;
 		}
 	}
@@ -259,10 +266,7 @@ public class Person {
 						ret = a.location.compareToIgnoreCase(b.location);
 						if (ret == 0) {
 							ret = a.uid.compareToIgnoreCase(b.uid);
-						}
-					}
-				}
-			}
+						}}}}
 			return ret;
 		}
 	}
@@ -278,10 +282,7 @@ public class Person {
 						ret = a.department.compareToIgnoreCase(b.department);
 						if (ret == 0) {
 							ret = a.uid.compareToIgnoreCase(b.uid);
-						}
-					}
-				}
-			}
+						}}}}
 			return ret;
 				
 		}
@@ -298,10 +299,7 @@ public class Person {
 						ret = a.location.compareToIgnoreCase(b.location);
 						if (ret == 0) {
 							ret = a.uid.compareToIgnoreCase(b.uid);
-						}
-					}
-				}
-			}
+						}}}}
 			return ret;
 		}
 	}
@@ -309,29 +307,22 @@ public class Person {
 	static Person admin;
 	static Person anon;
 	
-	public static Person getAdmin() {
+	public synchronized static Person getAdmin() {
 		if(admin == null) {
 			admin = new Person();
 			admin.setFullName("Administrator");
-			
-			TreeSet<String> cred_admin = new TreeSet<String>();
-			cred_admin.add("public");
-			cred_admin.add("admin");
 			admin.setPermissions(new HashMap<String,TreeSet<String>>());
-			admin.setCredentials(cred_admin);	
+			admin.setCredentials(new TreeSet<String>(Arrays.asList("public","senate","admin")));	
 		}
 		return admin;
 	}
 	
-	public static Person getAnon() {
+	public synchronized static Person getAnon() {
 		if(anon == null) {
 			anon = new Person();
 			anon.setFullName("Anonymous User");
-			
-			TreeSet<String> cred_default = new TreeSet<String>();
-			cred_default.add("public");
 			anon.setPermissions(new HashMap<String, TreeSet<String>>());
-			anon.setCredentials(cred_default);
+			anon.setCredentials(new TreeSet<String>(Arrays.asList("public")));
 		}
 		return anon;
 	}
@@ -368,48 +359,100 @@ public class Person {
 		return permissions;
 	}
 	
-	public Element createLeaf(Document doc, String name, String value) {
-		Element leaf = doc.createElement(name);
-		if(value!=null)
-			leaf.appendChild(doc.createTextNode(value));
-		return leaf;
-	}
-	
-	public void appendLeaf(Document doc, Element root, String name, String value) {
-		root.appendChild(createLeaf(doc,name,value));
-	}
-	
-	public Document toXml() throws ParserConfigurationException {
-		Document xml = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+	public Document toXml() {
+		Document xml = XmlUtils.getBuilder().newDocument();
 		Element person = xml.createElement("person");
-			appendLeaf(xml,person,"uid",getUid());
-			appendLeaf(xml,person,"fullName",getFullName());
-			appendLeaf(xml,person,"firstName",getFirstName());
-			appendLeaf(xml,person,"lastName",getLastName());
-			appendLeaf(xml,person,"location",getLocation());
-			appendLeaf(xml,person,"department",getDepartment());
-			appendLeaf(xml,person,"phone",getPhone());
-			appendLeaf(xml,person,"phone2",getPhone2());
-			appendLeaf(xml,person,"email",getEmail());
-			appendLeaf(xml,person,"email2",getEmail2());
-			appendLeaf(xml,person,"title",getTitle());
-			appendLeaf(xml,person,"irc",getIrc());
-			appendLeaf(xml,person,"twitter",getTwitter());
-			appendLeaf(xml,person,"facebook",getFacebook());
-			appendLeaf(xml,person,"linkedin",getLinkedin());
-			appendLeaf(xml,person,"state",getState());
-			appendLeaf(xml,person,"bio",getBio());
+			XmlUtils.appendLeaf(xml,person,"uid",getUid());
+			XmlUtils.appendLeaf(xml,person,"fullName",getFullName());
+			XmlUtils.appendLeaf(xml,person,"firstName",getFirstName());
+			XmlUtils.appendLeaf(xml,person,"lastName",getLastName());
+			XmlUtils.appendLeaf(xml,person,"location",getLocation());
+			XmlUtils.appendLeaf(xml,person,"department",getDepartment());
+			XmlUtils.appendLeaf(xml,person,"phone",getPhone());
+			XmlUtils.appendLeaf(xml,person,"phone2",getPhone2());
+			XmlUtils.appendLeaf(xml,person,"email",getEmail());
+			XmlUtils.appendLeaf(xml,person,"email2",getEmail2());
+			XmlUtils.appendLeaf(xml,person,"title",getTitle());
+			XmlUtils.appendLeaf(xml,person,"irc",getIrc());
+			XmlUtils.appendLeaf(xml,person,"twitter",getTwitter());
+			XmlUtils.appendLeaf(xml,person,"facebook",getFacebook());
+			XmlUtils.appendLeaf(xml,person,"linkedin",getLinkedin());
+			XmlUtils.appendLeaf(xml,person,"state",getState());
+			XmlUtils.appendLeaf(xml,person,"bio",getBio());
 			
 			Element skills = xml.createElement("skills");
 			for(String skill : getSkills())
-				appendLeaf(xml,skills,"skill",skill);
+				XmlUtils.appendLeaf(xml,skills,"skill",skill);
 			person.appendChild(skills);
 			
 			Element interests = xml.createElement("interests");
 			for(String interest: getInterests())
-				appendLeaf(xml,interests,"interest",interest);
+				XmlUtils.appendLeaf(xml,interests,"interest",interest);
 			person.appendChild(interests);
 		xml.appendChild(person);
 		return xml;
+	}
+	
+	
+	public void setFieldFromRawValue(String fieldname, String fieldvalue) {
+		setFieldFromRawValue(fieldname,fieldvalue,null,null);
+	}
+	
+	public void setFieldFromRawValue(String fieldname, String fieldvalue, SolrSession session) {
+		setFieldFromRawValue(fieldname,fieldvalue,null,session);
+	}
+	
+	public void setFieldFromRawValue(String fieldname, String fieldvalue, String permissions) {
+		setFieldFromRawValue(fieldname,fieldvalue,permissions,null);
+	}
+	
+	public void setFieldFromRawValue(String fieldname, Object fieldvalue,String permissions, SolrSession session) {
+		//Switch in the fieldname for speed
+		if(fieldname.equals("bio"))
+			setBio((String)fieldvalue);
+		else if(fieldname.equals("bookmarks"))
+			setBookmarks(SerialUtils.loadBookmarks((String)fieldvalue,this,session));
+		else if(fieldname.equals("department"))
+			setDepartment((String)fieldvalue);
+		else if(fieldname.equals("email"))
+			setEmail((String)fieldvalue);
+		else if(fieldname.equals("email2"))
+			setEmail2((String)fieldvalue);
+		else if(fieldname.equals("facebook"))
+			setFacebook((String)fieldvalue);
+		else if(fieldname.equals("firstName"))
+			setFirstName((String)fieldvalue);
+		else if(fieldname.equals("fullName"))
+			setFullName((String)fieldvalue);
+		else if(fieldname.equals("interests"))
+			setInterests(SerialUtils.loadStringSet((String)fieldvalue));
+		else if(fieldname.equals("irc"))
+			setIrc((String)fieldvalue);
+		else if(fieldname.equals("lastName"))
+			setLastName((String)fieldvalue);
+		else if(fieldname.equals("linkedin"))
+			setLinkedin((String)fieldvalue);
+		else if(fieldname.equals("location"))
+			setLocation((String)fieldvalue);
+		else if(fieldname.equals("permissions"))
+			setPermissions(SerialUtils.loadSetHash(permissions));
+		else if(fieldname.equals("phone"))
+			setPhone((String)fieldvalue);
+		else if(fieldname.equals("phone2"))
+			setPhone2((String)fieldvalue);
+		else if(fieldname.equals("picture"))
+			setPicture((String)fieldvalue);
+		else if(fieldname.equals("skills"))
+			setSkills(SerialUtils.loadStringSet((String)fieldvalue));
+		else if(fieldname.equals("state"))
+			setState((String)fieldvalue);
+		else if(fieldname.equals("title"))
+			setTitle((String)fieldvalue);
+		else if(fieldname.equals("twitter"))
+			setTwitter((String)fieldvalue);
+		else if(fieldname.equals("uid"))
+			setUid((String)fieldvalue);
+		else if(fieldname.equals("user_credential"))
+			setCredentials(SerialUtils.loadStringSet((String)fieldvalue));
 	}
 }

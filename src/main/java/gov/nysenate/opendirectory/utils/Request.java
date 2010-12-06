@@ -1,8 +1,9 @@
-package gov.nysenate.opendirectory.servlets.utils;
+package gov.nysenate.opendirectory.utils;
 
 import java.io.IOException;
 
 import gov.nysenate.opendirectory.models.Person;
+import gov.nysenate.opendirectory.servlets.BaseServlet;
 import gov.nysenate.opendirectory.solr.SolrSession;
 
 import javax.servlet.ServletException;
@@ -31,8 +32,14 @@ public class Request {
 		String uid = (String)httpSession.getAttribute("uid");
 		if( uid != null) {
 			user = servlet.solrServer.newSession(Person.getAdmin()).loadPersonByUid(uid);
+			
+			//Bad uids should be removed from the session
+			if(user == null)
+				httpSession.setAttribute("uid", null);
 		}
-		else
+		
+		//If no user was specified/found, log them as the Anonymous user.
+		if( user == null)
 			user = Person.getAnon();
 		
 		solrSession = servlet.solrServer.newSession(user);
