@@ -1,15 +1,15 @@
-<%@ page language="java" import="gov.nysenate.opendirectory.models.Person,gov.nysenate.opendirectory.servlets.utils.UrlMapper" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
+<%@ page language="java" import="gov.nysenate.opendirectory.models.Person,gov.nysenate.opendirectory.utils.UrlMapper" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
 	Person user = (Person)request.getAttribute("user");
 %>
 <div id="header">
-	<a href="<%=urls.url("index")%>"> <div id="logo"></div> </a>
+	<a href="<%=urls.url("index")%>" id="logo_link"><img src="http://www.nysenate.gov/sites/all/themes/nys/images/nyss_logo.png" id="logo" /></a>
 	<div id="nav_bar">Browse by:
 		<ul>
-			<li><a href="<%=urls.url("browse","lastname")%>" class="nav">Last name</a></li> |
-			<li><a href="<%=urls.url("browse","firstname")%>" class="nav">First name</a></li> |
-			<li><a href="<%=urls.url("browse","department")%>" class="nav">Department</a></li> |
-			<li><a href="<%=urls.url("browse","location")%>" class="nav">Location</a></li> |
+			<li><a href="<%=urls.url("browse","lastname")%>" class="nav">Last name</a><div class="sep">|</div></li>
+			<li><a href="<%=urls.url("browse","firstname")%>" class="nav">First name</a><div class="sep">|</div></li>
+			<li><a href="<%=urls.url("browse","department")%>" class="nav">Department</a><div class="sep">|</div></li>
+			<li><a href="<%=urls.url("browse","location")%>" class="nav">Location</a></li>
 		</ul>
 		<form id="nav_search_entire" action="<%=urls.url("search")%>" method="GET">
 		<label for="nav_search"> Search:</label>

@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.HashMap,java.util.TreeSet,java.util.StringTokenizer,gov.nysenate.opendirectory.models.Person,gov.nysenate.opendirectory.servlets.utils.UrlMapper"  %>
+<%@ page language="java" import="java.util.HashMap,java.util.TreeSet,java.util.StringTokenizer,gov.nysenate.opendirectory.models.Person,gov.nysenate.opendirectory.utils.UrlMapper"  %>
 <%! @SuppressWarnings("unchecked") %>
 <%  
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");

@@ -1,4 +1,4 @@
-<%@ page language="java" import="gov.nysenate.opendirectory.models.Person,java.util.ArrayList,gov.nysenate.opendirectory.servlets.utils.UrlMapper" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" import="gov.nysenate.opendirectory.models.Person,java.util.ArrayList,gov.nysenate.opendirectory.utils.UrlMapper" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%! @SuppressWarnings("unchecked") %><%
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
 	ArrayList<Person> results = (ArrayList<Person>)request.getAttribute("results");

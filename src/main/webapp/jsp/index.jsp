@@ -1,4 +1,4 @@
-<%@ page language="java" import="gov.nysenate.opendirectory.servlets.utils.UrlMapper"  %><%  
+<%@ page language="java" import="gov.nysenate.opendirectory.utils.UrlMapper"  %><%  
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
 %>
 <html>
