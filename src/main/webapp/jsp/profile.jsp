@@ -55,7 +55,7 @@
 						%>
 						
 						<a href="<%=urls.url("user","bookmarks","add", person.getUid())%>"> Add Me to Your Bookmarks!</a> <br></br>
-						<a href="<%=urls.url("person", person.getUid(), "vcard.vcf")%>"> Download VCard </a>
+						<a href="<%=urls.url("person", person.getUid(), "vcard")%>"> Download VCard </a>
 						<br></br>
 					</div>
 				</div>

@@ -6,7 +6,7 @@
 	<a href="<%=urls.url("index")%>">
 		<img src="http://www.nysenate.gov/sites/all/themes/nys/images/nyss_logo.png" id="logo" />
 	</a>
-	
+
 	<div id="user_box">
 		<% if (user == null) { %>
 			<ul id="user_top_bar">

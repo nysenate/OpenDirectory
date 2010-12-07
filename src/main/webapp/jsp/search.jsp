@@ -25,7 +25,7 @@
 							<% } %>
 						</div>
 						<div id="search_info">
-							<a href="<%=urls.url("person",result.getUid())%>"> <%=result.getFullName()%></a>
+							<a href="<%=urls.url("person",result.getUid(),"profile")%>"> <%=result.getFullName()%></a>
 							<p><%=result.getTitle() %> , <%=result.getLocation() %> - <%=result.getDepartment() %>  </p>
 						</div>
 						<% } %>

@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.HashMap,java.util.TreeSet,java.util.StringTokenizer,gov.nysenate.opendirectory.models.Person"  %>
 <%! @SuppressWarnings("unchecked") %>
 <%  
+	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
 	HashMap<String,TreeSet<Person>> people = (HashMap<String,TreeSet<Person>>)request.getAttribute("people");
 %><html>
 	<head>
@@ -45,7 +46,7 @@
 					<div id="<%=first%>"> 
 						<ul id="list_<%=nospace%>" class="people">
 							<% for(Person p : people.get(first)) { %>
-										<li> <a href="/opendirectory/person/<%=p.getUid()%>" class="people_url"><%=p.getFullName()%></a></li>
+										<li> <a href="<%=urls.url("person",p.getUid(),"profile")%>" class="people_url"><%=p.getFullName()%></a></li>
 							<% } %>
 						</ul>
 					</div>
