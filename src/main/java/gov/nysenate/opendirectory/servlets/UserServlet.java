@@ -186,7 +186,7 @@ public class UserServlet extends BaseServlet {
 				//(so that we don't handle blank uploads)
 				} else if(item.getName()!=null && item.getName().isEmpty()==false) {
 					try {
-						String avatarPath = getServletContext().getRealPath(s)+"img"+s+"avatars+"+s;
+						String avatarPath = getServletContext().getRealPath(s)+"img"+s+"avatars"+s;
 						
 						//Break down the filename to and build a new one with the user id
 						String filetype = item.getName().substring(item.getName().lastIndexOf('.'));
