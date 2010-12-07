@@ -59,11 +59,11 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 					<br/>
 					<div id="edit_addinfo">
 						<p>Additional Contact Information</p>
-						<b>E-mail</b> <input type="text"><%= writeRadios("email2",permissions.get("email2")) %>
+						<b>E-mail</b> <input type="text" value="<%=user.getEmail2()%>"><%= writeRadios("email2",permissions.get("email2")) %>
 						<br></br>
-						<b>Phone</b> <input type="text"></input><%= writeRadios("phone2",permissions.get("phone2")) %>
+						<b>Phone</b> <input type="text" value="<%=user.getPhone2()%>"></input><%= writeRadios("phone2",permissions.get("phone2")) %>
 						<br></br>
-						<b>IRC Alias</b> <input type="text"></input><%= writeRadios("irc",permissions.get("irc")) %>
+						<b>IRC Alias</b> <input type="text" value="<%=user.getIrc()%>"></input><%= writeRadios("irc",permissions.get("irc")) %>
 					</div>
 					<br/>
 					<div id="edit_generalinfo">
@@ -91,11 +91,11 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 					<br/>
 					<div id="edit_socialinfo">
 						<p>Social Links</p>
-						<b>LinkedIn</b> <input type="text"></input><%= writeRadios("linkedin",permissions.get("linkedin")) %>
+						<b>LinkedIn</b> <input type="text" value="<%=user.getLinkedin()%>"></input><%= writeRadios("linkedin",permissions.get("linkedin")) %>
 						<br></br>
-						<b>FaceBook</b> <input type="text"></input><%= writeRadios("facebook",permissions.get("facebook")) %>
+						<b>FaceBook</b> <input type="text" value="<%=user.getFacebook()%>"></input><%= writeRadios("facebook",permissions.get("facebook")) %>
 						<br></br>
-						<b>Twitter</b> <input type="text"></input><%= writeRadios("twitter",permissions.get("twitter")) %>
+						<b>Twitter</b> <input type="text" value="<%=user.getTwitter()%>"></input><%= writeRadios("twitter",permissions.get("twitter")) %>
 						<br></br>
 					</div>
 					<div id="submit_changes_Button" align="center">
