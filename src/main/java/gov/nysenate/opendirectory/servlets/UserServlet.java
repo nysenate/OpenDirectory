@@ -27,8 +27,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 @SuppressWarnings("serial")
 public class UserServlet extends BaseServlet {
 	
-	String avatarPath;
-	
+	String s;
 	public class UserServletException extends Exception {
 		public UserServletException(String m) { super(m); }
 		public UserServletException(String m, Throwable t) { super(m,t); }
@@ -37,9 +36,7 @@ public class UserServlet extends BaseServlet {
 	public UserServlet() {
 		super();
 		
-		//Find the Avatar directory and get a full path to it
-		String s = System.getProperty("file.separator");
-		avatarPath = getServletContext().getRealPath(s)+"img"+s+"avatars+"+s;	
+		s = System.getProperty("file.separator");
 	}
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -184,6 +181,8 @@ public class UserServlet extends BaseServlet {
 				//(so that we don't handle blank uploads)
 				} else if(item.getName()!=null && item.getName().isEmpty()==false) {
 					try {
+						String avatarPath = getServletContext().getRealPath(s)+"img"+s+"avatars+"+s;
+						
 						//Break down the filename to and build a new one with the user id
 						String filetype = item.getName().substring(item.getName().lastIndexOf('.'));
 						String filename = self.user.getUid()+filetype;
