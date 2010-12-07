@@ -232,10 +232,19 @@ public class UserServlet extends BaseServlet {
 			
 			//Try to load the user and add them to book marks before saving and redirecting
 			if(args.get(0).equals("add")) {
+				System.out.println("Adding user"+args.get(1));
 	    		try {
-		    		self.user.getBookmarks().add(self.solrSession.loadPersonByUid(args.get(1)));
-					self.solrSession.savePerson(self.user);
-					self.redirect(urls.url("person",args.get(1)));
+	    			boolean add = true;
+	    			Person mark = self.solrSession.loadPersonByUid(args.get(1));
+	    			for(Person myMark : self.user.getBookmarks())
+	    				if(mark.getUid().equals(myMark.getUid()))
+	    					add = false;
+	    			
+	    			if(add) {
+			    		self.user.getBookmarks().add(self.solrSession.loadPersonByUid(args.get(1)));
+						self.solrSession.savePerson(self.user);
+	    			}
+					self.redirect(urls.url("person",args.get(1),"profile"));
 				} catch (SolrServerException e) {
 					throw new UserServletException("Solr Load/Save error on add bookmark.",e);
 				}
