@@ -17,16 +17,7 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 	return html;
 }
 
-%><!DOCTYPE html5>
-<html>
-	<head>
-		<link rel="stylesheet" type="text/css" href="<%=urls.url("css","style.css")%>" />
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title> Edit Profile </title>
-	</head>
-	<body>
-		<div id="page">
-			<jsp:include page="header.jsp" />
+%><jsp:include page="header.jsp" />
 			<div id="main">
 				<% if(message!=null) { %>
 					<b><%=message%></b>
@@ -104,6 +95,4 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 					</div>
 				</form>
 			</div>
-		</div>
-	</body>
-</html>
+<jsp:include page="footer.jsp" />

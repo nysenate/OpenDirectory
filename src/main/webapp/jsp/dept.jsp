@@ -3,37 +3,7 @@
 <%  
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
 	HashMap<String,TreeSet<Person>> people = (HashMap<String,TreeSet<Person>>)request.getAttribute("people");
-%>
-<html>
-	<head>
-		<title>Department Browse</title>
-		<link rel="stylesheet" type="text/css" href="<%=urls.url("css","style.css")%>" />
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-		<script type="text/javascript">
-			$(document).ready( function() {
-				$(".entity_button").each( function() {
-					var button = $(this);
-					var department = button.attr('id').split('_')[1];
-					var list = $("#list_"+department);
-					
-					$(this).toggle(
-						function() {
-							list.hide();
-							return false;
-						},
-						function() {
-							list.show();
-							return false;
-						}
-					).click();
-					
-				});
-			});
-		</script>
-	</head>
-	<body>
-		<div id="page">
-		<jsp:include page="header.jsp" />
+%><jsp:include page="header.jsp" />
 			<div id="main">
 			<% for(String department : new TreeSet<String>(people.keySet()) ) {
 					StringTokenizer st = new StringTokenizer(department," .-_'&");
@@ -53,9 +23,7 @@
 					</div>
 			<% } %>
 			</div>
-		</div>
-	</body>
-</html>
+<jsp:include page="footer.jsp" />
 
 
 

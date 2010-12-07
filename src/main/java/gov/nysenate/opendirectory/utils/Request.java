@@ -43,6 +43,9 @@ public class Request {
 			user = Person.getAnon();
 		
 		solrSession = servlet.solrServer.newSession(user);
+		
+		//Set up request defaults
+		request.setAttribute("title", "NYSS OpenDirectory");
 	}
 	
 	public void render(String name) throws IOException, ServletException {
