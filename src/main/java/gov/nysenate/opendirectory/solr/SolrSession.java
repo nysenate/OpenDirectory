@@ -15,8 +15,8 @@ import gov.nysenate.opendirectory.utils.SerialUtils;
 
 public class SolrSession {
 
-	private Solr solr;
-	private SecureLoader loader;
+	Solr solr;
+	SecureLoader loader;
 	
 	@SuppressWarnings("serial")
 	public class SolrSessionException extends Exception {

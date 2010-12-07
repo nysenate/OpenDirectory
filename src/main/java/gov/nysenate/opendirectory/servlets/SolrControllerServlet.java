@@ -87,6 +87,28 @@ public class SolrControllerServlet extends BaseServlet {
 		opendirectory.setPermissions(Person.getDefaultPermissions());
 		opendirectory.setCredentials(new TreeSet<String>(Arrays.asList("public","senate")));
 		self.solrSession.savePerson(opendirectory);
+		
+		Person chrim = new Person();
+		chrim.setUid("chrim");
+		chrim.setFirstName("Chris");
+		chrim.setLastName("Kim");
+		chrim.setFullName("Chris Kim");
+		self.solrSession.savePerson(chrim);
+		
+		Person chrib = new Person();
+		chrib.setUid("chrib");
+		chrib.setFirstName("Chris");
+		chrib.setLastName("Babie");
+		chrib.setFullName("Chris Babie");
+		self.solrSession.savePerson(chrib);
+		
+		Person graylin = new Person();
+		graylin.setUid("graylin");
+		graylin.setFirstName("Graylin");
+		graylin.setLastName("Kim");
+		graylin.setFullName("Graylin Kim");
+		self.solrSession.savePerson(graylin);
+		
 		self.solrSession.optimize();
 	}
 }
