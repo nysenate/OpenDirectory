@@ -42,7 +42,7 @@ public class PersonServlet extends BaseServlet {
 		    	self.render("profile.jsp");
 		    	
 	    	} else if (command.equals("vcard")) {
-	    		// TODO vcard needs to get fixed up, maybe Jared can do this?
+	    		response.setContentType("text/x-vcard;charset=UTF-8");
 	    		ServletOutputStream out = response.getOutputStream();
 	    		StringBuilder mResult = new StringBuilder();
 				mResult.append("BEGIN:VCARD\r\n");
