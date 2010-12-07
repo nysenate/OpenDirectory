@@ -86,6 +86,7 @@ public class BrowseServlet extends BaseServlet {
 			
 		} catch (BrowseServletException e) {
 			System.out.println(e.getMessage());
+			e.printStackTrace();
 			if(e.getCause()!=null)
 				e.getCause().printStackTrace();
 			// TODO something reasonable to resolve things here

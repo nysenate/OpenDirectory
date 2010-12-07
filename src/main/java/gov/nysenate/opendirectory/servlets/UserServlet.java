@@ -102,6 +102,7 @@ public class UserServlet extends BaseServlet {
 	
 	public void doException(Request self, UserServletException e) throws ServletException, IOException {
     	System.out.println(e.getMessage());
+    	e.printStackTrace();
     	if(e.getCause()!=null)
     		e.getCause().printStackTrace();
     	self.redirect(urls.url("user","login"));
@@ -122,7 +123,11 @@ public class UserServlet extends BaseServlet {
     			
     			//Attempt to authenticate and login the user with the credentials supplied
     			//Make temporary exceptions for non LDAP records (for testing)
-    			if ( (cred.equalsIgnoreCase("opendirectory") && pass.equals("senbook2010")) || Ldap.authenticate(cred,pass)) {
+    			if ( (cred.equalsIgnoreCase("opendirectory") && pass.equals("senbook2010"))
+    					|| (cred.equalsIgnoreCase("chrib") && pass.equals("chrib1"))
+    					|| (cred.equalsIgnoreCase("chrim") && pass.equals("chrim1"))
+    					|| (cred.equalsIgnoreCase("graylin") && pass.equals("graylin1"))
+    					|| Ldap.authenticate(cred,pass)) {
     				self.httpSession.setAttribute("uid",cred);
     				self.redirect(urls.url("person",cred));
     				

@@ -31,6 +31,7 @@ public class SearchServlet extends BaseServlet {
 			
 		} catch (SearchServletException e) {
 			System.out.println(e.getMessage());
+			e.printStackTrace();
 			if(e.getCause()!=null)
 				e.getCause().printStackTrace();
 			

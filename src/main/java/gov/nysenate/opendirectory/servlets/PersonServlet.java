@@ -34,7 +34,7 @@ public class PersonServlet extends BaseServlet {
 		    
 	    	Vector<String> args = urls.getArgs(request);
 	    	if(args.size()==0)
-	    		throw new PersonServletException("Not no command was supplied");
+	    		throw new PersonServletException("No command was supplied");
 	    	
 	    	String command = args.get(0);
 	    	if(command.equals("profile")) {
@@ -59,6 +59,7 @@ public class PersonServlet extends BaseServlet {
 	    	
 	    } catch (PersonServletException e) {
 	    	System.out.println(e.getMessage());
+	    	e.printStackTrace();
 	    	if(e.getCause()!=null)
 	    		e.getCause().printStackTrace();
 	    	self.redirect(urls.url("index"));
