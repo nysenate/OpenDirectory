@@ -46,7 +46,7 @@
 				<div id="<%=last%>"> 
 					<ul id="list_<%=nospace%>" class="people">
 						<% for(Person p : people.get(last)) { %>
-							<li> <a href="<%=urls.url("person",p.getUid())%>" class="people_url"><%=p.getFullName()%></a></li>
+							<li> <a href="<%=urls.url("person",p.getUid(),"profile")%>" class="people_url"><%=p.getFullName()%></a></li>
 						<% } %>
 					</ul>
 				</div>

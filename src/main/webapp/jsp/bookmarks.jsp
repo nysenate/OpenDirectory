@@ -28,7 +28,7 @@
 								<a href="<%=urls.url("user","bookmarks","remove", bookmark.getUid())%>"> Remove From Bookmarks </a>
 						</div>
 						<div id="bookmark_info">
-							<a href="<%=urls.url("person",bookmark.getUid())%>"> <%=bookmark.getFullName()%></a>
+							<a href="<%=urls.url("person",bookmark.getUid(),"profile")%>"> <%=bookmark.getFullName()%></a>
 							<p> <%=bookmark.getTitle() %> , <%=bookmark.getPhone() %></p>
 							<a href="mailto:<%=bookmark.getEmail() %>"><%=bookmark.getEmail() %></a>
 						</div>
