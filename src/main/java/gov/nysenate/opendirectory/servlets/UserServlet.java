@@ -158,7 +158,7 @@ public class UserServlet extends BaseServlet {
 	
 	@SuppressWarnings("unchecked")
 	public void doEdit(Request self) throws UserServletException, IOException, ServletException {
-		self.httpRequest.setAttribute("message", "Changes Saved. <a href=\""+urls.url("person",self.user.getUid())+"\">View your profile.</a>");
+		self.httpRequest.setAttribute("message", "Changes Saved. <a href=\""+urls.url("person",self.user.getUid(),"profile")+"\">View your profile.</a>");
 
 		try {
 			DiskFileItemFactory factory = new DiskFileItemFactory();
