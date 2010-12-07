@@ -1,0 +1,215 @@
+html,body,div,ul,li { margin:0px; padding:0px; }
+html, body { width:100%; }
+
+body {
+	color: #012849;
+	font-family: Times New Roman, serif;
+	background: url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_bg.png) top left repeat-x;
+}
+ 
+#page {
+	width:877px;
+	margin:0 auto;
+	background: #E2DED5;
+}
+
+#header {
+	background:url(http://www.nysenate.gov/sites/all/themes/nys/images/header.png) top left no-repeat;
+	padding:16px 0px 0px 0px;
+	height:77px;
+}
+
+	#logo {
+		width: 250px;
+		height: 55px;
+		margin-top:16px 0px 0px 5px;
+		border:0px;
+	}
+
+	#user_box {	float:right; }
+	
+		#user_box a {
+			color:#C6B44A;
+			font-size:14px;
+			font-weight:bold;
+			text-decoration:none;
+		}
+		
+		#user_box li {
+			display:inline; 
+			list-icon-style:none;
+			padding:0px 15px;
+		}
+		
+		#user_top_bar { }
+		#user_bottom_bar { color:white; font-weight:normal; }  
+  
+#nav_bar {
+	color: white;
+	background: url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_menu_bg.png) top left repeat-x;
+	line-height: 30px;
+	font-family: Helvetica, Arial, sans-serif;
+}
+	#nav_bar a { color:white; text-decoration:none; }
+	#nav_bar a:hover { text-decoration:underline; }
+
+  	#nav_bar ul {
+  		display:inline;
+	  	list-icon-style:none;
+	  	padding-left:10px;
+  	}
+  	
+	  	#nav_bar li { display:inline; }
+	  	.sep { padding:0px 10px; display:inline; }
+  	  	  
+  		#nav_search { float:right; display:inline; }
+			#nav_search_input { display:inline; margin-left:5px; }
+			
+#top_info {
+	text-align:right;
+}
+
+#pic {
+	float:left;
+}
+
+#edit_pic {
+	float:eft;
+}
+
+  	#search_entire {
+  		text-align:center;
+  	}
+  	
+  	#advanced_search {
+  		text-align:center;
+  	}
+  	
+  	a#advanced:hover {
+  		text-decoration:none;
+  	}
+  	
+  	#nav_search_entire {
+	  	float:right;
+	  	width:10 px;
+  	}
+
+  	#login_entire {
+  		text-align: center;
+  	}
+  	
+  	#query {
+	  	font-weight:bold;
+	  	font-style:italic;
+  	}
+  	
+  	#search_info {
+	  	font-size:15px;
+	  	position: relative;
+	  	left: 120px;
+	  	bottom:70px;
+  	}
+  	
+  	#bookmark_info {
+	  	font-size:15px;
+	  	position: relative;
+	  	left: 120px;
+  		bottom:110px;
+  	}
+  	
+  	#error {
+	  	text-align:center;
+	  	color:red;
+  	}
+
+  	.entity_button { display:inline; }
+  	.entity_title { display:inline; font-weight:bold; }
+  	.people{margin-left: 40px;}
+  	a.people_url:hover{text-decoration:none;}
+  	
+#main {
+	margin-top: 15px;
+    margin: 20px;
+    padding: 20px;
+    background: #ffffff url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_block_footer_bg.png) repeat-x bottom left;
+}
+
+#skills {
+    margin: 20px;
+   	margin-top: 40px;
+    padding: 20px;
+    background: #ffffff url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_block_footer_bg.png) repeat-x bottom left;
+    width:350px;
+}
+
+#skills b {
+    font-size:24px;
+}
+
+#interests b {
+    font-size:24px;
+}
+
+#add_info b {
+    font-size:24px;
+}
+
+#interests {
+	margin-top: 15px;
+    margin: 20px;
+    padding: 20px;
+    background: #ffffff url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_block_footer_bg.png) repeat-x bottom left;
+    width:350px;
+	float: right;
+}
+
+#add_info {
+	margin-top: 15px;
+    margin: 20px;
+    padding: 20px;
+    background: #ffffff url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_block_footer_bg.png) repeat-x bottom left;
+}
+
+#edit_generalinfo p {
+	font-weight:bold;
+	text-decoration:underline;
+}
+
+#edit_socialinfo p {
+	font-weight:bold;
+	text-decoration:underline;
+}
+
+#edit_skills p {
+	font-style:italic;
+	font-size: 12px;
+}
+
+#edit_interests p {
+	font-style:italic;
+	font-size: 12px;
+}
+
+#edit_addinfo p {
+	font-weight:bold;
+	text-decoration:underline;
+}
+
+#edit_contactinfo p {
+	font-weight:bold;
+	text-decoration:underline;
+}
+
+#name {
+	font-size: 30px;
+}
+
+#info {
+	font-size: 12px;
+}
+
+#bio b {
+	font-size:24px;
+}
+
+#footer {}
