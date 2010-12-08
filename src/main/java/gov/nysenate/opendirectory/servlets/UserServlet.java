@@ -3,6 +3,7 @@ package gov.nysenate.opendirectory.servlets;
 import gov.nysenate.opendirectory.ldap.Ldap;
 import gov.nysenate.opendirectory.models.Person;
 import gov.nysenate.opendirectory.utils.Request;
+import gov.nysenate.opendirectory.utils.XmlUtils;
 
 import java.util.List;
 import java.io.File;
@@ -22,21 +23,42 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 
 @SuppressWarnings("serial")
 public class UserServlet extends BaseServlet {
 	
-	String s;
+	private String avatarPath;
+	
 	public class UserServletException extends Exception {
 		public UserServletException(String m) { super(m); }
 		public UserServletException(String m, Throwable t) { super(m,t); }
 	}
 	
-	public UserServlet() {
-		super();
-		
-		s = System.getProperty("file.separator");
+	public UserServlet() { super(); }
+	
+	public String avatarPath() {
+		if(avatarPath==null) {
+			try {
+				String s = System.getProperty("file.separator");
+				File configFile = new File(getServletContext().getRealPath(s)+s+"WEB-INF"+s+"config.xml");
+				Document config = XmlUtils.getBuilder().parse(configFile);
+				Element avatar = (Element)config.getDocumentElement().getElementsByTagName("avatars").item(0);
+				String path = (String)avatar.getAttributes().getNamedItem("value").getTextContent().trim();
+				return path;
+				
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return avatarPath;
 	}
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -173,9 +195,7 @@ public class UserServlet extends BaseServlet {
 					
 					//If its a radio button value, push it into the permissions map
 					if(key.startsWith("radio_")) {
-						key = key.substring(6);
-						System.out.println("Key "+key+":\t\tValue: "+value);
-						self.user.getPermissions().put(key, new TreeSet<String>(Arrays.asList(value.toLowerCase())));
+						self.user.getPermissions().put(key.substring(6), new TreeSet<String>(Arrays.asList(value.toLowerCase())));
 						
 					//Otherwise, transform the raw value and insert it into our user
 					} else {
@@ -186,15 +206,13 @@ public class UserServlet extends BaseServlet {
 				//(so that we don't handle blank uploads)
 				} else if(item.getName()!=null && item.getName().isEmpty()==false) {
 					try {
-						String avatarPath = getServletContext().getRealPath(s)+"img"+s+"avatars"+s;
-						
 						//Break down the filename to and build a new one with the user id
 						String filetype = item.getName().substring(item.getName().lastIndexOf('.'));
 						String filename = self.user.getUid()+filetype;
 						
 						//Write the file to the img/avatars directory and set the person's weblink
-						System.out.println("Writing to: "+avatarPath+filename);
-						item.write(new File(avatarPath+filename));
+						System.out.println("Writing to: "+avatarPath()+filename);
+						item.write(new File(avatarPath()+filename));
 						self.user.setPicture(urls.url("img/avatars/"+filename));
 
 					//Writing a FileItem can apparently through any kind of exception (sloppy)
