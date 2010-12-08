@@ -151,7 +151,7 @@ public class UserServlet extends BaseServlet {
     					|| (cred.equalsIgnoreCase("graylin") && pass.equals("graylin1"))
     					|| Ldap.authenticate(cred,pass)) {
     				self.httpSession.setAttribute("uid",cred);
-    				self.redirect(urls.url("person",cred));
+    				self.redirect(urls.url("person",cred,"profile"));
     				
     			//Otherwise, alert them that their combination was wrong and redirect them to try again
     			} else {
