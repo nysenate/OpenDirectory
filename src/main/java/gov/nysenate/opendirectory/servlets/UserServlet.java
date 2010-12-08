@@ -252,16 +252,8 @@ public class UserServlet extends BaseServlet {
 			if(args.get(0).equals("add")) {
 				System.out.println("Adding user"+args.get(1));
 	    		try {
-	    			boolean add = true;
-	    			Person mark = self.solrSession.loadPersonByUid(args.get(1));
-	    			for(Person myMark : self.user.getBookmarks())
-	    				if(mark.getUid().equals(myMark.getUid()))
-	    					add = false;
-	    			
-	    			if(add) {
-			    		self.user.getBookmarks().add(self.solrSession.loadPersonByUid(args.get(1)));
-						self.solrSession.savePerson(self.user);
-	    			}
+		    		self.user.getBookmarks().add(self.solrSession.loadPersonByUid(args.get(1)));
+					self.solrSession.savePerson(self.user);
 					self.redirect(urls.url("person",args.get(1),"profile"));
 				} catch (SolrServerException e) {
 					throw new UserServletException("Solr Load/Save error on add bookmark.",e);
@@ -271,12 +263,7 @@ public class UserServlet extends BaseServlet {
 			//It doesn't matter if the person wasn't on the list in the first place, no harm done.
     		} else if(args.get(0).equals("remove")) {
     			try {
-    				ArrayList<Person> bookmarks = self.user.getBookmarks();
-	    			for(Person p : bookmarks)
-	    				if(p.getUid().equals(args.get(1))) {
-	    					bookmarks.remove(p);
-	    					break;
-	    				}
+    				self.user.getBookmarks().remove(new Person(args.get(1)));
 					self.solrSession.savePerson(self.user);
 					self.redirect(urls.url("user","bookmarks"));
 				} catch (SolrServerException e) {

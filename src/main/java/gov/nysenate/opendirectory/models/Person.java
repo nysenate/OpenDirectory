@@ -13,7 +13,7 @@ import java.util.TreeSet;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class Person {
+public class Person implements Comparable {
 	/** 
 	 * Designed according to JavaBean specs for use in the
 	 * Java Expressions Language (EL) of JSP 2.0+
@@ -31,7 +31,7 @@ public class Person {
 	
 	private TreeSet<String> credentials;
 	private HashMap<String,TreeSet<String>> permissions;
-	private ArrayList<Person> bookmarks;
+	private TreeSet<Person> bookmarks;
 	
 	private TreeSet<String> skills;
 	private TreeSet<String> interests;
@@ -57,8 +57,29 @@ public class Person {
 	private String linkedin;
 	private String irc;
 	
-	public Person() {
-		
+	public static void main(String[] args) {
+		Person a = new Person();
+		a.setUid("a");
+		Person b = new Person();
+		b.setUid("b");
+		Person c = new Person();
+		c.setUid("c");
+		Person i = new Person();
+		i.setUid("c");
+		Person j = new Person();
+		j.setUid("c");
+		Person x = new Person();
+		x.setUid("d");
+		TreeSet<Person> set = new TreeSet<Person>(Arrays.asList(a,b,c,i,j));
+		System.out.println(set.contains(x));
+		set.remove(i);
+		System.out.println(set);
+	}
+	
+	public Person() { setToDefaults(); }
+	public Person(String uid) { setToDefaults(); setUid(uid); }
+	
+	public void setToDefaults() {
 		setFirstName("");
 		setLastName("");
 		setTitle("");
@@ -80,12 +101,16 @@ public class Person {
 		setIrc("");
 		setSkills(new TreeSet<String>());
 		setInterests(new TreeSet<String>());
-		setBookmarks(new ArrayList<Person>());
+		setBookmarks(new TreeSet<Person>());
 		setPicture("");
 		
 		//All people must have permissions and credentials
 		setPermissions(Person.getDefaultPermissions());
 		setCredentials(new TreeSet<String>(Arrays.asList("public")));
+	}
+	public int compareTo(Object p) {
+		System.out.println("Comparing "+getUid()+" to "+Person.class.cast(p).getUid());
+		return getUid().compareTo(Person.class.cast(p).getUid());
 	}
 	
 	public String getFirstName() {
@@ -154,11 +179,11 @@ public class Person {
 	public String getIrc() {
 		return irc;
 	}
-	public ArrayList<Person> getBookmarks() {
+	public TreeSet<Person> getBookmarks() {
 		return bookmarks;
 	}
 	
-	public void setBookmarks(ArrayList<Person> bookmarks) {
+	public void setBookmarks(TreeSet<Person> bookmarks) {
 		this.bookmarks = bookmarks;
 	}
 	public void setFirstName(String firstName) {

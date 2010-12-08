@@ -3,7 +3,6 @@ package gov.nysenate.opendirectory.utils;
 import gov.nysenate.opendirectory.models.Person;
 import gov.nysenate.opendirectory.solr.SolrSession;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.TreeSet;
@@ -59,11 +58,11 @@ public class SerialUtils {
 		return new TreeSet<String>(Arrays.asList(str.split(", ")));
 	}
 	
-	public static ArrayList<Person> loadBookmarks(String str,Person person, SolrSession session) {
+	public static TreeSet<Person> loadBookmarks(String str,Person person, SolrSession session) {
 		
 		//Handle the empty case
 		if(str==null || str.isEmpty())
-			return new ArrayList<Person>();
+			return new TreeSet<Person>();
 		
 		String query = "";
 		
@@ -79,7 +78,7 @@ public class SerialUtils {
 				query += " OR uid:"+uid;
 		}
 		
-		return session.loadPeopleByQuery(query);
+		return new TreeSet<Person>(session.loadPeopleByQuery(query));
 	}
 
 	public static String writeStringHash(HashMap<String, String> map) {
@@ -116,7 +115,7 @@ public class SerialUtils {
 		return str.substring(1, str.length()-1);
 	}
 	
-	public static String writeBookmarks(ArrayList<Person> marks) {
+	public static String writeBookmarks(TreeSet<Person> marks) {
 		String str = "";
 		for(Person mark : marks)
 			if(str.isEmpty())
