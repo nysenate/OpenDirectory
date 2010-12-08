@@ -78,6 +78,9 @@ public class Ldap {
 				throw new NamingException("Credentials and Password are required");
 			}
 			
+			if(pwd.isEmpty())
+				throw new NamingException("A password is required to log in!");
+			
 			new InitialDirContext(env);
 			return true;
 		} catch (AuthenticationException e) {
