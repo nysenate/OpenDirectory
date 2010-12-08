@@ -6,7 +6,7 @@
 %><jsp:include page="header.jsp" />			
 		<div id="main">
 			<% for(String last : new TreeSet<String>(people.keySet()) ) {
-				StringTokenizer st = new StringTokenizer(last," .-_'&");
+				StringTokenizer st = new StringTokenizer(last," ,.-_'&");
 				String nospace = "";
 				while( st.hasMoreElements()) nospace+=st.nextElement();
 				st = new StringTokenizer(nospace,"/");
@@ -17,7 +17,7 @@
 				<div id="<%=last%>" class="entity_list"> 
 					<ul id="list_<%=nospace%>" class="people">
 						<% for(Person p : people.get(last)) { %>
-							<li> <a href="<%=urls.url("person",p.getUid(),"profile")%>" class="people_url"><%=p.getFullName()%></a></li>
+							<li> <a href="<%=urls.url("person",p.getUid(),"profile")%>" class="people_url"><%=p.getLastName()+", "+p.getFirstName()%></a></li>
 						<% } %>
 					</ul>
 				</div>

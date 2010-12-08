@@ -6,7 +6,7 @@
 %><jsp:include page="header.jsp" />
 			<div id="main">
 			<% for(String department : new TreeSet<String>(people.keySet()) ) {
-					StringTokenizer st = new StringTokenizer(department," .-_'&");
+					StringTokenizer st = new StringTokenizer(department," ,.-_'&");
 					String nospace = "";
 					while( st.hasMoreElements()) nospace+=st.nextElement();
 					st = new StringTokenizer(nospace,"/");
