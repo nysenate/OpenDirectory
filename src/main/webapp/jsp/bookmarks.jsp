@@ -1,7 +1,7 @@
-<%@ page language="java" import="java.util.ArrayList,gov.nysenate.opendirectory.utils.UrlMapper,gov.nysenate.opendirectory.models.Person"  %><%  
+<%@ page language="java" import="java.util.TreeSet,gov.nysenate.opendirectory.utils.UrlMapper,gov.nysenate.opendirectory.models.Person"  %><%  
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
     Person user = (Person)request.getAttribute("user");
-    ArrayList<Person> user_bookmarks = user.getBookmarks();
+    TreeSet<Person> user_bookmarks = user.getBookmarks();
 %><jsp:include page="header.jsp" />
 				<div id="main">
 				<h> My Bookmarks</h>
