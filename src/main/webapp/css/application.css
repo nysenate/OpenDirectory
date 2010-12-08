@@ -212,4 +212,21 @@ body {
 	font-size:24px;
 }
 
+
+.entity_button {
+	display:inline;
+	font-family:monospace;
+	font-size:20px;
+	font-weight:bolder;
+	border:solid black;
+	border-width:0px 1px;
+	padding:0px 3px;
+	margin-right:6px;
+}
+
+.entity_button:hover {
+	cursor:pointer;
+	background:lightgray;
+}
+
 #footer {}

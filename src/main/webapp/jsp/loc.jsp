@@ -13,14 +13,15 @@
 					nospace = "";
 					while( st.hasMoreElements()) nospace+="-"+st.nextElement();	%>
 					
-					<input type="button" value="+" id="button_<%=nospace%>" class="entity_button"></input> <span class="entity_title"><%=loc%></span> 
-					<div id="<%=loc%>"> 
+					<span id="button_<%=nospace%>" class="entity_button"></span><span class="entity_title"><%=loc%></span> 
+					<div id="<%=loc%>" class="entity_list"> 
 						<ul id="list_<%=nospace%>" class="people">
 							<% for(Person p : people.get(loc)) { %>
 								<li> <a href="<%=urls.url("person",p.getUid(),"profile")%>" class="people_url"><%=p.getFullName()%></a></li>
 							<% } %>
 						</ul>
 					</div>
+					<br/>
 				<% } %>
 			</div>
 <jsp:include page="footer.jsp" />

@@ -7,10 +7,12 @@ $(document).ready( function() {
 		$(this).toggle(
 			function() {
 				list.hide();
+				button.html("+");
 				return false;
 			},
 			function() {
 				list.show();
+				button.html("-");
 				return false;
 			}
 		).click();

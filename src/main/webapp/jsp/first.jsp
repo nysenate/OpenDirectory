@@ -6,21 +6,22 @@
 %><jsp:include page="header.jsp" />
 			<div id="main">
 				<% for(String first : new TreeSet<String>(people.keySet()) ) {
-					StringTokenizer st = new StringTokenizer(first," .-_'&");
+					StringTokenizer st = new StringTokenizer(first," .,-_'&");
 					String nospace = "";
 					while( st.hasMoreElements()) nospace+=st.nextElement();
 					st = new StringTokenizer(nospace,"/");
 					nospace = "";
 					while( st.hasMoreElements()) nospace+="-"+st.nextElement();	%>
 					
-					<input type="button" value="+" id="button_<%=nospace%>" class="entity_button" /> <span class="entity_title"><%=first%></span> 
-					<div id="<%=first%>"> 
+					<span id="button_<%=nospace%>" class="entity_button"></span><span class="entity_title"><%=first%></span> 
+					<div id="<%=first%>" class="entity_list"> 
 						<ul id="list_<%=nospace%>" class="people">
 							<% for(Person p : people.get(first)) { %>
 										<li> <a href="<%=urls.url("person",p.getUid(),"profile")%>" class="people_url"><%=p.getFullName()%></a></li>
 							<% } %>
 						</ul>
 					</div>
+					<br/>
 				<% } %>
 			</div>
 <jsp:include page="footer.jsp" />
