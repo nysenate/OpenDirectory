@@ -1,8 +1,8 @@
-<%@ page language="java" import="java.util.HashMap,java.util.TreeSet,java.util.StringTokenizer,gov.nysenate.opendirectory.utils.UrlMapper,gov.nysenate.opendirectory.models.Person"  %>
-<%! @SuppressWarnings("unchecked") %>
-<%  
+<%@ page language="java" import="java.util.HashMap,java.util.TreeSet,java.util.StringTokenizer,gov.nysenate.opendirectory.utils.UrlMapper,gov.nysenate.opendirectory.models.Person"  %><%
+
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
 	HashMap<String,TreeSet<Person>> people = (HashMap<String,TreeSet<Person>>)request.getAttribute("people");
+	
 %><jsp:include page="header.jsp" />
 			<div id="main">
 				<% for(String first : new TreeSet<String>(people.keySet()) ) {

@@ -2,16 +2,7 @@
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
     Person user = (Person)request.getAttribute("user");
     ArrayList<Person> user_bookmarks = user.getBookmarks();
-%>
-<html>
-	<head>
-		<title>Bookmark Page</title>
-			<link rel="stylesheet" type="text/css" href="<%=urls.url("css","style.css")%>" />
-				<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	</head>
-		<body>
-			<div id="page">
-				<jsp:include page="header.jsp" />
+%><jsp:include page="header.jsp" />
 				<div id="main">
 				<h> My Bookmarks</h>
 				<br></br>
@@ -35,6 +26,4 @@
 						<% } %>
 					<% } %>	
 				</div>		
-			</div>
-		</body>
-</html>
+<jsp:include page="footer.jsp" />

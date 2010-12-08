@@ -3,16 +3,7 @@
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
 	ArrayList<Person> results = (ArrayList<Person>)request.getAttribute("results");
 	String search_query = (String)request.getAttribute("query");
-%>
-<html>
-	<head>
-		<title>Search Page</title>
-		<link rel="stylesheet" type="text/css" href="<%=urls.url("css","style.css")%>" />
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	</head>
-	<body>
-		<div id="page">
-			<jsp:include page="header.jsp" />
+%><jsp:include page="header.jsp" />
 			<div id="main">
 				<h2> Search Results for:</h2> <h2 id="query"> <%= search_query %> </h2>
 					<% if (results != null) { %>
@@ -37,6 +28,4 @@
 						<%} %>
 					<% } %>
 			</div>
-		</div>
-	</body>
-</html>
+<jsp:include page="footer.jsp" />

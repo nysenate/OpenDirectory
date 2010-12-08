@@ -1,32 +1,8 @@
-<%@ page language="java" import="gov.nysenate.opendirectory.utils.UrlMapper"  %><%  
+<%@ page language="java" import="gov.nysenate.opendirectory.utils.UrlMapper"  %><%
+
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
-%>
-<html>
-	<head>
-		<title>Index Page</title>
-		<link rel="stylesheet" type="text/css" href="<%=urls.url("css","style.css")%>" />
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-		<script type="text/javascript">
-			$(document).ready( function() {
-				
-				$("#advanced").toggle(
-					function() {
-						$("#search_button").show();
-						$("#advanced_search").hide();
-						return false;
-					},
-					function() {
-						$("#search_button").hide();
-						$("#advanced_search").show();
-						return false;
-					}
-				).click();
-			});
-		</script>
-	</head>
-	<body>
-		<div id="page">
-		<jsp:include page="header.jsp" />		
+
+%><jsp:include page="header.jsp" />		
 			<div id="main">
 				<form id="all_search" action="<%=urls.url("search")%>" method="GET">
 					<div id="search_entire">
@@ -60,6 +36,4 @@
 			</div>
 			<div id="footer">
 			</div>
-		</div>
-	</body>
-</html>
+<jsp:include page="footer.jsp" />

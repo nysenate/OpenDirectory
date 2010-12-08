@@ -1,8 +1,10 @@
 <%@ page language="java" import="gov.nysenate.opendirectory.models.Person,gov.nysenate.opendirectory.utils.UrlMapper,java.util.TreeSet,java.util.HashMap" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
+
 	Person user = (Person)request.getAttribute("user");	
 	String message = (String)request.getAttribute("message");	
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
 	HashMap<String,TreeSet<String>> permissions = user.getPermissions();
+	
 %><%!
 
 public String writeRadio(String name, String type, boolean checked) {
