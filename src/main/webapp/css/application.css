@@ -1,6 +1,8 @@
 html,body,div,ul,li { margin:0px; padding:0px; }
 html, body { width:100%; }
 
+.clear { clear:both; }
+
 body {
 	color: #012849;
 	font-family: Times New Roman, serif;
@@ -208,9 +210,8 @@ body {
 	font-size: 12px;
 }
 
-#bio b {
-	font-size:24px;
-}
+
+#bio b { font-size:24px; }
 
 
 .entity_button {

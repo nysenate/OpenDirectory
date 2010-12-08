@@ -56,6 +56,7 @@
 						<a href="<%=urls.url("person", person.getUid(), "vcard")%>"> Download VCard </a>
 						<br></br>
 					</div>
+					<div class="clear"></div>
 				</div>
 				<br></br>
 				<br></br>
