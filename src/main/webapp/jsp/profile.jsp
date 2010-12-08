@@ -1,7 +1,9 @@
 <%@ page language="java" import="gov.nysenate.opendirectory.models.Person,gov.nysenate.opendirectory.utils.UrlMapper" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
+
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
 	Person person = (Person)request.getAttribute("person");
 	Person user = (Person)request.getAttribute("user");
+	
 %><jsp:include page="header.jsp" />
 			<div id="main">
 				<div id="pic">
@@ -43,8 +45,8 @@
 							}
 							linetwo+="</p>";
 							out.println(linetwo);
-						%>
-						<% if(!user.getUid().equals(person.getUid())) { 
+						
+						if(user!=null && user.getUid()!=null && !user.getUid().equals(person.getUid())) { 
 								if(!user.getBookmarks().contains(person)) {
 									%><a href="<%=urls.url("user","bookmarks","add", person.getUid())%>"> Add me to your bookmarks!</a> <br></br><%
 								} else {
