@@ -213,7 +213,7 @@ public class UserServlet extends BaseServlet {
 						//Write the file to the img/avatars directory and set the person's weblink
 						System.out.println("Writing to: "+avatarPath()+filename);
 						item.write(new File(avatarPath()+filename));
-						self.user.setPicture(urls.url("img/avatars/"+filename));
+						self.user.setPicture("/uploads/avatars/"+filename);
 
 					//Writing a FileItem can apparently through any kind of exception (sloppy)
 					//so I don't know why this would get thrown here, just what throws it.
