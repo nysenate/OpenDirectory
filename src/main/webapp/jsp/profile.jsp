@@ -76,7 +76,15 @@
 			<% if(person.getInterests()!=null && !person.getInterests().isEmpty()) { %>
 				
 					<b>Interests</b>
-					<p><%=person.getInterests().toString().substring(1,person.getInterests().toString().length()-1) %></p>
+					<p><%
+						String last = person.getSkills().last();
+						for( String interest : person.getInterests() ) {
+							out.print("<a href=\""+urls.url("search","?query=interests:("+interest+")")+"\">"+interest+"</a>");
+							if(!interest.equals(last))
+								out.println(", ");
+						}
+					%></p>
+					
 			<% } else { %>
 					<b>Interests</b>
 					<p>Information Not Available</p>
@@ -87,7 +95,15 @@
 			<% if(person.getSkills()!=null && !person.getSkills().isEmpty()) { %>
 				
 					<b>Skills</b>
-					<p><%=person.getSkills().toString().substring(1,person.getSkills().toString().length()-1) %></p>
+					<p><%
+						String last = person.getSkills().last();
+						for( String skill : person.getSkills() ) {
+							out.print("<a href=\""+urls.url("search","?query=skills:("+skill+")")+"\">"+skill+"</a>");
+							if(!skill.equals(last))
+								out.println(", ");
+						}
+					%></p>
+					
 			<% } else { %>
 					<b>Skills</b>
 					<p>Information Not Available</p>
