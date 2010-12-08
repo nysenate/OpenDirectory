@@ -2,16 +2,7 @@
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
 	Person person = (Person)request.getAttribute("person");
 	Person user = (Person)request.getAttribute("user");
-%><!DOCTYPE html5>
-<html>
-	<head>
-		<link rel="stylesheet" type="text/css" href="<%=urls.url("css","style.css")%>" />
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title><%=person.getFullName() %></title>
-	</head>
-	<body>
-		<div id="page">
-			<jsp:include page="header.jsp" />
+%><jsp:include page="header.jsp" />
 			<div id="main">
 				<div id="pic">
 					<% if(person.getPicture()!=null && !person.getPicture().isEmpty()) { %>
@@ -53,8 +44,13 @@
 							linetwo+="</p>";
 							out.println(linetwo);
 						%>
-						
-						<a href="<%=urls.url("user","bookmarks","add", person.getUid())%>"> Add Me to Your Bookmarks!</a> <br></br>
+						<% if(!user.getUid().equals(person.getUid())) { 
+								if(!user.getBookmarks().contains(person)) {
+									%><a href="<%=urls.url("user","bookmarks","add", person.getUid())%>"> Add me to your bookmarks!</a> <br></br><%
+								} else {
+									%><a href="<%=urls.url("user","bookmarks","remove", person.getUid())%>"> Remove me from your bookmarks!</a><br/><br/><%
+								}
+						} %>
 						<a href="<%=urls.url("person", person.getUid(), "vcard")%>"> Download VCard </a>
 						<br></br>
 					</div>
@@ -118,41 +114,39 @@
 					<p>E-mail: <%=person.getEmail2() %></p>
 				<% } else { %>
 					<p>E-mail: Information Not Available</p>
-			<% } %>
+				<% } %>
 				
 				<% if(person.getPhone2()!= null && !person.getPhone2().isEmpty()) { %>
 					<p>Phone: <%=person.getPhone2() %></p>
 				<% } else { %>
 					<p>Phone: Information Not Available</p>
-			<% } %>
+				<% } %>
 			
 				<% if(person.getIrc()!= null && !person.getIrc().isEmpty()) { %>
 					<p>IRC: <%=person.getIrc() %></p>
 				<% } else { %>
 					<p>IRC: Information Not Available</p>
-			<% } %>
+				<% } %>
 			
 				<% if(person.getFacebook()!= null && !person.getFacebook().isEmpty()) { %>
 					<a href="<%=person.getFacebook() %>">Facebook</a>
 				<% } else { %>
 					<p>Facebook: Information Not Available</p>
-			<% } %>
-			
+				<% } %>
+				
 				<% if(person.getTwitter()!= null && !person.getTwitter().isEmpty()) { %>
 					<a href="<%=person.getTwitter() %>">Twitter</a>
 				<% } else { %>
 					<p>Twitter: Information Not Available</p>
-			<% } %>
-			
+				<% } %>
+				
 				<% if(person.getLinkedin()!= null && !person.getLinkedin().isEmpty()) { %>
 					<a href="<%=person.getLinkedin() %>">LinkedIn</a>
 				<% } else { %>
 					<p>LinkedIn: Information Not Available</p>
-			<% } %>
+				<% } %>
 			
 			</div>
 			
 		</div>
-	</div>
-	</body>
-</html>
+<jsp:include page="footer.jsp"/>
