@@ -26,7 +26,7 @@
 						</ul>
 					<% } else { %>
 						<ul id="user_top_bar">
-							<li>Welcome, <%=user.getFirstName()%></li>
+							<li id="welcome">Welcome, <%=user.getFirstName()%></li>
 							<li><a href="<%=urls.url("user","logout")%>">LOGOUT</a></li>
 							<li><a href="<%=urls.url("index")%>">HOME</a></li>
 						</ul>

@@ -28,13 +28,23 @@ body {
 		border:0px;
 	}
 
-	#user_box {	float:right; }
+	#user_box {
+		float:right;
+		text-align:right;
+		padding:10px;
+		background:#458BD1;
+		background: rgba(69, 139, 209, 0.5);
+		border:2px solid;
+		border-color:#2A5885;
+		border-color: rgba(42, 88, 133, 0.7);
+	}
 	
 		#user_box a {
-			color:#C6B44A;
+			color:#E0CC53;
 			font-size:14px;
 			font-weight:bold;
 			text-decoration:none;
+
 		}
 		
 		#user_box li {
@@ -42,6 +52,8 @@ body {
 			list-icon-style:none;
 			padding:0px 15px;
 		}
+		
+		#welcome { color:white; font-weight:bold; }
 		
 		#user_top_bar { }
 		#user_bottom_bar { color:white; font-weight:normal; }  
