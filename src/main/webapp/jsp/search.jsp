@@ -17,7 +17,23 @@
 						</div>
 						<div id="search_info">
 							<a href="<%=urls.url("person",result.getUid(),"profile")%>"> <%=result.getFullName()%></a>
-							<p><%=result.getTitle() %> , <%=result.getLocation() %> - <%=result.getDepartment() %>  </p>
+							<%
+								String lineone = "";
+								if(result.getTitle()!=null && !result.getTitle().isEmpty())
+									lineone+=result.getTitle();
+								if(result.getLocation()!=null && !result.getLocation().isEmpty()) {
+									if(!lineone.isEmpty())
+										lineone+=", ";
+									lineone+=result.getLocation();
+								}
+								if(result.getDepartment()!=null && !result.getDepartment().isEmpty()) {
+									if(!lineone.isEmpty())
+										lineone+=" - ";
+									lineone+=result.getDepartment();
+								}
+								lineone =  "<p>"+lineone+"</p>";
+								out.println(lineone);
+							%>
 						</div>
 						<% } %>
 					<% } else { %>
