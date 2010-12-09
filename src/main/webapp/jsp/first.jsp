@@ -11,13 +11,14 @@
 					while( st.hasMoreElements()) nospace+=st.nextElement();
 					st = new StringTokenizer(nospace,"/");
 					nospace = "";
+					int count=1;
 					while( st.hasMoreElements()) nospace+="-"+st.nextElement();	%>
 					
 					<span id="button_<%=nospace%>" class="entity_button"></span><span class="entity_title"><%=first%></span> 
 					<div id="<%=first%>" class="entity_list"> 
 						<ul id="list_<%=nospace%>" class="people">
 							<% for(Person p : people.get(first)) { %>
-										<li> <a href="<%=urls.url("person",p.getUid(),"profile")%>" class="people_url"><%=p.getFullName()%></a></li>
+										<li class="<%=((count++%2==0) ? "even" : "odd" )%>"> <a href="<%=urls.url("person",p.getUid(),"profile")%>" class="people_url"><%=p.getFullName()%></a></li>
 							<% } %>
 						</ul>
 					</div>

@@ -229,17 +229,37 @@ body {
 .entity_button {
 	display:inline;
 	font-family:monospace;
-	font-size:20px;
+	font-size:16px;
 	font-weight:bolder;
 	border:solid black;
-	border-width:0px 1px;
-	padding:0px 3px;
+	border-width:2px;
+	padding:0px 5px;
 	margin-right:6px;
+	background: #E6F1FC;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
 }
-
+	
 .entity_button:hover {
 	cursor:pointer;
-	background:lightgray;
+	background: #C7E2FC;
 }
+
+.entity_list li {
+	list-style:none;
+	padding:2px;
+	width:300px;
+}
+	.entity_list a {
+		color:black;
+		text-decoration:none;
+	}
+	
+	.entity_list a:hover {
+		text-decoration:underline;
+	}
+	
+	.even { background: #C7E2FC; }
+	.odd { background: #E6F1FC; }
 
 #footer {}
