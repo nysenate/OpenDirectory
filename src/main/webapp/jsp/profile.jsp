@@ -19,7 +19,7 @@
 						<b><%=person.getFullName()%></b>
 					</div>
 					<div id="info">
-						<% 	String lineone = "<p>";
+						<% 	String lineone = "";
 							if(person.getTitle()!=null && !person.getTitle().isEmpty())
 								lineone+=person.getTitle();
 							if(person.getLocation()!=null && !person.getLocation().isEmpty()) {
@@ -32,10 +32,10 @@
 									lineone+=" - ";
 								lineone+=person.getDepartment();
 							}
-							lineone+="</p>";
+							lineone =  "<p>"+lineone+"</p>";
 							out.println(lineone);
 							
-							String linetwo = "<p>";
+							String linetwo = "";
 							if(person.getPhone()!=null && !person.getPhone().isEmpty())
 								linetwo+=person.getPhone();
 							if(person.getEmail()!=null && !person.getEmail().isEmpty()) {
@@ -43,7 +43,7 @@
 									linetwo+=", ";
 								linetwo+=person.getEmail();
 							}
-							linetwo+="</p>";
+							linetwo = "<p>"+linetwo+"</p>";
 							out.println(linetwo);
 						
 						if(user!=null && user.getUid()!=null && !user.getUid().equals(person.getUid())) { 
@@ -76,7 +76,7 @@
 				
 					<b>Interests</b>
 					<p><%
-						String last = person.getSkills().last();
+						String last = person.getInterests().last();
 						for( String interest : person.getInterests() ) {
 							out.print("<a href=\""+urls.url("search","?query=interests:("+interest+")")+"\">"+interest+"</a>");
 							if(!interest.equals(last))
