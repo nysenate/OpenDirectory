@@ -3,6 +3,37 @@ html, body { width:100%; }
 
 .clear { clear:both; }
 
+.social-icon {
+	width:16px;
+	height:18px;
+	text-indent:20px;
+	padding: 0px 2px;
+}
+
+.social-icon[name="twitter"] {
+	background: url(/opendirectory/img/twitter16x16.png) bottom left no-repeat;	
+}
+
+.social-icon[name="linkedin"] {
+	background: url(/opendirectory/img/linkedin16x16.png) bottom left no-repeat;	
+}	
+
+.social-icon[name="facebook"] {
+	background: url(/opendirectory/img/facebook16x16.png) bottom left no-repeat;	
+}
+
+.social-icon a:link {
+	color: blue;
+	text-decoration: none;
+}
+.social-icon a:hover {
+	text-decoration: underline;
+}
+.social-icon a:visited {
+	color: blue;
+	text-decoration: underline;
+}
+
 body {
 	color: #012849;
 	font-family: Times New Roman, serif;

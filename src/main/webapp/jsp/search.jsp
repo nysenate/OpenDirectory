@@ -12,7 +12,7 @@
 							<% if(result.getPicture()!=null && !result.getPicture().isEmpty()) { %>
 								<img src="<%=result.getPicture()%>" width="100" height="100">
 							<% } else { %>
-								<img src="<%=urls.url("img","einstein.jpg")%>" width="100" height="100">
+								<img src="<%=urls.url("img","bpc-55x64.png")%>" width="100" height="100">
 							<% } %>
 						</div>
 						<div id="search_info">

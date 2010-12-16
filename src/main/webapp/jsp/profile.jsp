@@ -63,7 +63,7 @@
 				<div id="bio">
 					<% if(person.getBio()!=null && !person.getBio().isEmpty()) { %>
 						<b>Biography</b>
-						<p><%=person.getBio() %></p>
+						<p><pre><%=person.getBio() %></pre></p>
 					<% }  else { %>
 						<b>Biography</b>
 						<p>Information Not Available</p>
@@ -113,41 +113,52 @@
 			<div id="add_info">
 				<b>Additional Information</b>
 				
-				<% if(person.getEmail2()!= null && !person.getEmail2().isEmpty()) { %>
+				<p><%  boolean addInfoTog = false;
+					if(person.getEmail2()!= null && !person.getEmail2().isEmpty()) { 
+						addInfoTog = true;	%>
 					<p>E-mail: <%=person.getEmail2() %></p>
 				<% } else { %>
-					<p>E-mail: Information Not Available</p>
+					<!--<p>E-mail: Information Not Available</p>-->
 				<% } %>
 				
-				<% if(person.getPhone2()!= null && !person.getPhone2().isEmpty()) { %>
+				<% if(person.getPhone2()!= null && !person.getPhone2().isEmpty()) {  
+					addInfoTog = true;	%>
 					<p>Phone: <%=person.getPhone2() %></p>
 				<% } else { %>
-					<p>Phone: Information Not Available</p>
+					<!--<p>Phone: Information Not Available</p>-->
 				<% } %>
 			
-				<% if(person.getIrc()!= null && !person.getIrc().isEmpty()) { %>
+				<% if(person.getIrc()!= null && !person.getIrc().isEmpty()) {  
+					addInfoTog = true;	%>
 					<p>IRC: <%=person.getIrc() %></p>
 				<% } else { %>
-					<p>IRC: Information Not Available</p>
+					<!--<p>IRC: Information Not Available</p>-->
 				<% } %>
 			
-				<% if(person.getFacebook()!= null && !person.getFacebook().isEmpty()) { %>
-					<a href="<%=person.getFacebook() %>">Facebook</a>
+				<% if(person.getFacebook()!= null && !person.getFacebook().isEmpty()) {  
+					addInfoTog = true;	%>
+					<div class="social-icon" name="facebook"><a href="<%=person.getFacebook() %>">Facebook</a></div>
 				<% } else { %>
-					<p>Facebook: Information Not Available</p>
+					<!--<p>Facebook: Information Not Available</p>-->
 				<% } %>
 				
-				<% if(person.getTwitter()!= null && !person.getTwitter().isEmpty()) { %>
-					<a href="<%=person.getTwitter() %>">Twitter</a>
+				<% if(person.getTwitter()!= null && !person.getTwitter().isEmpty()) {  
+					addInfoTog = true;	%>
+					<div class="social-icon" name="twitter"><a href="<%=person.getTwitter() %>">Twitter</a></div>
 				<% } else { %>
-					<p>Twitter: Information Not Available</p>
+					<!--<p>Twitter: Information Not Available</p>-->
 				<% } %>
 				
-				<% if(person.getLinkedin()!= null && !person.getLinkedin().isEmpty()) { %>
-					<a href="<%=person.getLinkedin() %>">LinkedIn</a>
+				<% if(person.getLinkedin()!= null && !person.getLinkedin().isEmpty()) {  
+					addInfoTog = true;	%>
+					<div class="social-icon" name="linkedin"><a href="<%=person.getLinkedin() %>">Linkedin</a></div>
 				<% } else { %>
-					<p>LinkedIn: Information Not Available</p>
-				<% } %>
+					<!--<p>LinkedIn: Information Not Available</p>-->
+				<% } 
+					if(!addInfoTog) {
+						%>Information Not Available<%
+					}
+				%></p>
 			
 			</div>
 			
