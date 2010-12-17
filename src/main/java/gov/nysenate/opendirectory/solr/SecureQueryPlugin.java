@@ -39,14 +39,14 @@ class SecureQueryParser extends QParser {
 
 	public static String secureQuery(String query,String credential) {
 		String newQuery = "";
-		TreeSet<String> basics = new TreeSet<String>(Arrays.asList("uid","otype"));
+		TreeSet<String> basics = new TreeSet<String>(Arrays.asList("uid","otype","firstName","lastName","fullName"));
 		Pattern p = Pattern.compile("(.*?)(\\w+):((?:\\(.+?\\))|(?:\\[.+?\\])|\\w+|(?:\"[\\w ]+\"))([\\) ]*)?");
 		Matcher m = p.matcher(query);
 		while(m.find()) {
 			if(basics.contains(m.group(2)))
 				newQuery += m.group(1)+m.group(2)+":"+m.group(3);
 			else
-				newQuery += m.group(1)+"("+m.group(2)+":"+m.group(3)+" AND "+m.group(2)+"_access:"+credential+")"+m.group(4);
+				newQuery += m.group(1)+"("+m.group(2)+":"+m.group(3)+" AND "+m.group(2)+"_access:("+credential+") )"+m.group(4);
 		}
 		System.out.println("Transformed Query: "+newQuery);
 		return newQuery;

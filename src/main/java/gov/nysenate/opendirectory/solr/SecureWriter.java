@@ -74,6 +74,6 @@ public class SecureWriter {
 		
 		//Add a permissions field for it with no impact on search ranking
 		//(I'm not actually sure that's what boost does, we should look it up.
-		doc.addField(name+"_access", SerialUtils.writeStringSet(field_permissions)+" admin", 0f);
+		doc.addField(name+"_access", SerialUtils.writeStringSet(field_permissions), 0f);
 	}
 }

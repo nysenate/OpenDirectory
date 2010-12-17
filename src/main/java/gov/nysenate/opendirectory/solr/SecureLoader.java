@@ -72,7 +72,7 @@ public class SecureLoader {
         TreeSet<String> user_credentials = user.getCredentials();
         
         //Break the permissions up and check for matches
-		for(String temp : permissions.split(" "))
+		for(String temp : SerialUtils.loadStringSet(permissions))
 			if(user_credentials.contains(temp) == true)
     			return true;
 		

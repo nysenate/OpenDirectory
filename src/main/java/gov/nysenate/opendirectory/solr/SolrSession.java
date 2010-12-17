@@ -61,7 +61,7 @@ public class SolrSession {
 	public ArrayList<Person> loadPeopleByQuery(String query) {
 		
 		String creds = SerialUtils.writeStringSet(user.getCredentials());
-		query = "{!secure credential:"+creds+"}"+query;
+		query = "{!secure credential=\""+creds+"\"}"+query;
 		
 		System.out.println("\nLoading People By Query: "+query);
 		System.out.println("===============================================");
