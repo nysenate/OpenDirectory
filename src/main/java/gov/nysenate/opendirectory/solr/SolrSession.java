@@ -174,4 +174,15 @@ public class SolrSession {
 			e.printStackTrace();
 		}
 	}
+	
+	public void deleteByUid(String uid) {
+		try {
+			solr.delete("uid:"+uid);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
+	}
 }

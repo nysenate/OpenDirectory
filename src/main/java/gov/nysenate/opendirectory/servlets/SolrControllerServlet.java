@@ -6,6 +6,9 @@ import gov.nysenate.opendirectory.utils.Request;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.TreeSet;
 
 import javax.naming.NamingException;
@@ -39,6 +42,7 @@ public class SolrControllerServlet extends BaseServlet {
 		    	} else if (command.equals("reindexAll")) {
 		    		removeAll(self);
 		    		indexLdap(self);
+//		    		reindexAll(self);
 		    		indexExtras(self);
 		    		out.println("Removed and Reindexed All documents");
 		    	} else {
@@ -54,6 +58,49 @@ public class SolrControllerServlet extends BaseServlet {
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void reindexAll(Request self) throws NamingException, SolrServerException, IOException {
+		Collection<Person> people = new Ldap().connect().getPeople();
+		HashMap<String,Person> solrPeople = getUidPersonMap(self.solrSession.loadPeople());
+
+		for(Person ldapPerson: people) {
+			Person solrPerson = solrPeople.get(ldapPerson.getUid());
+			
+			//pretty awful merge
+			if(solrPerson != null) {
+				solrPerson.setDepartment(ldapPerson.getDepartment());
+				solrPerson.setEmail(ldapPerson.getEmail());
+				solrPerson.setFirstName(ldapPerson.getFirstName());
+				solrPerson.setLastName(ldapPerson.getLastName());
+				solrPerson.setLocation(ldapPerson.getLocation());
+				solrPerson.setPhone(ldapPerson.getPhone());
+				solrPerson.setState(ldapPerson.getState());
+				solrPerson.setTitle(ldapPerson.getTitle());
+				solrPerson.setUid(ldapPerson.getUid());
+				
+				self.solrSession.deleteByUid(solrPerson.getUid());
+				self.solrSession.savePerson(solrPerson);
+				solrPeople.remove(solrPerson.getUid());
+			}
+			else {
+				self.solrSession.savePerson(ldapPerson);
+			}
+			
+		}
+		
+		//no longer in ldap
+		for(String uid:solrPeople.keySet()) {
+			self.solrSession.deleteByUid(uid);
+		}
+	}
+	
+	private HashMap<String,Person> getUidPersonMap(Collection<Person> people) {
+		HashMap<String,Person> map = new HashMap<String,Person>();
+		for(Person person:people) {
+			map.put(person.getUid(), person);
+		}
+		return map;
 	}
 	
 	private void removeAll(Request self) throws SolrServerException, IOException {
