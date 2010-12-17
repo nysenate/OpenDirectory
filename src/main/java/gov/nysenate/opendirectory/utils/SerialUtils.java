@@ -11,8 +11,8 @@ public class SerialUtils {
 	
 	public static void main(String[] args) {
 		
-		String sethash = "uid:public:phone:public, senate:permissions:admin:phone2:senate";
-		String stringset = "javascript, python, soccer";
+		String sethash = "uid:public:phone:public senate:permissions:admin:phone2:senate";
+		String stringset = "javascript python soccer";
 		String stringhash = "bush2:Annabel Bush:williams:Jared Williams:hoppin:Andrew Hoppin";
 		
 		//Test the set hash loader
@@ -55,7 +55,7 @@ public class SerialUtils {
 	public static TreeSet<String> loadStringSet(String str) {
 		if(str==null || str.isEmpty())
 			return new TreeSet<String>();
-		return new TreeSet<String>(Arrays.asList(str.split(", ")));
+		return new TreeSet<String>(Arrays.asList(str.split(" ")));
 	}
 	
 	public static TreeSet<Person> loadBookmarks(String str,Person person, SolrSession session) {
@@ -65,17 +65,13 @@ public class SerialUtils {
 			return new TreeSet<Person>();
 		
 		String query = "";
-		
-		for(String uid : str.split(", ")) {
+		for(String uid : str.split(" ")) {
 			
 			//Avoid recursion, shouldn't happen anyway..
 			if(uid.equals(person.getUid()))
 				continue;
 			
-			if (query.isEmpty())
-				query = "uid:"+uid;
-			else
-				query += " OR uid:"+uid;
+			query += ((query.isEmpty()) ? "" : " OR ")+"uid:"+uid;
 		}
 		
 		return new TreeSet<Person>(session.loadPeopleByQuery(query));
@@ -108,20 +104,23 @@ public class SerialUtils {
 	}
 	
 	public static String writeStringSet(TreeSet<String> set) {
-		if(set==null)
+		if(set == null)
 			return "";
 		
-		String str = set.toString();
-		return str.substring(1, str.length()-1);
+		String str = "";
+		for(String s : set)
+			str += s+" ";
+		
+		return str;
 	}
 	
 	public static String writeBookmarks(TreeSet<Person> marks) {
+		if(marks == null)
+			return "";
+		
 		String str = "";
 		for(Person mark : marks)
-			if(str.isEmpty())
-				str = mark.getUid();
-			else
-				str += ", "+mark.getUid();
+			str += mark.getUid()+" ";
 		return str;
 	}
 }
