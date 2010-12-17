@@ -4,7 +4,6 @@ import gov.nysenate.opendirectory.solr.SolrSession;
 import gov.nysenate.opendirectory.utils.SerialUtils;
 import gov.nysenate.opendirectory.utils.XmlUtils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -13,7 +12,7 @@ import java.util.TreeSet;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class Person implements Comparable {
+public class Person implements Comparable<Person> {
 	/** 
 	 * Designed according to JavaBean specs for use in the
 	 * Java Expressions Language (EL) of JSP 2.0+
@@ -109,7 +108,7 @@ public class Person implements Comparable {
 		setPermissions(Person.getDefaultPermissions());
 		setCredentials(null); //Forces Defaults
 	}
-	public int compareTo(Object p) {
+	public int compareTo(Person p) {
 		System.out.println("Comparing "+getUid()+" to "+Person.class.cast(p).getUid());
 		return getUid().compareTo(Person.class.cast(p).getUid());
 	}
@@ -422,66 +421,51 @@ public class Person implements Comparable {
 		return xml;
 	}
 	
-	
-	public void setFieldFromRawValue(String fieldname, String fieldvalue) {
-		setFieldFromRawValue(fieldname,fieldvalue,null,null);
-	}
-	
-	public void setFieldFromRawValue(String fieldname, String fieldvalue, SolrSession session) {
-		setFieldFromRawValue(fieldname,fieldvalue,null,session);
-	}
-	
-	public void setFieldFromRawValue(String fieldname, String fieldvalue, String permissions) {
-		setFieldFromRawValue(fieldname,fieldvalue,permissions,null);
-	}
-	
-	public void setFieldFromRawValue(String fieldname, Object fieldvalue,String permissions, SolrSession session) {
-		//Switch in the fieldname for speed
-		if(fieldname.equals("bio"))
-			setBio((String)fieldvalue);
-		else if(fieldname.equals("bookmarks"))
-			setBookmarks(SerialUtils.loadBookmarks((String)fieldvalue,this,session));
-		else if(fieldname.equals("department"))
-			setDepartment((String)fieldvalue);
-		else if(fieldname.equals("email"))
-			setEmail((String)fieldvalue);
-		else if(fieldname.equals("email2"))
-			setEmail2((String)fieldvalue);
-		else if(fieldname.equals("facebook"))
-			setFacebook((String)fieldvalue);
-		else if(fieldname.equals("firstName"))
-			setFirstName((String)fieldvalue);
-		else if(fieldname.equals("fullName"))
-			setFullName((String)fieldvalue);
-		else if(fieldname.equals("interests"))
-			setInterests(SerialUtils.loadStringSet((String)fieldvalue));
-		else if(fieldname.equals("irc"))
-			setIrc((String)fieldvalue);
-		else if(fieldname.equals("lastName"))
-			setLastName((String)fieldvalue);
-		else if(fieldname.equals("linkedin"))
-			setLinkedin((String)fieldvalue);
-		else if(fieldname.equals("location"))
-			setLocation((String)fieldvalue);
-		else if(fieldname.equals("permissions"))
-			setPermissions(SerialUtils.loadSetHash(permissions));
-		else if(fieldname.equals("phone"))
-			setPhone((String)fieldvalue);
-		else if(fieldname.equals("phone2"))
-			setPhone2((String)fieldvalue);
-		else if(fieldname.equals("picture"))
-			setPicture((String)fieldvalue);
-		else if(fieldname.equals("skills"))
-			setSkills(SerialUtils.loadStringSet((String)fieldvalue));
-		else if(fieldname.equals("state"))
-			setState((String)fieldvalue);
-		else if(fieldname.equals("title"))
-			setTitle((String)fieldvalue);
-		else if(fieldname.equals("twitter"))
-			setTwitter((String)fieldvalue);
-		else if(fieldname.equals("uid"))
-			setUid((String)fieldvalue);
-		else if(fieldname.equals("user_credential"))
-			setCredentials(SerialUtils.loadStringSet((String)fieldvalue));
+	public void loadField(String field, Object value, SolrSession session) {
+		//Switch in the field for speed
+		if(field.equals("bio"))
+			setBio((String)value);
+		else if(field.equals("bookmarks"))
+			setBookmarks(SerialUtils.loadBookmarks((String)value,this,session));
+		else if(field.equals("department"))
+			setDepartment((String)value);
+		else if(field.equals("email"))
+			setEmail((String)value);
+		else if(field.equals("email2"))
+			setEmail2((String)value);
+		else if(field.equals("facebook"))
+			setFacebook((String)value);
+		else if(field.equals("firstName"))
+			setFirstName((String)value);
+		else if(field.equals("fullName"))
+			setFullName((String)value);
+		else if(field.equals("interests"))
+			setInterests(SerialUtils.loadStringSet((String)value));
+		else if(field.equals("irc"))
+			setIrc((String)value);
+		else if(field.equals("lastName"))
+			setLastName((String)value);
+		else if(field.equals("linkedin"))
+			setLinkedin((String)value);
+		else if(field.equals("location"))
+			setLocation((String)value);
+		else if(field.equals("phone"))
+			setPhone((String)value);
+		else if(field.equals("phone2"))
+			setPhone2((String)value);
+		else if(field.equals("picture"))
+			setPicture((String)value);
+		else if(field.equals("skills"))
+			setSkills(SerialUtils.loadStringSet((String)value));
+		else if(field.equals("state"))
+			setState((String)value);
+		else if(field.equals("title"))
+			setTitle((String)value);
+		else if(field.equals("twitter"))
+			setTwitter((String)value);
+		else if(field.equals("uid"))
+			setUid((String)value);
+		else if(field.equals("user_credential"))
+			setCredentials(SerialUtils.loadStringSet((String)value));
 	}
 }
