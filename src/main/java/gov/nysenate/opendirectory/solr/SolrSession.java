@@ -8,15 +8,14 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
-import org.apache.solr.common.SolrInputDocument;
 
 import gov.nysenate.opendirectory.models.Person;
-import gov.nysenate.opendirectory.utils.SerialUtils;
 
 public class SolrSession {
 
 	Solr solr;
 	SecureLoader loader;
+	SecureWriter writer;
 	
 	@SuppressWarnings("serial")
 	public class SolrSessionException extends Exception {
@@ -30,34 +29,12 @@ public class SolrSession {
 		
 		for(int i=0; i<10; i++)
 			solr.loadPeople();
-		
-		/*
-		//Test bookmark writing
-		HashMap<String,String> bookmarks = new HashMap<String,String>();
-		bookmarks.put("williams", "Jared Williams");
-		bookmarks.put("hoppin","Andrew Hoppin");
-		bookmarks.put("bush2","Annabel Bush");
-		System.out.println(solr.writeStringHash(bookmarks));
-		
-		//Test permissions writing
-		HashMap<String,TreeSet<String>> perms = new HashMap<String,TreeSet<String>>();
-		perms.put("uid", new TreeSet<String>(Arrays.asList("public")));
-		perms.put("phone", new TreeSet<String>(Arrays.asList("senate","public")));
-		perms.put("phone2", new TreeSet<String>(Arrays.asList("senate")));
-		perms.put("permissions", new TreeSet<String>(Arrays.asList("admin")));
-		System.out.println(solr.writeSetHash(perms));
-		
-		//Test Interest/Skills writing
-		TreeSet<String> skills = new TreeSet<String>(Arrays.asList("python","soccer","javascript"));
-		System.out.println(solr.writeStringSet(skills));
-		*/
-		
-		System.out.println("Done");
 	}
 	
 	public SolrSession(Person user, Solr solr) {
 		this.solr = solr;
 		this.loader = new SecureLoader(user,this);
+		this.writer = new SecureWriter(user,this);
 	}
 	
 	public Person loadPersonByUid(String uid) {
@@ -75,8 +52,8 @@ public class SolrSession {
 			return loader.loadPerson(profiles.get(0));
 			
 		//This should never happen since uid is unique in the SOLR config file.
-		} else
-			return null;
+		} else { return null; } //TODO: this should throw an exception! 
+		//throw new SolrSessionException("UID provided ("+uid+") was not unique in solr!");
 	}
 	
 	public ArrayList<Person> loadPeopleByQuery(String query) {
@@ -113,42 +90,6 @@ public class SolrSession {
 		return loadPeopleByQuery("otype:person");
 	}
 	
-	//Could use addBean function that comes with solrj but we need to 
-	//put the credentials (hashmap) into solr field.
-	private void addPerson(Person person) throws SolrServerException, IOException {
-		SolrInputDocument solr_person = new SolrInputDocument();	 
-		
-		solr_person.addField("otype", "person", 1.0f);
-		solr_person.addField("firstName", person.getFirstName(), 1.0f);
-		solr_person.addField("lastName", person.getLastName(), 1.0f);
-		solr_person.addField("title", person.getTitle(), 1.0f);
-		solr_person.addField("uid", person.getUid(), 1.0f);
-		solr_person.addField("fullName", person.getFullName(), 1.0f);
-		solr_person.addField("state", person.getState(), 1.0f);
-		solr_person.addField("location", person.getLocation(), 1.0f);
-		solr_person.addField("department", person.getDepartment(), 1.0f);
-		solr_person.addField("phone", person.getPhone(), 1.0f);
-		solr_person.addField("email", person.getEmail(), 1.0f);
-		
-		solr_person.addField("permissions", SerialUtils.writeSetHash(person.getPermissions()));
-		solr_person.addField("user_credential", SerialUtils.writeStringSet(person.getCredentials()));
-		solr_person.addField("bookmarks", SerialUtils.writeBookmarks(person.getBookmarks()));
-		
-		//additional contact info
-		solr_person.addField("bio", person.getBio(), 1.0f);
-		solr_person.addField("picture", person.getPicture(), 1.0f);
-		solr_person.addField("email2", person.getEmail2(), 1.0f);
-		solr_person.addField("phone2", person.getPhone2(), 1.0f);
-		solr_person.addField("twitter", person.getTwitter(), 1.0f);
-		solr_person.addField("facebook", person.getFacebook(), 1.0f);
-		solr_person.addField("linkedin", person.getLinkedin(), 1.0f);
-		solr_person.addField("irc", person.getIrc(), 1.0f);
-		solr_person.addField("skills", SerialUtils.writeStringSet(person.getSkills()), 1.0f);
-		solr_person.addField("interests", SerialUtils.writeStringSet(person.getInterests()), 1.0f);
-		
-		solr.server.add(solr_person);
-	}
-	
 	public void savePerson(Person person) throws SolrServerException, IOException {
 		addPerson(person);
 		solr.server.commit();
@@ -164,14 +105,19 @@ public class SolrSession {
 		solr.server.optimize();
 	}
 	
-	public void deleteAll() {
+	public void deleteAll(){
 		try {
 			solr.deleteAll();
 			solr.server.commit();
 		} catch (SolrServerException e) {
-			e.printStackTrace();
+			//TODO: this should throw a SolrSessionException
 		} catch (IOException e) {
-			e.printStackTrace();
+			//TODO: this should throw a SolrSessionException
 		}
+	}
+	
+	
+	private void addPerson(Person person) throws SolrServerException, IOException {
+		solr.server.add(writer.writePerson(person));
 	}
 }
