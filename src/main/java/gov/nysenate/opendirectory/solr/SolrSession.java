@@ -10,10 +10,12 @@ import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 
 import gov.nysenate.opendirectory.models.Person;
+import gov.nysenate.opendirectory.utils.SerialUtils;
 
 public class SolrSession {
 
 	Solr solr;
+	Person user;
 	SecureLoader loader;
 	SecureWriter writer;
 	
@@ -33,6 +35,7 @@ public class SolrSession {
 	
 	public SolrSession(Person user, Solr solr) {
 		this.solr = solr;
+		this.user = user;
 		this.loader = new SecureLoader(user,this);
 		this.writer = new SecureWriter(user,this);
 	}
@@ -40,16 +43,15 @@ public class SolrSession {
 	public Person loadPersonByUid(String uid) {
 		
 		//Do the query on the uid field
-		QueryResponse results = solr.query("uid:"+uid);
-		SolrDocumentList profiles = results.getResults();
+		ArrayList<Person> people = loadPeopleByQuery("uid:"+uid);
 		
 		//Return null on no results, sometimes getResults returns null
-		if( profiles==null || profiles.getNumFound() == 0 ) {
+		if(people.isEmpty() == true) {
 			return null;
 			
 		//Load a person from the profile if 1 result
-		} else if ( profiles.getNumFound() == 1 ) {
-			return loader.loadPerson(profiles.get(0));
+		} else if ( people.size() == 1) {
+			return people.get(0);
 			
 		//This should never happen since uid is unique in the SOLR config file.
 		} else { return null; } //TODO: this should throw an exception! 
@@ -57,6 +59,9 @@ public class SolrSession {
 	}
 	
 	public ArrayList<Person> loadPeopleByQuery(String query) {
+		
+		String creds = SerialUtils.writeStringSet(user.getCredentials());
+		query = "{!secure credential:"+creds+"}"+query;
 		
 		System.out.println("\nLoading People By Query: "+query);
 		System.out.println("===============================================");
