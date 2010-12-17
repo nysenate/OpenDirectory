@@ -78,6 +78,7 @@ public class Person implements Comparable {
 	
 	public Person() { setToDefaults(); }
 	public Person(String uid) { setToDefaults(); setUid(uid); }
+	public Person(String uid, TreeSet<String> credentials) { setToDefaults(); setUid(uid); setCredentials(credentials); }
 	
 	public void setToDefaults() {
 		setFirstName("");
@@ -106,7 +107,7 @@ public class Person implements Comparable {
 		
 		//All people must have permissions and credentials
 		setPermissions(Person.getDefaultPermissions());
-		setCredentials(new TreeSet<String>(Arrays.asList("public")));
+		setCredentials(null); //Forces Defaults
 	}
 	public int compareTo(Object p) {
 		System.out.println("Comparing "+getUid()+" to "+Person.class.cast(p).getUid());
@@ -220,6 +221,9 @@ public class Person implements Comparable {
 		this.permissions = permissions;
 	}
 	public void setCredentials (TreeSet<String> credentials){
+		//There must always be a valid set of credentials for every single person
+		if (credentials == null || credentials.isEmpty() )
+			credentials = new TreeSet<String>(Arrays.asList("public"));
 		this.credentials = credentials;
 	}
 	public void setBio(String bio){
