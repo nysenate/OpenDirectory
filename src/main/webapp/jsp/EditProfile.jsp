@@ -27,9 +27,9 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 				<form action="" ENCTYPE='multipart/form-data' method="POST">
 					<div id="edit_pic">
 						<% if(user.getPicture()!=null && !user.getPicture().isEmpty()) { %>
-							<img src="<%=user.getPicture()%>" width="200" height="200">
+							<img src="<%=user.getPicture()%>" width="165" height="213">
 						<% } else { %>
-							<img src="<%=urls.url("img","einstein.jpg")%>" width="200" height="200">
+							<img src="<%=urls.url("img","defaults","Gravatar-30.png")%>" width="165" height="213">
 						<% } %>
 						<br/><br/>
 						<b>Change Profile Picture</b>: <input type="file" name="avatar" />

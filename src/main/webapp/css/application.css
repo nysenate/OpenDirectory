@@ -149,13 +149,6 @@ body {
 	  	font-style:italic;
   	}
   	
-  	#search_info {
-	  	font-size:15px;
-	  	position: relative;
-	  	left: 120px;
-	  	bottom:70px;
-  	}
-  	
   	#bookmark_info {
 	  	font-size:15px;
 	  	position: relative;
@@ -172,7 +165,14 @@ body {
   	.entity_title { display:inline; font-weight:bold; }
   	.people{margin-left: 40px;}
   	a.people_url:hover{text-decoration:none;}
-  	
+  
+.result { padding:3px 0px 3px 3px; }
+.bookmark { padding:5px 0px 5px 3px; }
+	.result_pic, .bookmark_pic { float:left; }
+	.result_info {	font-size:18px; padding-left:65px; }
+	.bookmark_info { font-size:18px; padding-left:90px; }
+
+
 #main {
 	margin-top: 15px;
     margin: 20px;

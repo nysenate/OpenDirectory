@@ -8,9 +8,9 @@
 			<div id="main">
 				<div id="pic">
 					<% if(person.getPicture()!=null && !person.getPicture().isEmpty()) { %>
-						<img src="<%=person.getPicture()%>" width="150" height="200">
+						<img src="<%=person.getPicture()%>" width="165" height="213">
 					<% } else { %>
-						<img src="<%=urls.url("img","einstein.jpg")%>" width="150" height="200">
+						<img src="<%=urls.url("img","defaults","Gravatar-30.png")%>" width="165" height="213">
 					<% } %>
 				</div>
 				<div id="top_info" class="right">
