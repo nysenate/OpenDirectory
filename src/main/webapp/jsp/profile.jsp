@@ -10,14 +10,32 @@
 					<% if(person.getPicture()!=null && !person.getPicture().isEmpty()) { %>
 						<img src="<%=person.getPicture()%>" width="165" height="213">
 					<% } else { %>
-						<img src="<%=urls.url("img","defaults","Gravatar-30.png")%>" width="165" height="213">
+						<img src="<%=urls.url("img","defaults","Gravatar-30.png")%>" width="165" height="213" />
 					<% } %>
 				</div>
 				<div id="top_info" class="right">
 				
 					<div id="name">
 						<b><%=person.getFullName()%></b>
+						<% if(person.getFacebook()!= null && !person.getFacebook().isEmpty()) {  %>
+							<a href="<%=person.getFacebook() %>" class="social_link">
+								<img src="<%=urls.url("img","facebook16x16.png")%>" width="24" height="24" />
+							</a>
+						<% } %>
+						
+						<% if(person.getTwitter()!= null && !person.getTwitter().isEmpty()) {  %>
+							<a href="<%=person.getTwitter() %>" class="social_link">
+								<img src="<%=urls.url("img","twitter16x16.png")%>" width="24" height="24" />
+							</a>
+						<% } %>
+						
+						<% if(person.getLinkedin()!= null && !person.getLinkedin().isEmpty()) {  %>
+							<a href="<%=person.getLinkedin() %>" class="social_link">
+								<img src="<%=urls.url("img","linkedin16x16.png")%>" width="24" height="24" />
+							</a>
+						<% } %>
 					</div>
+					
 					<div id="info">
 						<% 	String lineone = "";
 							if(person.getTitle()!=null && !person.getTitle().isEmpty())
@@ -63,7 +81,7 @@
 				<div id="bio">
 					<% if(person.getBio()!=null && !person.getBio().isEmpty()) { %>
 						<b>Biography</b>
-						<p><pre><%=person.getBio() %></pre></p>
+						<pre><%=person.getBio() %></pre>
 					<% }  else { %>
 						<b>Biography</b>
 						<p>Information Not Available</p>
@@ -134,31 +152,10 @@
 				<% } else { %>
 					<!--<p>IRC: Information Not Available</p>-->
 				<% } %>
-			
-				<% if(person.getFacebook()!= null && !person.getFacebook().isEmpty()) {  
-					addInfoTog = true;	%>
-					<div class="social-icon" name="facebook"><a href="<%=person.getFacebook() %>">Facebook</a></div>
-				<% } else { %>
-					<!--<p>Facebook: Information Not Available</p>-->
-				<% } %>
 				
-				<% if(person.getTwitter()!= null && !person.getTwitter().isEmpty()) {  
-					addInfoTog = true;	%>
-					<div class="social-icon" name="twitter"><a href="<%=person.getTwitter() %>">Twitter</a></div>
-				<% } else { %>
-					<!--<p>Twitter: Information Not Available</p>-->
-				<% } %>
-				
-				<% if(person.getLinkedin()!= null && !person.getLinkedin().isEmpty()) {  
-					addInfoTog = true;	%>
-					<div class="social-icon" name="linkedin"><a href="<%=person.getLinkedin() %>">Linkedin</a></div>
-				<% } else { %>
-					<!--<p>LinkedIn: Information Not Available</p>-->
-				<% } 
-					if(!addInfoTog) {
+				<% if(!addInfoTog) {
 						%>Information Not Available<%
-					}
-				%></p>
+				}%></p>
 			
 			</div>
 			
