@@ -32,7 +32,8 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 							<img src="<%=urls.url("img","defaults","Gravatar-30.png")%>" width="165" height="213">
 						<% } %>
 						<br/><br/>
-						<b>Change Profile Picture</b>: <input type="file" name="avatar" />
+						<b>Change Profile Picture</b>: <input type="file" name="avatar" /><br/>
+						<i>Images will be shrunk to 165x213 ratio on display.<br/>Try to keep the image file size small. </i>
 					</div>
 					<br/>
 					<div id="edit_contactinfo">
