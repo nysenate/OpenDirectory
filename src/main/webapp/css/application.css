@@ -1,5 +1,6 @@
 html,body,div,ul,li { margin:0px; padding:0px; }
 html, body { width:100%; }
+pre { font-family:inherit; }
 
 .clear { clear:both; }
 
@@ -255,7 +256,14 @@ body {
 
 
 #bio b { font-size:24px; }
-
+#bio pre {
+	/* http://www.longren.org/2006/09/27/wrapping-text-inside-pre-tags/ */
+	white-space: pre-wrap;       /* css-3 */
+	white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+	white-space: -pre-wrap;      /* Opera 4-6 */
+	white-space: -o-pre-wrap;    /* Opera 7 */
+	word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
 
 .entity_button {
 	display:inline;
