@@ -43,7 +43,7 @@ public class SerialUtils {
 	}
 	
 	public static String writeStringSet(TreeSet<String> set) {
-		if(set == null)
+		if(set == null || set.isEmpty() )
 			return "";
 		
 		String str = "";
