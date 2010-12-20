@@ -4,6 +4,22 @@ pre { font-family:inherit; }
 
 .clear { clear:both; }
 
+#edit_button {
+	text-align:center;
+	padding:30px 0px 15px 0px;
+}
+	#edit_link { padding:10px 20px; border:1px;
+		font-size:20px;
+		font-weight:bold;
+		color:#E0CC53;
+		text-decoration:none; 
+		background:#458BD1;
+		border:2px solid;
+		border-color:#2A5885;
+		border-color: rgba(42, 88, 133, 0.7);
+	}
+	#edit_link:hover { text-decoration:underline; }
+	
 .social-icon {
 	width:16px;
 	height:18px;

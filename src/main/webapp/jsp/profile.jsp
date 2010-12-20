@@ -5,6 +5,11 @@
 	Person user = (Person)request.getAttribute("user");
 	
 %><jsp:include page="header.jsp" />
+			<% if( user!=null && person.getUid().equals(user.getUid())) { %>
+				<div id="edit_button">
+					<a id="edit_link" href="<%=urls.url("user","edit")%>">Edit your profile!</a>
+				</div>
+			<% } %>
 			<div id="main">
 				<div id="pic">
 					<% if(person.getPicture()!=null && !person.getPicture().isEmpty()) { %>
