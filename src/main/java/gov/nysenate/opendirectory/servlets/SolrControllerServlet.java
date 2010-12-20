@@ -40,9 +40,9 @@ public class SolrControllerServlet extends BaseServlet {
 		    		indexExtras(self);
 		    		out.println("Indexed all Extras");
 		    	} else if (command.equals("reindexAll")) {
-		    		removeAll(self);
-		    		indexLdap(self);
-//		    		reindexAll(self);
+		    		//removeAll(self);
+		    		//indexLdap(self);
+		    		reindexAll(self);
 		    		indexExtras(self);
 		    		out.println("Removed and Reindexed All documents");
 		    	} else {
@@ -56,6 +56,9 @@ public class SolrControllerServlet extends BaseServlet {
 		    	out.println("\tReindexAll - /solr/reindexAll");
 		    }
 		} catch (SolrServerException e) {
+			e.printStackTrace();
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
