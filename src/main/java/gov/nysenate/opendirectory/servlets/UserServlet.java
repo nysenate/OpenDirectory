@@ -84,10 +84,16 @@ public class UserServlet extends BaseServlet {
 	    	
 	    	//Since its a GET request, just render the edit page
 	    	} else if (command.equals("edit")) {
-	    		self.render("EditProfile.jsp");
+	    		if(self.user.equals(Person.getAnon()))
+	    			self.redirect(urls.url("user","login"));
+	    		else
+	    			self.render("EditProfile.jsp");
 	    		
 	    	} else if (command.equals("bookmarks")) {
-	    		doBookmarks(self);
+	    		if(self.user.equals(Person.getAnon()))
+	    			self.redirect(urls.url("user","login"));
+	    		else
+	    			doBookmarks(self);
 	    		
 	    	} else
 	    		throw new UserServletException("Invalid command `"+command+"` supplied.");
@@ -111,7 +117,10 @@ public class UserServlet extends BaseServlet {
 	    		doLogin(self);
 	    		
 	    	} else if (command.equals("edit")) {
-	    		doEdit(self);
+	    		if(self.user.equals(Person.getAnon()))
+	    			self.redirect(urls.url("user","login"));
+	    		else
+	    			doEdit(self);
 	    		
 	    	} else
 	    		throw new UserServletException("Invalid command `"+command+"` supplied.");
