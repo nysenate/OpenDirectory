@@ -8,7 +8,6 @@ import gov.nysenate.opendirectory.utils.XmlUtils;
 import java.util.List;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TreeSet;
 import java.util.Vector;
@@ -199,7 +198,7 @@ public class UserServlet extends BaseServlet {
 						
 					//Otherwise, transform the raw value and insert it into our user
 					} else {
-						self.user.setFieldFromRawValue(key,value);
+						self.user.loadField(key,value,self.solrSession);
 					}
 					
 				//Handle file, but only if name is not empty

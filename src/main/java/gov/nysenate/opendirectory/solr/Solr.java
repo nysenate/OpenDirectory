@@ -77,19 +77,4 @@ public class Solr {
 		server.commit();
 		return this;
 	}
-
-	public QueryResponse getAll() throws SolrServerException {
-		return get("*:*");
-	}
-	public QueryResponse get(String queryString) throws SolrServerException {
-		return get(queryString,Integer.MAX_VALUE);
-	}
-	
-	public QueryResponse get(String queryString,int results) throws SolrServerException {
-		SolrQuery query = new SolrQuery();
-		query.setQuery(queryString);
-		query.setRows(results);
-		return server.query(query);
-	}
-
 }

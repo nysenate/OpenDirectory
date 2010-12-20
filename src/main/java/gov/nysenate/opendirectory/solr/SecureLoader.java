@@ -1,5 +1,6 @@
 package gov.nysenate.opendirectory.solr;
 
+import java.util.HashMap;
 import java.util.TreeSet;
 
 import org.apache.solr.common.SolrDocument;
@@ -13,7 +14,6 @@ public class SecureLoader {
 	private SolrSession session;
 	
 	public static void main(String[] args) {
-		
 		SolrSession session = new Solr().connect().newSession(Person.getAdmin());
 		session.loadPersonByUid("opendirectory");
 		System.out.println("Done");
@@ -26,31 +26,44 @@ public class SecureLoader {
 	
 	public Person loadPerson(SolrDocument profile) {
 		
-		//Load up the most basic of people
-		Person person = new Person();
-		person.setUid((String)profile.getFieldValue("uid"));
-		person.setCredentials(SerialUtils.loadStringSet((String)profile.getFieldValue("credentials")));
+		//Load up the person in a basic way
+		Person person = new Person(
+				(String)profile.getFieldValue("uid"),
+				SerialUtils.loadStringSet((String)profile.getFieldValue("credentials"))
+			);
 		
 		//Any further queries required should be executed as under this person.
 		SolrSession personSession = session.solr.newSession(person);
+		HashMap<String,TreeSet<String>> permissions = person.getPermissions();
 		
-		String permissions = (String)profile.getFieldValue("permissions");
-		String[] parts = permissions.split(":");
-		for(int j=0; j<parts.length-1; j+=2) {
-			
-			if(!isApproved(user,parts[j+1]) || parts[j].equals("uid") || parts[j].equals("credentials"))
+		for(String field : profile.getFieldNames()) {
+			//Process the permissions fields into the hashmap
+			if(field.endsWith("_access")) {
+				System.out.println(field.substring(0, field.length()-7)+": "+(String)profile.getFieldValue(field));
+				permissions.put(
+						field.substring(0, field.length()-7),
+						SerialUtils.loadStringSet((String)profile.getFieldValue(field))
+					);
 				continue;
+			}
+				
+			if( field.equals("uid") || field.equals("credentials") ||		 //We already have these, otherwise
+				!isApproved((String)profile.getFieldValue(field+"_access"))) //User must have permissions to view
+					continue;
 			
-			String fieldname = parts[j];
-			Object fieldvalue = profile.getFieldValue(fieldname);
-			
-			person.setFieldFromRawValue(fieldname,fieldvalue,permissions,personSession);
+			person.loadField(field,profile.getFieldValue(field),personSession);
 		}
-
+		
+		//We've now got a fully reconstructed permissions field
+		person.setPermissions(permissions);
+		
 		return person;
 	}
 
-	private boolean isApproved(Person user,String permissions) {
+	private boolean isApproved(String permissions) {
+		//If no permissions are set, its assumed public
+		if(permissions==null)
+			return true;
 		
 		//Auto-grant access to the admin user
 		if(user.equals(Person.getAdmin()))
@@ -60,7 +73,7 @@ public class SecureLoader {
         TreeSet<String> user_credentials = user.getCredentials();
         
         //Break the permissions up and check for matches
-		for(String temp : permissions.split(", "))
+		for(String temp : SerialUtils.loadStringSet(permissions))
 			if(user_credentials.contains(temp) == true)
     			return true;
 		
