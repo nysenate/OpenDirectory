@@ -5,6 +5,7 @@ import gov.nysenate.opendirectory.models.Person;
 import gov.nysenate.opendirectory.utils.Request;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,6 +22,15 @@ import org.apache.solr.client.solrj.SolrServerException;
 
 @SuppressWarnings("serial")
 public class SolrControllerServlet extends BaseServlet {
+	
+	public static void main(String[] args) {
+		try {
+			Collection<Person> people = new SolrControllerServlet().replaceDepartments(new Ldap().connect().getPeople());
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Request self = new Request(this,request,response);
@@ -64,9 +74,9 @@ public class SolrControllerServlet extends BaseServlet {
 	}
 	
 	private void reindexAll(Request self) throws NamingException, SolrServerException, IOException {
-		Collection<Person> people = new Ldap().connect().getPeople();
+		Collection<Person> people = replaceDepartments(new Ldap().connect().getPeople());
 		HashMap<String,Person> solrPeople = getUidPersonMap(self.solrSession.loadPeople());
-
+		ArrayList<Person> toAdd = new ArrayList<Person>();
 		for(Person ldapPerson: people) {
 			Person solrPerson = solrPeople.get(ldapPerson.getUid());
 			
@@ -81,21 +91,48 @@ public class SolrControllerServlet extends BaseServlet {
 				solrPerson.setState(ldapPerson.getState());
 				solrPerson.setTitle(ldapPerson.getTitle());
 				solrPerson.setUid(ldapPerson.getUid());
-				
-				self.solrSession.deleteByUid(solrPerson.getUid());
-				self.solrSession.savePerson(solrPerson);
+				toAdd.add(solrPerson);
 				solrPeople.remove(solrPerson.getUid());
 			}
 			else {
-				self.solrSession.savePerson(ldapPerson);
+				toAdd.add(ldapPerson);
 			}
 			
+			
 		}
+		self.solrSession.savePeople(toAdd);
 		
 		//no longer in ldap
 		for(String uid:solrPeople.keySet()) {
 			self.solrSession.deleteByUid(uid);
 		}
+	}
+	private Collection<Person> replaceDepartments(Collection<Person> people) {
+		for(Person p : people) {
+			String department = p.getDepartment();
+			if(department==null || department.isEmpty()) {
+				System.out.println(p.getUid());
+				continue;
+			}
+			
+			department = department.replaceAll("ARRC", "Agriculture and Rural Resources");
+			department = department.replaceAll("dev","Development");
+			department = department.replaceAll("DO","District Office");
+			department = department.replaceAll("M&O", "Maintenance and Operations");
+			department = department.replaceAll("CS","Creative Services");
+			department = department.replaceAll("LC","Legislative Committee");
+			department = department.replaceAll("Maj\\.", "Majority");
+			department = department.replaceAll("Prog\\.", "Program");
+			department = department.replaceAll("SC", "Select Committee");
+			department = department.replaceAll("SS", "Senate Services");
+			department = department.replaceAll("STS", "Senate Technology Services");
+			department = department.replaceAll("Sess\\. Asst\\.", "Session Assistant");
+			department = department.replaceAll("TF", "Task Force");
+			
+			System.out.println(department);
+			p.setDepartment(department);
+		}
+		return people;
 	}
 	
 	private HashMap<String,Person> getUidPersonMap(Collection<Person> people) {
