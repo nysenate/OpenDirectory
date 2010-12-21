@@ -302,6 +302,12 @@ public class Person implements Comparable<Person> {
 		
 		return m.replaceAll("").replaceAll("\n","\n<br/>");		
 	}
+	public String cleanTags(String s) {
+		Pattern p = Pattern.compile("(<.*?>)");
+		Matcher m = p.matcher(s);
+		
+		return m.replaceAll("").replaceAll("\n",",");		
+	}
 
 	public static class ByFirstName implements Comparator<Person> {
 		public int compare(Person a, Person b) {
@@ -399,6 +405,8 @@ public class Person implements Comparable<Person> {
 		permissions.put("user_credential", new TreeSet<String>(Arrays.asList("admin")));
 		permissions.put("bookmarks", new TreeSet<String>(Arrays.asList("admin")));
 		permissions.put("unprocessedBio", new TreeSet<String>(Arrays.asList("admin")));
+		permissions.put("unprocessedSkills", new TreeSet<String>(Arrays.asList("admin")));
+		permissions.put("unprocessedInterests", new TreeSet<String>(Arrays.asList("admin")));
 		
 		permissions.put("uid", new TreeSet<String>(Arrays.asList("public")));
 		permissions.put("email", new TreeSet<String>(Arrays.asList("public")));
@@ -464,6 +472,10 @@ public class Person implements Comparable<Person> {
 			setBio((String)value);
 		else if(field.equals("unprocessedBio"))
 			setUnprocessedBio((String)value);
+		else if(field.equals("unprocesedSkills"))
+			setUnprocessedSkills((String)value);
+		else if(field.equals("unprocessedInterests"))
+			setUnprocessedInterests((String)value);
 		else if(field.equals("bookmarks"))
 			setBookmarks(SerialUtils.loadBookmarks((String)value,this,session));
 		else if(field.equals("department"))
