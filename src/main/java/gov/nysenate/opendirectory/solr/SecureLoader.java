@@ -38,7 +38,6 @@ public class SecureLoader {
 		for(String field : profile.getFieldNames()) {
 			//Process the permissions fields into the hashmap
 			if(field.endsWith("_access")) {
-				System.out.println(field.substring(0, field.length()-7)+": "+(String)profile.getFieldValue(field));
 				permissions.put(
 						field.substring(0, field.length()-7),
 						SerialUtils.loadStringSet((String)profile.getFieldValue(field))
