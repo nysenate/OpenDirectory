@@ -7,7 +7,6 @@ import org.apache.solr.common.SolrDocument;
 
 import gov.nysenate.opendirectory.models.Person;
 import gov.nysenate.opendirectory.utils.SerialUtils;
-
 public class SecureLoader {
 
 	private Person user;

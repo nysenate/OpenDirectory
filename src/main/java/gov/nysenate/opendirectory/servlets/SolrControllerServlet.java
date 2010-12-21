@@ -33,7 +33,7 @@ public class SolrControllerServlet extends BaseServlet {
 		    		removeAll(self);
 		    		out.println("Removed all documents");
 		    	} else if (command.equals("indexAll")) {
-		    		indexLdap(self);
+		    		indexLdap(self, out);
 		    		indexExtras(self);
 		    		out.println("Indexed all Documents");
 		    	} else if (command.equals("indexExtras")) {
@@ -110,9 +110,12 @@ public class SolrControllerServlet extends BaseServlet {
 		self.solrSession.deleteAll();
 	}
 	
-	private void indexLdap(Request self) throws SolrServerException, IOException  {
+	private void indexLdap(Request self, ServletOutputStream out) throws SolrServerException, IOException  {
 		try{
-			self.solrSession.savePeople(new Ldap().connect().getPeople());
+			out.println("getting people");
+			Collection<Person> people = new Ldap().connect().getPeople();
+			out.println("saving people");
+			self.solrSession.savePeople(people);
 			self.solrSession.optimize();
 		} catch (NamingException e) {
 			e.printStackTrace();

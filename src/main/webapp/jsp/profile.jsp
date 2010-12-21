@@ -7,7 +7,7 @@
 %><jsp:include page="header.jsp" />
 			<% if( user!=null && person.getUid().equals(user.getUid())) { %>
 				<div id="edit_button">
-					<a id="edit_link" href="<%=urls.url("user","edit")%>">Edit your profile!</a>
+					<a id="edit_link" href="<%=urls.url("user","edit")%>">Edit your profile</a>
 				</div>
 			<% } %>
 			<div id="main">
@@ -86,7 +86,7 @@
 				<div id="bio">
 					<% if(person.getBio()!=null && !person.getBio().isEmpty()) { %>
 						<b>Biography</b>
-						<pre><%=person.getBio() %></pre>
+						<p><%=person.getBio() %></p>
 					<% }  else { %>
 						<b>Biography</b>
 						<p>Information Not Available</p>

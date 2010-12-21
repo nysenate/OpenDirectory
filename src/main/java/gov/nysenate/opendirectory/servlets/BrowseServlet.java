@@ -5,11 +5,14 @@ import gov.nysenate.opendirectory.utils.Request;
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.TreeSet;
 
 import javax.servlet.ServletException;
@@ -35,11 +38,17 @@ public class BrowseServlet extends BaseServlet {
 			    if (command != null) {
 			    	if ( command.equals("department")) {
 			    		long start = System.nanoTime();
-						request.setAttribute( "people",
-								GetPeopleSortedByString(self,
-											Person.class.getMethod("getDepartment"),
-											new Person.ByDepartment()
-										));
+			    		
+			    		request.setAttribute( "people",
+			    				getDepartmentBuckets(self,
+			    							Person.class.getMethod("getDepartment"),
+			    							new Person.ByDepartment(),
+			    							response.getWriter()));
+//						request.setAttribute( "people",
+//								GetPeopleSortedByString(self,
+//											Person.class.getMethod("getDepartment"),
+//											new Person.ByDepartment()
+//										));
 						System.out.println("Sort by Department: "+(System.nanoTime()-start)/1000000f+" milliseconds");
 						self.render("dept.jsp");
 						
@@ -126,6 +135,59 @@ public class BrowseServlet extends BaseServlet {
 			System.out.println(e);
 		}
 		return null;
+	}
+	
+	private HashMap<String,HashMap<String,TreeSet<Person>>> getDepartmentBuckets(Request self, Method method, Comparator<Person> comparator, PrintWriter out) throws BrowseServletException {
+		HashMap<String, TreeSet<Person>> treePeople = GetPeopleSortedByString(self, method, comparator);
+		HashMap<String,HashMap<String,TreeSet<Person>>> data = new HashMap<String,HashMap<String,TreeSet<Person>>>();
+		
+		List<String> names = Arrays.asList("CS","LC","M&O","SS","STS","TF","Student Programs","SC");
+		
+		for(String department:treePeople.keySet()) {
+			String[] tuple = department.split("/");
+			HashMap<String,TreeSet<Person>> tMap = null;
+			if(tuple.length > 1 && names.contains(tuple[0])) {
+				//department = LDAP name e.g. "M&O/Post Office
+				//tuple[0] = organization e.g. 'M&O' tuple[1] = dept e.g. 'Post Office'
+				tMap = bucketHelper(data,tuple[0]);
+				
+				tMap.put(tuple[1],treePeople.get(department));
+				department = tuple[0];
+			}
+			else {
+				if(department.startsWith("Majority") || department.startsWith("Maj.")) {
+					tMap = bucketHelper(data,"Majority");
+					tMap.put(department, treePeople.get(department));
+					department = "Majority";
+				}
+				else if(department.startsWith("Minority") || department.startsWith("Min.")) {
+					tMap = bucketHelper(data,"Minority");
+					tMap.put(department, treePeople.get(department));
+					department = "Minority";
+				}
+				else if(department.startsWith("Senator")) {
+					tMap = bucketHelper(data,"Senator");
+					tMap.put(department, treePeople.get(department));
+					department = "Senator";
+				}
+				else {
+					tMap = new HashMap<String,TreeSet<Person>>();
+					tMap.put(department, treePeople.get(department));
+
+				}
+			}
+			data.put(department,tMap);
+		}
+		
+		return data;
+	}
+	
+	public HashMap<String,TreeSet<Person>> bucketHelper(HashMap<String,HashMap<String,TreeSet<Person>>> data, String key) {
+		HashMap<String,TreeSet<Person>> tMap = null;
+		if((tMap = data.get(key)) != null) {
+			return tMap;
+		}
+		return new HashMap<String,TreeSet<Person>>();
 	}
 
 	private HashMap<String,TreeSet<Person>> GetPeopleSortedByString(Request self,Method method, Comparator<Person> comparator) throws BrowseServletException {

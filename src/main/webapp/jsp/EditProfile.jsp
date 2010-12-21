@@ -20,10 +20,12 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 }
 
 %><jsp:include page="header.jsp" />
-			<div id="main">
-				<% if(message!=null) { %>
+			<% if(message!=null) { %>
+				<div id="edit_button">
 					<b><%=message%></b>
-				<% } %>
+				</div>
+			<% } %>
+			<div id="main">
 				<form action="" ENCTYPE='multipart/form-data' method="POST">
 					<div id="edit_pic">
 						<% if(user.getPicture()!=null && !user.getPicture().isEmpty()) { %>
@@ -66,7 +68,7 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 							<b>Biography</b>
 							<%= writeRadios("bio",permissions.get("bio")) %>
 							<br></br>
-							<textarea name="bio" cols="100" rows="5"><%=user.getBio()%></textarea><br></br>
+							<textarea name="bio" cols="100" rows="5"><%=user.getUnprocessedBio()%></textarea><br></br>
 						</div>
 						<div id="edit_skills">
 							<b>Skills</b>

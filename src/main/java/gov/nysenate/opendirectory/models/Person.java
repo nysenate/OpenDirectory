@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -48,6 +50,7 @@ public class Person implements Comparable<Person> {
 	
 	//additional Contact info
 	private String bio;
+	private String unprocessedBio;
 	private String picture;
 	private String email2;
 	private String phone2;
@@ -57,23 +60,26 @@ public class Person implements Comparable<Person> {
 	private String irc;
 	
 	public static void main(String[] args) {
-		Person a = new Person();
-		a.setUid("a");
-		Person b = new Person();
-		b.setUid("b");
-		Person c = new Person();
-		c.setUid("c");
-		Person i = new Person();
-		i.setUid("c");
-		Person j = new Person();
-		j.setUid("c");
-		Person x = new Person();
-		x.setUid("d");
-		TreeSet<Person> set = new TreeSet<Person>(Arrays.asList(a,b,c,i,j));
-		System.out.println(set.contains(x));
-		set.remove(i);
-		System.out.println(set);
+//		Person a = new Person();
+//		a.setUid("a");
+//		Person b = new Person();
+//		b.setUid("b");
+//		Person c = new Person();
+//		c.setUid("c");
+//		Person i = new Person();
+//		i.setUid("c");
+//		Person j = new Person();
+//		j.setUid("c");
+//		Person x = new Person();
+//		x.setUid("d");
+//		TreeSet<Person> set = new TreeSet<Person>(Arrays.asList(a,b,c,i,j));
+//		System.out.println(set.contains(x));
+//		set.remove(i);
+//		System.out.println(set);
+		String s = "<p>hello<script='tacos'></strong><form></form><br/></p>";
+		System.out.println(new Person().cleanBio(s));
 	}
+	//<strike> <p> <a> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd> <hr> <br /> <blockquote>
 	
 	public Person() { setToDefaults(); }
 	public Person(String uid) { setToDefaults(); setUid(uid); }
@@ -93,6 +99,7 @@ public class Person implements Comparable<Person> {
 		
 		//Need to set NON-NULL!!! defaults for everything here
 		setBio("");
+		setUnprocessedBio("");
 		setEmail2("");
 		setPhone2("");
 		setTwitter("");
@@ -151,6 +158,9 @@ public class Person implements Comparable<Person> {
 	}
 	public String getBio(){
 		return bio;
+	}
+	public String getUnprocessedBio() {
+		return unprocessedBio;
 	}
 	public String getPicture(){
 		return picture;
@@ -228,6 +238,9 @@ public class Person implements Comparable<Person> {
 	public void setBio(String bio){
 		this.bio = bio;
 	}
+	public void setUnprocessedBio(String unprocessedBio) {
+		this.unprocessedBio = unprocessedBio;
+	}
 	public void setPicture(String picture){
 		this.picture = picture;
 	}
@@ -265,6 +278,13 @@ public class Person implements Comparable<Person> {
 		out.append("\n\tPhone: "+phone);
 		out.append("\n\tEmail: "+email);
 		return out.toString();
+	}
+	
+	public String cleanBio(String s) {
+		Pattern p = Pattern.compile("(<(?!/?(p|br|b|u|i|ul|ol|li|em|strong|strike|city|code|dl|dt|dd|hr|blockquote)/?).*?>)");
+		Matcher m = p.matcher(s);
+		
+		return m.replaceAll("").replaceAll("\n","\n<br/>");		
 	}
 
 	public static class ByFirstName implements Comparator<Person> {
@@ -362,6 +382,7 @@ public class Person implements Comparable<Person> {
 		permissions.put("permissions", new TreeSet<String>(Arrays.asList("admin")));
 		permissions.put("user_credential", new TreeSet<String>(Arrays.asList("admin")));
 		permissions.put("bookmarks", new TreeSet<String>(Arrays.asList("admin")));
+		permissions.put("unprocessedBio", new TreeSet<String>(Arrays.asList("admin")));
 		
 		permissions.put("uid", new TreeSet<String>(Arrays.asList("public")));
 		permissions.put("email", new TreeSet<String>(Arrays.asList("public")));
@@ -425,6 +446,8 @@ public class Person implements Comparable<Person> {
 		//Switch in the field for speed
 		if(field.equals("bio"))
 			setBio((String)value);
+		else if(field.equals("unprocessedBio"))
+			setUnprocessedBio((String)value);
 		else if(field.equals("bookmarks"))
 			setBookmarks(SerialUtils.loadBookmarks((String)value,this,session));
 		else if(field.equals("department"))
@@ -468,4 +491,6 @@ public class Person implements Comparable<Person> {
 		else if(field.equals("user_credential"))
 			setCredentials(SerialUtils.loadStringSet((String)value));
 	}
+	
+	
 }

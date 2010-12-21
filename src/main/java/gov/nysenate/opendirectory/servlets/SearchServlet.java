@@ -1,8 +1,12 @@
 package gov.nysenate.opendirectory.servlets;
 
+import gov.nysenate.opendirectory.models.Person;
 import gov.nysenate.opendirectory.utils.Request;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +20,10 @@ public class SearchServlet extends BaseServlet {
 		public SearchServletException(String m, Throwable t) { super(m,t); }
 	}
 	
+	public static void main(String[] args) {
+
+	}
+	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Request self = new Request(this,request,response);
 		
@@ -24,8 +32,31 @@ public class SearchServlet extends BaseServlet {
 			if(query == null)
 				throw new SearchServletException("No query supplied with the search request.");
 			
+			ArrayList<Person> people = self.solrSession.loadPeopleByQuery(query);
+			
+			if(people.isEmpty()) {
+				Pattern pattern = Pattern.compile("(\\w+?):(\\w+?)(\\s(AND|OR)|$))");
+				Matcher matcher = pattern.matcher(query);
+				if(!matcher.find()) {
+					query = query + "*";
+					people = self.solrSession.loadPeopleByQuery(query + "*");
+					if(people.isEmpty()) {
+						people = self.solrSession.loadPeopleByQuery(query + "~");
+					}
+				}
+				else {
+					query = matcher.replaceAll("$1:$2*$3");
+					people = self.solrSession.loadPeopleByQuery(matcher.replaceAll("$1:$2*$3"));
+					
+					if(people.isEmpty()) {
+						query = matcher.replaceAll("$1:$2~$3");
+						people = self.solrSession.loadPeopleByQuery(matcher.replaceAll("$1:$2~$3"));
+					}
+				}
+			}
+			
 			request.setAttribute("query", query);
-			request.setAttribute("results", self.solrSession.loadPeopleByQuery(query) );
+			request.setAttribute("results", people);
 			
 			self.render("search.jsp");
 			

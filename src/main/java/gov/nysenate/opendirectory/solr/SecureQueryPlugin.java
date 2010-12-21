@@ -18,7 +18,7 @@ import org.apache.solr.search.SolrQueryParser;
 
 public class SecureQueryPlugin extends LuceneQParserPlugin {
 	public static String NAME = "secure";
-
+	
 	@SuppressWarnings("unchecked")
 	public void init(NamedList args) {}
 
@@ -40,7 +40,7 @@ class SecureQueryParser extends QParser {
 	public static String secureQuery(String query,String credential) {
 		String newQuery = "";
 		TreeSet<String> basics = new TreeSet<String>(Arrays.asList("uid","otype","firstName","lastName","fullName"));
-		Pattern p = Pattern.compile("(.*?)(\\w+):((?:\\(.+?\\))|(?:\\[.+?\\])|\\w+|(?:\"[\\w ]+\"))([\\) ]*)?");
+		Pattern p = Pattern.compile("(.*?)(\\w+):(((?:\\(.+?\\))|(?:\\[.+?\\])|\\w+|(?:\"[\\w ]+\"))(\\*|~)?)([\\) ]*)?");
 		Matcher m = p.matcher(query);
 		if(m.find()) {
 			do {

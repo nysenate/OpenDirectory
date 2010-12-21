@@ -49,6 +49,7 @@ public class SecureWriter {
 		writeSecureField(doc,"phone2",person.getPhone2(),permissions, 1.0f);
 		writeSecureField(doc,"email2",person.getEmail2(),permissions, 1.0f);
 		writeSecureField(doc,"bio",person.getBio(),permissions, 1.0f);
+		writeSecureField(doc, "unprocessedBio", person.getUnprocessedBio(),permissions, 1.0f);
 		writeSecureField(doc,"picture",person.getPicture(),permissions, 1.0f);
 		writeSecureField(doc,"twitter",person.getTwitter(),permissions, 1.0f);
 		writeSecureField(doc,"facebook",person.getFacebook(),permissions, 1.0f);
