@@ -323,3 +323,11 @@ body {
 	.odd { background: #E6F1FC; }
 
 #footer {}
+
+#edit_input {
+	float:left;
+	width:70px;
+	text-align:left;
+	margin-right:7px;
+	line-height:23px;
+}

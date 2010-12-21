@@ -22,23 +22,6 @@
 				
 					<div id="name">
 						<b><%=person.getFullName()%></b>
-						<% if(person.getFacebook()!= null && !person.getFacebook().isEmpty()) {  %>
-							<a href="<%=person.getFacebook() %>" class="social_link">
-								<img src="<%=urls.url("img","facebook16x16.png")%>" width="24" height="24" />
-							</a>
-						<% } %>
-						
-						<% if(person.getTwitter()!= null && !person.getTwitter().isEmpty()) {  %>
-							<a href="<%=person.getTwitter() %>" class="social_link">
-								<img src="<%=urls.url("img","twitter16x16.png")%>" width="24" height="24" />
-							</a>
-						<% } %>
-						
-						<% if(person.getLinkedin()!= null && !person.getLinkedin().isEmpty()) {  %>
-							<a href="<%=person.getLinkedin() %>" class="social_link">
-								<img src="<%=urls.url("img","linkedin16x16.png")%>" width="24" height="24" />
-							</a>
-						<% } %>
 					</div>
 					
 					<div id="info">
@@ -61,13 +44,24 @@
 							String linetwo = "";
 							if(person.getPhone()!=null && !person.getPhone().isEmpty())
 								linetwo+=person.getPhone();
-							if(person.getEmail()!=null && !person.getEmail().isEmpty()) {
+							if(person.getPhone2()!=null && !person.getPhone2().isEmpty()) {
 								if(!linetwo.isEmpty())
-									linetwo+=", ";
-								linetwo+=person.getEmail();
+									linetwo+=" / ";
+								linetwo+=person.getPhone2();
 							}
 							linetwo = "<p>"+linetwo+"</p>";
 							out.println(linetwo);
+							
+							String linethree = "";
+							if(person.getEmail()!=null && !person.getEmail().isEmpty())
+								linethree+=person.getEmail();
+							if(person.getEmail2()!=null && !person.getEmail2().isEmpty()) {
+								if(!linetwo.isEmpty())
+									linethree+=" / ";
+								linethree+=person.getEmail2();
+							}
+							linethree = "<p>"+linethree+"</p>";
+							out.println(linethree);
 						
 						if(user!=null && user.getUid()!=null && !user.getUid().equals(person.getUid())) { 
 								if(!user.getBookmarks().contains(person)) {
@@ -77,23 +71,31 @@
 								}
 						} %>
 						<a href="<%=urls.url("person", person.getUid(), "vcard")%>"> Download VCard </a>
-						<br></br>
+						<p>
+						
+							<% if(person.getFacebook()!= null && !person.getFacebook().isEmpty()) {  %>
+								<a href="<%=person.getFacebook() %>" class="social_link">
+									<img src="<%=urls.url("img","facebook16x16.png")%>" width="16" height="16" />
+								</a>
+							<% } %>
+							
+							<% if(person.getTwitter()!= null && !person.getTwitter().isEmpty()) {  %>
+								<a href="<%=person.getTwitter() %>" class="social_link">
+									<img src="<%=urls.url("img","twitter16x16.png")%>" width="16" height="16" />
+								</a>
+							<% } %>
+							
+							<% if(person.getLinkedin()!= null && !person.getLinkedin().isEmpty()) {  %>
+								<a href="<%=person.getLinkedin() %>" class="social_link">
+									<img src="<%=urls.url("img","linkedin16x16.png")%>" width="16" height="16" />
+								</a>
+							<% } %>
+						
+						</p>
 					</div>
 					<div class="clear"></div>
-				</div>
-				<br></br>
-				<br></br>
-				<div id="bio">
-					<% if(person.getBio()!=null && !person.getBio().isEmpty()) { %>
-						<b>Biography</b>
-						<p><%=person.getBio() %></p>
-					<% }  else { %>
-						<b>Biography</b>
-						<p>Information Not Available</p>
-					<% } %>
-				</div>
-		</div>
-				
+				</div>				
+		</div>			
 			<div id="interests">
 			<% if(person.getInterests()!=null && !person.getInterests().isEmpty()) { %>
 				
@@ -132,36 +134,16 @@
 				
 			<% } %>
 			</div>
-			
-			<div id="add_info">
-				<b>Additional Information</b>
-				
-				<p><%  boolean addInfoTog = false;
-					if(person.getEmail2()!= null && !person.getEmail2().isEmpty()) { 
-						addInfoTog = true;	%>
-					<p>E-mail: <%=person.getEmail2() %></p>
-				<% } else { %>
-					<!--<p>E-mail: Information Not Available</p>-->
-				<% } %>
-				
-				<% if(person.getPhone2()!= null && !person.getPhone2().isEmpty()) {  
-					addInfoTog = true;	%>
-					<p>Phone: <%=person.getPhone2() %></p>
-				<% } else { %>
-					<!--<p>Phone: Information Not Available</p>-->
-				<% } %>
-			
-				<% if(person.getIrc()!= null && !person.getIrc().isEmpty()) {  
-					addInfoTog = true;	%>
-					<p>IRC: <%=person.getIrc() %></p>
-				<% } else { %>
-					<!--<p>IRC: Information Not Available</p>-->
-				<% } %>
-				
-				<% if(!addInfoTog) {
-						%>Information Not Available<%
-				}%></p>
-			
+			<div id="main">
+				<div id="bio">
+						<% if(person.getBio()!=null && !person.getBio().isEmpty()) { %>
+							<b>Biography</b>
+							<p><%=person.getBio() %></p>
+						<% }  else { %>
+							<b>Biography</b>
+							<p>Information Not Available</p>
+						<% } %>
+				</div>	
 			</div>
 			
 		</div>

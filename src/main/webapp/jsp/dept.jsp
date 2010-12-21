@@ -34,11 +34,7 @@
 						}
 					}
 					else {
-						
-						
-						
 						String orgRep = org.replaceAll("[ ,\\._'&]","-");
-						
 						
 						%>
 						  <span id="button_<%=orgRep%>" class="entity_button"></span><span class="entity_title"><%=org%></span> 
@@ -67,16 +63,6 @@
 						</div>
 						<br/> <%
 					}
-					
-				
-				
-				
-				
-				
-				
-				
-				
-					
 			} %>
 			</div>
 <jsp:include page="footer.jsp" />

@@ -35,7 +35,9 @@ public class Person implements Comparable<Person> {
 	private TreeSet<Person> bookmarks;
 	
 	private TreeSet<String> skills;
+	private String unprocessedSkills;
 	private TreeSet<String> interests;
+	private String unprocessedInterests;
 	
 	private String firstName;
 	private String lastName;
@@ -107,7 +109,9 @@ public class Person implements Comparable<Person> {
 		setLinkedin("");
 		setIrc("");
 		setSkills(new TreeSet<String>());
+		setUnprocessedSkills("");
 		setInterests(new TreeSet<String>());
+		setUnprocessedInterests("");
 		setBookmarks(new TreeSet<Person>());
 		setPicture("");
 		
@@ -183,8 +187,14 @@ public class Person implements Comparable<Person> {
 	public TreeSet<String> getInterests() {
 		return interests;
 	}
+	public String getUnprocessedInterests() {
+		return unprocessedInterests;
+	}
 	public TreeSet<String> getSkills() {
 		return skills;
+	}
+	public String getUnprocessedSkills() {
+		return unprocessedSkills;
 	}
 	public String getIrc() {
 		return irc;
@@ -247,8 +257,14 @@ public class Person implements Comparable<Person> {
 	public void setSkills(TreeSet<String> skills) {
 		this.skills = skills;
 	}
+	public void setUnprocessedSkills(String unprocessedSkills) {
+		this.unprocessedSkills = unprocessedSkills;
+	}
 	public void setInterests(TreeSet<String> interests) {
 		this.interests = interests;
+	}
+	public void setUnprocessedInterests(String unprocessedInterests) {
+		this.unprocessedInterests = unprocessedInterests;
 	}
 	public void setEmail2(String email2) {
 		this.email2 = email2;

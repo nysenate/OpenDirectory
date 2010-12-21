@@ -177,6 +177,9 @@
 		<field name="bookmarks" type="string" indexed="false" stored="true"/>
 		<field name="permissions" type="string" indexed="false" stored="true"/>
 		<field name="user_credential" type="string" indexed="false" stored="true" />
+		<field name="unprocessedBio" type="string" indexed="false" stored="true" />
+		<field name="unprocessedSkills" type="string" indexed="false" stored="true" />
+		<field name="unprocessedInterests" type="string" indexed="false" stored="true" />
    
       	<!-- catchall field, containing all other searchable text fields (implemented
         	 via copyField further on in this schema
