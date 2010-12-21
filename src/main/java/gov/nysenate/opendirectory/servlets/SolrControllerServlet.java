@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.TreeSet;
 
 import javax.naming.NamingException;
@@ -42,16 +41,7 @@ public class SolrControllerServlet extends BaseServlet {
 		    	if(command.equals("removeAll")) {
 		    		removeAll(self);
 		    		out.println("Removed all documents");
-		    	} else if (command.equals("indexAll")) {
-		    		indexLdap(self, out);
-		    		indexExtras(self);
-		    		out.println("Indexed all Documents");
-		    	} else if (command.equals("indexExtras")) {
-		    		indexExtras(self);
-		    		out.println("Indexed all Extras");
 		    	} else if (command.equals("reindexAll")) {
-		    		//removeAll(self);
-		    		//indexLdap(self);
 		    		reindexAll(self);
 		    		indexExtras(self);
 		    		out.println("Removed and Reindexed All documents");
@@ -111,7 +101,6 @@ public class SolrControllerServlet extends BaseServlet {
 		for(Person p : people) {
 			String department = p.getDepartment();
 			if(department==null || department.isEmpty()) {
-				System.out.println(p.getUid());
 				continue;
 			}
 			
@@ -129,7 +118,6 @@ public class SolrControllerServlet extends BaseServlet {
 			department = department.replaceAll("Sess\\. Asst\\.", "Session Assistant");
 			department = department.replaceAll("TF", "Task Force");
 			
-			System.out.println(department);
 			p.setDepartment(department);
 		}
 		return people;
@@ -145,18 +133,6 @@ public class SolrControllerServlet extends BaseServlet {
 	
 	private void removeAll(Request self) throws SolrServerException, IOException {
 		self.solrSession.deleteAll();
-	}
-	
-	private void indexLdap(Request self, ServletOutputStream out) throws SolrServerException, IOException  {
-		try{
-			out.println("getting people");
-			Collection<Person> people = new Ldap().connect().getPeople();
-			out.println("saving people");
-			self.solrSession.savePeople(people);
-			self.solrSession.optimize();
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	private void indexExtras(Request self) throws SolrServerException, IOException {
