@@ -3,6 +3,7 @@ package gov.nysenate.opendirectory.servlets;
 import gov.nysenate.opendirectory.ldap.Ldap;
 import gov.nysenate.opendirectory.models.Person;
 import gov.nysenate.opendirectory.utils.Request;
+import gov.nysenate.opendirectory.utils.SerialUtils;
 import gov.nysenate.opendirectory.utils.XmlUtils;
 
 import java.util.List;
@@ -210,6 +211,16 @@ public class UserServlet extends BaseServlet {
 						if(key.equals("bio")) {
 							self.user.setUnprocessedBio((String)value);
 							self.user.setBio(self.user.cleanBio((String)value));
+							continue;
+						}
+						if(key.equals("skills")) {
+							self.user.setUnprocessedSkills((String)value);
+							self.user.setSkills(SerialUtils.loadStringSet(self.user.cleanTags((String)value)));
+							continue;
+						}
+						if(key.equals("interests")) {
+							self.user.setUnprocessedInterests((String)value);
+							self.user.setInterests(SerialUtils.loadStringSet(self.user.cleanTags((String)value)));
 							continue;
 						}
 						self.user.loadField(key,value,self.solrSession);
