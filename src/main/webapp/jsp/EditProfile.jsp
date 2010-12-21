@@ -25,6 +25,7 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 					<b><%=message%></b>
 				</div>
 			<% } %>
+			<div id="edit_error" style="font-size:85%; width:60%; display:none;"></div>
 			<div id="main">
 				<form action="" ENCTYPE='multipart/form-data' method="POST">
 					<div id="edit_pic">

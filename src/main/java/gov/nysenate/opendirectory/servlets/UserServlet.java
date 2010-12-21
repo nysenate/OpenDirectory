@@ -190,7 +190,6 @@ public class UserServlet extends BaseServlet {
 	@SuppressWarnings("unchecked")
 	public void doEdit(Request self) throws UserServletException, IOException, ServletException {
 		self.httpRequest.setAttribute("message", "<a id=\"edit_link\" href=\""+urls.url("person",self.user.getUid(),"profile")+"\">Changes Saved</a>");
-
 		try {
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload upload = new ServletFileUpload(factory);

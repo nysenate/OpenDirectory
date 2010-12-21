@@ -181,6 +181,18 @@ body {
 	  	text-align:center;
 	  	color:red;
   	}
+  	
+  	#edit_error {
+  		padding:3px 3px 3px 3px;
+  		color:black;
+  		border:1px solid #FF3300;
+  		margin:1em auto;
+  		border-collapse:collapse;
+  		background-color:#FECCBF;
+  		margin: 0px auto;
+  		text-align:center;
+  		
+  	}
 
   	.entity_button { display:inline; }
   	.entity_title { display:inline; font-weight:bold; }
