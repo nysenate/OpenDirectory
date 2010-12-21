@@ -120,7 +120,6 @@ public class Person implements Comparable<Person> {
 		setCredentials(null); //Forces Defaults
 	}
 	public int compareTo(Person p) {
-		System.out.println("Comparing "+getUid()+" to "+Person.class.cast(p).getUid());
 		return getUid().compareTo(Person.class.cast(p).getUid());
 	}
 	
