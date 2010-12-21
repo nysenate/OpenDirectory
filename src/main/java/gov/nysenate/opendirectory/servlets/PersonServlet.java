@@ -39,6 +39,7 @@ public class PersonServlet extends BaseServlet {
 	    	String command = args.get(0);
 	    	if(command.equals("profile")) {
 		    	request.setAttribute("person", person);
+		    	request.setAttribute("title", person.getFirstName()+" "+person.getLastName()+" | NYSS Open Directory");
 		    	self.render("profile.jsp");
 		    	
 	    	} else if (command.equals("vcard")) {
