@@ -44,11 +44,7 @@ public class BrowseServlet extends BaseServlet {
 			    							Person.class.getMethod("getDepartment"),
 			    							new Person.ByDepartment(),
 			    							response.getWriter()));
-//						request.setAttribute( "people",
-//								GetPeopleSortedByString(self,
-//											Person.class.getMethod("getDepartment"),
-//											new Person.ByDepartment()
-//										));
+			    		
 						System.out.println("Sort by Department: "+(System.nanoTime()-start)/1000000f+" milliseconds");
 						self.render("dept.jsp");
 						
@@ -141,7 +137,7 @@ public class BrowseServlet extends BaseServlet {
 		HashMap<String, TreeSet<Person>> treePeople = GetPeopleSortedByString(self, method, comparator);
 		HashMap<String,HashMap<String,TreeSet<Person>>> data = new HashMap<String,HashMap<String,TreeSet<Person>>>();
 		
-		List<String> names = Arrays.asList("CS","LC","M&O","SS","STS","TF","Student Programs","SC");
+		List<String> names = Arrays.asList("Creative Services","Legislative Committee","Maintenance and Operations","Senate Services","Senate Technology Services","Task Force","Student Programs","Select Committee");
 		
 		for(String department:treePeople.keySet()) {
 			String[] tuple = department.split("/");
