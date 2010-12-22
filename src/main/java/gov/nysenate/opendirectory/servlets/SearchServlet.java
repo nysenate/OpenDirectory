@@ -35,7 +35,7 @@ public class SearchServlet extends BaseServlet {
 			ArrayList<Person> people = self.solrSession.loadPeopleByQuery(query);
 			
 			if(people.isEmpty()) {
-				Pattern pattern = Pattern.compile("(\\w+?):(\\w+?)(\\s(AND|OR)|$))");
+				Pattern pattern = Pattern.compile("(\\w+?):(\\w+?)(\\s(AND|OR)|$)");
 				Matcher matcher = pattern.matcher(query);
 				if(!matcher.find()) {
 					query = query + "*";

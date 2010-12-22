@@ -26,19 +26,6 @@ pre { font-family:inherit; }
 	text-indent:20px;
 	padding: 0px 2px;
 }
-
-.social-icon[name="twitter"] {
-	background: url(/opendirectory/img/twitter16x16.png) bottom left no-repeat;	
-}
-
-.social-icon[name="linkedin"] {
-	background: url(/opendirectory/img/linkedin16x16.png) bottom left no-repeat;	
-}	
-
-.social-icon[name="facebook"] {
-	background: url(/opendirectory/img/facebook16x16.png) bottom left no-repeat;	
-}
-
 .social-icon a:link {
 	color: blue;
 	text-decoration: none;
@@ -54,17 +41,17 @@ pre { font-family:inherit; }
 body {
 	color: #012849;
 	font-family: Times New Roman, serif;
-	background: url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_bg.png) top left repeat-x;
+	background: url(/opendirectory//img/background_main.png) top left repeat-x;
 }
  
 #page {
-	width:877px;
+	width:880px;
 	margin:0 auto;
 	background: #E2DED5;
 }
 
 #header {
-	background:url(http://www.nysenate.gov/sites/all/themes/nys/images/header.png) top left no-repeat;
+	background:url(/opendirectory//img/background_header.jpg) top left no-repeat;
 	padding:16px 0px 0px 0px;
 	height:77px;
 }
@@ -108,7 +95,7 @@ body {
   
 #nav_bar {
 	color: white;
-	background: url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_menu_bg.png) top left repeat-x;
+	background: url(/opendirectory//img/background_menu.png) top left repeat-x;
 	line-height: 30px;
 	font-family: Helvetica, Arial, sans-serif;
 }
@@ -131,14 +118,154 @@ body {
 	text-align:right;
 }
 
-.social_link img {
-	border:0px;
+/*Start New CSS*/
+
+#main {
+  font-family: Helvetica, Arial, sans-serif;
+  -webkit-box-shadow: 0px 0px 15px rgba(0,0,0,0.55);
+  -mox-box-shadow: 0px 0px 15px rgba(0,0,0,0.55);
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.55);
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
 }
 
-#pic {
+#main p {
+  white-space: pre-wrap;
+}
+
+.ratio_left {
+  width: 38.19660117%;
 	float:left;
 }
 
+.ratio_right {
+  width: 61.80339883%;
+  float: right;
+}
+
+#main_left div {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.contact p,
+.admin p {
+  margin-right: 10px;
+  margin-bottom: -15px;
+}
+
+#profile_bookmark a:before {
+  content: url(/opendirectory/img/social_favorite_15x15.png) " ";
+}
+
+#profile_edit a:before {
+  content: url(/opendirectory/img/admin_edit_15x15.png) " ";
+}
+
+#profile_bookmark a,
+#profile_edit a,
+.vcard a {
+  text-decoration: none;
+}
+
+#profile_bookmark a:hover,
+#profile_edit a:hover,
+.vcard a:hover {
+  text-decoration: underline;
+}
+
+#profile_bookmark {
+  margin-bottom: 5px;
+}
+
+#senate_phone:before,
+#senate_email:before {
+  content: "Senate: ";
+}
+
+#additional_phone:before,
+#additional_email:before {
+  content: "Add'l: ";
+}
+
+#additional_irc:before {
+  content: "IRC: ";
+}
+
+#senate_location:before {
+  content: "Location: ";
+}
+
+.vcard {
+  margin-bottom: 20px;
+}
+
+.vcard a:before {
+  content: url(/opendirectory/img/social_download_15x15.png);
+}
+
+#header_person {
+  text-align: right;
+  margin-right: 20px; 
+}
+#bio {
+  text-align: left;
+  margin-right: 20px; 
+}
+
+#bio p:before {
+  content: "     ";/*Change out for tab unicode*/
+}
+
+#name {
+  font-size: 2.5em;
+  margin-bottom: -.5em;
+}
+#title,
+#office {
+  font-size: 1.5em;
+}
+#title {
+  margin-bottom: -1em;
+}
+/* Probably unneeded, but here in case
+#si_wrapper {
+  margin-right: 20px;
+}
+*/
+
+#skills h3,
+#interests h3 {
+  margin-bottom: 5px;
+}
+
+#skills,
+#interests {
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+#skills ul {
+  margin-bottom: -10px;
+}
+
+#skills li,
+#interests li {
+  display: inline;
+}
+
+#skills li:after,
+#interests li:after {
+  content: ", ";
+}
+
+#skills li:last-child:after,
+#interests li:last-child:after {
+  content: "";
+}
+
+/*End New CSS*/
 
 #edit_pic {
 	float:eft;
@@ -181,18 +308,6 @@ body {
 	  	text-align:center;
 	  	color:red;
   	}
-  	
-  	#edit_error {
-  		padding:3px 3px 3px 3px;
-  		color:black;
-  		border:1px solid #FF3300;
-  		margin:1em auto;
-  		border-collapse:collapse;
-  		background-color:#FECCBF;
-  		margin: 0px auto;
-  		text-align:center;
-  		
-  	}
 
   	.entity_button { display:inline; }
   	.entity_title { display:inline; font-weight:bold; }
@@ -207,46 +322,13 @@ body {
 
 
 #main {
-	margin-top: 15px;
-    margin: 20px;
-    padding: 20px;
-    background: #ffffff url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_block_footer_bg.png) repeat-x bottom left;
-}
-
-#skills {
-    margin: 20px;
-   	margin-top: 40px;
-    padding: 20px;
-    background: #ffffff url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_block_footer_bg.png) repeat-x bottom left;
-    width:350px;
-}
-
-#skills b {
-    font-size:24px;
-}
-
-#interests b {
-    font-size:24px;
-}
-
-#add_info b {
-    font-size:24px;
-}
-
-#interests {
-	margin-top: 15px;
-    margin: 20px;
-    padding: 20px;
-    background: #ffffff url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_block_footer_bg.png) repeat-x bottom left;
-    width:350px;
-	float: right;
-}
-
-#add_info {
-	margin-top: 15px;
-    margin: 20px;
-    padding: 20px;
-    background: #ffffff url(http://www.nysenate.gov/sites/all/themes/nys/images/nyss_block_footer_bg.png) repeat-x bottom left;
+  width: 840px;
+  height: 100%;
+  float: left;
+  position: relative;
+  margin: 20px;
+  background: #ffffff url(/opendirectory/img/background_footer.png) repeat-x bottom left;
+  
 }
 
 #edit_generalinfo p {
@@ -279,24 +361,7 @@ body {
 	text-decoration:underline;
 }
 
-#name {
-	font-size: 30px;
-}
 
-#info {
-	font-size: 12px;
-}
-
-
-#bio b { font-size:24px; }
-#bio pre {
-	/* http://www.longren.org/2006/09/27/wrapping-text-inside-pre-tags/ */
-	white-space: pre-wrap;       /* css-3 */
-	white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
-	white-space: -pre-wrap;      /* Opera 4-6 */
-	white-space: -o-pre-wrap;    /* Opera 7 */
-	word-wrap: break-word;       /* Internet Explorer 5.5+ */
-}
 
 .entity_button {
 	display:inline;
@@ -336,10 +401,28 @@ body {
 
 #footer {}
 
-#edit_input {
+#profile_tab {
+	text-align:center;
+	border-collapse:collapse;
+	left:20px;
+	top:2px;
+	width:75px;
+	position:relative;
 	float:left;
-	width:70px;
-	text-align:left;
-	margin-right:7px;
-	line-height:23px;
+	border: 1px solid black;
+	background-color:white;
+	font-size:80%;
+}
+
+#profile_tab a {
+	text-decoration:none;
+}
+
+#profile_tab a:hover {
+	color:black;
+	text-decoration: underline;
+}
+
+#profile_tab a:visited {
+	color:black;
 }

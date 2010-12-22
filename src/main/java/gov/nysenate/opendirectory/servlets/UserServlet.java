@@ -10,6 +10,7 @@ import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.TreeSet;
 import java.util.Vector;
 
@@ -87,8 +88,23 @@ public class UserServlet extends BaseServlet {
 	    	} else if (command.equals("edit")) {
 	    		if(self.user.equals(Person.getAnon()))
 	    			self.redirect(urls.url("user","login"));
-	    		else
-	    			self.render("EditProfile.jsp");
+	    		else {
+	    			Vector<String> args = urls.getArgs(request);
+	    			String lastElem = null;
+	    			if(args.isEmpty() || (((lastElem = args.firstElement()) != null) && lastElem.equals("profile"))) {
+		    			self.render("EditProfile.jsp");
+	    			}
+	    			else {
+	    				if(lastElem.equals("settings")) {
+	    	    			self.render("EditSettings.jsp");
+	    				}
+	    				else {
+			    			self.render("EditProfile.jsp");
+	    				}
+	    			}
+	    			
+
+	    		}
 	    		
 	    	} else if (command.equals("bookmarks")) {
 	    		if(self.user.equals(Person.getAnon()))
@@ -120,8 +136,21 @@ public class UserServlet extends BaseServlet {
 	    	} else if (command.equals("edit")) {
 	    		if(self.user.equals(Person.getAnon()))
 	    			self.redirect(urls.url("user","login"));
-	    		else
-	    			doEdit(self);
+	    		else {
+	    			Vector<String> args = urls.getArgs(request);
+	    			String lastElem = null;
+	    			if(args.isEmpty() || (((lastElem = args.firstElement()) != null) && lastElem.equals("profile"))) {
+		    			doEditProfile(self);
+	    			}
+	    			else {
+	    				if(lastElem.equals("settings")) {
+	    					doEditSettings(self);
+	    				}
+	    				else {
+	    		    		throw new UserServletException("Invalid command `"+lastElem+"` supplied.");
+	    				}
+	    			}
+	    		}
 	    		
 	    	} else
 	    		throw new UserServletException("Invalid command `"+command+"` supplied.");
@@ -155,8 +184,6 @@ public class UserServlet extends BaseServlet {
     			//Attempt to authenticate and login the user with the credentials supplied
     			//Make temporary exceptions for non LDAP records (for testing)
     			if ( (cred.equalsIgnoreCase("opendirectory") && pass.equals("senbook2010"))
-    					|| (cred.equalsIgnoreCase("chrib") && pass.equals("chrib1"))
-    					|| (cred.equalsIgnoreCase("chrim") && pass.equals("chrim1"))
     					|| (cred.equalsIgnoreCase("graylin") && pass.equals("graylin1"))
     					|| Ldap.authenticate(cred,pass)) {
     				self.httpSession.setAttribute("uid",cred);
@@ -187,9 +214,155 @@ public class UserServlet extends BaseServlet {
 
 	}
 	
+	public void doEditProfile(Request self) throws UserServletException, IOException, ServletException {
+		self.httpRequest.setAttribute("message", "<a id=\"edit_link\" href=\""+urls.url("person",self.user.getUid(),"profile")+"\">Changes Saved</a>");
+		
+		String error = "";
+		try {
+			DiskFileItemFactory factory = new DiskFileItemFactory();
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			List<FileItem> files = upload.parseRequest(self.httpRequest);
+			for(FileItem item : files) {
+				//Handle normal fields
+				if(item.isFormField()) {
+					String key = item.getFieldName();
+					String value = item.getString();
+					
+					//transform the raw value and insert it into our user
+					if(key.equals("bio")) {
+						self.user.setUnprocessedBio((String)value);
+						self.user.setBio(self.user.cleanBio((String)value));
+					}
+					else if(key.equals("skills")) {
+						self.user.setUnprocessedSkills((String)value);
+						self.user.setSkills(SerialUtils.loadStringSet(self.user.cleanTags((String)value)));
+					}
+					else if(key.equals("interests")) {
+						self.user.setUnprocessedInterests((String)value);
+						self.user.setInterests(SerialUtils.loadStringSet(self.user.cleanTags((String)value)));
+					}
+					else if(key.equals("phone2")) {
+						if(!value.matches("\\(\\d{3}\\)[ \\-]?\\d{3}\\-\\d{4}")) {
+							error += "<br/>Use (###) ###-#### for your phone number";
+							self.httpRequest.setAttribute("phone2", value);
+						}
+						else {
+							self.user.setPhone2(value);
+						}
+					}
+					else if(key.equals("email2")) {
+						if(!value.matches(".+?@.+?\\..+")) {
+							error += "<br/>Enter a valid email addres";
+							self.httpRequest.setAttribute("email2", value);
+						}
+						else {
+							self.user.setEmail2(value);
+						}
+					}
+					else if(key.equals("irc")) {
+						if(!value.matches("[A-Za-z\\d\\.\\-_]+")) {
+							self.httpRequest.setAttribute("irc", value);
+							error += "<br/>Your irc name should only contain numbers, characters or punctuation";
+						}
+						else {
+							self.user.setIrc(value);
+						}
+					}
+					else if(key.equals("twitter")) {
+						if(!value.matches("(?i:(http://)?(www\\.)?twitter\\.com/.+)")) {
+							self.httpRequest.setAttribute("twitter", value);
+							error += "<br/>Your Twitter URL should look like twitter.com/your-user-name";
+						}
+						else {
+							self.user.setTwitter(value);
+						}
+					}
+					else if(key.equals("facebook")) {
+						if(!value.matches("(?i:(http://)?(www\\.)?facebook\\.com/.+)")) {
+							self.httpRequest.setAttribute("facebook", value);
+							error += "<br/>Your Facebook URL should look like facebook.com/your-user-name";
+						}
+						else {
+							self.user.setFacebook(value);
+						}
+					}
+					else if(key.equals("linkedin")) {
+						if(!value.matches("(?i:(http://)?(www\\.)?linkedin\\.com/.+)")) {
+							self.httpRequest.setAttribute("linkedin", value);
+							error += "<br/>Provide a proper link to your LinkedIn profile";
+						}
+						else {
+							self.user.setLinkedin(value);
+						}
+					}
+					else {
+						self.user.loadField(key,value,self.solrSession);
+					}
+					
+					
+					//Handle file, but only if name is not empty
+					//(so that we don't handle blank uploads)
+					} else if(item.getName()!=null && item.getName().isEmpty()==false) {
+						try {
+							//Break down the filename to and build a new one with the user id
+							String filetype = item.getName().substring(item.getName().lastIndexOf('.'));
+							String filename = self.user.getUid()+filetype;
+							
+							//Write the file to the img/avatars directory and set the person's weblink
+							System.out.println("Writing to: "+avatarPath()+filename);
+							item.write(new File(avatarPath()+filename));
+							self.user.setPicture("/uploads/avatars/"+filename);
+
+						//Writing a FileItem can apparently through any kind of exception (sloppy)
+						//so I don't know why this would get thrown here, just what throws it.
+						} catch (Exception e) {
+							throw new UserServletException("Failed to write uploaded file.",e);
+						}
+						
+					//This means its an empty file item and we can safely ignore it
+					} else { }
+					
+				}
+				
+				//Save the newly modified person, and re-render the edit page.
+				if(!error.equals("")) {
+					self.httpRequest.setAttribute("error", error);
+				}
+				self.solrSession.savePerson(self.user);
+	    		self.render("EditProfile.jsp");
+				
+			//Parsing a bad request can sometimes throw a FileUploadException
+			// TODO I should figure out what to do here
+			} catch (FileUploadException e) {
+				throw new UserServletException("Failure to parse the uploaded file items from the request",e);
+			} catch (SolrServerException e) {
+				throw new UserServletException("Failure to save modified person state after edit", e);
+			}
+	}
+	
+	public void doEditSettings(Request self) throws IOException, ServletException, UserServletException {
+		self.httpRequest.setAttribute("message", "<a id=\"edit_link\" href=\""+urls.url("person",self.user.getUid(),"profile")+"\">Changes Saved</a>");
+
+		try {
+			Map<String,Object> pMap = self.httpRequest.getParameterMap();
+			
+			for(String key:pMap.keySet()) {
+				self.user.getPermissions().put(key.substring(6),
+						new TreeSet<String>(Arrays.asList((((String[])pMap.get(key))[0]).toLowerCase())));
+			}
+			
+			self.solrSession.savePerson(self.user);
+			self.render("EditProfile.jsp");
+		} catch (SolrServerException e) {
+			throw new UserServletException("Failure to save modified person state after edit", e);
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void doEdit(Request self) throws UserServletException, IOException, ServletException {
 		self.httpRequest.setAttribute("message", "<a id=\"edit_link\" href=\""+urls.url("person",self.user.getUid(),"profile")+"\">Changes Saved</a>");
+		
+		String error = "";
 		try {
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload upload = new ServletFileUpload(factory);
@@ -210,19 +383,72 @@ public class UserServlet extends BaseServlet {
 						if(key.equals("bio")) {
 							self.user.setUnprocessedBio((String)value);
 							self.user.setBio(self.user.cleanBio((String)value));
-							continue;
 						}
-						if(key.equals("skills")) {
+						else if(key.equals("skills")) {
 							self.user.setUnprocessedSkills((String)value);
 							self.user.setSkills(SerialUtils.loadStringSet(self.user.cleanTags((String)value)));
-							continue;
 						}
-						if(key.equals("interests")) {
+						else if(key.equals("interests")) {
 							self.user.setUnprocessedInterests((String)value);
 							self.user.setInterests(SerialUtils.loadStringSet(self.user.cleanTags((String)value)));
-							continue;
 						}
-						self.user.loadField(key,value,self.solrSession);
+						else if(key.equals("phone2")) {
+							if(!value.matches("\\(\\d{3}\\)[ \\-]?\\d{3}\\-\\d{4}")) {
+								error += "<br/>Use (###) ###-#### for your phone number";
+								self.httpRequest.setAttribute("phone2", value);
+							}
+							else {
+								self.user.setPhone2(value);
+							}
+						}
+						else if(key.equals("email2")) {
+							if(!value.matches(".+?@.+?\\..+")) {
+								error += "<br/>Enter a valid email addres";
+								self.httpRequest.setAttribute("email2", value);
+							}
+							else {
+								self.user.setEmail2(value);
+							}
+						}
+						else if(key.equals("irc")) {
+							if(!value.matches("[A-Za-z\\d\\.\\-_]+")) {
+								self.httpRequest.setAttribute("irc", value);
+								error += "<br/>Your irc name should only contain numbers, characters or punctuation";
+							}
+							else {
+								self.user.setIrc(value);
+							}
+						}
+						else if(key.equals("twitter")) {
+							if(!value.matches("(?i:(http://)?(www\\.)?twitter\\.com/.+)")) {
+								self.httpRequest.setAttribute("twitter", value);
+								error += "<br/>Your Twitter URL should look like twitter.com/your-user-name";
+							}
+							else {
+								self.user.setTwitter(value);
+							}
+						}
+						else if(key.equals("facebook")) {
+							if(!value.matches("(?i:(http://)?(www\\.)?facebook\\.com/.+)")) {
+								self.httpRequest.setAttribute("facebook", value);
+								error += "<br/>Your Facebook URL should look like facebook.com/your-user-name";
+							}
+							else {
+								self.user.setFacebook(value);
+							}
+						}
+						else if(key.equals("linkedin")) {
+							if(!value.matches("(?i:(http://)?(www\\.)?linkedin\\.com/.+)")) {
+								self.httpRequest.setAttribute("linkedin", value);
+								error += "<br/>Provide a proper link to your LinkedIn profile";
+							}
+							else {
+								self.user.setLinkedin(value);
+							}
+						}
+						else {
+							self.user.loadField(key,value,self.solrSession);
+						}
 					}
 					
 				//Handle file, but only if name is not empty
@@ -250,6 +476,9 @@ public class UserServlet extends BaseServlet {
 			}
 			
 			//Save the newly modified person, and re-render the edit page.
+			if(!error.equals("")) {
+				self.httpRequest.setAttribute("error", error);
+			}
 			self.solrSession.savePerson(self.user);
     		self.render("EditProfile.jsp");
 			
