@@ -7,6 +7,7 @@
 	
 %><jsp:include page="header.jsp" />
 			<div id="main">
+				<div id="main_regular">
 			<% for(String org : new TreeSet<String>(orgs.keySet()) ) {
 					HashMap<String,TreeSet<Person>> depts = orgs.get(org);
 					
@@ -57,6 +58,7 @@
 						<br/> <%
 					}
 			} %>
+			</div>
 			</div>
 <jsp:include page="footer.jsp" />
 

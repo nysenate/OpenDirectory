@@ -36,8 +36,9 @@ public class SerialUtils {
 			if(uid.equals(person.getUid()))
 				continue;
 			
-			query += ((query.isEmpty()) ? "" : " OR ")+"uid:"+uid;
+			query += ((query.isEmpty()) ? "" : " OR ")+uid;
 		}
+		query = "uid:(" + query + ")";
 		
 		return new TreeSet<Person>(session.loadPeopleByQuery(query));
 	}

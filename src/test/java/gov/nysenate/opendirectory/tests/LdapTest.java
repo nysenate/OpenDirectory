@@ -22,6 +22,14 @@ public class LdapTest extends TestCase {
 	}
 	*/
 
+	
+	/*
+	public void testConnectAuth() {
+		fail("We've failed big time");
+	}
+	*/
+	
+	
 	public void testConnectAnon() {
 		try {
 			new Ldap().connect();
@@ -29,11 +37,6 @@ public class LdapTest extends TestCase {
 			fail(e.toString());
 		}
 	}
-	/*
-	public void testConnectAuth() {
-		fail("We've failed big time");
-	}
-	*/
 	public void testGetPersonByName() {
 		try {
 			Ldap ldap = new Ldap().connect();

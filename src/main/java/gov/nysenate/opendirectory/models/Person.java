@@ -1,9 +1,11 @@
 package gov.nysenate.opendirectory.models;
 
+import gov.nysenate.opendirectory.solr.Solr;
 import gov.nysenate.opendirectory.solr.SolrSession;
 import gov.nysenate.opendirectory.utils.SerialUtils;
 import gov.nysenate.opendirectory.utils.XmlUtils;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -11,6 +13,7 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -61,7 +64,7 @@ public class Person implements Comparable<Person> {
 	private String linkedin;
 	private String irc;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SolrServerException, IOException {
 //		Person a = new Person();
 //		a.setUid("a");
 //		Person b = new Person();
@@ -78,10 +81,33 @@ public class Person implements Comparable<Person> {
 //		System.out.println(set.contains(x));
 //		set.remove(i);
 //		System.out.println(set);
-		String s = "<p>hello<script='tacos'></strong><form></form><br/></p>";
-		System.out.println(new Person().cleanBio(s));
+		
+		Solr solr = new Solr().connect();
+		SolrSession ses = new SolrSession(Person.getAdmin(), solr);
+		
+		Person p = ses.loadPersonByUid("williams");
+		ses = new SolrSession(p,solr);
+		
+//		Person zal = ses.loadPersonByUid("zalewski");
+//		Person yee = ses.loadPersonByUid("yee");
+//		Person p2 = ses.loadPersonByUid("adey");
+//		
+//		
+//		
+//		TreeSet<Person> ts = new TreeSet<Person>();
+//		ts.add(p2);ts.add(zal);ts.add(yee);
+//		p.setBookmarks(ts);
+		
+		
+		for(Person p3:p.getBookmarks()) {
+			System.out.println(p3.getUid());
+		}
+		
+//		TreeSet<Person> ts = new TreeSet<Person>();
+//		p.setBookmarks(ts);
+//		ses.savePerson(p);
+
 	}
-	//<strike> <p> <a> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd> <hr> <br /> <blockquote>
 	
 	public Person() { setToDefaults(); }
 	public Person(String uid) { setToDefaults(); setUid(uid); }
@@ -202,6 +228,11 @@ public class Person implements Comparable<Person> {
 		return bookmarks;
 	}
 	
+	public void addBookmark(Person person) {
+		if(!bookmarks.contains(person)) {
+			bookmarks.add(person);
+		}
+	}
 	public void setBookmarks(TreeSet<Person> bookmarks) {
 		this.bookmarks = bookmarks;
 	}
@@ -408,25 +439,25 @@ public class Person implements Comparable<Person> {
 		permissions.put("unprocessedInterests", new TreeSet<String>(Arrays.asList("admin")));
 		
 		permissions.put("uid", new TreeSet<String>(Arrays.asList("public")));
-		permissions.put("email", new TreeSet<String>(Arrays.asList("public")));
-		permissions.put("phone", new TreeSet<String>(Arrays.asList("public")));
-		permissions.put("state", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("email", new TreeSet<String>(Arrays.asList("senate")));
+		permissions.put("phone", new TreeSet<String>(Arrays.asList("senate")));
+		permissions.put("state", new TreeSet<String>(Arrays.asList("senate")));
 		permissions.put("department", new TreeSet<String>(Arrays.asList("public")));
 		permissions.put("title", new TreeSet<String>(Arrays.asList("public")));
 		permissions.put("firstName", new TreeSet<String>(Arrays.asList("public")));
 		permissions.put("fullName", new TreeSet<String>(Arrays.asList("public")));
 		permissions.put("lastName", new TreeSet<String>(Arrays.asList("public")));
-		permissions.put("location", new TreeSet<String>(Arrays.asList("public")));
-		permissions.put("bio", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("location", new TreeSet<String>(Arrays.asList("senate")));
+		permissions.put("bio", new TreeSet<String>(Arrays.asList("senate")));
 		permissions.put("picture", new TreeSet<String>(Arrays.asList("public")));
-		permissions.put("email2", new TreeSet<String>(Arrays.asList("public")));
-		permissions.put("phone2", new TreeSet<String>(Arrays.asList("public")));
-		permissions.put("twitter", new TreeSet<String>(Arrays.asList("public")));
-		permissions.put("facebook", new TreeSet<String>(Arrays.asList("public")));
-		permissions.put("linkedin", new TreeSet<String>(Arrays.asList("public")));
-		permissions.put("irc", new TreeSet<String>(Arrays.asList("public")));
-		permissions.put("skills", new TreeSet<String>(Arrays.asList("public")));
-		permissions.put("interests", new TreeSet<String>(Arrays.asList("public")));
+		permissions.put("email2", new TreeSet<String>(Arrays.asList("senate")));
+		permissions.put("phone2", new TreeSet<String>(Arrays.asList("senate")));
+		permissions.put("twitter", new TreeSet<String>(Arrays.asList("senate")));
+		permissions.put("facebook", new TreeSet<String>(Arrays.asList("senate")));
+		permissions.put("linkedin", new TreeSet<String>(Arrays.asList("senate")));
+		permissions.put("irc", new TreeSet<String>(Arrays.asList("senate")));
+		permissions.put("skills", new TreeSet<String>(Arrays.asList("senate")));
+		permissions.put("interests", new TreeSet<String>(Arrays.asList("senate")));
 		
 		return permissions;
 	}

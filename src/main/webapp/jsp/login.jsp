@@ -5,22 +5,32 @@
 	
 %><jsp:include page="header.jsp" />
 			<div id="main">
-				<div id="error">
-				<% if(error_message != null) { %>
+				<div id="main_center">
+				
 					
-					<%=error_message %>
-					<br></br>
-				<% } %>
+					<% if(error_message != null) { %>
+						<div id="error">
+							<%=error_message %>
+							<br></br>
+						</div>
+					<% } %>
+					
+					<div id="edit_form_field">
+				
+						<form action="<%=urls.url("user","login")%>" method="POST">
+							<ol>
+								<li>
+									<label for="login_name">Username:</label>
+									<input type="text" name="name" size="31" maxlength="255" value="" id="login_name"/>
+								</li>
+								<li>
+									<label for="login_pword">Password:</label>
+								<input type="password" name="password" size="31" maxlength="255" value="" id="login_pword"/>	
+								</li>					
+							</ol>
+							<input type="submit" value="Login" id="login_button"></input>
+						</form>
+					</div>
 				</div>
-			
-				<form id="login_entire" action="<%=urls.url("user","login")%>" method="POST">
-					<label for="login_name">Username:</label>
-					<input type="text" name="name" size="31" maxlength="255" value="" id="login_name"/>
-					<br></br>
-					<label for="login_pword">Password:</label>
-					<input type="password" name="password" size="31" maxlength="255" value="" id="login_pword"/>
-					<br></br>
-					<input type="submit" value="Login" id="login_button"></input>
-				</form>
 			</div>
 <jsp:include page="footer.jsp" />

@@ -118,6 +118,19 @@ public class SolrControllerServlet extends BaseServlet {
 			department = department.replaceAll("Sess\\. Asst\\.", "Session Assistant");
 			department = department.replaceAll("TF", "Task Force");
 			
+			department = department.replaceAll("^Senator","Senators/Senator");
+			
+			if(department.equals("NYS Black PR Hisp & Asian Leg Cau")) {
+				department = "NYD Black, Puerto Rican, Hispanic & Legislative Caucus";
+			}
+			else if(department.equals("Task Force/Demographic Research & Reapp.")) {
+				department = "Task Force/Demographic Research & Reapportionment";
+			}
+			
+			if(department.contains("Caucus")) {
+				department = "Caucuses/" + department;
+			}
+			
 			p.setDepartment(department);
 		}
 		return people;

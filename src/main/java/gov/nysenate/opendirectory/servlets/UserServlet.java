@@ -98,6 +98,9 @@ public class UserServlet extends BaseServlet {
 	    				if(lastElem.equals("settings")) {
 	    	    			self.render("EditSettings.jsp");
 	    				}
+	    				else if(lastElem.equals("deletePicture")) {
+	    					doDeletePicture(self);
+	    				}
 	    				else {
 			    			self.render("EditProfile.jsp");
 	    				}
@@ -241,158 +244,11 @@ public class UserServlet extends BaseServlet {
 						self.user.setUnprocessedInterests((String)value);
 						self.user.setInterests(SerialUtils.loadStringSet(self.user.cleanTags((String)value)));
 					}
-					else if(key.equals("phone2")) {
-						if(!value.matches("\\(\\d{3}\\)[ \\-]?\\d{3}\\-\\d{4}")) {
-							error += "<br/>Use (###) ###-#### for your phone number";
-							self.httpRequest.setAttribute("phone2", value);
-						}
-						else {
-							self.user.setPhone2(value);
-						}
-					}
-					else if(key.equals("email2")) {
-						if(!value.matches(".+?@.+?\\..+")) {
-							error += "<br/>Enter a valid email addres";
-							self.httpRequest.setAttribute("email2", value);
-						}
-						else {
-							self.user.setEmail2(value);
-						}
-					}
-					else if(key.equals("irc")) {
-						if(!value.matches("[A-Za-z\\d\\.\\-_]+")) {
-							self.httpRequest.setAttribute("irc", value);
-							error += "<br/>Your irc name should only contain numbers, characters or punctuation";
-						}
-						else {
-							self.user.setIrc(value);
-						}
-					}
-					else if(key.equals("twitter")) {
-						if(!value.matches("(?i:(http://)?(www\\.)?twitter\\.com/.+)")) {
-							self.httpRequest.setAttribute("twitter", value);
-							error += "<br/>Your Twitter URL should look like twitter.com/your-user-name";
-						}
-						else {
-							self.user.setTwitter(value);
-						}
-					}
-					else if(key.equals("facebook")) {
-						if(!value.matches("(?i:(http://)?(www\\.)?facebook\\.com/.+)")) {
-							self.httpRequest.setAttribute("facebook", value);
-							error += "<br/>Your Facebook URL should look like facebook.com/your-user-name";
-						}
-						else {
-							self.user.setFacebook(value);
-						}
-					}
-					else if(key.equals("linkedin")) {
-						if(!value.matches("(?i:(http://)?(www\\.)?linkedin\\.com/.+)")) {
-							self.httpRequest.setAttribute("linkedin", value);
-							error += "<br/>Provide a proper link to your LinkedIn profile";
-						}
-						else {
-							self.user.setLinkedin(value);
-						}
+					else if(value.equals("")) {
+						self.user.loadField(key, value, self.solrSession);
 					}
 					else {
-						self.user.loadField(key,value,self.solrSession);
-					}
-					
-					
-					//Handle file, but only if name is not empty
-					//(so that we don't handle blank uploads)
-					} else if(item.getName()!=null && item.getName().isEmpty()==false) {
-						try {
-							//Break down the filename to and build a new one with the user id
-							String filetype = item.getName().substring(item.getName().lastIndexOf('.'));
-							String filename = self.user.getUid()+filetype;
-							
-							//Write the file to the img/avatars directory and set the person's weblink
-							System.out.println("Writing to: "+avatarPath()+filename);
-							item.write(new File(avatarPath()+filename));
-							self.user.setPicture("/uploads/avatars/"+filename);
-
-						//Writing a FileItem can apparently through any kind of exception (sloppy)
-						//so I don't know why this would get thrown here, just what throws it.
-						} catch (Exception e) {
-							throw new UserServletException("Failed to write uploaded file.",e);
-						}
-						
-					//This means its an empty file item and we can safely ignore it
-					} else { }
-					
-				}
-				
-				//Save the newly modified person, and re-render the edit page.
-				if(!error.equals("")) {
-					self.httpRequest.setAttribute("error", error);
-				}
-				self.solrSession.savePerson(self.user);
-	    		self.render("EditProfile.jsp");
-				
-			//Parsing a bad request can sometimes throw a FileUploadException
-			// TODO I should figure out what to do here
-			} catch (FileUploadException e) {
-				throw new UserServletException("Failure to parse the uploaded file items from the request",e);
-			} catch (SolrServerException e) {
-				throw new UserServletException("Failure to save modified person state after edit", e);
-			}
-	}
-	
-	public void doEditSettings(Request self) throws IOException, ServletException, UserServletException {
-		self.httpRequest.setAttribute("message", "<a id=\"edit_link\" href=\""+urls.url("person",self.user.getUid(),"profile")+"\">Changes Saved</a>");
-
-		try {
-			Map<String,Object> pMap = self.httpRequest.getParameterMap();
-			
-			for(String key:pMap.keySet()) {
-				self.user.getPermissions().put(key.substring(6),
-						new TreeSet<String>(Arrays.asList((((String[])pMap.get(key))[0]).toLowerCase())));
-			}
-			
-			self.solrSession.savePerson(self.user);
-			self.render("EditProfile.jsp");
-		} catch (SolrServerException e) {
-			throw new UserServletException("Failure to save modified person state after edit", e);
-		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	public void doEdit(Request self) throws UserServletException, IOException, ServletException {
-		self.httpRequest.setAttribute("message", "<a id=\"edit_link\" href=\""+urls.url("person",self.user.getUid(),"profile")+"\">Changes Saved</a>");
-		
-		String error = "";
-		try {
-			DiskFileItemFactory factory = new DiskFileItemFactory();
-			ServletFileUpload upload = new ServletFileUpload(factory);
-			List<FileItem> files = upload.parseRequest(self.httpRequest);
-			for(FileItem item : files) {
-				
-				//Handle normal fields
-				if(item.isFormField()) {
-					String key = item.getFieldName();
-					String value = item.getString();
-					
-					//If its a radio button value, push it into the permissions map
-					if(key.startsWith("radio_")) {
-						self.user.getPermissions().put(key.substring(6), new TreeSet<String>(Arrays.asList(value.toLowerCase())));
-						
-					//Otherwise, transform the raw value and insert it into our user
-					} else {
-						if(key.equals("bio")) {
-							self.user.setUnprocessedBio((String)value);
-							self.user.setBio(self.user.cleanBio((String)value));
-						}
-						else if(key.equals("skills")) {
-							self.user.setUnprocessedSkills((String)value);
-							self.user.setSkills(SerialUtils.loadStringSet(self.user.cleanTags((String)value)));
-						}
-						else if(key.equals("interests")) {
-							self.user.setUnprocessedInterests((String)value);
-							self.user.setInterests(SerialUtils.loadStringSet(self.user.cleanTags((String)value)));
-						}
-						else if(key.equals("phone2")) {
+						if(key.equals("phone2")) {
 							if(!value.matches("\\(\\d{3}\\)[ \\-]?\\d{3}\\-\\d{4}")) {
 								error += "<br/>Use (###) ###-#### for your phone number";
 								self.httpRequest.setAttribute("phone2", value);
@@ -451,41 +307,89 @@ public class UserServlet extends BaseServlet {
 						}
 					}
 					
-				//Handle file, but only if name is not empty
-				//(so that we don't handle blank uploads)
-				} else if(item.getName()!=null && item.getName().isEmpty()==false) {
-					try {
-						//Break down the filename to and build a new one with the user id
-						String filetype = item.getName().substring(item.getName().lastIndexOf('.'));
-						String filename = self.user.getUid()+filetype;
-						
-						//Write the file to the img/avatars directory and set the person's weblink
-						System.out.println("Writing to: "+avatarPath()+filename);
-						item.write(new File(avatarPath()+filename));
-						self.user.setPicture("/uploads/avatars/"+filename);
+					
+					
+					//Handle file, but only if name is not empty
+					//(so that we don't handle blank uploads)
+					} else if(item.getName()!=null && item.getName().isEmpty()==false) {
+						try {
+							//Break down the filename to and build a new one with the user id
+							String filetype = item.getName().substring(item.getName().lastIndexOf('.'));
+							String filename = self.user.getUid()+filetype;
+							
+							//Write the file to the img/avatars directory and set the person's weblink
+							System.out.println("Writing to: "+avatarPath()+filename);
+							new File(avatarPath()+filename).delete();
+							item.write(new File(avatarPath()+filename));
+							
+							self.user.setPicture("/uploads/avatars/"+filename);
 
-					//Writing a FileItem can apparently through any kind of exception (sloppy)
-					//so I don't know why this would get thrown here, just what throws it.
-					} catch (Exception e) {
-						throw new UserServletException("Failed to write uploaded file.",e);
+						//Writing a FileItem can apparently through any kind of exception (sloppy)
+						//so I don't know why this would get thrown here, just what throws it.
+						} catch (Exception e) {
+							throw new UserServletException("Failed to write uploaded file.",e);
+						}
+						
+					//This means its an empty file item and we can safely ignore it
+					} else {
+						/*if(self.user.getPicture() != null && !self.user.getPicture().isEmpty()) {
+							
+							new File(avatarPath()+self.user.getPicture().split("/")[2]).delete();
+							
+							self.user.setPicture("");
+						}*/
 					}
 					
-				//This means its an empty file item and we can safely ignore it
-				} else { }
+				}
 				
+				//Save the newly modified person, and re-render the edit page.
+				if(!error.equals("")) {
+					self.httpRequest.setAttribute("error", error);
+				}
+				self.solrSession.savePerson(self.user);
+	    		self.render("EditProfile.jsp");
+				
+			//Parsing a bad request can sometimes throw a FileUploadException
+			// TODO I should figure out what to do here
+			} catch (FileUploadException e) {
+				throw new UserServletException("Failure to parse the uploaded file items from the request",e);
+			} catch (SolrServerException e) {
+				throw new UserServletException("Failure to save modified person state after edit", e);
+			}
+	}
+	
+	public void doDeletePicture(Request self) throws UserServletException, IOException, ServletException {
+		self.httpRequest.setAttribute("message", "<a id=\"edit_link\" href=\""+urls.url("person",self.user.getUid(),"profile")+"\">Your picture has been deleted</a>");
+
+		try {
+			if(self.user.getPicture() != null && !self.user.getPicture().isEmpty()) {
+				
+				new File(avatarPath()+self.user.getPicture().split("/")[2]).delete();
+				
+				self.user.setPicture("");
+				
+				self.solrSession.savePerson(self.user);
+	    		self.render("EditProfile.jsp");
+			}
+		} catch (SolrServerException e) {
+			throw new UserServletException("Failure to save modified person state after edit", e);
+		}
+		
+	}
+	
+	public void doEditSettings(Request self) throws IOException, ServletException, UserServletException {
+		self.httpRequest.setAttribute("message", "<a id=\"edit_link\" href=\""+urls.url("person",self.user.getUid(),"profile")+"\">Changes Saved</a>");
+
+		try {
+			Map<String,Object> pMap = self.httpRequest.getParameterMap();
+			
+			for(String key:pMap.keySet()) {
+				self.user.getPermissions().put(key.substring(6),
+						new TreeSet<String>(Arrays.asList((((String[])pMap.get(key))[0]).toLowerCase())));
 			}
 			
-			//Save the newly modified person, and re-render the edit page.
-			if(!error.equals("")) {
-				self.httpRequest.setAttribute("error", error);
-			}
 			self.solrSession.savePerson(self.user);
-    		self.render("EditProfile.jsp");
-			
-		//Parsing a bad request can sometimes throw a FileUploadException
-		// TODO I should figure out what to do here
-		} catch (FileUploadException e) {
-			throw new UserServletException("Failure to parse the uploaded file items from the request",e);
+			self.render("EditSettings.jsp");
 		} catch (SolrServerException e) {
 			throw new UserServletException("Failure to save modified person state after edit", e);
 		}
@@ -504,7 +408,7 @@ public class UserServlet extends BaseServlet {
 			if(args.get(0).equals("add")) {
 				System.out.println("Adding user"+args.get(1));
 	    		try {
-		    		self.user.getBookmarks().add(self.solrSession.loadPersonByUid(args.get(1)));
+		    		self.user.addBookmark(self.solrSession.loadPersonByUid(args.get(1)));
 					self.solrSession.savePerson(self.user);
 					self.redirect(urls.url("person",args.get(1),"profile"));
 				} catch (SolrServerException e) {

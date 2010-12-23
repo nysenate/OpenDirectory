@@ -5,6 +5,7 @@
 	
 %><jsp:include page="header.jsp" />			
 		<div id="main">
+			<div id="main_regular">
 			<% for(String last : new TreeSet<String>(people.keySet()) ) {
 				StringTokenizer st = new StringTokenizer(last," ,.-_'&");
 				String nospace = "";
@@ -24,5 +25,6 @@
 				</div>
 				<br/>
 			<% } %>
+			</div>
 		</div>
 <jsp:include page="footer.jsp" />

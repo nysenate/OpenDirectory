@@ -5,24 +5,29 @@
 	
 %><jsp:include page="header.jsp" />
 			<div id="main">
-				<% for(String loc : new TreeSet<String>(people.keySet()) ) {
-					StringTokenizer st = new StringTokenizer(loc," ,.-_'&");
-					String nospace = "";
-					while( st.hasMoreElements()) nospace+=st.nextElement();
-					st = new StringTokenizer(nospace,"/");
-					nospace = "";
-					int count=1;
-					while( st.hasMoreElements()) nospace+="-"+st.nextElement();	%>
-					
-					<span id="button_<%=nospace%>" class="entity_button"></span><span class="entity_title"><%=loc%></span> 
-					<div id="<%=loc%>" class="entity_list"> 
-						<ul id="list_<%=nospace%>" class="people">
-							<% for(Person p : people.get(loc)) { %>
-								<li class="<%=((count++%2==0) ? "even" : "odd" )%>"> <a href="<%=urls.url("person",p.getUid(),"profile")%>" class="people_url"><%=p.getFullName()%></a></li>
-							<% } %>
-						</ul>
-					</div>
-					<br/>
-				<% } %>
+				<div id="main_regular">
+					<% for(String loc : new TreeSet<String>(people.keySet()) ) {
+						StringTokenizer st = new StringTokenizer(loc," ,.-_'&");
+						String nospace = "";
+						while( st.hasMoreElements()) nospace+=st.nextElement();
+						st = new StringTokenizer(nospace,"/");
+						nospace = "";
+						int count=1;
+						while( st.hasMoreElements()) nospace+="-"+st.nextElement();	%>
+						
+						<span id="button_<%=nospace%>" class="entity_button"></span><span class="entity_title"><%=loc%></span> 
+						<div id="<%=loc%>" class="entity_list"> 
+							<ul id="list_<%=nospace%>" class="people">
+								<% for(Person p : people.get(loc)) { %>
+									<li class="<%=((count++%2==0) ? "even" : "odd" )%>"> <a href="<%=urls.url("person",p.getUid(),"profile")%>" class="people_url"><%=p.getFullName()%></a></li>
+								<% } %>
+							</ul>
+						</div>
+						<br/>
+					<% } %>
+					<% if(people.isEmpty()) { %>
+						<div id="main_center">You must be logged in to see this content.</div>
+					<% } %>
+				</div>
 			</div>
 <jsp:include page="footer.jsp" />
