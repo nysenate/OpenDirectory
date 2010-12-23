@@ -4,10 +4,11 @@
     TreeSet<Person> user_bookmarks = user.getBookmarks();
 %><jsp:include page="header.jsp" />
 				<div id="main">
+				<div id="main_regular">
 				<h> My Bookmarks</h>
 				<br></br>
-					<% if (user_bookmarks != null) { %>
-						<% for(Person bookmark : user_bookmarks) {%>
+					<% if (user_bookmarks != null && !user_bookmarks.isEmpty()) { %>
+						<% for(Person bookmark : user_bookmarks) { %>
 						<div class="bookmark">
 							<div class="bookmark_pic">
 								<% if(bookmark.getPicture()!=null && !bookmark.getPicture().isEmpty()) { %>
@@ -25,6 +26,9 @@
 							<div class="clear"></div>
 						</div>
 						<% } %>
-					<% } %>	
-				</div>		
+					<% } else { %>	
+						<i>It looks like you don't have any bookmarks.</i>
+						<% } %>
+					</div>
+				</div>
 <jsp:include page="footer.jsp" />

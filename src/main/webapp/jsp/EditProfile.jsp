@@ -30,121 +30,116 @@
 				</div>
 			<% } %>
 			<div id="edit_error" style="font-size:85%; width:60%; display:none;"><%= error!=null ? "It looks like there may be a problem with one of your contact<br/>fields.  Please check to make sure you:<br/>" + error:"" %></div>
-			<div id="tabs">
-				<div id="profile_tab" style="border-bottom:1px solid white;border-right:0px;"><a href="<%= urls.url("user","edit","profile")%>">Profile</a></div>
-				<div id="profile_tab"><a href="<%= urls.url("user","edit","settings")%>">Settings</a></div>
-			</div>
 			
 			<div id="main">
+				<div id="tabs">
+					<div id="profile_tab" style="border-bottom:1px solid white;border-right:0px;"><a href="<%= urls.url("user","edit","profile")%>">Profile</a></div>
+					<div id="profile_tab"><a href="<%= urls.url("user","edit","settings")%>">Settings</a></div>
+				</div>
+				<br/>
 				<form action="" ENCTYPE='multipart/form-data' method="POST">
-					<div id="edit_pic">
-						<% if(user.getPicture()!=null && !user.getPicture().isEmpty()) { %>
-							<img src="<%=user.getPicture()%>" width="165" height="213">
-						<% } else { %>
-							<img src="<%=urls.url("img","defaults","Gravatar-30.png")%>" width="165" height="213">
-						<% } %>
-						<br/><br/>
-						<b>Change Profile Picture</b>: <input type="file" name="avatar" /><br/>
-						<i>Images will be shrunk to 165x213 ratio on display.<br/>Try to keep the image file size small. </i>
-					</div>
-					<div id="top_info" class="right">
-				
-						<div id="name">
-							<b><%=user.getFullName()%></b>
+					<div class="ratio_left" id="main_left">
+						<div class="image">
+							<% if(user.getPicture()!=null && !user.getPicture().isEmpty()) { %>
+								<img src="<%=user.getPicture()%>" width="165" height="213"><br/>
+								<i style="font-size:60%;"><a href="<%=urls.url("user","edit","deletePicture") %>">(delete your image)</a></i>
+							<% } else { %>
+								<img src="<%=urls.url("img","defaults","Gravatar-30.png")%>" width="165" height="213" />
+							<% } %>
+							<br/><b style="font-size:80%;">Choose Picture</b> <input type="file" name="avatar" /><br/>
+							<i style="font-size:60%;">Images will be shrunk to 165x213 ratio on display.<br/>Try to keep the image file size small. </i>
 						</div>
 						
-						<div id="info">
-							<% 	String lineone = "";
-								if(user.getTitle()!=null && !user.getTitle().isEmpty())
-									lineone+=user.getTitle();
-								if(user.getLocation()!=null && !user.getLocation().isEmpty()) {
-									if(!lineone.isEmpty())
-										lineone+=", ";
-									lineone+=user.getLocation();
-								}
-								if(user.getDepartment()!=null && !user.getDepartment().isEmpty()) {
-									if(!lineone.isEmpty())
-										lineone+=" - ";
-									lineone+=user.getDepartment();
-								}
-								lineone =  "<p>"+lineone+"</p>";
-								out.println(lineone);
-								
-								String linetwo = "";
-								if(user.getPhone()!=null && !user.getPhone().isEmpty())
-									linetwo+=user.getPhone();
-
-								linetwo = "<p>"+linetwo+"</p>";
-								out.println(linetwo);
-								
-								String linethree = "";
-								if(user.getEmail()!=null && !user.getEmail().isEmpty())
-									linethree+=user.getEmail();
-
-								linethree = "<p>"+linethree+"</p>";
-								out.println(linethree);
-								
-								%>
+						<div class="admin">
+							<% if( user!=null && user.getUid().equals(user.getUid())) { %>
+									<p id="profile_edit"><a href="<%=urls.url("person",user.getUid(),"profile")%>">Back to your profile</a></p>
+							<% } %>
+						</div>
+						<div class="contact">
+							<%if(user.getLocation()!=null && !user.getLocation().isEmpty()) {%>
+								  <p id="senate_location"><%=user.getLocation() %></p>
+							<%} %>
+							<%if(user.getPhone()!=null && !user.getPhone().isEmpty()) { %>
+								<p id="senate_phone"><%= user.getPhone()%></p>
+							<% } %>
+	
+							<%if(user.getEmail()!=null && !user.getEmail().isEmpty()) { %>
+								<p id="senate_email"><a href="mailto:<%= user.getEmail()%>"><%= user.getEmail() %></a></p>
+							<% } %>
+						</div>
+					</div>			
+				
+					<div class="ratio_right" id="main_right">
+						<div id="header_person">
+							<% if(user.getFullName() != null && !user.getFullName().isEmpty()) { %>
+							<h3 id="name"><%=user.getFullName() %></h3>
+							<% } %>
+							<% if(user.getTitle() != null && !user.getTitle().isEmpty()) { %>
+								<h3 id="title"><%=user.getTitle() %></h3>
+							<% } %>
+							<% if(user.getDepartment() != null && !user.getDepartment().isEmpty()) { %>
+								<h3 id="office"><%=user.getDepartment() %></h3>
+							<% } %>
+						</div>
+						<div id="edit_container">
+							<p>Additional Contact Information</p>
+								<div id="edit_form_field" style="float:left;">
+									<ol>
+										<li>
+											<label id="edit_input"><b>E-mail</b></label>
+											<input type="text" value="<%=email2%>" name="email2">
+										</li>
+										<li>
+											<label id="edit_input"><b>Phone</b></label>
+											<input type="text" value="<%=phone2%>" name="phone2"></input>
+										</li>
+										<li>
+											<label id="edit_input"><b>IRC Alias</b></label>
+											<input type="text" value="<%=irc%>" name="irc"></input>
+										</li>
+									</ol>
+									<!-- Phone  -->
+								</div>
+								<div id="edit_form_field" style="float:left;">
+									<ol>
+										<li>
+											<label id="edit_input"><b>LinkedIn</b></label>
+											<input type="text" value="<%=linkedin%>" name="linkedin"></input>
+										</li>
+										<li>
+											<label id="edit_input"><b>Faceook</b></label>
+											<input type="text" value="<%=facebook%>" name="facebook"></input>
+										</li>
+										<li>
+											<label id="edit_input"><b>Twitter</b></label>
+											<input type="text" value="<%=twitter%>" name="twitter"></input>
+										</li>
+									</ol>
+									 <!--  (Profile URL) -->
+								</div>
+							<div id="" style="margin-top:140px;">
+								<div id="">
+									<b>Biography</b>
+									<br/>
+									<textarea name="bio" style="width:95%;" rows="5"><%=user.getUnprocessedBio()%></textarea>
+								</div>
+								<div id="">
+									<b>Skills</b>
+									<br/>
+									<i style="font-size:70%;">Separate Skills With a Comma or Semicolon</i>
+									<textarea name="skills" style="width:95%;" rows="4"><%=user.getSkills().toString().substring(1,user.getSkills().toString().length()-1) %></textarea>
+								</div>
+								<div id="">
+									<b>Interests</b>
+									<br/>
+									<i style="font-size:70%;">Separate Interests With a Comma or Semicolon</i>
+									<textarea name="interests" style="width:95%;" rows="4"><%=user.getInterests().toString().substring(1,user.getInterests().toString().length()-1) %></textarea>
+								</div>
+							</div><br/>
+							<div id="submit_changes_Button" align="center">
+								<button name="submit_changes" type="submit">Submit Changes</button>
 							</div>
 						</div>
-								
-					<!--  <div id="edit_contactinfo">
-						<br/><br/>
-						<p>Contact Information</p>
-						<b>E-mail</b>: <%=user.getEmail()%>
-						<br/><br/>
-						<b>Phone</b>: <%=user.getPhone()%>
-						<br/><br/>
-						<b>Department</b>: <%=user.getDepartment()%>
-						<br/><br/>
-						<b>Title</b>: <%=user.getTitle()%>
-						<br/><br/>
-						<b>Location</b>: <%=user.getLocation()%>
-						<br/><br/>
-					</div>-->
-					<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-					<div id="edit_addinfo">
-						<p>Additional Contact Information</p>
-						<b>E-mail</b> <input type="text" value="<%=email2%>" name="email2">
-						<br></br>
-						<b>Phone (###) ###-####</b> <input type="text" value="<%=phone2%>" name="phone2"></input>
-						<br></br>
-						<b>IRC Alias</b> <input type="text" value="<%=irc%>" name="irc"></input>
-					</div>
-					<br/>
-					<div id="edit_generalinfo">
-						<p>General Information</p>
-						<div id="edit_bio">
-							<b>Biography</b>
-							<br></br>
-							<textarea name="bio" cols="100" rows="5"><%=user.getUnprocessedBio()%></textarea><br></br>
-						</div>
-						<div id="edit_skills">
-							<br></br>
-							<b>Skills</b>
-							<p>**Separate Skills With a Comma or Semicolon</p>
-							<textarea name="skills" cols="100" rows="2"><%=user.getSkills().toString().substring(1,user.getSkills().toString().length()-1) %></textarea><br>
-						</div>
-						<div id="edit_interests">
-							<br></br>
-							<b>Interests</b>
-							<p>**Separate Interests With a Comma or Semicolon</p>
-							<textarea name="interests" cols="100" rows="2"><%=user.getInterests().toString().substring(1,user.getInterests().toString().length()-1) %></textarea><br>
-						</div>
-					</div>
-					<br/>
-					<div id="edit_socialinfo">
-						<p>Social Links</p>
-						<b>LinkedIn (Profile URL)</b> <input type="text" value="<%=linkedin%>" name="linkedin"></input>
-						<br></br>
-						<b>FaceBook (Profile URL)</b> <input type="text" value="<%=facebook%>" name="facebook"></input>
-						<br></br>
-						<b>Twitter (Profile URL)</b> <input type="text" value="<%=twitter%>" name="twitter"></input>
-						<br></br>
-					</div>
-					<div id="submit_changes_Button" align="center">
-						<br></br>
-						<button name="submit_changes" type="submit">Submit Changes</button>
 					</div>
 				</form>
 			</div>

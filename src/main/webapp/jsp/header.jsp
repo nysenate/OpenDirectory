@@ -14,7 +14,7 @@
 	<body>
 		<div id="page">
 			<div id="header">
-				<a href="<%=urls.url("index")%>">
+				<a href="http://www.nysenate.gov">
 					<img src="http://www.nysenate.gov/sites/all/themes/nys/images/nyss_logo.png" id="logo" />
 				</a>
 			
@@ -50,6 +50,13 @@
 					<li><a href="<%=urls.url("browse","lastname")%>" class="nav">Last name</a><div class="sep">|</div></li>
 					<li><a href="<%=urls.url("browse","firstname")%>" class="nav">First name</a><div class="sep">|</div></li>
 					<li><a href="<%=urls.url("browse","department")%>" class="nav">Department</a><div class="sep">|</div></li>
-					<li><a href="<%=urls.url("browse","location")%>" class="nav">Location</a></li>
+					<% if(user != null) { %>
+						<li><a href="<%=urls.url("browse","location")%>" class="nav">Location</a><div class="sep">|</div></li>
+					<% } %>
+					<li><a href="<%=urls.url("about")%>" class="nav">About</a></li>
 				</ul>
+			</div>
+			<div class="notice">
+				OpenDirectory is currently in "beta" and may occasionally offer incorrect data.  
+				Please give us your feedback at <a href="http://www.nysenate.gov/contact">http://nysenate.gov/contact</a>
 			</div>

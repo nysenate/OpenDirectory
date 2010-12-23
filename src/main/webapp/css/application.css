@@ -149,6 +149,12 @@ body {
   margin-top: 20px;
 }
 
+#main_regular {
+	margin-left:20px;
+	margin-top:20px;
+	margin-bottom: 5px;
+}
+
 .contact p,
 .admin p {
   margin-right: 10px;
@@ -211,7 +217,7 @@ body {
 }
 #bio {
   text-align: left;
-  margin-right: 20px; 
+  margin-right: 20px;
 }
 
 #bio p:before {
@@ -331,6 +337,12 @@ body {
   
 }
 
+#main_center {
+	margin-top:20px;
+	margin-bottom:5px;
+	text-align:center;
+}
+
 #edit_generalinfo p {
 	font-weight:bold;
 	text-decoration:underline;
@@ -404,8 +416,6 @@ body {
 #profile_tab {
 	text-align:center;
 	border-collapse:collapse;
-	left:20px;
-	top:2px;
 	width:75px;
 	position:relative;
 	float:left;
@@ -425,4 +435,61 @@ body {
 
 #profile_tab a:visited {
 	color:black;
+}
+
+#edit_input {
+	font-size:80%;
+	float:left;
+	width:70px;
+	text-align:left;
+	margin-right:7px;
+	line-height:23px;
+}
+
+#edit_form_field ol {
+	list-style: none;
+	margin:0;
+	padding:0;
+}
+
+#edit_form_field li {
+	padding:6px;
+	margin-bottom:1px;
+}
+
+#edit_container {
+	width:500px;
+	padding:6px;
+	background-color:#e1ded4;
+	font-family: Helvetica, Arial, sans-serif;
+  -webkit-box-shadow: 0px 0px 5px rgba(0,0,0,0.55);
+  -mox-box-shadow: 0px 0px 5px rgba(0,0,0,0.55);
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.55);
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+}
+
+#edit_error {
+  		padding:3px 3px 3px 3px;
+  		color:black;
+  		border:1px solid #FF3300;
+  		margin:1em auto;
+  		border-collapse:collapse;
+  		background-color:#FECCBF;
+  		margin: 0px auto;
+  		text-align:center;
+  		
+  	}
+  	
+  	.notice
+{
+	background-color:#ffffcc;
+	color:#555;
+	padding:3px;
+	font-size:80%;
+	border:1px solid #aaaaaa;
+	text-align:center;
+	font-family: Helvetica, Arial, sans-serif;
+	
 }

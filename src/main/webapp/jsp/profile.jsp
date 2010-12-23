@@ -26,7 +26,7 @@
 								if(!user.getBookmarks().contains(person)) {
 									%><p id="profile_bookmark"><a href="<%=urls.url("user","bookmarks","add", person.getUid())%>">Bookmark Me</a></p><%
 								} else {
-									%><p id="profile_bookmark"><a href="<%=urls.url("user","bookmarks","add", person.getUid())%>">Remove Bookmark</a></p><%
+									%><p id="profile_bookmark"><a href="<%=urls.url("user","bookmarks","remove", person.getUid())%>">Remove Bookmark</a></p><%
 								}
 						} %>
 					</div>
@@ -87,12 +87,12 @@
 						</ul>
 					</div>
 					<div id="interests">
-						<h3>Skills</h3>
+						<h3>Interests</h3>
    						<ul>
 							<% if(person.getInterests()!=null && !person.getInterests().isEmpty()) {
 								String last = person.getInterests().last();
 								for(String interest : person.getInterests() ) {
-									%><li><a href="<%=urls.url("search","?query=interests:("+interest+")")%>"><%=interest%></a>t</li> <%
+									%><li><a href="<%=urls.url("search","?query=interests:("+interest+")")%>"><%=interest%></a></li> <%
 								}
 							%>
 							<% } else { %>
@@ -104,21 +104,21 @@
 				</div>
 				<div class="ratio_right" id="main_right">
 					<div id="header_person">
-						<% if(person.getFullName() != null && !person.getFullName().isEmpty()) { %>
-						<h3 id="name"><%=person.getFullName() %></h3>
-						<% } %>
-						<% if(person.getTitle() != null && !person.getTitle().isEmpty()) { %>
-							<h3 id="title"><%=person.getTitle() %></h3>
-						<% } %>
-						<% if(person.getDepartment() != null && !person.getDepartment().isEmpty()) { %>
-							<h3 id="office"><%=person.getDepartment() %></h3>
-						<% } %>
+							<% if(person.getFullName() != null && !person.getFullName().isEmpty()) { %>
+							<h3 id="name"><%=person.getFullName() %></h3>
+							<% } else { %> <br/> <% } %>
+							<% if(person.getTitle() != null && !person.getTitle().isEmpty()) { %>
+								<h3 id="title"><%=person.getTitle() %></h3>
+							<% } else { %> <br/> <% } %>
+							<% if(person.getDepartment() != null && !person.getDepartment().isEmpty()) { %>
+								<h3 id="office"><%=person.getDepartment() %></h3>
+							<% } else { %> <br/><br/> <% } %>
 					</div>
 					<div id="bio">
 						<% if(person.getBio() != null && !person.getBio().isEmpty()) { %>
 							<%=person.getBio() %>
 						<% } else { %>
-							<%="<p>Information Not Available</p>" %>
+							<%="<p>No bio available</p>" %>
 						<% } %>
 					</div>
 					
