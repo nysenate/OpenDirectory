@@ -137,7 +137,7 @@ public class BrowseServlet extends BaseServlet {
 		HashMap<String, TreeSet<Person>> treePeople = GetPeopleSortedByString(self, method, comparator);
 		HashMap<String,HashMap<String,TreeSet<Person>>> data = new HashMap<String,HashMap<String,TreeSet<Person>>>();
 		
-		List<String> names = Arrays.asList("Creative Services","Legislative Committee","Maintenance and Operations","Senate Services","Senate Technology Services","Task Force","Student Programs","Select Committee","Senators","Caucuses");
+		List<String> names = Arrays.asList("Creative Services","Legislative Committee","Maintenance and Operations","Senate Services","Senate Technology Services","Task Force","Student Programs","Select Committee","Senators","Caucuses","Senate Finance Committee");
 		
 		for(String department:treePeople.keySet()) {
 			String[] tuple = department.split("/");

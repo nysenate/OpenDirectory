@@ -35,7 +35,7 @@
 						<div id="<%=orgRep%>" class="entity_list" style="position:relative;top:10px;"> 
 							<ul id="list_<%=orgRep %>" class="people">
 								<% for(String department:new TreeSet<String>(depts.keySet())) { 
-									String departmentRep = department.replaceAll("[ ,\\._'&/]","");
+									String departmentRep = department.replaceAll("[ ,\\._'&/]","")+"_"+orgRep;
 									
 									%>
 									  <span id="button_<%=departmentRep%>" class="entity_button"></span><span class="entity_title"><%=department%></span> 
