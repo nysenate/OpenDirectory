@@ -10,7 +10,7 @@
 			<% for(String org : new TreeSet<String>(orgs.keySet()) ) {
 					HashMap<String,TreeSet<Person>> depts = orgs.get(org);
 					
-					if(depts.keySet().size() == 1) {
+					if(depts.keySet().size() == 1 && depts.keySet().toArray()[0].equals(org)) {
 						for(String department:new TreeSet<String>(depts.keySet())) {
 							String nospace = department.replaceAll("[ ,\\._'&/]","");
 							%>
