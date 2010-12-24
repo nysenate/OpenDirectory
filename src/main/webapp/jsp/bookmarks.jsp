@@ -18,12 +18,29 @@
 								<% } %>
 							</div>
 							<div class="bookmark_info">
-								<a href="<%=urls.url("person",bookmark.getUid(),"profile")%>"> <%=bookmark.getFullName()%></a><br/>
-								<%=bookmark.getTitle() %> , <%=bookmark.getPhone() %><br/>
-								<a href="mailto:<%=bookmark.getEmail() %>"><%=bookmark.getEmail() %></a><br/><br/>
+								<a href="<%=urls.url("person",bookmark.getUid(),"profile")%>"> <%=bookmark.getFullName()%></a>
+									<%
+										String lineone = "";
+										if(bookmark.getTitle()!=null && !bookmark.getTitle().isEmpty())
+											lineone+=bookmark.getTitle();
+										if(bookmark.getLocation()!=null && !bookmark.getLocation().isEmpty()) {
+											if(!lineone.isEmpty())
+												lineone+=", ";
+											lineone+=bookmark.getLocation();
+										}
+										if(bookmark.getDepartment()!=null && !bookmark.getDepartment().isEmpty()) {
+											if(!lineone.isEmpty())
+												lineone+=" - ";
+											lineone+=bookmark.getDepartment();
+										}
+										lineone =  "<p>"+lineone+"</p>";
+										out.println(lineone);
+									%>
 								<a href="<%=urls.url("user","bookmarks","remove", bookmark.getUid())%>"> Remove From Bookmarks </a>
 							</div>
 							<div class="clear"></div>
+							
+							
 						</div>
 						<% } %>
 					<% } else { %>	

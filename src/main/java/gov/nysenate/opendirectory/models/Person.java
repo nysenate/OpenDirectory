@@ -81,31 +81,6 @@ public class Person implements Comparable<Person> {
 //		System.out.println(set.contains(x));
 //		set.remove(i);
 //		System.out.println(set);
-		
-		Solr solr = new Solr().connect();
-		SolrSession ses = new SolrSession(Person.getAdmin(), solr);
-		
-		Person p = ses.loadPersonByUid("williams");
-		ses = new SolrSession(p,solr);
-		
-//		Person zal = ses.loadPersonByUid("zalewski");
-//		Person yee = ses.loadPersonByUid("yee");
-//		Person p2 = ses.loadPersonByUid("adey");
-//		
-//		
-//		
-//		TreeSet<Person> ts = new TreeSet<Person>();
-//		ts.add(p2);ts.add(zal);ts.add(yee);
-//		p.setBookmarks(ts);
-		
-		
-		for(Person p3:p.getBookmarks()) {
-			System.out.println(p3.getUid());
-		}
-		
-//		TreeSet<Person> ts = new TreeSet<Person>();
-//		p.setBookmarks(ts);
-//		ses.savePerson(p);
 
 	}
 	

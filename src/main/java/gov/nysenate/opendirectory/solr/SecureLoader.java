@@ -35,6 +35,8 @@ public class SecureLoader {
 		SolrSession personSession = session.solr.newSession(person);
 		HashMap<String,TreeSet<String>> permissions = person.getPermissions();
 		
+		String bookmarks = null;
+		
 		for(String field : profile.getFieldNames()) {
 			//Process the permissions fields into the hashmap
 			if(field.endsWith("_access")) {
@@ -48,8 +50,17 @@ public class SecureLoader {
 			if( field.equals("uid") || field.equals("credentials") ||		 //We already have these, otherwise
 				!isApproved((String)profile.getFieldValue(field+"_access"))) //User must have permissions to view
 					continue;
+			if(field.equals("bookmarks")) {
+				bookmarks = field;
+				continue;
+			}
+			
 			
 			person.loadField(field,profile.getFieldValue(field),personSession);
+		}
+		
+		if(bookmarks != null) {
+			person.loadField(bookmarks, profile.getFieldValue(bookmarks), personSession);
 		}
 		
 		//We've now got a fully reconstructed permissions field

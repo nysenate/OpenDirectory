@@ -22,13 +22,13 @@
 					<% if (user == null) { %>
 						<ul id="user_top_bar">
 							<li><a href="<%=urls.url("user","login")%>">LOGIN</a></li>
-							<li><a href="<%=urls.url("index")%>">HOME</a></li>
+							<li><a href="<%=urls.url("index")%>">DIRECTORY HOME</a></li>
 						</ul>
 					<% } else { %>
 						<ul id="user_top_bar">
 							<li id="welcome">Welcome, <%=user.getFirstName()%></li>
 							<li><a href="<%=urls.url("user","logout")%>">LOGOUT</a></li>
-							<li><a href="<%=urls.url("index")%>">HOME</a></li>
+							<li><a href="<%=urls.url("index")%>">DIRECTORY HOME</a></li>
 						</ul>
 						
 						<ul id="user_bottom_bar">

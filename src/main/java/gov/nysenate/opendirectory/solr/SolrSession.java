@@ -64,6 +64,7 @@ public class SolrSession {
 		query = "{!secure credential=\""+creds+"\"}"+query;
 		
 		System.out.println("\nLoading People By Query: "+query);
+		System.out.println(creds);
 		System.out.println("===============================================");
 		
 		//Execute the query
