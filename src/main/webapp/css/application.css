@@ -120,6 +120,59 @@ body {
 
 /*Start New CSS*/
 
+#splash_logo {
+  margin-left: 49px;
+  margin-top: 20px;
+  height: 39px;
+}
+
+#splash_desc {
+  text-align: left;
+  position: relative;
+  width: 500px;
+  margin: 0 auto;
+}
+
+/* Quick Results */
+.quickresult {
+  width:304px;
+  z-index:10;
+  border-left:solid 1px #dedede;
+  border-right:solid 1px #dedede;
+  background:#fff;
+  color:#777;
+  line-height:14px;
+  font-size:10pt;
+  overflow:hidden;
+  visibility:hidden;
+}
+#quickresult-body {
+  /*
+  position:absolute;
+  top:122px;
+  left:170px;*/
+}
+#quickresult-header {
+	text-align:left;
+}
+.quickresult ul, .quickresult li {
+  list-style-type:none;
+  margin:0px;
+  border-bottom:1px solid #ccc;
+  border-top:1px solid #ccc;
+
+}
+.quickresult_box {
+  margin-top:0px;
+  padding:4px; 
+  font-size:12px; 
+}
+.quickresult_box:hover {
+  background:#FFFFCC;
+  color:#FFFFFF;
+}
+/* End Quick Results */
+
 #main {
   font-family: Helvetica, Arial, sans-serif;
   -webkit-box-shadow: 0px 0px 15px rgba(0,0,0,0.55);
@@ -128,6 +181,8 @@ body {
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-radius: 7px;
+  min-height: 425px;
+  margin-bottom: 20px;
 }
 
 #main p {
@@ -497,8 +552,8 @@ body {
 h2.homeText
 {
 	background:none;
-	 margin-top:8px;	
-  margin-bottom:4px;
+	margin-top:10px;	
+  margin-bottom:5px;
   font-size: 1.0em;
   line-height: 1.2em;
   font-weight:normal;
@@ -506,55 +561,7 @@ h2.homeText
 	
 	}
 	
-	.quickresult
-{
-width:304px;
-z-index:10;
-border-left:solid 1px #dedede;
-border-right:solid 1px #dedede;
-background:#fff;
-color:#777;
-line-height:14px;
-font-size:10pt;
-overflow:hidden;
-visibility:hidden;
-}
 
-#quickresult-body
-{
-position:absolute;
-top:122px;
-left:170px;
-}
-
-#quickresult-header
-{
-	text-align:left;
-position:absolute;
-top:121px;
-left:893px;
-}
-
-.quickresult ul, .quickresult li
-{
-list-style-type:none;
-margin:0px;
-border-bottom:1px solid #ccc;
-border-top:1px solid #ccc;
-
-}
-
-.quickresult_box
-{
-margin-top:0px;
-padding:4px; 
-font-size:12px; 
-}
-.quickresult_box:hover
-{
-background:#FFFFCC;
-color:#FFFFFF;
-}
 
 a.sublink, a.sublink:visited, a.sublink:link
 {
