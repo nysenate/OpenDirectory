@@ -58,7 +58,7 @@ $(document).ready( function() {
 				
 				var total = $(data).find("total").html();
 				
-				html ='<li><em>' + total + ' total results... (<a href="' + query + '">view all</a>)</em></li>';
+				html ='<li><em>' + total + ' total results... (<a href="/opendirectory/search/?query=' + queryTerm + '">view all</a>)</em></li>';
 				
 				$(data).find('person:lt(10)').each(function() {
 					var fName = $(this).find('firstName').html();
