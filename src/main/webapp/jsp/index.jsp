@@ -6,7 +6,7 @@
 			<div id="main">
 				<div style="margin:0px auto;">
 				<center>
-					<div style="margin-right:418px;margin-top:10px;"><img src="<%=urls.url("img","Open-Directory.png") %>"></img></div>
+					<div style="margin-right:418px;margin-top:10px;"><img src="<%=urls.url("img","Open_Directory.png") %>"></img></div>
 					<div style="text-align:left;width:500px;"> 
 						<h2 class="homeText">Browse and search for people who have the skills you need and the interests you share in the New York State Senate.</h2>
 					</div>
