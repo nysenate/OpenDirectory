@@ -28,7 +28,7 @@ function validate() {
 
 
 function doCheck(str, regex, message) {
-	if(str != null & str != "") {
+	if(str != null & !str.match(/[ ]*/)) {
 		if(!str.match(regex)) {
 			return message;
 		}

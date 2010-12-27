@@ -244,7 +244,7 @@ public class UserServlet extends BaseServlet {
 						self.user.setUnprocessedInterests((String)value);
 						self.user.setInterests(SerialUtils.loadStringSet(self.user.cleanTags((String)value)));
 					}
-					else if(value.equals("")) {
+					else if(value.matches("\\s*") ) {
 						self.user.loadField(key, value, self.solrSession);
 					}
 					else {
@@ -257,6 +257,9 @@ public class UserServlet extends BaseServlet {
 								else {
 									self.user.setPhone2(value);
 								}
+							}
+							else {
+								self.user.setPhone2("");
 							}
 						}
 						else if(key.equals("email2")) {
