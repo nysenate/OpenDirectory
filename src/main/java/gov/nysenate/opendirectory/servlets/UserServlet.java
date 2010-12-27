@@ -186,9 +186,9 @@ public class UserServlet extends BaseServlet {
     			
     			//Attempt to authenticate and login the user with the credentials supplied
     			//Make temporary exceptions for non LDAP records (for testing)
-    			if ( (cred.equalsIgnoreCase("opendirectory") && pass.equals("senbook2010"))
+    			if ( /*(cred.equalsIgnoreCase("opendirectory") && pass.equals("senbook2010"))
     					|| (cred.equalsIgnoreCase("graylin") && pass.equals("graylin1"))
-    					|| Ldap.authenticate(cred,pass)) {
+    					|| */ Ldap.authenticate(cred,pass)) {
     				self.httpSession.setAttribute("uid",cred);
     				self.redirect(urls.url("person",cred,"profile"));
     				
@@ -249,12 +249,14 @@ public class UserServlet extends BaseServlet {
 					}
 					else {
 						if(key.equals("phone2")) {
-							if(!value.matches("\\(\\d{3}\\)[ \\-]?\\d{3}\\-\\d{4}")) {
-								error += "<br/>Use (###) ###-#### for your phone number";
-								self.httpRequest.setAttribute("phone2", value);
-							}
-							else {
-								self.user.setPhone2(value);
+							if(!value.equals("(###) ###-####")) {
+								if(!value.matches("\\(\\d{3}\\)[ \\-]?\\d{3}\\-\\d{4}")) {
+									error += "<br/>Use (###) ###-#### for your phone number";
+									self.httpRequest.setAttribute("phone2", value);
+								}
+								else {
+									self.user.setPhone2(value);
+								}
 							}
 						}
 						else if(key.equals("email2")) {

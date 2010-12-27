@@ -118,7 +118,7 @@
 						<% if(person.getBio() != null && !person.getBio().isEmpty()) { %>
 							<%=person.getBio() %>
 						<% } else { %>
-							<%="<p>No bio available</p>" %>
+							<%="<p>About Me not available</p>" %>
 						<% } %>
 					</div>
 					

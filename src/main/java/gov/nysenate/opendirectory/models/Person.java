@@ -247,7 +247,7 @@ public class Person implements Comparable<Person> {
 	public void setCredentials (TreeSet<String> credentials){
 		//There must always be a valid set of credentials for every single person
 		if (credentials == null || credentials.isEmpty() )
-			credentials = new TreeSet<String>(Arrays.asList("public"));
+			credentials = new TreeSet<String>(Arrays.asList("public", "senate"));
 		this.credentials = credentials;
 	}
 	public void setBio(String bio){

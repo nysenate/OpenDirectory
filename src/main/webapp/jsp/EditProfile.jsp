@@ -118,7 +118,7 @@
 								</div>
 							<div id="" style="margin-top:140px;">
 								<div id="">
-									<b>Biography</b>
+									<b>About Me</b>
 									<br/>
 									<textarea name="bio" style="width:95%;" rows="5"><%=user.getUnprocessedBio()%></textarea>
 								</div>

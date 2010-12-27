@@ -10,8 +10,10 @@ function validate() {
 	
 	message += doCheck(email, /.*?@.*?\..*/,
 			"<br/>Entered a valid email address");
-	message += doCheck(phone,/\(\d{3}\)([ -])?\d{3}-\d{4}/,
-			"<br/>Used (###) ###-#### for your phone number");
+	if(phone != '(###) ###-####') {
+		message += doCheck(phone,/\(\d{3}\)([ -])?\d{3}-\d{4}/,
+		"<br/>Used (###) ###-#### for your phone number");
+	}
 	message += doCheck(irc,/[A-Za-z\d\.\-_]+/,
 			"<br/>Your irc name should only contain numbers, characters or punctuation");
 	message += doCheck(twitter,/(http:\/\/)?(www\.)?twitter\.com\/[A-Za-z\d\.-_]/i,

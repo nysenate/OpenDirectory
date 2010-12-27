@@ -43,7 +43,6 @@ public class SolrControllerServlet extends BaseServlet {
 		    		out.println("Removed all documents");
 		    	} else if (command.equals("reindexAll")) {
 		    		reindexAll(self);
-		    		indexExtras(self);
 		    		out.println("Removed and Reindexed All documents");
 		    	} else {
 		    		out.println("Unknown command: "+command);
@@ -120,8 +119,8 @@ public class SolrControllerServlet extends BaseServlet {
 			
 			department = department.replaceAll("^Senator","Senators/Senator");
 			
-			if(department.equals("NYS Black PR Hisp & Asian Leg Cau")) {
-				department = "NYD Black, Puerto Rican, Hispanic & Legislative Caucus";
+			if(department.equals("NYS Black  PR  Hisp & Asian Leg Cau")) {
+				department = "NYS Black, Puerto Rican, Hispanic & Legislative Caucus";
 			}
 			else if(department.equals("Task Force/Demographic Research & Reapp.")) {
 				department = "Task Force/Demographic Research & Reapportionment";
@@ -149,45 +148,5 @@ public class SolrControllerServlet extends BaseServlet {
 	}
 	
 	private void indexExtras(Request self) throws SolrServerException, IOException {
-		
-		Person opendirectory = new Person();
-		opendirectory.setUid("opendirectory");
-		opendirectory.setFirstName("SenBook");
-		opendirectory.setFullName("OpenDirectory");
-		opendirectory.setEmail("opendirectory@nysenate.gov");
-		opendirectory.setTitle("New Age Techno Contact Service");
-		opendirectory.setDepartment("Office of the CIO");
-		opendirectory.setPhone("1-866-OPENDIR");
-		opendirectory.setLocation("Big Back Office, Agency 4");
-		opendirectory.setBio("Origionally code named SenBook, the project was then renamed OpenDirectory and development began in the Java Servlets Environment as part of an RPI capstone course.");
-		opendirectory.setSkills(new TreeSet<String>(Arrays.asList("Java","Solr","Ldap","Varnish")));
-		opendirectory.setInterests(new TreeSet<String>(Arrays.asList("Python","Open Source")));
-		
-		opendirectory.setPermissions(Person.getDefaultPermissions());
-		opendirectory.setCredentials(new TreeSet<String>(Arrays.asList("public","senate")));
-		self.solrSession.savePerson(opendirectory);
-		
-		Person chrim = new Person();
-		chrim.setUid("chrim");
-		chrim.setFirstName("Chris");
-		chrim.setLastName("Kim");
-		chrim.setFullName("Chris Kim");
-		self.solrSession.savePerson(chrim);
-		
-		Person chrib = new Person();
-		chrib.setUid("chrib");
-		chrib.setFirstName("Chris");
-		chrib.setLastName("Babie");
-		chrib.setFullName("Chris Babie");
-		self.solrSession.savePerson(chrib);
-		
-		Person graylin = new Person();
-		graylin.setUid("graylin");
-		graylin.setFirstName("Graylin");
-		graylin.setLastName("Kim");
-		graylin.setFullName("Graylin Kim");
-		self.solrSession.savePerson(graylin);
-		
-		self.solrSession.optimize();
 	}
 }
