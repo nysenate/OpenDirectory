@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TreeSet;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -131,7 +133,28 @@ public class APIServlet extends BaseServlet {
 				
 				String format = args.get(0);
 				if(formatSet.contains(format)) {
-					writeResponse(self.solrSession.loadPeopleByQuery(self.httpRequest.getParameter("query")),format);
+					String query = self.httpRequest.getParameter("query");
+					ArrayList<Person> people = self.solrSession.loadPeopleByQuery(query);
+					
+					if(people.isEmpty()) {
+						Pattern pattern = Pattern.compile("(\\w+?):(\\w+?)(\\s(AND|OR)|$)");
+						Matcher matcher = pattern.matcher(query);
+						if(!matcher.find()) {
+							people = self.solrSession.loadPeopleByQuery(query + "*");
+							if(people.isEmpty()) {
+								people = self.solrSession.loadPeopleByQuery(query + "~");
+							}
+						}
+						else {
+							people = self.solrSession.loadPeopleByQuery(matcher.replaceAll("$1:$2*$3"));
+							
+							if(people.isEmpty()) {
+								people = self.solrSession.loadPeopleByQuery(matcher.replaceAll("$1:$2~$3"));
+							}
+						}
+					}
+					
+					writeResponse(people,format);
 					
 				} else {
 					throw new ApiException("Format not supported");

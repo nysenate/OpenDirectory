@@ -32,11 +32,6 @@
 			<div id="edit_error" style="font-size:85%; width:60%; display:none;"><%= error!=null ? "It looks like there may be a problem with one of your contact<br/>fields.  Please check to make sure you:<br/>" + error:"" %></div>
 			
 			<div id="main">
-				<div id="tabs">
-					<div id="profile_tab" style="border-bottom:1px solid white;border-right:0px;"><a href="<%= urls.url("user","edit","profile")%>">Profile</a></div>
-					<div id="profile_tab"><a href="<%= urls.url("user","edit","settings")%>">Settings</a></div>
-				</div>
-				<br/>
 				<form action="" ENCTYPE='multipart/form-data' method="POST">
 					<div class="ratio_left" id="main_left">
 						<div class="image">
@@ -47,7 +42,7 @@
 								<img src="<%=urls.url("img","defaults","Gravatar-30.png")%>" width="165" height="213" />
 							<% } %>
 							<br/><b style="font-size:80%;">Choose Picture</b> <input type="file" name="avatar" /><br/>
-							<i style="font-size:60%;">Images will be shrunk to 165x213 ratio on display.<br/>Try to keep the image file size small. </i>
+							<i style="font-size:60%;">Images may be altered to fit a 164x213 display.<br/>Please keep image file sizes under 300kb.</i>
 						</div>
 						
 						<div class="admin">
@@ -82,6 +77,10 @@
 							<% } %>
 						</div>
 						<div id="edit_container">
+							<div style="text-align:center;font-size:80%;">
+								Profile<div class="sep">|</div>
+								<a href="<%= urls.url("user","edit","settings")%>">Settings</a>
+							</div>
 							<p>Additional Contact Information</p>
 								<div id="edit_form_field" style="float:left;">
 									<ol>
@@ -91,7 +90,7 @@
 										</li>
 										<li>
 											<label id="edit_input"><b>Phone</b></label>
-											<input type="text" value="<%=phone2%>" name="phone2"></input>
+											<input type="text" value="<%=phone2.equals("") ? "(###) ###-####":phone2%>" name="phone2"></input>
 										</li>
 										<li>
 											<label id="edit_input"><b>IRC Alias</b></label>

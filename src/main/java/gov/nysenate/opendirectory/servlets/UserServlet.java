@@ -317,28 +317,29 @@ public class UserServlet extends BaseServlet {
 							String filetype = item.getName().substring(item.getName().lastIndexOf('.'));
 							String filename = self.user.getUid()+filetype;
 							
-							//Write the file to the img/avatars directory and set the person's weblink
-							System.out.println("Writing to: "+avatarPath()+filename);
-							new File(avatarPath()+filename).delete();
-							item.write(new File(avatarPath()+filename));
-							
-							self.user.setPicture("/uploads/avatars/"+filename);
-
-						//Writing a FileItem can apparently through any kind of exception (sloppy)
-						//so I don't know why this would get thrown here, just what throws it.
-						} catch (Exception e) {
-							throw new UserServletException("Failed to write uploaded file.",e);
-						}
+							if(!filetype.matches("(?i:.(gif|jpg|png))")) {
+								error += "<br/>Attached either a gif, jpg or png image";
+							}
+							else if(item.getSize() > 307200) {
+								error += "<br/>Used an image that is below 300kb in size";
+							}
+							else {
+								//Write the file to the img/avatars directory and set the person's weblink
+								System.out.println("Writing to: "+avatarPath()+filename);
+								new File(avatarPath()+filename).delete();
+								item.write(new File(avatarPath()+filename));
+																
+								
+								self.user.setPicture("/uploads/avatars/"+filename);
+							}
+							//Writing a FileItem can apparently through any kind of exception (sloppy)
+							//so I don't know why this would get thrown here, just what throws it.
+							} catch (Exception e) {
+								throw new UserServletException("Failed to write uploaded file.",e);
+							}
 						
 					//This means its an empty file item and we can safely ignore it
-					} else {
-						/*if(self.user.getPicture() != null && !self.user.getPicture().isEmpty()) {
-							
-							new File(avatarPath()+self.user.getPicture().split("/")[2]).delete();
-							
-							self.user.setPicture("");
-						}*/
-					}
+					} else { }
 					
 				}
 				

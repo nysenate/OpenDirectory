@@ -30,11 +30,6 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 			<div id="edit_error" style="font-size:85%; width:60%; display:none;"><%= error!=null ? "It looks like there may be a problem with one of your contact<br/>fields.  Please check to make sure you:<br/>" + error:"" %></div>
 			
 			<div id="main">
-				<div id="tabs" style="align:left;">
-					<div id="profile_tab"><a href="<%= urls.url("user","edit","profile")%>">Profile</a></div>
-					<div id="profile_tab" style="border-bottom:1px solid white;border-left:0px;"><a href="<%= urls.url("user","edit","settings")%>">Settings</a></div>
-				</div>	
-				<br/>
 					<div class="ratio_left" id="main_left">
 						<div class="image">
 							<% if(user.getPicture()!=null && !user.getPicture().isEmpty()) { %>
@@ -77,6 +72,13 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 							<% } %>
 						</div>
 						<div id="edit_container">
+							<div style="text-align:center;font-size:80%;">
+								<a href="<%= urls.url("user","edit","profile")%>">Profile</a><div class="sep">|</div>
+								Settings
+							</div>
+							
+							
+							
 							<form action="" method="POST">
 								<div id="edit_form_field">
 									<p>Contact Information</p>

@@ -16,14 +16,14 @@
 							String nospace = department.replaceAll("[ ,\\._'&/]","");
 							%>
 							  <span id="button_<%=nospace%>" class="entity_button"></span><span class="entity_title"><%=department%></span> 
-							<div id="<%=department%>" class="entity_list"> 
-								<ul id="list_<%=nospace%>" class="people">
-									<% int count = 1;
-									   for(Person p : depts.get(department)) { %>
-										<li class="<%=((count++%2==0) ? "even" : "odd" )%>"> <a href="<%=urls.url("person",p.getUid(),"profile")%>" class="people_url"><%=p.getFullName()%></a></li>
-									<% } %>
-								</ul>
-							</div>
+								<div id="<%=department%>" class="entity_list"> 
+									<ul id="list_<%=nospace%>" class="people">
+										<% int count = 1;
+										   for(Person p : depts.get(department)) { %>
+											<li class="<%=((count++%2==0) ? "even" : "odd" )%>"> <a href="<%=urls.url("person",p.getUid(),"profile")%>" class="people_url"><%=p.getFullName()%></a></li>
+										<% } %>
+									</ul>
+								</div>
 							<br/> <%
 						}
 					}
@@ -32,29 +32,26 @@
 						
 						%>
 						  <span id="button_<%=orgRep%>" class="entity_button"></span><span class="entity_title"><%=org+" ( "+depts.size()+" depts )"%></span> 
-						<div id="<%=orgRep%>" class="entity_list" style="position:relative;top:10px;"> 
-							<ul id="list_<%=orgRep %>" class="people">
-								<% for(String department:new TreeSet<String>(depts.keySet())) { 
-									String departmentRep = department.replaceAll("[ ,\\._'&/]","")+"_"+orgRep;
-									
-									%>
-									  <span id="button_<%=departmentRep%>" class="entity_button"></span><span class="entity_title"><%=department%></span> 
-									<div id="<%=departmentRep%>" class="entity_list"> 
-										<ul id="list_<%=departmentRep %>" class="people">
-											<% 
-												int count = 1;
-												for(Person p : depts.get(department)) { %>
-													<li class="<%=((count++%2==0) ? "even" : "odd" )%>"> <a href="<%=urls.url("person",p.getUid(),"profile")%>" class="people_url"><%=p.getFullName()%></a></li>
-											<% } %>
-										</ul>
-									</div>
-									<br/> <%
-								
-									
-									
-								 } %>
-							</ul>
-						</div>
+							<div id="<%=orgRep%>" class="entity_list" style="position:relative;top:10px;"> 
+								<ul id="list_<%=orgRep %>" class="people">
+									<% for(String department:new TreeSet<String>(depts.keySet())) { 
+										String departmentRep = department.replaceAll("[ ,\\._'&/]","");
+										
+										%>										
+										  <span id="button_<%=departmentRep%>" class="entity_button"></span><span class="entity_title"><%=department%></span> 
+											<div id="<%=departmentRep%>" class="entity_list"> 											
+												<ul id="list_<%=departmentRep %>" class="people">
+													<% 
+														int count = 1;
+														for(Person p : depts.get(department)) { %>
+															<li class="<%=((count++%2==0) ? "even" : "odd" )%>"> <a href="<%=urls.url("person",p.getUid(),"profile")%>" class="people_url"><%=p.getFullName()%></a></li>
+													<% } %>
+												</ul>
+											</div>
+										<br/> <%
+									 } %>
+								</ul>
+							</div>
 						<br/> <%
 					}
 			} %>

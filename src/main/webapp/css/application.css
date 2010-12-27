@@ -493,3 +493,76 @@ body {
 	font-family: Helvetica, Arial, sans-serif;
 	
 }
+
+h2.homeText
+{
+	background:none;
+	 margin-top:8px;	
+  margin-bottom:4px;
+  font-size: 1.0em;
+  line-height: 1.2em;
+  font-weight:normal;
+  /*color:#005588;*/
+	
+	}
+	
+	.quickresult
+{
+width:304px;
+z-index:10;
+border-left:solid 1px #dedede;
+border-right:solid 1px #dedede;
+background:#fff;
+color:#777;
+line-height:14px;
+font-size:10pt;
+overflow:hidden;
+visibility:hidden;
+}
+
+#quickresult-body
+{
+position:absolute;
+top:122px;
+left:170px;
+}
+
+#quickresult-header
+{
+	text-align:left;
+position:absolute;
+top:121px;
+left:893px;
+}
+
+.quickresult ul, .quickresult li
+{
+list-style-type:none;
+margin:0px;
+border-bottom:1px solid #ccc;
+border-top:1px solid #ccc;
+
+}
+
+.quickresult_box
+{
+margin-top:0px;
+padding:4px; 
+font-size:12px; 
+}
+.quickresult_box:hover
+{
+background:#FFFFCC;
+color:#FFFFFF;
+}
+
+a.sublink, a.sublink:visited, a.sublink:link
+{
+	text-decoration:none;	
+	color:#005577;
+}
+
+a.sublink:hover
+{
+	text-decoration: underline;	
+}
