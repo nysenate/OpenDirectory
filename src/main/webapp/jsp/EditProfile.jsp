@@ -24,12 +24,12 @@
 
 
 %><jsp:include page="header.jsp" />
-			<% if(message!=null) { %>
+			<% if(message!=null && error == null) { %>
 				<div id="edit_button">
 					<b><%=message%></b>
 				</div>
 			<% } %>
-			<div id="edit_error" style="font-size:85%; width:60%; display:none;"><%= error!=null ? "It looks like there may be a problem with one of your contact<br/>fields.  Please check to make sure you:<br/>" + error:"" %></div>
+			<div id="edit_error" style="font-size:85%; width:60%; display:<%=error!= null ? "inherit" : "none" %>;"><%= error!=null ? "It looks like there may be a problem with one of your contact<br/>fields.  Please check to make sure you:<br/>" + error:"" %></div>
 			
 			<div id="main">
 				<form action="" ENCTYPE='multipart/form-data' method="POST">
@@ -77,7 +77,7 @@
 							<% } %>
 						</div>
 						<div id="edit_container">
-							<div style="text-align:center;font-size:80%;">
+							<div style="text-align:center;font-size:95%;">
 								Profile<div class="sep">|</div>
 								<a href="<%= urls.url("user","edit","settings")%>">Settings</a>
 							</div>

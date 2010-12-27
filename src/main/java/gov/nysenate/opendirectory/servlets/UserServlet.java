@@ -245,7 +245,7 @@ public class UserServlet extends BaseServlet {
 						self.user.setInterests(SerialUtils.loadStringSet(self.user.cleanTags((String)value)));
 					}
 					else if(value.matches("\\s*") ) {
-						self.user.loadField(key, value, self.solrSession);
+						self.user.loadField(key, "", self.solrSession);
 					}
 					else {
 						if(key.equals("phone2")) {
@@ -322,7 +322,7 @@ public class UserServlet extends BaseServlet {
 							String filetype = item.getName().substring(item.getName().lastIndexOf('.'));
 							String filename = self.user.getUid()+filetype;
 							
-							if(!filetype.matches("(?i:.(gif|jpg|png))")) {
+							if(!filetype.toLowerCase().matches("\\.(gif|jpg|png|jpeg)")) {
 								error += "<br/>Attached either a gif, jpg or png image";
 							}
 							else if(item.getSize() > 307200) {
@@ -331,7 +331,9 @@ public class UserServlet extends BaseServlet {
 							else {
 								//Write the file to the img/avatars directory and set the person's weblink
 								System.out.println("Writing to: "+avatarPath()+filename);
-								new File(avatarPath()+filename).delete();
+								if(self.user.getPicture() != null && !self.user.getPicture().equals("")) {
+									new File(avatarPath()+self.user.getPicture().split("/")[2]).delete();
+								}
 								item.write(new File(avatarPath()+filename));
 																
 								
@@ -339,9 +341,10 @@ public class UserServlet extends BaseServlet {
 							}
 							//Writing a FileItem can apparently through any kind of exception (sloppy)
 							//so I don't know why this would get thrown here, just what throws it.
-							} catch (Exception e) {
-								throw new UserServletException("Failed to write uploaded file.",e);
-							}
+						} catch (Exception e) {
+							error += "<br/>Used a jpg, gif or png image below 300kb in size";
+							throw new UserServletException("Failed to write uploaded file.",e);
+						}
 						
 					//This means its an empty file item and we can safely ignore it
 					} else { }
@@ -375,7 +378,7 @@ public class UserServlet extends BaseServlet {
 				self.user.setPicture("");
 				
 				self.solrSession.savePerson(self.user);
-	    		self.render("EditProfile.jsp");
+				self.redirect(urls.url("user","edit"));
 			}
 		} catch (SolrServerException e) {
 			throw new UserServletException("Failure to save modified person state after edit", e);

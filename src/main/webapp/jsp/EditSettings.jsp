@@ -72,7 +72,7 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 							<% } %>
 						</div>
 						<div id="edit_container">
-							<div style="text-align:center;font-size:80%;">
+							<div style="text-align:center;font-size:95%;">
 								<a href="<%= urls.url("user","edit","profile")%>">Profile</a><div class="sep">|</div>
 								Settings
 							</div>
