@@ -8,8 +8,7 @@
 				<center>
 					<div style="margin-right:418px;margin-top:10px;"><img src="<%=urls.url("img","Open-Directory.png") %>"></img></div>
 					<div style="text-align:left;width:500px;"> 
-						<h2 class="homeText">Browse and search for people who have the skills you need and<br/>
-											the interests you share in the New York State Senate.</h2>
+						<h2 class="homeText">Browse and search for people who have the skills you need and the interests you share in the New York State Senate.</h2>
 					</div>
 					<div style="text-align:left;width:500px;margin-top:20px;margin-bottom:20px;"> 
 						<form action="<%=urls.url("search")%>" method="GET">
