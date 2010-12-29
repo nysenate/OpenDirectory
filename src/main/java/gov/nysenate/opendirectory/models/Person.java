@@ -520,6 +520,7 @@ public class Person implements Comparable<Person> {
 			XmlUtils.appendLeaf(xml,person,"linkedin",getLinkedin());
 			XmlUtils.appendLeaf(xml,person,"state",getState());
 			XmlUtils.appendLeaf(xml,person,"bio",getBio());
+			XmlUtils.appendLeaf(xml,person,"picture",getPicture());
 			
 			Element skills = xml.createElement("skills");
 			for(String skill : getSkills())
