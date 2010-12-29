@@ -143,6 +143,7 @@ body {
 
 /* Quick Results */
 .quickresult {
+  position: fixed !important;
   width:304px;
   z-index:10;
   border-left:solid 1px #dedede;
@@ -153,7 +154,16 @@ body {
   font-size:10pt;
   overflow:hidden;
   visibility:hidden;
+  z-index: 7 !important;
 }
+
+.splash_new {
+  text-align: center;
+  margin: 0 auto;
+  position: fixed !important;
+  z-index: 4;
+}
+
 #quickresult-body {
   /*
   position:absolute;

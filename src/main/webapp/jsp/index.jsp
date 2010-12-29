@@ -12,6 +12,7 @@
 						<input type="submit" value ="Search" id="search_button"></input>
 					</form>
 					<div class="quickresult" id="quickresult-body" style="z-index:1;"></div>
+					<div class="splash_new"><h2 class="homeText">Questions about Open Directory? See our <a href="/faq">FAQ</a></h2></div>
 				</div>
 			</div>
 
