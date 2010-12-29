@@ -45,7 +45,7 @@
 					<input type="submit" value = "Search" id="nav_search_button"></input>
 				</form>
 				<div class="quickresult" id="quickresult-header"></div> 
-				Browse by:
+				Browse:
 				<ul>
 					<li><a href="<%=urls.url("browse","lastname")%>" class="nav">Last name</a><div class="sep">|</div></li>
 					<li><a href="<%=urls.url("browse","firstname")%>" class="nav">First name</a><div class="sep">|</div></li>
@@ -53,7 +53,8 @@
 					<% if(user != null) { %>
 						<li><a href="<%=urls.url("browse","location")%>" class="nav">Location</a><div class="sep">|</div></li>
 					<% } %>
-					<li><a href="<%=urls.url("about")%>" class="nav">About</a></li>
+					<li><a href="<%=urls.url("about")%>" class="nav">About</a><div class="sep">|</div></li>
+					<li><a href="<%=urls.url("faq")%>" class="nav">FAQ</a><%=user!=null ? "<div class=\"sep\">|</div>" : "" %></li>
 				</ul>
 			</div>
 			<div class="notice">

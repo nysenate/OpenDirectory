@@ -10,17 +10,17 @@ public class SerialUtils {
 	
 	public static void main(String[] args) {
 		
-		String stringset = "javascript, python, soccer";
+		String stringset = "javascript-python-soccer";
 		
 		//Test the string set loader
-		System.out.println(loadStringSet(stringset).toString());
+		System.out.println(loadStringSet(stringset, "-").toString());
 		
 	}
 	
-	public static TreeSet<String> loadStringSet(String str) {
+	public static TreeSet<String> loadStringSet(String str, String delim) {
 		if(str==null || str.isEmpty())
 			return new TreeSet<String>();
-		return new TreeSet<String>(Arrays.asList(str.split(", ")));
+		return new TreeSet<String>(Arrays.asList(str.split(delim)));
 	}
 	
 	public static TreeSet<Person> loadBookmarks(String str,Person person, SolrSession session) {
@@ -43,15 +43,15 @@ public class SerialUtils {
 		return new TreeSet<Person>(session.loadPeopleByQuery(query));
 	}
 	
-	public static String writeStringSet(TreeSet<String> set) {
+	public static String writeStringSet(TreeSet<String> set, String delim) {
 		if(set == null || set.isEmpty() )
 			return "";
 		
 		String str = "";
 		for(String s : set)
-			str += s+", ";
+			str += s+delim;
 		
-		return str.substring(0,str.length()-2);
+		return str.substring(0,str.length()-delim.length());
 	}
 	
 	public static String writeBookmarks(TreeSet<Person> marks) {

@@ -43,10 +43,16 @@ public class SolrControllerServlet extends BaseServlet {
 		    		out.println("Removed all documents");
 		    	} else if (command.equals("reindexAll")) {
 		    		reindexAll(self);
-		    		out.println("Removed and Reindexed All documents");
-		    	} else {
+		    		out.println("Reindexed all ldap values");
+		    	} 
+		    	else if (command.equals("resetPermissions")){
+		    		resetPermissions(self);
+		    		out.println("Reset all permissions");
+
+		    	}
+		    	else {
 		    		out.println("Unknown command: "+command);
-		    		out.println("Recognized Commands are: removeAll,indexAll, and reindexAll");
+		    		out.println("Recognized Commands are: removeAll,reindexAll, and resetPermissions");
 		    	}
 		    } else {
 		    	out.println("Available commands are: ");
@@ -60,6 +66,19 @@ public class SolrControllerServlet extends BaseServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void resetPermissions(Request self) throws NamingException, SolrServerException, IOException {
+		Collection<Person> people = self.solrSession.loadPeople();
+		ArrayList<Person> toAdd = new ArrayList<Person>();
+		for(Person ldapPerson: people) {
+			
+			ldapPerson.setPermissions(Person.getDefaultPermissions());
+			ldapPerson.setCredentials(null);
+			toAdd.add(ldapPerson);
+			
+		}
+		self.solrSession.savePeople(toAdd);
 	}
 	
 	private void reindexAll(Request self) throws NamingException, SolrServerException, IOException {
@@ -118,6 +137,14 @@ public class SolrControllerServlet extends BaseServlet {
 			department = department.replaceAll("TF", "Task Force");
 			
 			department = department.replaceAll("^Senator","Senators/Senator");
+			
+			if(department.equals("Senate Technology Services")) {
+				department = "Senate Technology Services/STS General";
+			}
+			
+			if(department.contains("Senatorial District")) {
+				department = "Senators/" + department;
+			}
 			
 			if(department.equals("NYS Black  PR  Hisp & Asian Leg Cau")) {
 				department = "NYS Black, Puerto Rican, Hispanic & Legislative Caucus";

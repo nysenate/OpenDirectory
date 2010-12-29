@@ -31,7 +31,7 @@
 						String orgRep = org.replaceAll("[ ,\\._'&]","-");
 						
 						%>
-						  <span id="button_<%=orgRep%>" class="entity_button"></span><span class="entity_title"><%=org+" ( "+depts.size()+" depts )"%></span> 
+						  <span id="button_<%=orgRep%>" class="entity_button"></span><span class="entity_title"><%=org+" ( "+depts.size()+" units )"%></span> 
 							<div id="<%=orgRep%>" class="entity_list" style="position:relative;top:10px;"> 
 								<ul id="list_<%=orgRep %>" class="people">
 									<% for(String department:new TreeSet<String>(depts.keySet())) { 
@@ -49,7 +49,7 @@
 												</ul>
 											</div>
 										<br/> <%
-									 } %>
+									 }	%>
 								</ul>
 							</div>
 						<br/> <%

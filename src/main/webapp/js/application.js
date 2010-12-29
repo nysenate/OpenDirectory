@@ -37,6 +37,14 @@ function doCheck(str, regex, message) {
 }
 
 $(document).ready( function() {
+	$('#search_secondary').hide();
+	
+	$('#show_search_secondary').click(function() {
+		$('#search_secondary').slideToggle(250, function() {
+			$('#show_search_secondary').html("<h2>Click here to " + ($('#search_secondary').is(":visible") ? "hide":"show") + " partial matches</h2>")
+
+		});
+	});
 	
 	var delay = (function(){
 		var timer = 0;

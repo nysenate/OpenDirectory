@@ -28,7 +28,7 @@ public class SecureLoader {
 		//Load up the person in a basic way
 		Person person = new Person(
 				(String)profile.getFieldValue("uid"),
-				SerialUtils.loadStringSet((String)profile.getFieldValue("credentials"))
+				SerialUtils.loadStringSet((String)profile.getFieldValue("credentials"),", ")
 			);
 		
 		//Any further queries required should be executed as under this person.
@@ -42,9 +42,10 @@ public class SecureLoader {
 			if(field.endsWith("_access")) {
 				permissions.put(
 						field.substring(0, field.length()-7),
-						SerialUtils.loadStringSet((String)profile.getFieldValue(field))
+						SerialUtils.loadStringSet((String)profile.getFieldValue(field),", ")
 					);
 				continue;
+				
 			}
 				
 			if( field.equals("uid") || field.equals("credentials") ||		 //We already have these, otherwise
@@ -82,7 +83,7 @@ public class SecureLoader {
         TreeSet<String> user_credentials = user.getCredentials();
         
         //Break the permissions up and check for matches
-		for(String temp : SerialUtils.loadStringSet(permissions))
+		for(String temp : SerialUtils.loadStringSet(permissions,", "))
 			if(user_credentials.contains(temp) == true)
     			return true;
 		

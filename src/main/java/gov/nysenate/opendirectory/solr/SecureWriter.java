@@ -43,7 +43,7 @@ public class SecureWriter {
 		
 		//Secure Account Information
 		writeSecureField(doc,"bookmarks",SerialUtils.writeBookmarks(person.getBookmarks()),permissions,1.0f);
-		writeSecureField(doc,"user_credential", SerialUtils.writeStringSet(person.getCredentials()),permissions,1.0f);
+		writeSecureField(doc,"user_credential", SerialUtils.writeStringSet(person.getCredentials(),", "),permissions,1.0f);
 		
 		//Secure User Information
 		writeSecureField(doc,"phone2",person.getPhone2(),permissions, 1.0f);
@@ -55,8 +55,8 @@ public class SecureWriter {
 		writeSecureField(doc,"facebook",person.getFacebook(),permissions, 1.0f);
 		writeSecureField(doc,"linkedin",person.getLinkedin(),permissions, 1.0f);
 		writeSecureField(doc,"irc",person.getIrc(),permissions, 1.0f);
-		writeSecureField(doc,"skills",SerialUtils.writeStringSet(person.getSkills()),permissions, 1.0f);
-		writeSecureField(doc,"interests",SerialUtils.writeStringSet(person.getInterests()),permissions, 1.0f);
+		writeSecureField(doc,"skills",SerialUtils.writeStringSet(person.getSkills(),", "),permissions, 1.0f);
+		writeSecureField(doc,"interests",SerialUtils.writeStringSet(person.getInterests(),", "),permissions, 1.0f);
 
 		//I think state is probably useless
 		//writeSecureField(doc,"state", person.getState(),permissions, 1.0f);
@@ -71,10 +71,10 @@ public class SecureWriter {
 		
 		//Always add the admin permissions to everything
 		TreeSet<String> field_permissions = permissions.get(name);
-		field_permissions.add("admin");
+//		field_permissions.add("admin");
 		
 		//Add a permissions field for it with no impact on search ranking
 		//(I'm not actually sure that's what boost does, we should look it up.
-		doc.addField(name+"_access", SerialUtils.writeStringSet(field_permissions), 0f);
+		doc.addField(name+"_access", SerialUtils.writeStringSet(field_permissions,", "), 0f);
 	}
 }

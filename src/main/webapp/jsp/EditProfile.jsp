@@ -77,7 +77,7 @@
 							<% } %>
 						</div>
 						<div id="edit_container">
-							<div style="text-align:center;font-size:95%;">
+							<div style="text-align:center;text-decoration:bold;">
 								Profile<div class="sep">|</div>
 								<a href="<%= urls.url("user","edit","settings")%>">Settings</a>
 							</div>
@@ -106,7 +106,7 @@
 											<input type="text" value="<%=linkedin%>" name="linkedin"></input>
 										</li>
 										<li>
-											<label id="edit_input"><b>Faceook</b></label>
+											<label id="edit_input"><b>Facebook</b></label>
 											<input type="text" value="<%=facebook%>" name="facebook"></input>
 										</li>
 										<li>

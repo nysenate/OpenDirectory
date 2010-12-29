@@ -32,7 +32,7 @@
 					</div>
 					<div class="contact">
 						<%if(person.getLocation()!=null && !person.getLocation().isEmpty()) {%>
-							  <p id="senate_location"><a href="<%=urls.url("search","?query=location:("+person.getLocation()+")") %>"><%=person.getLocation() %></a></p>
+							  <p id="senate_location"><a href="<%=urls.url("search","?query=location:("+person.getLocation().replaceAll(" ","+")+")") %>"><%=person.getLocation() %></a></p>
 						<%} %>
 						<%if(person.getPhone()!=null && !person.getPhone().isEmpty()) { %>
 							<p id="senate_phone"><%= person.getPhone()%></p>
@@ -108,10 +108,10 @@
 							<h3 id="name"><%=person.getFullName() %></h3>
 							<% } else { %> <br/> <% } %>
 							<% if(person.getTitle() != null && !person.getTitle().isEmpty()) { %>
-								<h3 id="title"><a href="<%=urls.url("search","?query=title:("+person.getTitle()+")") %>"><%=person.getTitle() %></a></h3>
+								<h3 id="title"><a href="<%=urls.url("search","?query=title:("+person.getTitle().replaceAll(" ","+")+")") %>"><%=person.getTitle() %></a></h3>
 							<% } else { %> <br/> <% } %>
 							<% if(person.getDepartment() != null && !person.getDepartment().isEmpty()) { %>
-								<h3 id="office"><a href="<%=urls.url("search","?query=department:("+person.getDepartment()+")") %>"><%=person.getDepartment() %></a></h3>
+								<h3 id="office"><a href="<%=urls.url("search","?query=department:("+person.getDepartment().replaceAll(" ","+")+")") %>"><%=person.getDepartment() %></a></h3>
 							<% } else { %> <br/><br/> <% } %>
 					</div>
 					<div id="bio">

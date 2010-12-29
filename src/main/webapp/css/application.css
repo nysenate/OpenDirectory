@@ -4,6 +4,10 @@ pre { font-family:inherit; }
 
 .clear { clear:both; }
 
+a:visited {
+	color:blue;
+	}
+
 #edit_button {
 	text-align:center;
 	padding:30px 0px 15px 0px;
@@ -19,6 +23,7 @@ pre { font-family:inherit; }
 		border-color: rgba(42, 88, 133, 0.7);
 	}
 	#edit_link:hover { text-decoration:underline; }
+	#edit_link:visited { color:#E0CC53; }
 	
 .social-icon {
 	width:16px;
@@ -80,6 +85,9 @@ body {
 			font-weight:bold;
 			text-decoration:none;
 
+		}
+		#user_box a:visited {
+			color:#E0CC53;
 		}
 		
 		#user_box li {
@@ -572,4 +580,14 @@ a.sublink, a.sublink:visited, a.sublink:link
 a.sublink:hover
 {
 	text-decoration: underline;	
+}
+
+#show_search_secondary {
+	cursor:pointer;
+}
+
+.faq_entry {
+	line-height:85%;
+	margin-top:10px;
+	margin-left:-70px;
 }

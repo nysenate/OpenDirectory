@@ -802,9 +802,13 @@ standard deployment descriptor.
     <servlet-name>SearchServlet</servlet-name>
     <servlet-class>gov.nysenate.opendirectory.servlets.SearchServlet</servlet-class>
   </servlet>
-   <servlet>
+  <servlet>
     <servlet-name>AboutServlet</servlet-name>
     <servlet-class>gov.nysenate.opendirectory.servlets.AboutServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>FaqServlet</servlet-name>
+    <servlet-class>gov.nysenate.opendirectory.servlets.FaqServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>BrowseServlet</servlet-name>
@@ -866,4 +870,16 @@ standard deployment descriptor.
     <servlet-name>AboutServlet</servlet-name>
     <url-pattern>/about/*</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FaqServlet</servlet-name>
+    <url-pattern>/faq/*</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <filter-name>ServiceFilter</filter-name>
+    <filter-class>gov.nysenate.opendirectory.filters.ServiceFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ServiceFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>

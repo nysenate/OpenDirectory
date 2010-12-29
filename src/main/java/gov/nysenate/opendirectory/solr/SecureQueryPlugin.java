@@ -25,6 +25,33 @@ public class SecureQueryPlugin extends LuceneQParserPlugin {
 	public QParser createParser(String qstr, SolrParams localParams, SolrParams params, SolrQueryRequest req) {
 		return new SecureQueryParser(qstr, localParams, params, req); 
 	}
+	
+	public static void main(String[] args) {
+		secureQuery("{secure credential=\"public\"}department:(Office Of Chief Information Officer)","public");
+	}
+	
+	public static String secureQuery(String query,String credential) {
+		String aon = "(?i:and|or|not)";
+		
+		String newQuery = "";
+		TreeSet<String> basics = new TreeSet<String>(Arrays.asList("uid","otype","firstName","lastName","fullName"));
+		Pattern p = Pattern.compile("(.*?)(\\w+):(\\(.+?\\)|\\[.+?\\]|.+?)([\\*~])?(\\s" + aon + "|" + aon + "\\s|\\s" + aon + "\\s|$)");
+//		Pattern p = Pattern.compile("(.*?)(\\w+):(((?:\\(.+?\\))|(?:\\[.+?\\])|\\w+|(?:\"[\\w ]+\"))(\\*|~)?)([\\) ]*)?");
+		Matcher m = p.matcher(query);
+		if(m.find()) {
+			do {
+				String quant = (m.group(4) != null && !m.group(4).equals("") ? m.group(4) : "");
+				if(basics.contains(m.group(2)))
+					newQuery += (newQuery.equals("")?"":m.group(1))+m.group(2)+":"+m.group(3) + quant;
+				else
+					newQuery += (newQuery.equals("")?"":m.group(1))+"("+m.group(2)+":"+m.group(3) + quant +" AND "+m.group(2)+"_access:("+credential+"))"+m.group(5);
+			} while(m.find());
+		} else
+			newQuery = query;
+		
+		System.out.println("Transformed Query: "+newQuery);
+		return newQuery;
+	}
 } 
 
 class SecureQueryParser extends QParser {
@@ -38,16 +65,20 @@ class SecureQueryParser extends QParser {
 	}
 
 	public static String secureQuery(String query,String credential) {
+		String aon = "(?i:and|or|not)";
+		
 		String newQuery = "";
 		TreeSet<String> basics = new TreeSet<String>(Arrays.asList("uid","otype","firstName","lastName","fullName"));
-		Pattern p = Pattern.compile("(.*?)(\\w+):(((?:\\(.+?\\))|(?:\\[.+?\\])|\\w+|(?:\"[\\w ]+\"))(\\*|~)?)([\\) ]*)?");
+		Pattern p = Pattern.compile("(.*?)(\\w+):(\\(.+?\\)|\\[.+?\\]|.+?)([\\*~])?(\\s" + aon + "|" + aon + "\\s|\\s" + aon + "\\s|$)");
+//		Pattern p = Pattern.compile("(.*?)(\\w+):(((?:\\(.+?\\))|(?:\\[.+?\\])|\\w+|(?:\"[\\w ]+\"))(\\*|~)?)([\\) ]*)?");
 		Matcher m = p.matcher(query);
 		if(m.find()) {
 			do {
+				String quant = (m.group(4) != null && !m.group(4).equals("") ? m.group(4) : "");
 				if(basics.contains(m.group(2)))
-					newQuery += m.group(1)+m.group(2)+":"+m.group(3);
+					newQuery += (newQuery.equals("")?"":m.group(1))+m.group(2)+":"+m.group(3) + quant;
 				else
-					newQuery += m.group(1)+"("+m.group(2)+":"+m.group(3)+" AND "+m.group(2)+"_access:("+credential+") )"+m.group(4);
+					newQuery += (newQuery.equals("")?"":m.group(1))+"("+m.group(2)+":"+m.group(3) + quant +" AND "+m.group(2)+"_access:("+credential+"))"+m.group(5);
 			} while(m.find());
 		} else
 			newQuery = query;

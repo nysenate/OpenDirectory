@@ -39,6 +39,7 @@ public class Solr {
 			}
 			*/
 			server = (SolrServer)new CommonsHttpSolrServer("http://localhost:8080/solr/");
+			
 			return this;
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -58,6 +59,10 @@ public class Solr {
 		try {
 			query.setQuery(term);
 			query.setRows(results);
+			
+			query.setFields("*","score");
+			
+			System.out.println(query.getQuery());
 			return server.query(query);
 			
 		} catch (SolrServerException e) {

@@ -6,9 +6,11 @@ import gov.nysenate.opendirectory.utils.SerialUtils;
 import gov.nysenate.opendirectory.utils.XmlUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,6 +35,39 @@ public class Person implements Comparable<Person> {
 	 * see the if statements regarding the fields "permission" and "bookmarks"
 	 */
 	
+	List<String> PERMISSIONS_SCALE = Arrays.asList("public","senate","private","admin");
+	
+	public String getPermissions(String level) {
+		int index = PERMISSIONS_SCALE.indexOf(level);
+		
+		if(index < 0)
+			return "";
+		else if(index == PERMISSIONS_SCALE.size()-1)
+			return "admin";
+		
+		String ret = "";
+		for(int i = index; i < PERMISSIONS_SCALE.size(); i++) {
+			ret += ", " + PERMISSIONS_SCALE.get(i);
+		}
+		return ret.replaceFirst(", ", "");
+	}
+	
+	public String getLowestPermission(TreeSet<String> creds) {
+		if(creds == null) {
+			return "public";
+		}
+		
+		int index = PERMISSIONS_SCALE.size()-1;
+		for(String s:creds) {
+			int temp = PERMISSIONS_SCALE.indexOf(s);
+			if(temp < index && temp != -1) {
+				index = temp;
+			}
+		}
+		
+		return PERMISSIONS_SCALE.get(index);
+	}
+		
 	private TreeSet<String> credentials;
 	private HashMap<String,TreeSet<String>> permissions;
 	private TreeSet<Person> bookmarks;
@@ -64,6 +99,8 @@ public class Person implements Comparable<Person> {
 	private String linkedin;
 	private String irc;
 	
+	private float score;
+	
 	public static void main(String[] args) throws SolrServerException, IOException {
 //		Person a = new Person();
 //		a.setUid("a");
@@ -81,7 +118,10 @@ public class Person implements Comparable<Person> {
 //		System.out.println(set.contains(x));
 //		set.remove(i);
 //		System.out.println(set);
-
+		Person p = new Person();
+//		System.out.println(p.getPermissions("private"));
+		TreeSet<String> set = new TreeSet<String>(Arrays.asList("public", "senate", "private", "admin"));
+		System.out.println(p.getLowestPermission(set));
 	}
 	
 	public Person() { setToDefaults(); }
@@ -119,6 +159,8 @@ public class Person implements Comparable<Person> {
 		//All people must have permissions and credentials
 		setPermissions(Person.getDefaultPermissions());
 		setCredentials(null); //Forces Defaults
+		
+		setScore(0);
 	}
 	public int compareTo(Person p) {
 		return getUid().compareTo(Person.class.cast(p).getUid());
@@ -202,6 +244,9 @@ public class Person implements Comparable<Person> {
 	public TreeSet<Person> getBookmarks() {
 		return bookmarks;
 	}
+	public float getScore() {
+		return score;
+	}
 	
 	public void addBookmark(Person person) {
 		if(!bookmarks.contains(person)) {
@@ -242,12 +287,23 @@ public class Person implements Comparable<Person> {
 		this.email = email;
 	}
 	public void setPermissions (HashMap<String, TreeSet<String>> permissions){
-		this.permissions = permissions;
+		HashMap<String,TreeSet<String>> perm = new HashMap<String,TreeSet<String>>();
+		for(String label:permissions.keySet()) {
+			TreeSet<String> creds = permissions.get(label);
+			if(creds.isEmpty()) {
+				perm.put(label, new TreeSet<String>(Arrays.asList("public")));
+			}
+			else {
+//				System.out.println(creds + ": " +getLowestPermission(creds));
+				perm.put(label, new TreeSet<String>(SerialUtils.loadStringSet(getPermissions(getLowestPermission(creds)),", ")));
+			}
+		}
+		this.permissions = perm;
 	}
 	public void setCredentials (TreeSet<String> credentials){
 		//There must always be a valid set of credentials for every single person
 		if (credentials == null || credentials.isEmpty() )
-			credentials = new TreeSet<String>(Arrays.asList("public", "senate"));
+			credentials = new TreeSet<String>(Arrays.asList("public, senate"));
 		this.credentials = credentials;
 	}
 	public void setBio(String bio){
@@ -288,6 +344,9 @@ public class Person implements Comparable<Person> {
 	}
 	public void setIrc(String IRC) {
 		this.irc = IRC;
+	}
+	public void setScore(float score) {
+		this.score = score;
 	}
 	
 	public String toString() {
@@ -387,7 +446,7 @@ public class Person implements Comparable<Person> {
 			admin = new Person();
 			admin.setFullName("Administrator");
 			admin.setPermissions(new HashMap<String,TreeSet<String>>());
-			admin.setCredentials(new TreeSet<String>(Arrays.asList("public","senate","admin")));	
+			admin.setCredentials(new TreeSet<String>(Arrays.asList("public","senate","private","admin")));	
 		}
 		return admin;
 	}
@@ -397,7 +456,9 @@ public class Person implements Comparable<Person> {
 			anon = new Person();
 			anon.setFullName("Anonymous User");
 			anon.setPermissions(new HashMap<String, TreeSet<String>>());
-			anon.setCredentials(new TreeSet<String>(Arrays.asList("public")));
+			//the 'public' and 'public,' setting is black magic.. for some reason
+			//some queries work only with the comma..
+			anon.setCredentials(new TreeSet<String>(Arrays.asList("public","public,")));
 		}
 		return anon;
 	}
@@ -433,6 +494,8 @@ public class Person implements Comparable<Person> {
 		permissions.put("irc", new TreeSet<String>(Arrays.asList("senate")));
 		permissions.put("skills", new TreeSet<String>(Arrays.asList("senate")));
 		permissions.put("interests", new TreeSet<String>(Arrays.asList("senate")));
+		
+		permissions.put("score", new TreeSet<String>(Arrays.asList("public")));
 		
 		return permissions;
 	}
@@ -496,7 +559,7 @@ public class Person implements Comparable<Person> {
 		else if(field.equals("fullName"))
 			setFullName((String)value);
 		else if(field.equals("interests"))
-			setInterests(SerialUtils.loadStringSet((String)value));
+			setInterests(SerialUtils.loadStringSet((String)value,", "));
 		else if(field.equals("irc"))
 			setIrc((String)value);
 		else if(field.equals("lastName"))
@@ -512,7 +575,7 @@ public class Person implements Comparable<Person> {
 		else if(field.equals("picture"))
 			setPicture((String)value);
 		else if(field.equals("skills"))
-			setSkills(SerialUtils.loadStringSet((String)value));
+			setSkills(SerialUtils.loadStringSet((String)value,", "));
 		else if(field.equals("state"))
 			setState((String)value);
 		else if(field.equals("title"))
@@ -522,7 +585,9 @@ public class Person implements Comparable<Person> {
 		else if(field.equals("uid"))
 			setUid((String)value);
 		else if(field.equals("user_credential"))
-			setCredentials(SerialUtils.loadStringSet((String)value));
+			setCredentials(SerialUtils.loadStringSet((String)value,", "));
+		else if(field.equals("score"))
+			setScore((Float)value);
 	}
 	
 	

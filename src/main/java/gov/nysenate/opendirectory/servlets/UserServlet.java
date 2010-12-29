@@ -172,7 +172,7 @@ public class UserServlet extends BaseServlet {
 	}
 	
 	public void doLogin(Request self) throws UserServletException, ServletException, IOException {
-		String cred = (String)self.httpRequest.getParameter("name");
+		String cred = ((String)self.httpRequest.getParameter("name")).toLowerCase();
 		String pass = (String)self.httpRequest.getParameter("password");
 		
 		//If they are already logged in, forward to their profile
@@ -238,11 +238,11 @@ public class UserServlet extends BaseServlet {
 					}
 					else if(key.equals("skills")) {
 						self.user.setUnprocessedSkills((String)value);
-						self.user.setSkills(SerialUtils.loadStringSet(self.user.cleanTags((String)value)));
+						self.user.setSkills(SerialUtils.loadStringSet(self.user.cleanTags((String)value),", "	));
 					}
 					else if(key.equals("interests")) {
 						self.user.setUnprocessedInterests((String)value);
-						self.user.setInterests(SerialUtils.loadStringSet(self.user.cleanTags((String)value)));
+						self.user.setInterests(SerialUtils.loadStringSet(self.user.cleanTags((String)value),", "));
 					}
 					else if(value.matches("\\s*") ) {
 						self.user.loadField(key, "", self.solrSession);

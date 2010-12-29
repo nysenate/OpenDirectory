@@ -11,11 +11,11 @@ public String writeRadio(String name, String type, boolean checked) {
 	return "<input type=\"radio\" name=\"radio_"+name+"\" value=\""+type+"\" "+(checked ? "checked" : "")+">"+type+"</input>";
 }
 
-public String writeRadios(String internal_name, TreeSet<String> defaults) {
+public String writeRadios(String internal_name, String cred) {
 	String html = "";
-	html += writeRadio(internal_name,"Public",defaults.contains("public"));
-	html += writeRadio(internal_name,"Senate",defaults.contains("senate"));
-	html += writeRadio(internal_name,"Private",defaults.contains("private"));
+	html += writeRadio(internal_name,"Public",cred.equals("public"));
+	html += writeRadio(internal_name,"Senate",cred.equals("senate"));
+	html += writeRadio(internal_name,"Private",cred.equals("private"));
 	return html;
 }
 
@@ -72,7 +72,7 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 							<% } %>
 						</div>
 						<div id="edit_container">
-							<div style="text-align:center;font-size:95%;">
+							<div style="text-align:center;text-decoration:bold;">
 								<a href="<%= urls.url("user","edit","profile")%>">Profile</a><div class="sep">|</div>
 								Settings
 							</div>
@@ -85,23 +85,23 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 									<ol>
 										<li>
 											<label id="edit_input"><b>E-mail</b>:</label>
-											<%= writeRadios("email",permissions.get("email")) %>
+											<%= writeRadios("email",user.getLowestPermission(permissions.get("email"))) %>
 										</li>
 										<li>
 											<label id="edit_input"><b>Phone</b>:</label>
-											<%= writeRadios("phone",permissions.get("phone")) %>
+											<%= writeRadios("phone",user.getLowestPermission(permissions.get("phone"))) %>
 										</li>
 										<li>
 											<label id="edit_input"><b>Department</b>:</label>
-											<%= writeRadios("department",permissions.get("department")) %>
+											<%= writeRadios("department",user.getLowestPermission(permissions.get("department"))) %>
 										</li>
 										<li>
 											<label id="edit_input"><b>Title</b>:</label>
-											<%= writeRadios("title",permissions.get("title")) %>
+											<%= writeRadios("title",user.getLowestPermission(permissions.get("title"))) %>
 										</li>
 										<li>
 											<label id="edit_input"><b>Location</b>:</label>
-											<%= writeRadios("location",permissions.get("location")) %>
+											<%= writeRadios("location",user.getLowestPermission(permissions.get("location"))) %>
 										</li>
 									</ol>
 									<br/>
@@ -109,43 +109,43 @@ public String writeRadios(String internal_name, TreeSet<String> defaults) {
 									<ol>
 										<li>
 											<label id="edit_input"><b>E-mail</b>:</label>
-											<%= writeRadios("email2",permissions.get("email2")) %>
+											<%= writeRadios("email2",user.getLowestPermission(permissions.get("email2"))) %>
 										</li>
 										<li>
 											<label id="edit_input"><b>Phone</b>:</label>
-											<%= writeRadios("phone2",permissions.get("phone2")) %>
+											<%= writeRadios("phone2",user.getLowestPermission(permissions.get("phone2"))) %>
 										</li>
 										<li>
 											<label id="edit_input"><b>IRC Alias</b>:</label>
-											<%= writeRadios("irc",permissions.get("irc")) %>
+											<%= writeRadios("irc",user.getLowestPermission(permissions.get("irc"))) %>
 										</li>
 										<li>
 											<label id="edit_input"><b>Linkedin</b>:</label>
-											<%= writeRadios("linkedin",permissions.get("linkedin")) %>
+											<%= writeRadios("linkedin",user.getLowestPermission(permissions.get("linkedin"))) %>
 										</li>
 										<li>
 											<label id="edit_input"><b>Facebook</b>:</label>
-											<%= writeRadios("facebook",permissions.get("facebook")) %>
+											<%= writeRadios("facebook",user.getLowestPermission(permissions.get("facebook"))) %>
 										</li>
 										<li>
 											<label id="edit_input"><b>Twitter</b>:</label>
-											<%= writeRadios("twitter",permissions.get("twitter")) %>
+											<%= writeRadios("twitter",user.getLowestPermission(permissions.get("twitter"))) %>
 										</li>
 									</ol>
 									<br/>
 									<p>General Information</p>
 									<ol>
 										<li>
-											<label id="edit_input"><b>Biography</b>:</label>
-											<%= writeRadios("bio",permissions.get("bio")) %>
+											<label id="edit_input"><b>About Me</b>:</label>
+											<%= writeRadios("bio",user.getLowestPermission(permissions.get("bio"))) %>
 										</li>
 										<li>
 											<label id="edit_input"><b>Skills</b>:</label>
-											<%= writeRadios("skills",permissions.get("skills")) %>
+											<%= writeRadios("skills",user.getLowestPermission(permissions.get("skills"))) %>
 										</li>
 										<li>
 											<label id="edit_input"><b>Interests</b>:</label>
-											<%= writeRadios("interests",permissions.get("interests")) %>
+											<%= writeRadios("interests",user.getLowestPermission(permissions.get("interests"))) %>
 										</li>
 									</ol>
 									<div id="submit_changes_Button" align="center">
