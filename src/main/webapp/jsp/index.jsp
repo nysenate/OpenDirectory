@@ -18,10 +18,10 @@
 				  <h2 class="homeUpdate">Recently Updated Profiles</h2>
 				  <center>
 				  <ul class="splashProfiles">
-				    <li><a href="person/richard/profile" title="Sam Richard"><img src="/opendirectory/img/people/richard.jpg" width="82.5" height="106.5" /></a></li>
-				    <li><a href="person/hoppin/profile" title="Andrew Hoppin"><img src="/opendirectory/img/people/hoppin.jpeg" width="82.5" height="106.5" /></a></li>
-				    <li><a href="person/williams/profile" title="Jared Williams"><img src="/opendirectory/img/people/williams.png" width="82.5" height="106.5" /></a></li>
-				    <li><a href="person/yee/profile" title="Ben Yee"><img src="/opendirectory/img/people/yee.jpeg" width="82.5" height="106.5" /></a></li>
+				    <li id="sp_1"><a href="" title=""><img src="" width="82.5" height="106.5" /></a></li>
+				    <li id="sp_2"><a href="" title=""><img src="" width="82.5" height="106.5" /></a></li>
+				    <li id="sp_3"><a href=" title=""><img src="" width="82.5" height="106.5" /></a></li>
+				    <li id="sp_4"><a href="" title=""><img src="" width="82.5" height="106.5" /></a></li>
 				  </ul>
 				  </center>
 				  </div>

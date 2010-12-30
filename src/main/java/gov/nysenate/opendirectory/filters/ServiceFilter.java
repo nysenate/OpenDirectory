@@ -7,6 +7,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ServiceFilter implements Filter {
@@ -23,12 +24,24 @@ public class ServiceFilter implements Filter {
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
-//		if(!request.getRemoteAddr().matches(IP_MATCH)) {
-//			((HttpServletResponse)response).sendRedirect("http://www.nysenate.gov");
-//		}
-//		else {
+		if(((HttpServletRequest)request).getSession().getAttribute("uid") == null) {
+			if(!request.getRemoteAddr().matches(IP_MATCH)) {
+				String uri = ((HttpServletRequest)request).getRequestURI();
+				
+				if(uri.contains("/external") || uri.matches("^/opendirectory/(css|img)/.+$") || uri.startsWith("http://www.nysenate.gov")) {
+					chain.doFilter(request, response);
+				}
+				else {
+					((HttpServletResponse)response).sendRedirect("http://www.nysenate.gov");
+				}
+			}
+			else {
+				chain.doFilter(request, response);
+			}
+		}
+		else {
 			chain.doFilter(request, response);
-//		}
+		}
 	}
 	
 	public void init(FilterConfig fConfig) throws ServletException {
