@@ -24,6 +24,7 @@
 			<div id="nav_bar">
 			</div>
 			<div id="main" style="margin-top:50px;">
+				<h2 style="margin-left:30px;">Access OpenDirectory from outside the Senate network</h2>
 				<div id="main_center">					
 					<% if(error_message != null) { %>
 						<div id="error">
