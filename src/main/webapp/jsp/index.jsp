@@ -13,13 +13,8 @@
 					</form>
 					<div class="quickresult" id="quickresult-body" style="z-index:1;"></div>
 				</div>
-<<<<<<< HEAD
 				<div class="splash_new"><h2 class="homeFAQ">Questions about Open Directory? See our <a href="faq/">FAQ</a></h2>
-				  <br />
-=======
-				<div class="splash_new"><h2 class="homeText">Questions about Open Directory? See our <a href="<%=urls.url("faq")%>">FAQ</a></h2>
-				 <!-- <br />
->>>>>>> 9594230af2746ed0e75b8effed56c3b1d851041e
+				 <!--
 				  <h2 class="homeUpdate">Recently Updated Profiles</h2>
 				  <center>
 				   <ul class="splashProfiles">
