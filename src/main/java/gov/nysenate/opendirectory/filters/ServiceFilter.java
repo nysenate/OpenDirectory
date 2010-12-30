@@ -23,12 +23,12 @@ public class ServiceFilter implements Filter {
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
-		if(!request.getRemoteAddr().matches(IP_MATCH)) {
-			((HttpServletResponse)response).sendRedirect("http://www.nysenate.gov");
-		}
-		else {
+//		if(!request.getRemoteAddr().matches(IP_MATCH)) {
+//			((HttpServletResponse)response).sendRedirect("http://www.nysenate.gov");
+//		}
+//		else {
 			chain.doFilter(request, response);
-		}
+//		}
 	}
 	
 	public void init(FilterConfig fConfig) throws ServletException {

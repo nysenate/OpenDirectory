@@ -34,29 +34,31 @@ public class PersonServlet extends BaseServlet {
 		    
 	    	Vector<String> args = urls.getArgs(request);
 	    	if(args.size()==0)
-	    		throw new PersonServletException("No command was supplied");
-	    	
-	    	String command = args.get(0);
-	    	if(command.equals("profile")) {
-		    	request.setAttribute("person", person);
-		    	request.setAttribute("title", person.getFirstName()+" "+person.getLastName()+" | NYSS Open Directory");
-		    	self.render("profile.jsp");
-		    	
-	    	} else if (command.equals("vcard")) {
-	    		response.setContentType("text/x-vcard;charset=UTF-8");
-	    		ServletOutputStream out = response.getOutputStream();
-	    		StringBuilder mResult = new StringBuilder();
-				mResult.append("BEGIN:VCARD\r\n");
-				mResult.append("VERSION:2.1");
-				mResult.append("\r\nN:").append(person.getLastName()).append(";").append(person.getFirstName()).append(";;;");
-				mResult.append("\r\nFN:").append(person.getFullName());
-				mResult.append("\r\nTEL;TYPE=WORK:").append(person.getPhone());
-				mResult.append("\r\nEMAIL;TYPE=PREF;TYPE=INTERNET:").append(person.getEmail());
-				mResult.append("\r\nEND:VCARD\r\n");
-				out.print(mResult.toString());
-				
-	    	} else
-	    		throw new PersonServletException("Invalid command `"+command+"` was supplied.");
+	    		self.redirect(urls.url("person",uid,"profile"));
+	    		//args.add("profile"); //throw new PersonServletException("No command was supplied");
+	    	else {
+	    		String command = args.get(0);
+		    	if(command.equals("profile")) {
+			    	request.setAttribute("person", person);
+			    	request.setAttribute("title", person.getFirstName()+" "+person.getLastName()+" | NYSS Open Directory");
+			    	self.render("profile.jsp");
+			    	
+		    	} else if (command.equals("vcard")) {
+		    		response.setContentType("text/x-vcard;charset=UTF-8");
+		    		ServletOutputStream out = response.getOutputStream();
+		    		StringBuilder mResult = new StringBuilder();
+					mResult.append("BEGIN:VCARD\r\n");
+					mResult.append("VERSION:2.1");
+					mResult.append("\r\nN:").append(person.getLastName()).append(";").append(person.getFirstName()).append(";;;");
+					mResult.append("\r\nFN:").append(person.getFullName());
+					mResult.append("\r\nTEL;TYPE=WORK:").append(person.getPhone());
+					mResult.append("\r\nEMAIL;TYPE=PREF;TYPE=INTERNET:").append(person.getEmail());
+					mResult.append("\r\nEND:VCARD\r\n");
+					out.print(mResult.toString());
+					
+		    	} else
+		    		throw new PersonServletException("Invalid command `"+command+"` was supplied.");
+	    	}
 	    	
 	    } catch (PersonServletException e) {
 	    	System.out.println(e.getMessage());

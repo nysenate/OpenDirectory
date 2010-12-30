@@ -36,6 +36,8 @@ function doCheck(str, regex, message) {
 	return "";
 }
 
+var getPerson, getPosterPeople;
+
 $(document).ready( function() {
 	$('#search_secondary').hide();
 	
@@ -45,6 +47,53 @@ $(document).ready( function() {
 
 		});
 	});
+	
+	getPerson = (function(uid) {
+		var query = "/opendirectory/api/1.0/person/uid/" + uid + ".xml";
+		var person = new Array();
+		$.get(query, function(data) {
+			var pl = $(data).find('person');
+			
+			person.name = $(pl).find('name');
+			person.department = $(pl).find('department').html();
+			person.title = $(pl).find('title').html();
+			person.picture = $(pl).find('picture').html();
+			person.uid = $(pl).find('uid').html();
+						
+			return person;
+		});
+		
+	});
+	
+	getPosterPeople = (function(amt) {
+		var uids = new Array("williams","yee","hoppin","zalewski");
+		
+		var people = new Array();
+		
+		if(amt > uids.length) {
+			amt = uids.length;
+		}
+		
+		while(people.length < amt) {
+			var name = uids[Math.floor(Math.random()*(uids.length))];
+			if(getUniquePerson(people,name)) {
+				people[people.length] = name;
+			}
+		}
+		
+		console.log(people);
+		
+		Math.floor(Math.random()*uids.length);
+	});
+	
+	var getUniquePerson = function(list,val) {
+		for(x in list) {
+			if(list[x] == val) {
+				return false;
+			}
+		}
+		return true;
+	};
 	
 	var delay = (function(){
 		var timer = 0;
@@ -160,4 +209,6 @@ $(document).ready( function() {
 			return false;
 		}
 	).click();
+	
+	
 });
