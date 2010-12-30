@@ -141,6 +141,40 @@ body {
   margin: 0 auto;
 }
 
+.splash_new {
+  text-align: center;
+  margin: 0 auto !important;
+  position: relative !important;
+  z-index: 4;
+  width: 500px;
+ 
+}
+	ul.splashProfiles li {
+		display: inline;
+	}
+	ul.splashProfiles li a {
+		float: left;
+		padding: 10px;
+		position: relative;
+		font-size: 15px;
+		margin: 5px;
+		max-width: 100px;
+		text-decoration: none;
+		color: #333;
+		background: #eee;
+		border: 1px solid #fff;
+		-moz-box-shadow: 0px 2px 15px #333;
+		-webkit-box-shadow: 0px 2px 15px #333;
+		text-align: center;
+	}
+
+	ul.splashProfiles li a::after {
+		padding-top: 10px;
+		content: attr(title);
+		display: block;
+		text-align: center;
+	}
+
 /* Quick Results */
 .quickresult {
   position: fixed !important;
@@ -155,13 +189,6 @@ body {
   overflow:hidden;
   visibility:hidden;
   z-index: 7 !important;
-}
-
-.splash_new {
-  text-align: center;
-  margin: 0 auto;
-  position: fixed !important;
-  z-index: 4;
 }
 
 #quickresult-body {

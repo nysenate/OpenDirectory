@@ -12,8 +12,19 @@
 						<input type="submit" value ="Search" id="search_button"></input>
 					</form>
 					<div class="quickresult" id="quickresult-body" style="z-index:1;"></div>
-					<div class="splash_new"><h2 class="homeText">Questions about Open Directory? See our <a href="/faq">FAQ</a></h2></div>
 				</div>
+				<div class="splash_new"><h2 class="homeText">Questions about Open Directory? See our <a href="/faq">FAQ</a></h2>
+				  <br />
+				  <h2 class="homeUpdate">Recently Updated Profiles</h2>
+				  <center>
+				  <ul class="splashProfiles">
+				    <li><a href="person/richard/profile" title="Sam Richard"><img src="/opendirectory/img/people/richard.jpg" width="82.5" height="106.5" /></a></li>
+				    <li><a href="person/hoppin/profile" title="Andrew Hoppin"><img src="/opendirectory/img/people/hoppin.jpeg" width="82.5" height="106.5" /></a></li>
+				    <li><a href="person/williams/profile" title="Jared Williams"><img src="/opendirectory/img/people/williams.png" width="82.5" height="106.5" /></a></li>
+				    <li><a href="person/yee/profile" title="Ben Yee"><img src="/opendirectory/img/people/yee.jpeg" width="82.5" height="106.5" /></a></li>
+				  </ul>
+				  </center>
+				  </div>
 			</div>
 
 <jsp:include page="footer.jsp" />
