@@ -41,7 +41,7 @@
 			</div>
 			<div id="nav_bar">
 				<form id="nav_search" action="<%=urls.url("search")%>" method="GET">
-					Search:<input type="text" name="query" size="20" maxlength="255" value="" autocomplete="off"  id="nav_search_input" />
+					<input type="text" name="query" size="20" maxlength="255" value="" autocomplete="off"  id="nav_search_input" />
 					<input type="submit" value = "Search" id="nav_search_button"></input>
 				</form>
 				<div class="quickresult" id="quickresult-header"></div> 

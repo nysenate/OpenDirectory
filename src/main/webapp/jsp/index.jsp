@@ -13,17 +13,17 @@
 					</form>
 					<div class="quickresult" id="quickresult-body" style="z-index:1;"></div>
 				</div>
-				<div class="splash_new"><h2 class="homeText">Questions about Open Directory? See our <a href="/faq">FAQ</a></h2>
-				  <br />
+				<div class="splash_new"><h2 class="homeText">Questions about Open Directory? See our <a href="<%=urls.url("faq")%>">FAQ</a></h2>
+				 <!-- <br />
 				  <h2 class="homeUpdate">Recently Updated Profiles</h2>
 				  <center>
-				  <ul class="splashProfiles">
+				   <ul class="splashProfiles">
 				    <li id="sp_1"><a href="" title=""><img src="" width="82.5" height="106.5" /></a></li>
 				    <li id="sp_2"><a href="" title=""><img src="" width="82.5" height="106.5" /></a></li>
 				    <li id="sp_3"><a href=" title=""><img src="" width="82.5" height="106.5" /></a></li>
 				    <li id="sp_4"><a href="" title=""><img src="" width="82.5" height="106.5" /></a></li>
 				  </ul>
-				  </center>
+				  </center> -->
 				  </div>
 			</div>
 
