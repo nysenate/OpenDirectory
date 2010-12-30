@@ -13,7 +13,7 @@
 					</form>
 					<div class="quickresult" id="quickresult-body" style="z-index:1;"></div>
 				</div>
-				<div class="splash_new"><h2 class="homeText">Questions about Open Directory? See our <a href="/faq">FAQ</a></h2>
+				<div class="splash_new"><h2 class="homeFAQ">Questions about Open Directory? See our <a href="faq/">FAQ</a></h2>
 				  <br />
 				  <h2 class="homeUpdate">Recently Updated Profiles</h2>
 				  <center>

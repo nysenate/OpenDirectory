@@ -594,8 +594,7 @@ body {
 	
 }
 
-h2.homeText
-{
+h2.homeText {
 	background:none;
 	margin-top:10px;	
   margin-bottom:5px;
@@ -603,9 +602,13 @@ h2.homeText
   line-height: 1.2em;
   font-weight: bold;
   /*color:#005588;*/
+}
 	
-	}
-	
+h2.homeFAQ {
+  font-size: .8em;
+  text-align: left;
+  margin-top: 5px;
+}
 
 
 a.sublink, a.sublink:visited, a.sublink:link
