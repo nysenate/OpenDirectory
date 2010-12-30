@@ -394,8 +394,8 @@ public class UserServlet extends BaseServlet {
 			
 			for(String key:pMap.keySet()) {
 				self.user.getPermissions().put(key.substring(6),
-						new TreeSet<String>(Arrays.asList((((String[])pMap.get(key))[0]).toLowerCase())));
-			}
+						new TreeSet<String>(SerialUtils.loadStringSet(self.user.getPermissions((((String[])pMap.get(key))[0]).toLowerCase()), ", ")));
+			}//Arrays.asList(self.user.getPermissions((((String[])pMap.get(key))[0]).toLowerCase()))
 			
 			self.solrSession.savePerson(self.user);
 			self.render("EditSettings.jsp");

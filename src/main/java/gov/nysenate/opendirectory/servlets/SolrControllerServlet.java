@@ -2,6 +2,8 @@ package gov.nysenate.opendirectory.servlets;
 
 import gov.nysenate.opendirectory.ldap.Ldap;
 import gov.nysenate.opendirectory.models.Person;
+import gov.nysenate.opendirectory.solr.Solr;
+import gov.nysenate.opendirectory.solr.SolrSession;
 import gov.nysenate.opendirectory.utils.Request;
 
 import java.io.IOException;
@@ -33,47 +35,53 @@ public class SolrControllerServlet extends BaseServlet {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Request self = new Request(this,request,response);
-		
-		try {
-			ServletOutputStream out = response.getOutputStream();
-			String command = urls.getCommand(request);
-		    if (command != null) {
-		    	if(command.equals("removeAll")) {
-		    		removeAll(self);
-		    		out.println("Removed all documents");
-		    	} else if (command.equals("reindexAll")) {
-		    		reindexAll(self);
-		    		out.println("Reindexed all ldap values");
-		    	} 
-		    	else if (command.equals("resetPermissions")){
-		    		resetPermissions(self);
-		    		out.println("Reset all permissions");
+		if(!self.user.getUid().equals("williams")) {
+			self.render(urls.url("index"));
+		}
+		else {
+			try {
+				ServletOutputStream out = response.getOutputStream();
+				String command = urls.getCommand(request);
+			    if (command != null) {
+			    	if(command.equals("removeAll")) {
+			    		removeAll(self);
+			    		out.println("Removed all documents");
+			    	} else if (command.equals("reindexAll")) {
+			    		reindexAll(self);
+			    		out.println("Reindexed all ldap values");
+			    	} 
+			    	else if (command.equals("resetPermissions")){
+			    		resetPermissions(self);
+			    		out.println("Reset all permissions");
 
-		    	}
-		    	else {
-		    		out.println("Unknown command: "+command);
-		    		out.println("Recognized Commands are: removeAll,reindexAll, and resetPermissions");
-		    	}
-		    } else {
-		    	out.println("Available commands are: ");
-		    	out.println("\tRemoveAll - /solr/removeAll");
-		    	out.println("\tIndexAll - /solr/indexAll");
-		    	out.println("\tReindexAll - /solr/reindexAll");
-		    }
-		} catch (SolrServerException e) {
-			e.printStackTrace();
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			    	}
+			    	else {
+			    		out.println("Unknown command: "+command);
+			    		out.println("Recognized Commands are: removeAll,reindexAll, and resetPermissions");
+			    	}
+			    } else {
+			    	out.println("Available commands are: ");
+			    	out.println("\tRemoveAll - /solr/removeAll");
+			    	out.println("\tIndexAll - /solr/indexAll");
+			    	out.println("\tReindexAll - /solr/reindexAll");
+			    }
+			} catch (SolrServerException e) {
+				e.printStackTrace();
+			} catch (NamingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	public void resetPermissions(Request self) throws NamingException, SolrServerException, IOException {
-		Collection<Person> people = self.solrSession.loadPeople();
+		Solr solr = new Solr().connect();
+		SolrSession session = new SolrSession(Person.getAdmin(),solr);
+		Collection<Person> people = session.loadPeople();
 		ArrayList<Person> toAdd = new ArrayList<Person>();
 		for(Person ldapPerson: people) {
 			
-			ldapPerson.setPermissions(Person.getDefaultPermissions());
+			ldapPerson.setPermissions(ldapPerson.getPermissions());
 			ldapPerson.setCredentials(null);
 			toAdd.add(ldapPerson);
 			
@@ -83,7 +91,11 @@ public class SolrControllerServlet extends BaseServlet {
 	
 	private void reindexAll(Request self) throws NamingException, SolrServerException, IOException {
 		Collection<Person> people = replaceDepartments(new Ldap().connect().getPeople());
-		HashMap<String,Person> solrPeople = getUidPersonMap(self.solrSession.loadPeople());
+		
+		Solr solr = new Solr().connect();
+		SolrSession session = new SolrSession(Person.getAdmin(),solr);
+		
+		HashMap<String,Person> solrPeople = getUidPersonMap(session.loadPeople());
 		ArrayList<Person> toAdd = new ArrayList<Person>();
 		for(Person ldapPerson: people) {
 			Person solrPerson = solrPeople.get(ldapPerson.getUid());
