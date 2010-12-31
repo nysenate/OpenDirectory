@@ -219,6 +219,12 @@ body {
 /* End Quick Results */
 
 #main {
+  width: 840px;
+  float: left;
+  position: relative;
+  margin: 20px;
+  margin-bottom: 25px;
+  background: #ffffff url(/opendirectory/img/background_footer.png) repeat-x bottom left;
   font-family: Helvetica, Arial, sans-serif;
   -webkit-box-shadow: 0px 0px 15px rgba(0,0,0,0.55);
   -mox-box-shadow: 0px 0px 15px rgba(0,0,0,0.55);
@@ -227,7 +233,7 @@ body {
   -moz-border-radius: 7px;
   border-radius: 7px;
   min-height: 500px;
-  margin-bottom: 20px;
+  padding-bottom: 15px;
 }
 
 #main p {
@@ -426,16 +432,6 @@ body {
 	.result_info {	font-size:18px; padding-left:65px; }
 	.bookmark_info { font-size:18px; padding-left:90px; }
 
-
-#main {
-  width: 840px;
-  height: 100%;
-  float: left;
-  position: relative;
-  margin: 20px;
-  background: #ffffff url(/opendirectory/img/background_footer.png) repeat-x bottom left;
-  
-}
 
 #main_center {
 	margin-top:20px;
