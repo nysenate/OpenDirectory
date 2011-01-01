@@ -1,5 +1,6 @@
 package gov.nysenate.opendirectory.solr;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.TreeSet;
 
@@ -57,6 +58,9 @@ public class SecureWriter {
 		writeSecureField(doc,"irc",person.getIrc(),permissions, 1.0f);
 		writeSecureField(doc,"skills",SerialUtils.writeStringSet(person.getSkills(),", "),permissions, 1.0f);
 		writeSecureField(doc,"interests",SerialUtils.writeStringSet(person.getInterests(),", "),permissions, 1.0f);
+		
+		doc.addField("modified", new Date().getTime());
+		doc.addField("frontPage", person.getFrontPage() ? "true":"false");
 
 		//I think state is probably useless
 		//writeSecureField(doc,"state", person.getState(),permissions, 1.0f);

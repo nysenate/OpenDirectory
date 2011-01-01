@@ -35,10 +35,10 @@ public class SolrControllerServlet extends BaseServlet {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Request self = new Request(this,request,response);
-		if(!self.user.getUid().equals("williams")) {
+		/*if(!self.user.getUid().equals("williams")) {
 			self.render(urls.url("index"));
 		}
-		else {
+		else {*/
 			try {
 				ServletOutputStream out = response.getOutputStream();
 				String command = urls.getCommand(request);
@@ -71,7 +71,7 @@ public class SolrControllerServlet extends BaseServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		/*}*/
 	}
 	
 	public void resetPermissions(Request self) throws NamingException, SolrServerException, IOException {

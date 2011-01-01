@@ -22,7 +22,7 @@ public class Request {
 	public HttpServletResponse httpResponse;
 	public BaseServlet servlet;
 	
-	public Request(BaseServlet servlet, HttpServletRequest request,HttpServletResponse response) {
+	public Request(BaseServlet servlet, HttpServletRequest request,HttpServletResponse response) {		
 		this.servlet = servlet;
 		this.httpRequest = request;
 		this.httpResponse = response;
@@ -46,6 +46,10 @@ public class Request {
 		
 		//Set up request defaults
 		request.setAttribute("title", "NYSS OpenDirectory");
+		
+		if(request.getSession().getAttribute("frontPagePeople") == null) {
+			request.getSession().setAttribute("frontPagePeople", new FrontPagePeople(this));
+		}
 	}
 	
 	public void render(String name) throws IOException, ServletException {

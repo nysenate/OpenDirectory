@@ -1,6 +1,7 @@
-<%@ page language="java" import="gov.nysenate.opendirectory.utils.UrlMapper"  %><%
+<%@ page language="java" import="gov.nysenate.opendirectory.utils.UrlMapper,java.util.List,gov.nysenate.opendirectory.models.Person"  %><%
 
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
+	List<Person> people = (List<Person>)request.getAttribute("frontPagePeople");
 
 %><jsp:include page="header.jsp" />		
 			<div id="main">
@@ -13,18 +14,21 @@
 					</form>
 					<div class="quickresult" id="quickresult-body" style="z-index:1;"></div>
 				</div>
-				<div class="splash_new"><h2 class="homeFAQ">Questions about Open Directory? See our <a href="faq/">FAQ</a></h2>
-				 <!--
-				  <h2 class="homeUpdate">Recently Updated Profiles</h2>
-				  <center>
-				   <ul class="splashProfiles">
-				    <li id="sp_1"><a href="" title=""><img src="" width="82.5" height="106.5" /></a></li>
-				    <li id="sp_2"><a href="" title=""><img src="" width="82.5" height="106.5" /></a></li>
-				    <li id="sp_3"><a href=" title=""><img src="" width="82.5" height="106.5" /></a></li>
-				    <li id="sp_4"><a href="" title=""><img src="" width="82.5" height="106.5" /></a></li>
-				  </ul>
-				  </center> -->
-				  </div>
+				<div class="splash_new">
+					<h2 class="homeFAQ">Questions about Open Directory? See our <a href="faq/">FAQ</a></h2> 
+				</div>
+				<div class="splash_new" style="width:600px;">
+					<% if(people != null && people.size() != 0) { %>
+						 <h2 class="homeUpdate">Recently Updated Profiles</h2>
+						 <center>
+						 	 <ul class="splashProfiles">
+							 <% for(Person person:people) { %>
+								    <li><a href="<%=urls.url("person",person.getUid(),"profile") %>" title="<%=person.getTitle()%>"><img src="<%=person.getPicture() %>" width="82.5" height="106.5" /><%=person.getFullName() %></a></li>
+							  <% } %>
+						  	</ul>
+						</center>
+					  <% } %>
+				</div>
 			</div>
 
 <jsp:include page="footer.jsp" />

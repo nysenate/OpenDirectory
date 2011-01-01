@@ -393,6 +393,10 @@ public class UserServlet extends BaseServlet {
 			Map<String,Object> pMap = self.httpRequest.getParameterMap();
 			
 			for(String key:pMap.keySet()) {
+				if(key.equals("frontPage")) {
+					self.user.loadField(key, ((String[])pMap.get(key))[0], self.solrSession);
+					continue;
+				}
 				self.user.getPermissions().put(key.substring(6),
 						new TreeSet<String>(SerialUtils.loadStringSet(self.user.getPermissions((((String[])pMap.get(key))[0]).toLowerCase()), ", ")));
 			}//Arrays.asList(self.user.getPermissions((((String[])pMap.get(key))[0]).toLowerCase()))

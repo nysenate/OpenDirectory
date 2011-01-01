@@ -56,11 +56,17 @@ public class Solr {
 	}
 	
 	public QueryResponse query(String term, int results) {
+		return sortedQuery(term, results, null, false);
+	}
+	
+	public QueryResponse sortedQuery(String term, int results, String sortField, boolean asc) {
 		try {
 			query.setQuery(term);
 			query.setRows(results);
-			
 			query.setFields("*","score");
+			
+			if(sortField != null) 
+				query.setSortField(sortField, (asc ? SolrQuery.ORDER.asc : SolrQuery.ORDER.desc));
 			
 			System.out.println(query.getQuery());
 			return server.query(query);

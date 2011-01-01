@@ -100,6 +100,8 @@ public class Person implements Comparable<Person> {
 	private String irc;
 	
 	private float score;
+	private long modified;
+	private boolean frontPage;
 	
 	public static void main(String[] args) throws SolrServerException, IOException {
 //		Person a = new Person();
@@ -161,6 +163,8 @@ public class Person implements Comparable<Person> {
 		setCredentials(null); //Forces Defaults
 		
 		setScore(0);
+		setModified(0);
+		setFrontPage(false);
 	}
 	public int compareTo(Person p) {
 		return getUid().compareTo(Person.class.cast(p).getUid());
@@ -246,6 +250,12 @@ public class Person implements Comparable<Person> {
 	}
 	public float getScore() {
 		return score;
+	}
+	public long getModified() {
+		return modified;
+	}
+	public boolean getFrontPage() {
+		return frontPage;
 	}
 	
 	public void addBookmark(Person person) {
@@ -347,6 +357,12 @@ public class Person implements Comparable<Person> {
 	}
 	public void setScore(float score) {
 		this.score = score;
+	}
+	public void setModified(long modified) {
+		this.modified = modified;
+	}
+	public void setFrontPage(boolean frontPage) {
+		this.frontPage = frontPage;
 	}
 	
 	public String toString() {
@@ -589,6 +605,11 @@ public class Person implements Comparable<Person> {
 			setCredentials(SerialUtils.loadStringSet((String)value,", "));
 		else if(field.equals("score"))
 			setScore((Float)value);
+		else if(field.equals("modified")) 
+			setModified(new Long((String)value));
+		else if(field.equals("frontPage")) {
+			setFrontPage(((String)value).equals("true") ? true:false);
+		}
 	}
 	
 	

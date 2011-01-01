@@ -35,7 +35,7 @@
 			just a label to be used by field definitions.  The "class"
 			attribute and any other attributes determine the real
 			behavior of the fieldType.
-			  	Class names starting with "solr" refer to java classes in the
+			 <field name="permissions" type="string" indexed="false" stored="true"/> 	Class names starting with "solr" refer to java classes in the
 			org.apache.solr.analysis package.
     	-->
 
@@ -180,6 +180,8 @@
 		<field name="unprocessedBio" type="string" indexed="false" stored="true" />
 		<field name="unprocessedSkills" type="string" indexed="false" stored="true" />
 		<field name="unprocessedInterests" type="string" indexed="false" stored="true" />
+		<field name="modified" type="textgen" indexed="true" stored="true"/>
+		<field name="frontPage" type="textgen" indexed="true" stored="true"/>
    
       	<!-- catchall field, containing all other searchable text fields (implemented
         	 via copyField further on in this schema

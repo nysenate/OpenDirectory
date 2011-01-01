@@ -81,6 +81,13 @@ public String writeRadios(String internal_name, String cred) {
 							
 							<form action="" method="POST">
 								<div id="edit_form_field">
+									<br/>
+									<b>Would you like your profile to be displayed in the Recently Updated section on the home page?</b>
+									<select name="frontPage">
+										<option value="true" <%=user.getFrontPage() ? "SELECTED":""%>>Yes</option>
+										<option value="false" <%=!user.getFrontPage() ? "SELECTED":""%>>No</option>
+									</select>
+									
 									<p>Contact Information</p>
 									<ol>
 										<li>

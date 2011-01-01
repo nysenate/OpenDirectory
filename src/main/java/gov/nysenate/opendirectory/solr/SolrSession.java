@@ -29,7 +29,7 @@ public class SolrSession {
 		public SolrSessionException(String m ,Throwable t) { super(m,t); }
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SolrServerException, IOException {
 		
 //		SolrSession solr = new SolrSession(Person.getAnon(),new Solr().connect());
 //		
@@ -37,17 +37,39 @@ public class SolrSession {
 //			solr.loadPeople();
 		
 		Solr solr = new Solr().connect();
-		SolrSession session = solr.newSession(Person.getAnon());
+		SolrSession session = solr.newSession(Person.getAdmin());
 		
-//		System.out.println(session.loadPersonByUid("williams").getDepartment());
-//		session = solr.newSession(session.loadPersonByUid("williams"));
-//		
-		System.out.println(session.loadPeopleByQuery("department:(Caucuses/Senate Puerto Rican/Latino Caucus)").size());
-
+		Person me = session.loadPersonByUid("hoppin");
+		me.setPicture("/uploads/avatars/wiliams.jpg");
 		
-		Person p = session.loadPersonByUid("williams");
-		System.out.println(p.getDepartment());
-//		p.setPermissions(Person.getDefaultPermissions());
+		session.savePerson(me);
+		
+		me = session.loadPersonByUid("yee");
+		me.setPicture("/uploads/avatars/wiliams.jpg");
+		
+		session.savePerson(me);
+		
+		me = session.loadPersonByUid("zalewski");
+		me.setPicture("/uploads/avatars/wiliams.jpg");
+		
+		session.savePerson(me);
+		
+		me = session.loadPersonByUid("jbell");
+		me.setPicture("/uploads/avatars/wiliams.jpg");
+		
+		session.savePerson(me);
+		
+		me = session.loadPersonByUid("bush");
+		me.setPicture("/uploads/avatars/wiliams.jpg");
+		
+		session.savePerson(me);
+		
+//		ArrayList<Person> people = session.loadSortedPeople("modified", false);
+		
+//		if(!people.isEmpty()) {
+//			System.out.println(people.iterator().next().getFullName());
+//		}
+		
 	}
 	
 	public SolrSession(Person user, Solr solr) {
@@ -76,6 +98,20 @@ public class SolrSession {
 	}
 	
 	public ArrayList<Person> loadPeopleByQuery(String query) {
+		return loadPeopleBySortedQuery(query,null,false);
+	}
+	
+	public ArrayList<Person> loadSortedPeople(String sortField, boolean asc) {
+		//Use the otype field to locate all person documents
+		return loadPeopleBySortedQuery("otype:person", sortField, asc);
+	}
+	
+	public ArrayList<Person> loadPeople() {
+		//Use the otype field to locate all person documents
+		return loadPeopleBySortedQuery("otype:person", null, false);
+	}
+	
+	public ArrayList<Person> loadPeopleBySortedQuery(String query, String sortField, boolean asc) {
 		
 		String creds = SerialUtils.writeStringSet(user.getCredentials(),", ");		
 		
@@ -87,7 +123,14 @@ public class SolrSession {
 		
 		//Execute the query
 		long start = System.nanoTime();
-		QueryResponse results = solr.query(query,2000);
+		
+		QueryResponse results = null;
+		if(sortField != null) {
+			results = solr.sortedQuery(query, 2000, sortField, asc);
+		}
+		else {
+			results = solr.query(query,2000);
+		}
 		
 		if(results==null)
 			return new ArrayList<Person>();
@@ -108,11 +151,7 @@ public class SolrSession {
 		System.out.println((System.nanoTime()-start)/1000000f+" ms - load Person array");
 		
 		return people;
-	}
-	
-	public ArrayList<Person> loadPeople() {
-		//Use the otype field to locate all person documents
-		return loadPeopleByQuery("otype:person");
+		
 	}
 	
 	public void savePerson(Person person) throws SolrServerException, IOException {
