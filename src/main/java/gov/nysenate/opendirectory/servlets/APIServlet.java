@@ -198,7 +198,7 @@ public class APIServlet extends BaseServlet {
 	    					String format = parts[1];
 	    					
 	    					if(formatSet.contains(format)) {
-	    						writeResponse(self.solrSession.loadPeopleByQuery(method+":(*"+term+"*)"),format);
+	    						writeResponse(self.solrSession.loadPeopleByQuery(method+":("+term+")"),format);
 	    					} else {
 	    						throw new ApiException("Format "+format+"is currently not recognized!");
 	    					}
