@@ -186,9 +186,7 @@ public class UserServlet extends BaseServlet {
     			
     			//Attempt to authenticate and login the user with the credentials supplied
     			//Make temporary exceptions for non LDAP records (for testing)
-    			if ( /*(cred.equalsIgnoreCase("opendirectory") && pass.equals("senbook2010"))
-    					|| (cred.equalsIgnoreCase("graylin") && pass.equals("graylin1"))
-    					|| */ Ldap.authenticate(cred,pass)) {
+    			if (Ldap.authenticate(cred,pass)) {
     				self.httpSession.setAttribute("uid",cred);
     				self.redirect(urls.url("person",cred,"profile"));
     				

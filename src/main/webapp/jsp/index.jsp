@@ -18,7 +18,7 @@
 					<h2 class="homeFAQ">Questions about Open Directory? See our <a href="faq/">FAQ</a></h2> 
 				</div>
 				<div class="splash_new" style="width:600px;">
-					<% if(people != null && people.size() != 0) { %>
+					<% if(people != null && people.size() == 4) { %>
 						 <h2 class="homeUpdate">Recently Updated Profiles</h2>
 						 <center>
 						 	 <ul class="splashProfiles">

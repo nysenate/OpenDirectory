@@ -8,7 +8,10 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title><%=title%></title>
 		<link rel="stylesheet" type="text/css" href="<%=urls.url("css","application.css")%>" />
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<!--  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> -->
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+		
+		<script type="text/javascript" src="<%=urls.url("js","qtip.js")%>"></script>
 		<script type="text/javascript" src="<%=urls.url("js","application.js")%>"></script>
 	</head>
 	<body>

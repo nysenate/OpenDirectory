@@ -39,37 +39,6 @@ public class SolrSession {
 		Solr solr = new Solr().connect();
 		SolrSession session = solr.newSession(Person.getAdmin());
 		
-		Person me = session.loadPersonByUid("hoppin");
-		me.setPicture("/uploads/avatars/wiliams.jpg");
-		
-		session.savePerson(me);
-		
-		me = session.loadPersonByUid("yee");
-		me.setPicture("/uploads/avatars/wiliams.jpg");
-		
-		session.savePerson(me);
-		
-		me = session.loadPersonByUid("zalewski");
-		me.setPicture("/uploads/avatars/wiliams.jpg");
-		
-		session.savePerson(me);
-		
-		me = session.loadPersonByUid("jbell");
-		me.setPicture("/uploads/avatars/wiliams.jpg");
-		
-		session.savePerson(me);
-		
-		me = session.loadPersonByUid("bush");
-		me.setPicture("/uploads/avatars/wiliams.jpg");
-		
-		session.savePerson(me);
-		
-//		ArrayList<Person> people = session.loadSortedPeople("modified", false);
-		
-//		if(!people.isEmpty()) {
-//			System.out.println(people.iterator().next().getFullName());
-//		}
-		
 	}
 	
 	public SolrSession(Person user, Solr solr) {

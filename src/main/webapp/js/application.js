@@ -37,6 +37,19 @@ function doCheck(str, regex, message) {
 }
 
 $(document).ready( function() {
+	$('.vcard').qtip({
+		content: 'vCards are electronic business cards. They can be placed into an address book program on your computer or phone and will add that contact with any information on the card. vCard information can include text as well as photos and audio.',
+		position: {
+			corner: {
+				target: 'bottomMiddle',
+				tooltip:'topleft'
+			}
+		},
+		style: {
+			name: 'blue'
+		}
+	});
+	
 	$('#search_secondary').hide();
 	
 	$('#show_search_secondary').click(function() {

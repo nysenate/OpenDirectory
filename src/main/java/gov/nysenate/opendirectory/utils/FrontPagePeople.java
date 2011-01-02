@@ -37,7 +37,7 @@ public class FrontPagePeople {
 		ArrayList<Person> updatedPeople = new ArrayList<Person>();
 		
 		for(Person person:people) {
-			if(person.getPicture() != null && !person.getPicture().equals("")) {
+			if(person.getPicture() != null && !person.getPicture().equals("") && person.getFrontPage() == true) {
 				updatedPeople.add(person);
 			}
 			

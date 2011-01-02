@@ -30,25 +30,25 @@ public class ServiceFilter implements Filter {
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-//		if(((HttpServletRequest)request).getSession().getAttribute("uid") == null) {
-//			if(!request.getRemoteAddr().matches(IP_MATCH)) {
-//				String uri = ((HttpServletRequest)request).getRequestURI();
-//				
-//				if(uri.contains("/external") || uri.matches("^/opendirectory/(css|img)/.+$")) {
-//					chain.doFilter(request, response);
-//				}
-//				else {
-//					UrlMapper urls = new UrlMapper();
-//					((HttpServletResponse)response).sendRedirect(urls.url("external", "login"));
-//				}
-//			}
-//			else {
-//				chain.doFilter(request, response);
-//			}
-//		}
-//		else {
+		if(((HttpServletRequest)request).getSession().getAttribute("uid") == null) {
+			if(!request.getRemoteAddr().matches(IP_MATCH)) {
+				String uri = ((HttpServletRequest)request).getRequestURI();
+				
+				if(uri.contains("/external") || uri.matches("^/opendirectory/(css|img)/.+$")) {
+					chain.doFilter(request, response);
+				}
+				else {
+					UrlMapper urls = new UrlMapper();
+					((HttpServletResponse)response).sendRedirect(urls.url("external", "login"));
+				}
+			}
+			else {
+				chain.doFilter(request, response);
+			}
+		}
+		else {
 			chain.doFilter(request, response);
-//		}
+		}
 	}
 	
 	public void init(FilterConfig fConfig) throws ServletException {
