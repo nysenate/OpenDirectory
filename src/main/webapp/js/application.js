@@ -326,12 +326,12 @@ $(document).ready( function() {
 		$(this).toggle(
 			function() {
 				list.hide();
-				button.html("+");
+				button.html("<img src='../img/interface_open.png' class='ui_list_button'>");
 				return false;
 			},
 			function() {
 				list.show();
-				button.html("-");
+				button.html("<img src='../img/interface_close.png' class='ui_list_button'>");
 				return false;
 			}
 		).click();

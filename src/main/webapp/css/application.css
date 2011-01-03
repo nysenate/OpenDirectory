@@ -482,21 +482,17 @@ body {
 
 .entity_button {
 	display:inline;
-	font-family:monospace;
-	font-size:16px;
-	font-weight:bolder;
-	border:solid black;
-	border-width:2px;
-	padding:0px 5px;
-	margin-right:6px;
-	background: #E6F1FC;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
+	height: 25px;
+	width: 25px;
+	padding-right: 3px;
+}
+
+.ui_list_button {
+  margin-bottom: -2px;
 }
 	
 .entity_button:hover {
 	cursor:pointer;
-	background: #C7E2FC;
 }
 
 .entity_list li {
