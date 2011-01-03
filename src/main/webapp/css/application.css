@@ -163,6 +163,7 @@ body {
 		color: #333;
 		background: #eee;
 		border: 1px solid #fff;
+		height: 200px;
 		-moz-box-shadow: 0px 2px 15px #333;
 		-webkit-box-shadow: 0px 2px 15px #333;
 		text-align: center;
