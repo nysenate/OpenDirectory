@@ -54,7 +54,11 @@ public class SolrControllerServlet extends BaseServlet {
 		    	}
 		    	else if(command.equals("resetFrontPage")) {
 		    		request.getSession().setAttribute("frontPagePeople",new FrontPagePeople(self));
-		    		out.println("front page people reset");
+		    		ArrayList<Person> people = ((FrontPagePeople)request.getSession().getAttribute("frontPagePeople")).getFrontPagePeople(self);
+		    		out.println("front page people reset, new:");
+		    		for(Person person:people) {
+		    			out.println(person.getUid());
+		    		}
 		    	}
 		    	else {
 		    		out.println("Unknown command: "+command);
