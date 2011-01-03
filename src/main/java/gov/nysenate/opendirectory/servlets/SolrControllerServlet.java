@@ -49,7 +49,7 @@ public class SolrControllerServlet extends BaseServlet {
 		    	} 
 		    	else if (command.equals("rewritePeople")){
 		    		rewritePeople(self);
-		    		out.println("Reset all permissions");
+		    		out.println("people rewritten");
 
 		    	}
 		    	else if(command.equals("resetFrontPage")) {
