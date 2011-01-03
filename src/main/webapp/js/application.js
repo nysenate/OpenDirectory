@@ -318,8 +318,8 @@ $(document).ready( function() {
 	
 	/* for browse by */
 	
-	$(".entity_button").each( function() {
-		var button = $(this);
+	$(".button_div").each( function() {
+		var button = $(this).find('.entity_button');
 		var name = button.attr('id').split('_')[1];
 		var list = $("#list_"+name);
 		

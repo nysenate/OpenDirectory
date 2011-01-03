@@ -429,7 +429,7 @@ body {
 	  	text-align:center;
 	  	color:red;
   	}
-
+	.button_div { cursor: pointer; }
   	.entity_button { display:inline; }
   	.entity_title { display:inline; font-weight:bold; }
   	.people{margin-left: 40px;}

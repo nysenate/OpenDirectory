@@ -15,7 +15,7 @@
 					int count=1;
 					while( st.hasMoreElements()) nospace+="-"+st.nextElement();	%>
 					
-					<span id="button_<%=nospace%>" class="entity_button"></span><span class="entity_title"><%=first%></span> 
+					 <div class="button_div"><span id="button_<%=nospace%>" class="entity_button"></span><span class="entity_title"><%=first%></span> </div>
 					<div id="<%=first%>" class="entity_list"> 
 						<ul id="list_<%=nospace%>" class="people">
 							<% for(Person p : people.get(first)) { %>

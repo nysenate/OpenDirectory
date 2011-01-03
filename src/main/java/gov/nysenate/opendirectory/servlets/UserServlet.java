@@ -284,7 +284,7 @@ public class UserServlet extends BaseServlet {
 								error += "<br/>Your Twitter URL should look like twitter.com/your-user-name";
 							}
 							else {
-								self.user.setTwitter(value);
+								self.user.setTwitter(value.startsWith("http://") ? value : "http://" + value);
 							}
 						}
 						else if(key.equals("facebook")) {
@@ -293,7 +293,7 @@ public class UserServlet extends BaseServlet {
 								error += "<br/>Your Facebook URL should look like facebook.com/your-user-name";
 							}
 							else {
-								self.user.setFacebook(value);
+								self.user.setFacebook(value.startsWith("http://") ? value : "http://" + value);
 							}
 						}
 						else if(key.equals("linkedin")) {
@@ -302,7 +302,7 @@ public class UserServlet extends BaseServlet {
 								error += "<br/>Provide a proper link to your LinkedIn profile";
 							}
 							else {
-								self.user.setLinkedin(value);
+								self.user.setLinkedin(value.startsWith("http://") ? value : "http://" + value);
 							}
 						}
 						else {

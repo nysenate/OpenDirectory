@@ -174,10 +174,11 @@ public class SolrSession {
 			query ="";
 			do {
 				String quant = (m.group(4) != null && !m.group(4).equals("") ? m.group(4) : "");
+				boolean paren = (m.group(3).startsWith("(") ? false:true );
 				if(basics.contains(m.group(2)))
 					query += m.group(1)+m.group(2)+":"+m.group(3) + quant;
 				else
-					query += m.group(1)+"("+m.group(2)+":"+m.group(3) + quant +" AND "+m.group(2)+"_access:("+creds+"))"+m.group(5);
+					query += m.group(1)+"("+m.group(2)+":"+(paren ? "(" + m.group(3) + ")" : m.group(3)) + quant +" AND "+m.group(2)+"_access:("+creds+"))"+m.group(5);
 			} while(m.find());
 		}
 		//can't find <term>:<param> formatted query, most likely free input

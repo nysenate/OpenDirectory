@@ -87,8 +87,8 @@ public class SolrControllerServlet extends BaseServlet {
 		ArrayList<Person> toAdd = new ArrayList<Person>();
 		for(Person ldapPerson: people) {
 			
-//			ldapPerson.setPermissions(ldapPerson.getPermissions());
-//			ldapPerson.setCredentials(null);
+			ldapPerson.setPermissions(ldapPerson.getPermissions());
+			ldapPerson.setCredentials(null);
 			toAdd.add(ldapPerson);
 			
 		}

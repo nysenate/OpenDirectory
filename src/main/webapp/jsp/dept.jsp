@@ -15,7 +15,7 @@
 						for(String department:new TreeSet<String>(depts.keySet())) {
 							String nospace = department.replaceAll("[ ,\\._'&/]","");
 							%>
-							  <span id="button_<%=nospace%>" class="entity_button"></span><span class="entity_title"><%=department%></span> 
+							  <div class="button_div"><span id="button_<%=nospace%>" class="entity_button"></span><span class="entity_title"><%=department%></span></div>
 								<div id="<%=department%>" class="entity_list"> 
 									<ul id="list_<%=nospace%>" class="people">
 										<% int count = 1;
@@ -31,14 +31,14 @@
 						String orgRep = org.replaceAll("[ ,\\._'&]","-");
 						
 						%>
-						  <span id="button_<%=orgRep%>" class="entity_button"></span><span class="entity_title"><%=org+" ( "+depts.size()+" units )"%></span> 
+						  <div class="button_div"> <span id="button_<%=orgRep%>" class="entity_button"></span><span class="entity_title"><%=org+" ( "+depts.size()+" units )"%></span> </div>
 							<div id="<%=orgRep%>" class="entity_list" style="position:relative;top:10px;"> 
 								<ul id="list_<%=orgRep %>" class="people">
 									<% for(String department:new TreeSet<String>(depts.keySet())) { 
 										String departmentRep = department.replaceAll("[ ,\\._'&/]","");
 										
 										%>										
-										  <span id="button_<%=departmentRep%>" class="entity_button"></span><span class="entity_title"><%=department%></span> 
+										   <div class="button_div"><span id="button_<%=departmentRep%>" class="entity_button"></span><span class="entity_title"><%=department%></span> </div>
 											<div id="<%=departmentRep%>" class="entity_list"> 											
 												<ul id="list_<%=departmentRep %>" class="people">
 													<% 

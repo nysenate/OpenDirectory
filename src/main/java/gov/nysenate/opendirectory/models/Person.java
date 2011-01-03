@@ -313,7 +313,7 @@ public class Person implements Comparable<Person> {
 	public void setCredentials (TreeSet<String> credentials){
 		//There must always be a valid set of credentials for every single person
 		if (credentials == null || credentials.isEmpty() )
-			credentials = new TreeSet<String>(Arrays.asList("public, senate"));
+			credentials = new TreeSet<String>(Arrays.asList("public", "senate"));
 		this.credentials = credentials;
 	}
 	public void setBio(String bio){
@@ -442,9 +442,9 @@ public class Person implements Comparable<Person> {
 		public int compare(Person a, Person b) {
 			int ret = a.department.compareToIgnoreCase(b.department);
 			if (ret == 0) {
-				ret = a.firstName.compareToIgnoreCase(b.firstName);
+				ret = a.lastName.compareToIgnoreCase(b.lastName);
 				if (ret == 0) {
-					ret = a.lastName.compareToIgnoreCase(b.lastName);
+					ret = a.firstName.compareToIgnoreCase(b.firstName);
 					if (ret == 0) {
 						ret = a.location.compareToIgnoreCase(b.location);
 						if (ret == 0) {
@@ -462,7 +462,7 @@ public class Person implements Comparable<Person> {
 			admin = new Person();
 			admin.setFullName("Administrator");
 			admin.setPermissions(new HashMap<String,TreeSet<String>>());
-			admin.setCredentials(new TreeSet<String>(Arrays.asList("public","senate","private","admin")));	
+			admin.setCredentials(new TreeSet<String>(Arrays.asList("admin", "admin,")));	
 		}
 		return admin;
 	}
