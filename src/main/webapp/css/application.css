@@ -566,6 +566,11 @@ body {
 	width: 142px;	
 }
 
+#edit_form_field input[type=radio] {
+	width: 18px;	
+	margin-left:20px;
+}
+
 #edit_container {
 	width:500px;
 	padding:6px;

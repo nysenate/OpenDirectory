@@ -87,7 +87,6 @@ public String writeRadios(String internal_name, String cred) {
 										<option value="true" <%=user.getFrontPage() ? "SELECTED":""%>>Yes</option>
 										<option value="false" <%=!user.getFrontPage() ? "SELECTED":""%>>No</option>
 									</select>
-									
 									<p>Contact Information</p>
 									<ol>
 										<li>
