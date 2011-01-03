@@ -674,6 +674,7 @@ a.sublink:hover
   border-top:1px solid;
 }
 .suggestions_box {
+	cursor:pointer;
   margin-top:0px;
   padding:4px; 
   font-size:12px; 

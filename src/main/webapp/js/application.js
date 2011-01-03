@@ -40,6 +40,8 @@ var skill_set, interest_set;
 var type_index;
 
 $(document).ready( function() {
+	$('.suggestions').css('visibility','hidden');
+	
 	/* for profile editing */
 	
 	var cleanSet = function(text) {
@@ -127,9 +129,9 @@ $(document).ready( function() {
 		}
 		$('textarea[name=' + name + ']').val(n);
 		return list;
-	}
+	};
 	
-	$('.suggestions').css('visibility','hidden');
+	
 	
 	$('textarea[name=interests]').keyup(function() {
 		var interest_text = $(this).val();
@@ -151,13 +153,29 @@ $(document).ready( function() {
 		},250);
 	});
 	
-	$('textarea[name=skills],textarea[name=interests]').blur(function() {
-		$('.suggestions').css('visibility','hidden');
-	});
+	
 	
 	$('.edit_left').click(function(e) {
 		if ($(e.target).is('.suggestions_box')) {
-			console.log($(e.target).index());
+			var index = $(e.target).index();
+			skill_set[type_index] = $('.suggestions_box:eq(' + index + ')').html();
+			skill_set = repopulateTextArea(skill_set,"skills",index);
+			$('.suggestions').css('visibility','hidden');
+		}
+	});
+	
+	$('.edit_right').click(function(e) {
+		if ($(e.target).is('.suggestions_box')) {
+			var index = $(e.target).index();
+			interest_set[type_index] = $('.suggestions_box:eq(' + index + ')').html();
+			interest_set = repopulateTextArea(interest_set,"interests",index);
+			$('.suggestions').css('visibility','hidden');
+		}
+	});
+	
+	$('body').click(function(e) {
+		if(!$(e.target).is('.edit_left') && !$(e.target).is('.edit_right')) {
+			$('.suggestions').css('visibility','hidden');
 		}
 	});
 	
@@ -201,8 +219,6 @@ $(document).ready( function() {
 		}
 	});
 	
-	
-		
 	$('.vcard').qtip({
 		content: 'vCards are electronic business cards. They can be placed into an address book program on your computer or phone and will add that contact with any information on the card. vCard information can include text as well as photos and audio.',
 		position: {
