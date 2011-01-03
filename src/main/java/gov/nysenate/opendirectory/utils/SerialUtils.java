@@ -20,7 +20,7 @@ public class SerialUtils {
 	public static TreeSet<String> loadStringSet(String str, String delim) {
 		if(str==null || str.isEmpty())
 			return new TreeSet<String>();
-		return new TreeSet<String>(Arrays.asList(str.split(delim)));
+		return new TreeSet<String>(Arrays.asList(str.replaceAll("-"," ").split(delim)));
 	}
 	
 	public static TreeSet<Person> loadBookmarks(String str,Person person, SolrSession session) {
@@ -49,7 +49,7 @@ public class SerialUtils {
 		
 		String str = "";
 		for(String s : set)
-			str += s+delim;
+			str += s.replaceAll(" ", "-")+delim;
 		
 		return str.substring(0,str.length()-delim.length());
 	}

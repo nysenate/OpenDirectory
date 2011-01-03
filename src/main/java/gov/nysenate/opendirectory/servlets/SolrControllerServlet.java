@@ -47,8 +47,8 @@ public class SolrControllerServlet extends BaseServlet {
 		    		reindexAll(self);
 		    		out.println("Reindexed all ldap values");
 		    	} 
-		    	else if (command.equals("resetPermissions")){
-		    		resetPermissions(self);
+		    	else if (command.equals("rewritePeople")){
+		    		rewritePeople(self);
 		    		out.println("Reset all permissions");
 
 		    	}
@@ -76,15 +76,15 @@ public class SolrControllerServlet extends BaseServlet {
 		}
 	}
 	
-	public void resetPermissions(Request self) throws NamingException, SolrServerException, IOException {
+	public void rewritePeople(Request self) throws NamingException, SolrServerException, IOException {
 		Solr solr = new Solr().connect();
 		SolrSession session = new SolrSession(Person.getAdmin(),solr);
 		Collection<Person> people = session.loadPeople();
 		ArrayList<Person> toAdd = new ArrayList<Person>();
 		for(Person ldapPerson: people) {
 			
-			ldapPerson.setPermissions(ldapPerson.getPermissions());
-			ldapPerson.setCredentials(null);
+//			ldapPerson.setPermissions(ldapPerson.getPermissions());
+//			ldapPerson.setCredentials(null);
 			toAdd.add(ldapPerson);
 			
 		}

@@ -82,7 +82,7 @@
 								<a href="<%= urls.url("user","edit","settings")%>">Settings</a>
 							</div>
 							<p>Additional Contact Information</p>
-								<div id="edit_form_field" style="float:left;">
+								<div id="edit_form_field" class="edit_left">
 									<ol>
 										<li>
 											<label id="edit_input"><b>E-mail</b></label>
@@ -99,40 +99,44 @@
 									</ol>
 									<!-- Phone  -->
 								</div>
-								<div id="edit_form_field" style="float:left;">
+								<div id="edit_form_field"  class="edit_right">
 									<ol>
-										<li>
+										<li style="padding-left:0px;">
 											<label id="edit_input"><b>LinkedIn</b></label>
 											<input type="text" value="<%=linkedin%>" name="linkedin"></input>
 										</li>
-										<li>
+										<li style="padding-left:0px;">
 											<label id="edit_input"><b>Facebook</b></label>
 											<input type="text" value="<%=facebook%>" name="facebook"></input>
 										</li>
-										<li>
+										<li style="padding-left:0px;">
 											<label id="edit_input"><b>Twitter</b></label>
 											<input type="text" value="<%=twitter%>" name="twitter"></input>
 										</li>
 									</ol>
 									 <!--  (Profile URL) -->
 								</div>
-							<div id="" style="margin-top:140px;">
-								<div id="">
+							<div id="" style="margin-top:140px;padding:6px;">
+								<div style="padding-bottom:15px;">
+									<div class="edit_left">
+										<b>Skills</b>
+										<br/>
+										<i style="font-size:70%;">Separate skills with a comma</i><br/>
+										<textarea name="skills" style="width:220px" rows="4"><%=user.getSkills().toString().substring(1,user.getSkills().toString().length()-1) %></textarea>
+										<div class="suggestions" id="skills_suggestions"></div>
+									</div>
+									<div id="edit_right">
+										<b>Interests</b>
+										<br/>
+										<i style="font-size:70%;">Separate interests with a comma</i><br/>
+										<textarea name="interests" style="width:220px;" rows="4"><%=user.getInterests().toString().substring(1,user.getInterests().toString().length()-1) %></textarea>
+										<div class="suggestions" id="interests_suggestions"></div>
+									</div>
+								</div>
+								<div id="" style="margin-top:7px;">
 									<b>About Me</b>
 									<br/>
 									<textarea name="bio" style="width:95%;" rows="5"><%=user.getUnprocessedBio()%></textarea>
-								</div>
-								<div id="">
-									<b>Skills</b>
-									<br/>
-									<i style="font-size:70%;">Separate Skills With a Comma or Semicolon</i>
-									<textarea name="skills" style="width:95%;" rows="4"><%=user.getSkills().toString().substring(1,user.getSkills().toString().length()-1) %></textarea>
-								</div>
-								<div id="">
-									<b>Interests</b>
-									<br/>
-									<i style="font-size:70%;">Separate Interests With a Comma or Semicolon</i>
-									<textarea name="interests" style="width:95%;" rows="4"><%=user.getInterests().toString().substring(1,user.getInterests().toString().length()-1) %></textarea>
 								</div>
 							</div><br/>
 							<div id="submit_changes_Button" align="center">

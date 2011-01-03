@@ -61,7 +61,7 @@ public class UrlMapper {
 	}
 	
 	public Vector<String> getArgs(HttpServletRequest request) {
-		return getArgs(request.getRequestURI());
+		return getArgs(request.getRequestURI().replaceAll("%20", " "));
 	}
 	
 	public Vector<String> getArgs(String url) {

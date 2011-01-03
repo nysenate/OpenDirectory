@@ -205,7 +205,6 @@ body {
   margin:0px;
   border-bottom:1px solid #ccc;
   border-top:1px solid #ccc;
-
 }
 .quickresult_box {
   margin-top:0px;
@@ -248,6 +247,16 @@ body {
 .ratio_right {
   width: 61.80339883%;
   float: right;
+}
+
+.edit_left {
+	 width: 50%;
+ 	 float: left;
+}
+
+.edit_right {
+	 width: 50%;
+ 	 float: right;
 }
 
 #main_left div {
@@ -553,6 +562,10 @@ body {
 	margin-bottom:1px;
 }
 
+#edit_form_field input {
+	width: 142px;	
+}
+
 #edit_container {
 	width:500px;
 	padding:6px;
@@ -631,4 +644,44 @@ a.sublink:hover
 .about {
 	margin-left:-70px;
 	white-space: pre-wrap;
+}
+
+.suggestions {
+	width:220px;
+	position:absolute;
+	border-left:solid 1px;
+	border-right:solid 1px;
+	background:#fff;
+	color:#777;
+	line-height:14px;
+	font-size:10pt;
+	overflow:hidden;
+	visibility:hidden;
+}
+
+#skills_suggestions {
+	
+}
+
+#interests_suggestions {
+	margin-left:243px;
+}
+
+.suggestions ul, .suggestions li {
+  list-style-type:none;
+  margin:0px;
+  border-bottom:1px solid;
+  border-top:1px solid;
+}
+.suggestions_box {
+  margin-top:0px;
+  padding:4px; 
+  font-size:12px; 
+}
+.suggestions_box:hover {
+  background:#FFFFCC;
+}
+
+#selected_suggestion {
+  background:#FFFFCC;
 }
