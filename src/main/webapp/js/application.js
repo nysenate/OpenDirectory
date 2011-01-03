@@ -44,6 +44,21 @@ $(document).ready( function() {
 	
 	/* for profile editing */
 	
+	repopulateTextArea = function(list, name, index) {
+		list[type_index] = $('.suggestions_box:eq(' + index + ')').html();
+		var n = "";
+		for(x in list) {
+			if(x == 0) {
+				n += list[x];
+			}
+			else {
+				n += ", " + list[x];
+			}
+		}
+		$('textarea[name=' + name + ']').val(n);
+		return list;
+	};
+	
 	var cleanSet = function(text) {
 		var temp = text.split(',');	
 		for(x in temp) {
@@ -75,7 +90,7 @@ $(document).ready( function() {
 				var type_query_word = new_type_set[x];
 				
 				var query = "/opendirectory/api/1.0/search/xml?query=" + type + ":(" + type_query_word + "~) OR "
-						+ type + ":(" + type_query_word + "*)";
+						+ type + ":(" + type_query_word + "*) OR " + type + ":(" + type_query_word + ")";
 				
 				 $.get(query, function(data) {
 					
@@ -116,23 +131,6 @@ $(document).ready( function() {
 		return type_set;
 	};
 	
-	repopulateTextArea = function(list, name, index) {
-		list[type_index] = $('.suggestions_box:eq(' + index + ')').html();
-		var n = "";
-		for(x in list) {
-			if(x == 0) {
-				n += list[x];
-			}
-			else {
-				n += ", " + list[x];
-			}
-		}
-		$('textarea[name=' + name + ']').val(n);
-		return list;
-	};
-	
-	
-	
 	$('textarea[name=interests]').keyup(function() {
 		var interest_text = $(this).val();
 		if(interest_set == null) {
@@ -152,8 +150,6 @@ $(document).ready( function() {
 			skill_set = getTypeSimilarSet("skills","skill",skill_set, skill_text);
 		},250);
 	});
-	
-	
 	
 	$('.edit_left').click(function(e) {
 		if ($(e.target).is('.suggestions_box')) {
