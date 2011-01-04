@@ -36,7 +36,7 @@
 					<div class="ratio_left" id="main_left">
 						<div class="image">
 							<% if(user.getPicture()!=null && !user.getPicture().isEmpty()) { %>
-								<img src="<%=user.getPicture()%>" width="165" height="213"><br/>
+								<img src="/uploads/avatars/profile/<%=user.getPicture()%>" width="165" height="213"><br/>
 								<i style="font-size:60%;"><a href="<%=urls.url("user","edit","deletePicture") %>">(delete your image)</a></i>
 							<% } else { %>
 								<img src="<%=urls.url("img","default_gravatar.png")%>" width="165" height="213" />

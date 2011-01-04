@@ -12,9 +12,9 @@
 						<div class="bookmark">
 							<div class="bookmark_pic">
 								<% if(bookmark.getPicture()!=null && !bookmark.getPicture().isEmpty()) { %>
-									<img src="<%=bookmark.getPicture()%>" width="82" height="106">
+									<img src="/uploads/avatars/thumb/<%=bookmark.getPicture()%>" width="55" height="71">
 								<% } else { %>
-									<img src="<%=urls.url("img","default_gravatar.png")%>" width="82" height="106">
+									<img src="<%=urls.url("img","default_gravatar.png")%>" width="55" height="71">
 								<% } %>
 							</div>
 							<div class="bookmark_info">

@@ -47,8 +47,8 @@ public class Request {
 		//Set up request defaults
 		request.setAttribute("title", "NYSS OpenDirectory");
 		
-		if(request.getSession().getAttribute("frontPagePeople") == null) {
-			request.getSession().setAttribute("frontPagePeople", new FrontPagePeople(this));
+		if(httpSession.getAttribute("frontPagePeople") == null) {
+			httpSession.setAttribute("frontPagePeople", new FrontPagePeople(this));
 		}
 	}
 	

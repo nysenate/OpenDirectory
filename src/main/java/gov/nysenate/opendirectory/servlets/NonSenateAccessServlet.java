@@ -1,14 +1,12 @@
 package gov.nysenate.opendirectory.servlets;
 
 import gov.nysenate.opendirectory.ldap.Ldap;
-import gov.nysenate.opendirectory.servlets.UserServlet.UserServletException;
 import gov.nysenate.opendirectory.utils.Request;
 
 import java.io.IOException;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,6 +16,7 @@ public class NonSenateAccessServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public class ExternalServletException extends Exception {
+		private static final long serialVersionUID = 1L;
 		public ExternalServletException(String m) { super(m); }
 		public ExternalServletException(String m, Throwable t) { super(m,t); }
 	}

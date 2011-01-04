@@ -5,14 +5,14 @@ import gov.nysenate.opendirectory.models.Person;
 import gov.nysenate.opendirectory.solr.Solr;
 import gov.nysenate.opendirectory.solr.SolrSession;
 import gov.nysenate.opendirectory.utils.FrontPagePeople;
+import gov.nysenate.opendirectory.utils.ImageConverter;
 import gov.nysenate.opendirectory.utils.Request;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.TreeSet;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -21,18 +21,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.solr.client.solrj.SolrServerException;
+import org.im4java.core.IM4JavaException;
 
 @SuppressWarnings("serial")
 public class SolrControllerServlet extends BaseServlet {
 	
-	public static void main(String[] args) {
-		try {
-			Collection<Person> people = new SolrControllerServlet().replaceDepartments(new Ldap().connect().getPeople());
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			Collection<Person> people = new SolrControllerServlet().replaceDepartments(new Ldap().connect().getPeople());
+//		} catch (NamingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Request self = new Request(this,request,response);
@@ -50,7 +51,10 @@ public class SolrControllerServlet extends BaseServlet {
 		    	else if (command.equals("rewritePeople")){
 		    		rewritePeople(self);
 		    		out.println("people rewritten");
-
+		    	}
+		    	else if(command.equals("rewriteImages")) {
+		    		rewriteImages(self, out);
+		    		out.println("images written");
 		    	}
 		    	else if(command.equals("resetFrontPage")) {
 		    		request.getSession().setAttribute("frontPagePeople",new FrontPagePeople(self));
@@ -78,6 +82,30 @@ public class SolrControllerServlet extends BaseServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void rewriteImages(Request self, ServletOutputStream out) throws NamingException, SolrServerException, IOException {
+		Solr solr = new Solr().connect();
+		SolrSession session = new SolrSession(Person.getAdmin(),solr);
+		Collection<Person> people = session.loadPeople();
+		ArrayList<Person> toAdd = new ArrayList<Person>();
+		for(Person person: people) {
+			
+			if(person.getPicture() != null && !person.getPicture().equals("")) {
+				try {
+					String pictureName = ImageConverter.writeProfileImages("/usr/local/avatars/", person.getUid(), 
+							person.getPicture().substring(person.getPicture().lastIndexOf(".")));
+							person.setPicture(pictureName);
+				} catch (InterruptedException e) {
+					e.printStackTrace(new PrintStream(out));
+				} catch (IM4JavaException e) {
+					e.printStackTrace(new PrintStream(out));
+				}
+				toAdd.add(person);
+			}
+			
+		}
+		self.solrSession.savePeople(toAdd);
 	}
 	
 	public void rewritePeople(Request self) throws NamingException, SolrServerException, IOException {

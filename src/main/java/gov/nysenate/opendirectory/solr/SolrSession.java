@@ -39,6 +39,9 @@ public class SolrSession {
 		Solr solr = new Solr().connect();
 		SolrSession session = solr.newSession(Person.getAdmin());
 		
+		Person me = session.loadPersonByUid("williams");
+		
+		System.out.println(me.getPicture().substring(me.getPicture().lastIndexOf(".")));
 	}
 	
 	public SolrSession(Person user, Solr solr) {

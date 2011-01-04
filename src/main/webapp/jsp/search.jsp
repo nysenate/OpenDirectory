@@ -39,7 +39,7 @@
 							  <li class="result">
 									<span class="result_pic">
 										<% if(result.getPicture()!=null && !result.getPicture().isEmpty()) { %>
-											<img src="<%=result.getPicture()%>" width="55" height="71">
+											<img src="/uploads/avatars/thumb/<%=result.getPicture()%>" width="55" height="71">
 										<% } else { %>
 											<img src="<%=urls.url("img", "default_gravatar.png")%>" width="55" height="71">
 										<% } %>

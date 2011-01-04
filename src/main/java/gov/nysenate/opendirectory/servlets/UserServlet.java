@@ -2,6 +2,7 @@ package gov.nysenate.opendirectory.servlets;
 
 import gov.nysenate.opendirectory.ldap.Ldap;
 import gov.nysenate.opendirectory.models.Person;
+import gov.nysenate.opendirectory.utils.ImageConverter;
 import gov.nysenate.opendirectory.utils.Request;
 import gov.nysenate.opendirectory.utils.SerialUtils;
 import gov.nysenate.opendirectory.utils.XmlUtils;
@@ -315,6 +316,7 @@ public class UserServlet extends BaseServlet {
 					//Handle file, but only if name is not empty
 					//(so that we don't handle blank uploads)
 					} else if(item.getName()!=null && item.getName().isEmpty()==false) {
+						
 						try {
 							//Break down the filename to and build a new one with the user id
 							String filetype = item.getName().substring(item.getName().lastIndexOf('.'));
@@ -323,19 +325,28 @@ public class UserServlet extends BaseServlet {
 							if(!filetype.toLowerCase().matches("\\.(gif|jpg|png|jpeg)")) {
 								error += "<br/>Attached either a gif, jpg or png image";
 							}
-							else if(item.getSize() > 307200) {
-								error += "<br/>Used an image that is below 300kb in size";
-							}
+//							else if(item.getSize() > 307200) {
+//								error += "<br/>Used an image that is below 300kb in size";
+//							}
 							else {
+								String avatarPath = avatarPath();
 								//Write the file to the img/avatars directory and set the person's weblink
 								System.out.println("Writing to: "+avatarPath()+filename);
 								if(self.user.getPicture() != null && !self.user.getPicture().equals("")) {
-									new File(avatarPath()+self.user.getPicture().split("/")[2]).delete();
+									new File(avatarPath() + "profile/"+self.user.getPicture()).delete();
+									new File(avatarPath() + "thumb/"+self.user.getPicture()).delete();
 								}
 								item.write(new File(avatarPath()+filename));
-																
 								
-								self.user.setPicture("/uploads/avatars/"+filename);
+								try {
+									String realName = ImageConverter.writeProfileImages(avatarPath, self.user.getUid(), filetype);				
+									self.user.setPicture(realName);
+								}
+								catch (Exception e) {
+									//the image could not be converted
+								}
+								
+								new File(avatarPath()+filename).delete();
 							}
 							//Writing a FileItem can apparently through any kind of exception (sloppy)
 							//so I don't know why this would get thrown here, just what throws it.
@@ -371,8 +382,9 @@ public class UserServlet extends BaseServlet {
 		try {
 			if(self.user.getPicture() != null && !self.user.getPicture().isEmpty()) {
 				
-				new File(avatarPath()+self.user.getPicture().split("/")[2]).delete();
-				
+				new File(avatarPath() + "profile/"+self.user.getPicture()).delete();
+				new File(avatarPath() + "thumb/"+self.user.getPicture()).delete();
+
 				self.user.setPicture("");
 				
 				self.solrSession.savePerson(self.user);
