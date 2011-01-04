@@ -4,9 +4,15 @@ pre { font-family:inherit; }
 
 .clear { clear:both; }
 
+a,
 a:visited {
-	color:blue;
-	}
+  color: #1B5187;
+}
+
+a:hover {
+  color: #3D83A9;
+}
+
 
 #edit_button {
 	text-align:center;
@@ -387,6 +393,32 @@ body {
   content: "";
 }
 
+/* Search Results */
+
+#search_left {
+  float: left;
+}
+
+.search_list {
+  list-style: none;
+}
+
+.results {
+}
+
+.result_pic, .bookmark_pic {
+  float:left;
+}
+.result_info {
+  margin-left: 5px;
+  font-size:18px; 
+}
+
+.result_info p {
+  padding-left: 60px;
+  margin-top: 5px;
+}
+
 /*End New CSS*/
 
 #edit_pic {
@@ -436,11 +468,9 @@ body {
   	.people{margin-left: 40px;}
   	a.people_url:hover{text-decoration:none;}
   
-.result { padding:3px 0px 3px 3px; }
+
 .bookmark { padding:5px 0px 5px 3px; }
-	.result_pic, .bookmark_pic { float:left; }
-	.result_info {	font-size:18px; padding-left:65px; }
-	.bookmark_info { font-size:18px; padding-left:90px; }
+.bookmark_info { font-size:18px; padding-left:90px; }
 
 
 #main_center {
