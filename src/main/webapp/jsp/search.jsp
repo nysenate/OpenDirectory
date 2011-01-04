@@ -39,7 +39,7 @@
 										<% if(result.getPicture()!=null && !result.getPicture().isEmpty()) { %>
 											<img src="<%=result.getPicture()%>" width="55" height="71">
 										<% } else { %>
-											<img src="<%=urls.url("img","defaults","Gravatar-10.png")%>" width="55" height="71">
+											<img src="<%=urls.url("img", "default_gravatar.png")%>" width="55" height="71">
 										<% } %>
 									</div>
 									<div class="result_info">

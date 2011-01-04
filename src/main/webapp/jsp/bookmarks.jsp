@@ -14,7 +14,7 @@
 								<% if(bookmark.getPicture()!=null && !bookmark.getPicture().isEmpty()) { %>
 									<img src="<%=bookmark.getPicture()%>" width="82" height="106">
 								<% } else { %>
-									<img src="<%=urls.url("img","defaults","Gravatar-20.png")%>" width="82" height="106">
+									<img src="<%=urls.url("img","default_gravatar.png")%>" width="82" height="106">
 								<% } %>
 							</div>
 							<div class="bookmark_info">

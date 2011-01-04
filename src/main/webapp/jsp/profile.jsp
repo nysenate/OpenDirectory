@@ -13,7 +13,7 @@
 						<% if(person.getPicture()!=null && !person.getPicture().isEmpty()) { %>
 							<img src="<%=person.getPicture()%>" width="165" height="213">
 						<% } else { %>
-							<img src="<%=urls.url("img","defaults","Gravatar-30.png")%>" width="165" height="213" />
+							<img src="<%=urls.url("img","default_gravatar.png")%>" width="165" height="213" />
 						<% } %>
 					</div>
 					

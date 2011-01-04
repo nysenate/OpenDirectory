@@ -36,7 +36,7 @@ public String writeRadios(String internal_name, String cred) {
 								<img src="<%=user.getPicture()%>" width="165" height="213"><br/>
 								<i style="font-size:60%;"><a href="<%=urls.url("user","edit","deletePicture") %>">(delete your image)</a></i>
 							<% } else { %>
-								<img src="<%=urls.url("img","defaults","Gravatar-30.png")%>" width="165" height="213" />
+								<img src="<%=urls.url("img","default_gravatar.png")%>" width="165" height="213" />
 							<% } %>
 						</div>
 						
