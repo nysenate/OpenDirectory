@@ -39,9 +39,8 @@ public class SolrSession {
 		Solr solr = new Solr().connect();
 		SolrSession session = solr.newSession(Person.getAdmin());
 		
-		Person me = session.loadPersonByUid("williams");
 		
-		System.out.println(me.getPicture().substring(me.getPicture().lastIndexOf(".")));
+		System.out.println(session.queryParser("chief of staff", "public", "(\"", "\")"));
 	}
 	
 	public SolrSession(Person user, Solr solr) {
@@ -87,7 +86,7 @@ public class SolrSession {
 		
 		String creds = SerialUtils.writeStringSet(user.getCredentials(),", ");		
 		
-		query = queryParser(query,creds);
+		query = queryParser(query,creds, "(\"", "\")");
 		
 		System.out.println("\nLoading People By Query: "+query);
 		System.out.println(creds);
@@ -97,17 +96,23 @@ public class SolrSession {
 		long start = System.nanoTime();
 		
 		QueryResponse results = null;
-		if(sortField != null) {
-			results = solr.sortedQuery(query, 2000, sortField, asc);
-		}
-		else {
-			results = solr.query(query,2000);
-		}
+		
+		results = solr.sortedQuery(query, 2000, sortField, asc);
 		
 		if(results==null)
 			return new ArrayList<Person>();
+		else {
+			if(results.getResults().isEmpty()) {
+				results = solr.sortedQuery(queryParser(query,creds, "(", ")"), 2000, sortField, asc);
+				
+				if(results==null)
+					return new ArrayList<Person>();
+			}
+			
+		}
 		
 		SolrDocumentList profiles = results.getResults();
+				
 		System.out.println((System.nanoTime()-start)/1000000f+" ms - query to solr");
 		
 		if(profiles==null)
@@ -167,7 +172,7 @@ public class SolrSession {
 		solr.server.add(writer.writePerson(person));
 	}
 	
-	public String queryParser(String query, String creds) {
+	public String queryParser(String query, String creds, String wrpL, String wrpR) {
 		String aon = "(?i:and|or|not)";
 		
 		TreeSet<String> basics = new TreeSet<String>(Arrays.asList("uid","otype","firstName","lastName","fullName"));
@@ -186,25 +191,28 @@ public class SolrSession {
 		}
 		//can't find <term>:<param> formatted query, most likely free input
 		else {
-			query = "uid:(" 			+ query + ")" +
-					"OR firstName:("	+ query + ")" +
-					"OR lastName:(" 	+ query + ")" +
-					"OR fullName:("	 	+ query + ")" +
-					" OR (title:("	 	+ query + ") AND title_access:(" 		+ creds + "))" +
-					" OR (state:("	 	+ query + ") AND state_access:(" 		+ creds + "))" +
-					" OR (location:(" 	+ query + ") AND location_access:(" 	+ creds + "))" +
-					" OR (department:(" + query + ") AND department_access:("	+ creds + "))" +
-					" OR (phone:(" 		+ query + ") AND phone_access:(" 		+ creds + "))" +
-					" OR (email:(" 		+ query + ") AND email_access:(" 		+ creds + "))" +
-					" OR (skills:(" 	+ query + ") AND skills_access:(" 		+ creds + "))" +
-					" OR (interests:(" 	+ query + ") AND interests_access:(" 	+ creds + "))" +
-					" OR (bio:(" 		+ query + ") AND bio_access:(" 			+ creds + "))" +
-					" OR (facebook:(" 	+ query + ") AND facebook_access:(" 	+ creds + "))" +
-					" OR (linkedin:(" 	+ query + ") AND linkedin_access:(" 	+ creds + "))" +
-					" OR (twitter:(" 	+ query + ") AND twitter_access:(" 		+ creds + "))" +
-					" OR (irc:(" 		+ query + ") AND irc_access:(" 			+ creds + "))" +
-					" OR (email2:(" 	+ query + ") AND email2_access:(" 		+ creds + "))" +
-					" OR (phone2:(" 	+ query + ") AND phone2_access:(" 		+ creds + "))";
+			//these are used to wrap the default search, sometimes ([term]) may be desired, sometimes ("[term]")
+			wrpL = wrpL == null ? "(" : wrpL;
+			wrpR = wrpR == null ? ")" : wrpR;
+			query = "uid:"				+ wrpL + query + wrpR +
+					" OR firstName:"	+ wrpL + query + wrpR +
+					" OR lastName:"		+ wrpL + query + wrpR +
+					" OR fullName:"		+ wrpL + query + wrpR +
+					" OR (title:"		+ wrpL + query + wrpR + " AND title_access:(" 		+ creds + "))" +
+					" OR (state:"		+ wrpL + query + wrpR + " AND state_access:(" 		+ creds + "))" +
+					" OR (location:"	+ wrpL + query + wrpR + " AND location_access:(" 	+ creds + "))" +
+					" OR (department:"	+ wrpL + query + wrpR + " AND department_access:("	+ creds + "))" +
+					" OR (phone:"		+ wrpL + query + wrpR + " AND phone_access:(" 		+ creds + "))" +
+					" OR (email:"		+ wrpL + query + wrpR + " AND email_access:(" 		+ creds + "))" +
+					" OR (skills:"		+ wrpL + query + wrpR + " AND skills_access:(" 		+ creds + "))" +
+					" OR (interests:"	+ wrpL + query + wrpR + " AND interests_access:(" 	+ creds + "))" +
+					" OR (bio:"			+ wrpL + query + wrpR + " AND bio_access:(" 		+ creds + "))" +
+					" OR (facebook:"	+ wrpL + query + wrpR + " AND facebook_access:(" 	+ creds + "))" +
+					" OR (linkedin:"	+ wrpL + query + wrpR + " AND linkedin_access:(" 	+ creds + "))" +
+					" OR (twitter:"		+ wrpL + query + wrpR + " AND twitter_access:(" 	+ creds + "))" +
+					" OR (irc:"			+ wrpL + query + wrpR + " AND irc_access:(" 		+ creds + "))" +
+					" OR (email2:"		+ wrpL + query + wrpR + " AND email2_access:(" 		+ creds + "))" +
+					" OR (phone2:"		+ wrpL + query + wrpR + " AND phone2_access:(" 		+ creds + "))";
 		}
 		return query;
 	}

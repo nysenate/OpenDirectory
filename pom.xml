@@ -21,6 +21,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>im4java</groupId>
+			<artifactId>im4java</artifactId>
+			<version>1.1.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<artifactId>solr-solrj</artifactId>
 			<groupId>org.apache.solr</groupId>
 			<version>1.4.0</version>
