@@ -30,9 +30,11 @@
 								if(result.getScore() < 1 && bestMatch) {
 									bestMatch = false;
 									%>
+									  </ul> 
 										</div>
 										<div id="show_search_secondary"><h2>Click here to show partial matches</h2></div>
 										<div id="search_secondary">
+										<ul class="search_list">
 									<%
 								}							
 								%>
@@ -61,7 +63,6 @@
   								</span>
 								</li>
 							<% } %>
-						</ul>
 						<% } else { %>
 							<%if (results == null) { %>
 							
@@ -69,6 +70,7 @@
 							
 							<%} %>
 						<% } %>
+						</ul>
 				</div>
 			  </div>
 			</div>
