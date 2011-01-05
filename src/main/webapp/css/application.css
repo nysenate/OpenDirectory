@@ -399,6 +399,10 @@ body {
   float: left;
 }
 
+#search_right {
+  float: right;
+}
+
 .search_list {
   list-style: none;
 }
@@ -414,10 +418,57 @@ body {
   font-size:18px; 
 }
 
-.result_info p {
-  padding-left: 60px;
-  margin-top: 5px;
+h3.search_name {
+  margin-left: 60px;
+  color: #1B5187;
+  text-decoration: underline;
+  cursor: auto;
 }
+
+h3.search_name:hover {
+  color: #3D83A9;
+  cursor: pointer;
+}
+
+.result_info p {
+  margin-left: 60px;
+  margin-top: -15px;
+}
+
+.search_preview {
+  position: fixed;
+  margin-top: 90px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-right: 5px;
+  padding-left: 5px;
+  border-right: 5px solid blue;
+  border-top: 5px solid blue;
+  border-bottom: 5px solid blue;
+  background: #fff;
+}
+
+#search_preview_image {
+  padding-right: 5px;
+
+}
+
+#search_preview_name,
+#search_preview_title,
+#search_preview_office {
+  float: right;
+  position: relative;
+  width: 223px;
+  left: -5px;
+  margin-top: 0px;
+  text-align: right;
+}
+
+#search_preview_title,
+#search_preview_office {
+  margin-top: -67px;
+}
+
 
 /*End New CSS*/
 
