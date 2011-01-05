@@ -7,27 +7,34 @@ $(document).ready(function() {
 	
 	writeToSearchBox = (function(person) {
 		var html = "";
-		html += "<img src=" + (person.picture != null && person.picture != '' ? "/uploads/avatars/profile/"
+		
+    	html += "<img src=" + (person.picture != null && person.picture != '' ? "/uploads/avatars/profile/"
 				+ person.picture : "\"/opendirectory/img/default_gravatar.png\"") + " title=\"" +
 				person.name + "\" height=\"106.5\" width=\"82.5\" id=\"search_preview_image\">"
-	    	+ "<h3 id=\"search_preview_name\">" + person.name + "</h3><br/>"
-	    	+ "<span id=\"search_preview_title\">" + person.title + "</span><br/>"
-	    	+ "<span id=\"search_preview_office\">" + person.department + "</span>"
-	    	+ "<br/>"
-	    	+ "<span id=\"senate_location\">" + person.location + "</span><br/>"
-	    	+ "<span id=\"senate_email\">" + person.email + "</span><br/>"
-	    	+ "<span id=\"additional_email\">" + person.email2 + "</span><br/>"
-	    	+ "<span id=\"senate_phone\">" + person.phone + "</span><br/>"
-	    	+ "<span  id=\"additional_phone\">" + person.phone2 + "</span><br/>"
-	    	+ "<br/>"
-	    	+ "<a href=\"/opendirectory/person/" + person.uid + "/profile\">View Full Profile...</a>";
+		html += writeField("h3","search_preview_name",person.name);
+		html += writeField("span","search_preview_title",person.title);
+		html += writeField("span","search_preview_office",person.department);
+		html += writeField("span","senate_location",person.location);
+		html += writeField("span","senate_email",person.email);
+		html += writeField("span","additional_email",person.email2);
+		html += writeField("span","senate_phone",person.phone);
+		html += writeField("span","additional_phone",person.phone2);
+		html += "<a href=\"/opendirectory/person/" + person.uid + "/profile\">View Full Profile...</a>";
+		
+		
 		$('.search_preview').html(html);
 		$('.search_preview').css('visibility','visible');
 	});
 	
+	writeField = (function(type, id, data) {
+		if(data !=  null && data != "") {
+			return "<" + type + " id=\"" + id + "\">" + data + "</" + type + "><br/>"
+		}
+		return "<br/>";
+	});
+	
 	writePerson = (function(data, funct) {
 		var pl = $(data).find('person');
-
 		var person = new Array();
 		
 		person.picture = $(pl).find('picture').html();

@@ -77,18 +77,6 @@
 			<!--Start Right Side-->
 			<div class="ratio_left" id="search_right">
 		    <div class="search_preview">
-		      <img src='/opendirectory/img/default_gravatar.png' title="Samuel Richard" height="106.5" width="82.5" id="search_preview_image">
-		      <h3 id="search_preview_name">Samuel Provenzano-Heal</h3><br/>
-		      <span id="search_preview_title">Web Programmer</span><br/>
-		      <span id="search_preview_office">Office of the Chief Information Officer</span>
-		      <br/>
-		      <span id="senate_location">New York</span><br/>
-		      <span id="senate_email">richard@nysenate.gov</span><br/>
-		      <span id="additional_email">sam@snug.ug</span><br/>
-		      <span id="senate_phone">212-298-7501</span><br/>
-		      <span  id="additional_phone">775-476-8484</span><br/>
-		      <br/>
-		      <a href="/opendirectory/person/richard/profile">View Full Profile...</a>
 		    </div>
 		  </div>
 <jsp:include page="footer.jsp" />
