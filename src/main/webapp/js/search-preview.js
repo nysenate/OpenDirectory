@@ -21,7 +21,6 @@ $(document).ready(function() {
 		html += writeField("span","additional_phone",person.phone2);
 		html += "<a href=\"/opendirectory/person/" + person.uid + "/profile\">View Full Profile...</a>";
 		
-		
 		$('.search_preview').html(html);
 		$('.search_preview').css('visibility','visible');
 	});

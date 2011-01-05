@@ -81,7 +81,6 @@ $(document).ready( function() {
 		
 		var new_type_set = cleanSet(type_text);
 		
-		
 		for(x in new_type_set) {
 			if(type_set[x] == null || type_set[x] != new_type_set[x]) {
 				type_index = x;
@@ -268,16 +267,6 @@ $(document).ready( function() {
 	
 	/* for quick search */
 	
-	$('#nav_search_input').keyup(function() {
-		//writeQuickResult($('#quickresult-header'), this);
-	});
-	
-	$('#s').keyup(function() {
-		input = $(this).val();
-		delay(function() {
-			writeQuickResult($('#quickresult-body'), input);
-		},250);
-	});
 	var delay = (function(){
 		var timer = 0;
 		return function(callback, ms){
@@ -285,7 +274,46 @@ $(document).ready( function() {
 			timer = setTimeout(callback, ms);
 		};
 	})();
-	var writeQuickResult = function(elem, input) {
+	
+	$('#nav_search_input').keyup(function() {
+//		input = $(this).val();
+//		delay(function() {
+//			initQuickResult($('#quickresult-body'), doHeaderQuickResult, input);
+//		},250);
+	});
+	
+	$('#s').keyup(function() {
+		input = $(this).val();
+		delay(function() {
+			initQuickResult($('#quickresult-body'), doIndexQuickResult, input);
+		},250);
+	});
+	
+	doHeaderQuickResult = (function(data,elem) {
+		//todo
+	});
+	
+	doIndexQuickResult = (function(data, elem) {
+		var html = "";
+		var total = $(data).find("total").html();
+		
+		html ='<li><em>' + total + ' total results... (<a href="/opendirectory/search/?query=' 
+			+ queryTerm + '">view all</a>)</em></li>';
+		$(data).find('person:lt(10)').each(function() {
+			var fName = $(this).find('firstName').html();
+			var lName = $(this).find('lastName').html();
+			var dept = $(this).find('department').html();
+			var uid = $(this).find('uid').html();
+			
+			html += '<li class="quickresult_box"><a href="/opendirectory/person/' 
+				+ uid + '/profile" class="sublink">';
+			html += fName + ' ' + lName + ' - ' + dept;
+			html += '</a></li>';
+		});
+		$(elem).html(html);
+	});
+	
+	initQuickResult = (function(input, callback, elem) {
 		if(input != '') {
 			$(elem).css('visibility','visible');
 			$(elem).html("");
@@ -293,28 +321,18 @@ $(document).ready( function() {
 			var queryTerm = "query=" + input;
 			var query = "/opendirectory/api/1.0/search/xml?" + queryTerm;
 			
-			$.get(query, function(data) {
-				var html = "";
-				var total = $(data).find("total").html();
-				
-				html ='<li><em>' + total + ' total results... (<a href="/opendirectory/search/?query=' + queryTerm + '">view all</a>)</em></li>';
-				$(data).find('person:lt(10)').each(function() {
-					var fName = $(this).find('firstName').html();
-					var lName = $(this).find('lastName').html();
-					var dept = $(this).find('department').html();
-					var uid = $(this).find('uid').html();
-					
-					html += '<li class="quickresult_box"><a href="/opendirectory/person/' + uid + '/profile" class="sublink">';
-					html += fName + ' ' + lName + ' - ' + dept;
-					html += '</a></li>';
-				});
-				$(elem).html(html);
-			});
+			doSearch(query, callback, elem);
 		}
 		else {
 			$(elem).css('visibility','hidden');
-		}
-	};
+		}	
+	});
+	
+	doSearch = (function(uri, callback, elem) {
+		$.get(uri, function(data) {
+			callback(data, elem);
+		});
+	});
 	
 	/* for browse by */
 	
