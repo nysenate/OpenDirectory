@@ -1,9 +1,16 @@
-<%@ page language="java" import="java.util.HashMap,java.util.TreeSet,java.util.StringTokenizer,gov.nysenate.opendirectory.models.Person,gov.nysenate.opendirectory.utils.UrlMapper"  %><%
-
+<%@ page language="java" import="java.util.HashMap,java.util.TreeSet,java.util.StringTokenizer,gov.nysenate.opendirectory.utils.UrlMapper,gov.nysenate.opendirectory.models.Person, gov.nysenate.opendirectory.utils.CachedContentManager, gov.nysenate.opendirectory.utils.Request"  %>
+<%@ taglib uri="http://www.opensymphony.com/oscache" prefix="cache" %>
+<%
+	Request self = (Request)request.getAttribute("self");
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
-	HashMap<String,TreeSet<Person>> people = (HashMap<String,TreeSet<Person>>)request.getAttribute("people");
-	
-%><jsp:include page="header.jsp" />
+%>
+
+<jsp:include page="header.jsp" />
+
+	<cache:cache key="<%=CachedContentManager.getCacheKey(CachedContentManager.BrowseType.LOCATION, self) %>" time="3600" scope="application">
+			
+			<%  HashMap<String,TreeSet<Person>> people = (HashMap<String,TreeSet<Person>>)request.getAttribute("people"); %>
+		
 			<div id="main">
 				<div id="main_regular">
 					<% for(String loc : new TreeSet<String>(people.keySet()) ) {
@@ -30,4 +37,5 @@
 					<% } %>
 				</div>
 			</div>
+		</cache:cache>
 <jsp:include page="footer.jsp" />

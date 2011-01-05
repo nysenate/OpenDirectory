@@ -425,9 +425,9 @@ public class Person implements Comparable<Person> {
 		public int compare(Person a, Person b) {
 			int ret = a.location.compareToIgnoreCase(b.location);
 			if (ret == 0) {
-				ret = a.firstName.compareToIgnoreCase(b.firstName);
+				ret = a.lastName.compareToIgnoreCase(b.lastName);
 				if (ret == 0) {
-					ret = a.lastName.compareToIgnoreCase(b.lastName);
+					ret = a.firstName.compareToIgnoreCase(b.firstName);
 					if (ret == 0) {
 						ret = a.department.compareToIgnoreCase(b.department);
 						if (ret == 0) {

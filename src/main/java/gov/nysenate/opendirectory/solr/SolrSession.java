@@ -40,7 +40,7 @@ public class SolrSession {
 		SolrSession session = solr.newSession(Person.getAdmin());
 		
 		
-		System.out.println(session.queryParser("chief of staff", "public", "(\"", "\")"));
+		System.out.println(session.loadPeopleByQuery("chief of staff").size());
 	}
 	
 	public SolrSession(Person user, Solr solr) {
@@ -85,9 +85,7 @@ public class SolrSession {
 	public ArrayList<Person> loadPeopleBySortedQuery(String query, String sortField, boolean asc) {
 		
 		String creds = SerialUtils.writeStringSet(user.getCredentials(),", ");		
-		
-		query = queryParser(query,creds, "(\"", "\")");
-		
+				
 		System.out.println("\nLoading People By Query: "+query);
 		System.out.println(creds);
 		System.out.println("===============================================");
@@ -96,20 +94,39 @@ public class SolrSession {
 		long start = System.nanoTime();
 		
 		QueryResponse results = null;
+		results = solr.sortedQuery(queryParser(query,creds, "(\"", "\")"), 2000, sortField, asc);
 		
-		results = solr.sortedQuery(query, 2000, sortField, asc);
-		
-		if(results==null)
-			return new ArrayList<Person>();
-		else {
-			if(results.getResults().isEmpty()) {
-				results = solr.sortedQuery(queryParser(query,creds, "(", ")"), 2000, sortField, asc);
-				
-				if(results==null)
-					return new ArrayList<Person>();
-			}
+		if(results == null || results.getResults().isEmpty()) {
+			results = solr.sortedQuery(queryParser(
+					query,creds, "(", ")"), 2000, sortField, asc);
 			
+			if(results == null || results.getResults().isEmpty()) {
+				Pattern pattern = Pattern.compile("(\\w+?):(\\w+?)(\\s(AND|OR)|$)");
+				Matcher matcher = pattern.matcher(query);
+				if(!matcher.find()) {
+					results = solr.sortedQuery(queryParser(
+							query + "*",creds, "(", ")"), 2000, sortField, asc);
+
+					if(results == null || results.getResults().isEmpty()) {
+						results = solr.sortedQuery(queryParser(
+								query + "~",creds, "(", ")"), 2000, sortField, asc);
+					}
+				}
+				else {
+					results =solr.sortedQuery(queryParser(
+							matcher.replaceAll("$1:$2*$3"), creds, "(", ")"), 2000, sortField, asc);
+					
+					if(results == null || results.getResults().isEmpty()) {
+						results = solr.sortedQuery(queryParser(
+								matcher.replaceAll("$1:$2~$3"), creds, "(", ")"), 2000, sortField, asc);
+					}
+				}
+			}		
 		}
+		
+		if(results == null)
+			return new ArrayList<Person>();
+		
 		
 		SolrDocumentList profiles = results.getResults();
 				
@@ -214,6 +231,7 @@ public class SolrSession {
 					" OR (email2:"		+ wrpL + query + wrpR + " AND email2_access:(" 		+ creds + "))" +
 					" OR (phone2:"		+ wrpL + query + wrpR + " AND phone2_access:(" 		+ creds + "))";
 		}
+		System.out.println("\n\n\n" + query + "\n\n\n");
 		return query;
 	}
 }

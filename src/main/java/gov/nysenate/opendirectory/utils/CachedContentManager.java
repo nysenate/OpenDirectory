@@ -1,11 +1,6 @@
-package gov.nysenate.opendirectory.servlets;
-
-import gov.nysenate.opendirectory.models.Person;
-import gov.nysenate.opendirectory.utils.Request;
-
+package gov.nysenate.opendirectory.utils;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -15,95 +10,68 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import gov.nysenate.opendirectory.models.Person;
+import gov.nysenate.opendirectory.servlets.BrowseServlet.BrowseServletException;
 
-@SuppressWarnings("serial")
-public class BrowseServlet extends BaseServlet {
-	// TODO This bucketting could probably be done in a much better way
-	public class BrowseServletException extends Exception {
-		public BrowseServletException(String m) { super(m); }
-		public BrowseServletException(String m, Throwable t) { super(m,t); }
+public class CachedContentManager {
+	
+	public static enum BrowseType {
+		FIRST_NAME,
+		LAST_NAME,
+		DEPARTMENT,
+		LOCATION
 	}
 	
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Request self = new Request(this,request,response);
+	public static String getCacheKey(BrowseType browseType, Request self) throws SecurityException, BrowseServletException, NoSuchMethodException, IOException {
+		String cacheKey = "";
 		
-		try {
-			try {
-				String command = urls.getCommand(request);
-				System.out.println(command);
-			    if (command != null) {
-			    	if ( command.equals("department")) {
-//			    		long start = System.nanoTime();
-//			    		request.setAttribute( "people",
-//			    				getDepartmentBuckets(self,
-//			    							Person.class.getMethod("getDepartment"),
-//			    							new Person.ByDepartment(),
-//			    							response.getWriter()));
-//			    		
-//						System.out.println("Sort by Department: "+(System.nanoTime()-start)/1000000f+" milliseconds");
-						
-			    		request.setAttribute("self", self);
-						self.render("dept.jsp");
-						
-			    	} else if ( command.equals("firstname") ) {
-//			    		long start = System.nanoTime();
-//						request.setAttribute( "people",
-//								GetPeopleSortedByChar(self,
-//										Person.class.getMethod("getFirstName"),
-//										new Person.ByFirstName()
-//									));
-//						System.out.println("Sort by Firstname: "+(System.nanoTime()-start)/1000000f+" milliseconds");
-						
-			    		request.setAttribute("self", self);
-			    		self.render("first.jsp");
-						
-			    	} else if ( command.equals("lastname") ) {
-//			    		long start = System.nanoTime();
-//						request.setAttribute( "people",
-//								GetPeopleSortedByChar(self,
-//										Person.class.getMethod("getLastName"),
-//										new Person.ByLastName()
-//									));
-//						System.out.println("Sort by LastName: "+(System.nanoTime()-start)/1000000f+" milliseconds");
-			    		
-			    		request.setAttribute("self", self);
-						self.render("last.jsp");
-			    		
-			    	} else if ( command.equals("location") ) {
-//			    		long start = System.nanoTime();
-//						request.setAttribute( "people",
-//								GetPeopleSortedByString(self,
-//										Person.class.getMethod("getLocation"),
-//										new Person.ByLocation()
-//									));
-//						System.out.println("Sort by Location: "+(System.nanoTime()-start)/1000000f+" milliseconds");
-						
-			    		request.setAttribute("self", self);
-						self.render("loc.jsp");
-						
-			    	}
-			    	
-			    } else {
-			    	self.render("index.jsp");
-			    }
-			} catch (SecurityException e) {
-				throw new BrowseServletException("Somehow the BrowseServlet does not have permissions to access the getMethods.");
-			}
-			
-		} catch (BrowseServletException e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-			if(e.getCause()!=null)
-				e.getCause().printStackTrace();
-			// TODO something reasonable to resolve things here
+		if(self.user == null || self.user.getUid() == null || self.user.getUid().equals("")) {
+			cacheKey += "ANON_";
+		}
+		else {
+			cacheKey += "SENATE_";
 		}
 		
-	}
+		long start = System.nanoTime();
+		switch(browseType) {
+			case FIRST_NAME: 
+				cacheKey += "FIRST_NAME";
+				self.httpRequest.setAttribute( "people",
+						GetPeopleSortedByChar(self,
+								Person.class.getMethod("getFirstName"),
+								new Person.ByFirstName()
+							));
+				break;
+			case LAST_NAME: 
+				cacheKey += "LAST_NAME";
+				self.httpRequest.setAttribute( "people",
+						GetPeopleSortedByChar(self,
+								Person.class.getMethod("getLastName"),
+								new Person.ByLastName()
+							));
+				break;
+			case DEPARTMENT: 
+				cacheKey += "DEPARTMENT";
+				self.httpRequest.setAttribute( "people",
+	    				getDepartmentBuckets(self,
+	    							Person.class.getMethod("getDepartment"),
+	    							new Person.ByDepartment()));
+				break;
+			case LOCATION: 
+				cacheKey += "LOCATION";
+				self.httpRequest.setAttribute( "people",
+						GetPeopleSortedByString(self,
+								Person.class.getMethod("getLocation"),
+								new Person.ByLocation()
+							));
+				break;
+		}
+		System.out.println("Caching: " + cacheKey + ", loaded in "+(System.nanoTime()-start)/1000000f+" milliseconds");
 		
-	private HashMap<String,TreeSet<Person>> GetPeopleSortedByChar(Request self, Method method, Comparator<Person> comparator) throws BrowseServletException {
+		return cacheKey;
+	}
+	
+	private static HashMap<String,TreeSet<Person>> GetPeopleSortedByChar(Request self, Method method, Comparator<Person> comparator) throws BrowseServletException {
 		try {
 			long start = System.nanoTime();
 			ArrayList<Person> people = self.solrSession.loadPeople();
@@ -137,7 +105,7 @@ public class BrowseServlet extends BaseServlet {
 		return null;
 	}
 	
-	private HashMap<String,HashMap<String,TreeSet<Person>>> getDepartmentBuckets(Request self, Method method, Comparator<Person> comparator, PrintWriter out) throws BrowseServletException {
+	private static HashMap<String,HashMap<String,TreeSet<Person>>> getDepartmentBuckets(Request self, Method method, Comparator<Person> comparator) throws BrowseServletException {
 		HashMap<String, TreeSet<Person>> treePeople = GetPeopleSortedByString(self, method, comparator);
 		HashMap<String,HashMap<String,TreeSet<Person>>> data = new HashMap<String,HashMap<String,TreeSet<Person>>>();
 		
@@ -182,7 +150,7 @@ public class BrowseServlet extends BaseServlet {
 		return data;
 	}
 	
-	public HashMap<String,TreeSet<Person>> bucketHelper(HashMap<String,HashMap<String,TreeSet<Person>>> data, String key) {
+	public static HashMap<String,TreeSet<Person>> bucketHelper(HashMap<String,HashMap<String,TreeSet<Person>>> data, String key) {
 		HashMap<String,TreeSet<Person>> tMap = null;
 		if((tMap = data.get(key)) != null) {
 			return tMap;
@@ -190,7 +158,7 @@ public class BrowseServlet extends BaseServlet {
 		return new HashMap<String,TreeSet<Person>>();
 	}
 
-	private HashMap<String,TreeSet<Person>> GetPeopleSortedByString(Request self,Method method, Comparator<Person> comparator) throws BrowseServletException {
+	private static HashMap<String,TreeSet<Person>> GetPeopleSortedByString(Request self,Method method, Comparator<Person> comparator) throws BrowseServletException {
 		try {
 			long start = System.nanoTime();
 			ArrayList<Person> people = self.solrSession.loadPeople();

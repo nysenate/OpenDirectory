@@ -34,24 +34,6 @@ public class SearchServlet extends BaseServlet {
 			
 			ArrayList<Person> people = self.solrSession.loadPeopleByQuery(query);
 			
-			if(people.isEmpty()) {
-				Pattern pattern = Pattern.compile("(\\w+?):(\\w+?)(\\s(AND|OR)|$)");
-				Matcher matcher = pattern.matcher(query);
-				if(!matcher.find()) {
-					people = self.solrSession.loadPeopleByQuery(query + "*");
-					if(people.isEmpty()) {
-						people = self.solrSession.loadPeopleByQuery(query + "~");
-					}
-				}
-				else {
-					people = self.solrSession.loadPeopleByQuery(matcher.replaceAll("$1:$2*$3"));
-					
-					if(people.isEmpty()) {
-						people = self.solrSession.loadPeopleByQuery(matcher.replaceAll("$1:$2~$3"));
-					}
-				}
-			}
-			
 			request.setAttribute("query", query);
 			request.setAttribute("results", people);
 			
