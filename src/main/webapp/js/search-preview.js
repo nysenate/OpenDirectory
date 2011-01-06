@@ -6,11 +6,12 @@ $(document).ready(function() {
 	});
 	
 	writeToSearchBox = (function(person) {
-		var html = "";
+		var html = "<div id='search_preview_close'><span id='preview_close_button'>close x</span></div>";
 		
     	html += "<img src=" + (person.picture != null && person.picture != '' ? "/uploads/avatars/profile/"
 				+ person.picture : "\"/opendirectory/img/default_gravatar.png\"") + " title=\"" +
 				person.name + "\" height=\"106.5\" width=\"82.5\" id=\"search_preview_image\">"
+		html += "<div id='search_preview_inner_wrapper'>";
 		html += writeField("h3","search_preview_name",person.name);
 		html += writeField("span","search_preview_title",person.title);
 		html += writeField("span","search_preview_office",person.department);
@@ -19,18 +20,23 @@ $(document).ready(function() {
 		html += writeField("span","additional_email",person.email2);
 		html += writeField("span","senate_phone",person.phone);
 		html += writeField("span","additional_phone",person.phone2);
-		html += "<a href=\"/opendirectory/person/" + person.uid + "/profile\">View Full Profile...</a>";
+		html += "</div><br />";
+		html += "<div id='search_preview_url'><a href=\"/opendirectory/person/" + person.uid + "/profile\">view full profile →</a></div>";
 		
 		
 		$('.search_preview').html(html);
 		$('.search_preview').css('visibility','visible');
+		
+		$("#preview_close_button").click(function() {
+  	  $('.search_preview').css('visibility','hidden');
+  	});
 	});
 	
 	writeField = (function(type, id, data) {
 		if(data !=  null && data != "") {
 			return "<" + type + " id=\"" + id + "\">" + data + "</" + type + "><br/>"
 		}
-		return "<br/>";
+		return "";
 	});
 	
 	writePerson = (function(data, funct) {
