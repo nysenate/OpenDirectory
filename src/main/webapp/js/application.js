@@ -298,6 +298,24 @@ $(document).ready( function() {
 		$(data).find('person:lt(10)').each(function() {
 			var fName = $(this).find('firstName').html();
 			var lName = $(this).find('lastName').html();
+			var dept = $(this).find('department').html();
+			var uid = $(this).find('uid').html();
+			
+			html += '<li class="quickresult_box"><a href="/opendirectory/person/' 
+				+ uid + '/profile" class="sublink">';
+			html += fName + ' ' + lName + ' - ' + dept;
+			html += '</a></li>';
+		});
+		$(elem).html(html);
+		
+		/*var html = "";
+		var total = $(data).find("total").html();
+		
+		html ='<li><em>' + total + ' total results... (<a href="/opendirectory/search/?query=' 
+			+ input + '">view all</a>)</em></li>';
+		$(data).find('person:lt(10)').each(function() {
+			var fName = $(this).find('firstName').html();
+			var lName = $(this).find('lastName').html();
 			var uid = $(this).find('uid').html();
 			
 			html += '<li class="quickresult_box"><a href="/opendirectory/person/' 
@@ -305,7 +323,7 @@ $(document).ready( function() {
 			html += fName + ' ' + lName;
 			html += '</a></li>';
 		});
-		$(elem).html(html);
+		$(elem).html(html);*/
 	});
 	
 	doIndexQuickResult = (function(input, data, elem) {
