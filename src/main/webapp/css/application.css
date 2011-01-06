@@ -261,8 +261,9 @@ ul.splashProfiles li a::after {
 #quickresult-header {
   position: absolute !important;
 	color: #777;
-	width: 200px;
-	margin-left: 5px;
+	/*width: 200px;*/
+	/*margin-left: 5px;*/
+	margin-left: -176px;
 }
 
 .quickresult ul,.quickresult li {
