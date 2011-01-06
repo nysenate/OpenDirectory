@@ -285,7 +285,7 @@ $(document).ready( function() {
 	$('#s').keyup(function() {
 		input = $(this).val();
 		delay(function() {
-			initQuickResult($('#quickresult-body'), doIndexQuickResult, input);
+			initQuickResult(input , doIndexQuickResult, $('#quickresult-body'));
 		},250);
 	});
 	
@@ -293,12 +293,12 @@ $(document).ready( function() {
 		//todo
 	});
 	
-	doIndexQuickResult = (function(data, elem) {
+	doIndexQuickResult = (function(data, elem, uri) {
 		var html = "";
 		var total = $(data).find("total").html();
 		
 		html ='<li><em>' + total + ' total results... (<a href="/opendirectory/search/?query=' 
-			+ queryTerm + '">view all</a>)</em></li>';
+			+ uri + '">view all</a>)</em></li>';
 		$(data).find('person:lt(10)').each(function() {
 			var fName = $(this).find('firstName').html();
 			var lName = $(this).find('lastName').html();
@@ -320,7 +320,7 @@ $(document).ready( function() {
 			
 			var queryTerm = "query=" + input;
 			var query = "/opendirectory/api/1.0/search/xml?" + queryTerm;
-			
+			console.log(query);
 			doSearch(query, callback, elem);
 		}
 		else {
@@ -330,7 +330,7 @@ $(document).ready( function() {
 	
 	doSearch = (function(uri, callback, elem) {
 		$.get(uri, function(data) {
-			callback(data, elem);
+			callback(data, elem, uri);
 		});
 	});
 	
