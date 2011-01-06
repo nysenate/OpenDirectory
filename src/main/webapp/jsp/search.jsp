@@ -76,7 +76,6 @@
 			</div>
 			<!--Start Right Side-->
 			<div class="ratio_left" id="search_right">
-		    <div class="search_preview">
-		    </div>
+	      <div class="search_preview"></div>
 		  </div>
 <jsp:include page="footer.jsp" />

@@ -1,5 +1,7 @@
 $(document).ready(function() {
-	$('.search_preview').css('visibility','hidden');
+	$('.search_preview').css('display','none');
+	$('.search_preview').css('margin-left', '-50px');
+	
 	
 	$(".search_name").click(function() {
 		$('html,body').animate({scrollTop:$(this).position().top-80},500);
@@ -25,10 +27,11 @@ $(document).ready(function() {
 		html += "<div id='search_preview_url'><a href=\"/opendirectory/person/" + person.uid + "/profile\">view full profile →</a></div>";
 		
 		$('.search_preview').html(html);
-		$('.search_preview').css('visibility','visible');
+		$('.search_preview').animate({ marginLeft: '0px', opacity: 'show' }, 500);
+		
 		
 		$("#preview_close_button").click(function() {
-  	  $('.search_preview').css('visibility','hidden');
+  	  $('.search_preview').animate({ marginLeft: '-50px', opacity: 'hide' }, 500);
   	});
 	});
 	
