@@ -1,14 +1,28 @@
 $(document).ready(function() {
 	$('.search_preview').css('display','none');
-	$('.search_preview').css('margin-left', '-50px');
+
 	
+	var currentParent = '';
+	var previousParent = '';
 	
 	$(".search_name").click(function() {
-		$('html,body').animate({scrollTop:$(this).position().top-80},500);
+	  var position = $(this).position().top;
+	  currentParent = $(this).closest('span').parent();
+	  currentParent.css('background', '#E2DED5');
+		$('html,body').animate({scrollTop:position},500);
+		$('.search_preview').css('margin-top', position);
 		getPerson($(this).attr('id').split("_")[1], writeToSearchBox)
 	});
 	
 	writeToSearchBox = (function(person) {
+	  if (currentParent != previousParent || previousParent == '') {
+	    if (previousParent != '') {
+	      previousParent.css('background', '#fff');
+	    }
+	    previousParent = currentParent;
+	  }
+	  
+	  
 		var html = "<div id='search_preview_close'><span id='preview_close_button'>close x</span></div>";
 		
     	html += "<img src=" + (person.picture != null && person.picture != '' ? "/uploads/avatars/profile/"
@@ -27,11 +41,14 @@ $(document).ready(function() {
 		html += "<div id='search_preview_url'><a href=\"/opendirectory/person/" + person.uid + "/profile\">view full profile →</a></div>";
 		
 		$('.search_preview').html(html);
-		$('.search_preview').animate({ marginLeft: '0px', opacity: 'show' }, 500);
+		$('.search_preview').css('display','block');
+//		$('.search_preview').animate({ opacity: 'show' }, 500);
 		
 		
 		$("#preview_close_button").click(function() {
-  	  $('.search_preview').animate({ marginLeft: '-50px', opacity: 'hide' }, 500);
+//  	  $('.search_preview').animate({ opacity: 'hide' }, 500);
+      $('.search_preview').css('display','none');
+  	  currentParent.css('background', '#fff');
   	});
 	});
 	

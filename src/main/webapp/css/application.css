@@ -205,6 +205,7 @@ body {
   left:170px;*/
 }
 #quickresult-header {
+  position: absolute !important;
 	color: #777;
 	width: 200px;
 	margin-left: 5px;
@@ -439,35 +440,38 @@ h3.search_name:hover {
 }
 
 .search_preview {
-  position: fixed;
+  position: relative;
   margin-top: 90px;
+  margin-left: -25px;
+  margin-right: 20px;
   padding-bottom: 10px;
   padding-top: 10px;
   padding-right: 5px;
   padding-left: 5px;
   background: #E2DED5;
-  -webkit-box-shadow: 5px 5px 20px rgba(0,0,0,0.275), -5px -5px 20px rgba(0,0,0,0.275);
+/*  -webkit-box-shadow: 5px 5px 20px rgba(0,0,0,0.275), -5px -5px 20px rgba(0,0,0,0.275);
   -moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.275), -5px -5px 5px rgba(0,0,0,0.275);
   box-shadow: 5px 5px 5px rgba(0,0,0,0.275), -5px -5px 5px rgba(0,0,0,0.275);
-  -webkit-border-radius: 7px;
+*/  -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
+  z-index: 50;
 }
 
 .search_preview:before {
-  content: url(/opendirectory/img/hovercard_arrow.png);
+/*  content: url(/opendirectory/img/hovercard_arrow.png);*/
   margin-left: -36px;
 }
 
 #search_preview_url {
-  background: #F4F4F4;
+  background: #F0F0F0;
   width: 100%;
   text-align: right;
-  padding-right: 9px;
+  padding-right: 10px;
   padding-bottom: 10px;
   padding-top: 5px;
   margin-top: 100px;
   margin-bottom: -10px;
-  margin-left: -4px;
+  margin-left: -5px;
   -webkit-border-bottom-right-radius: 7px;
   -webkit-border-bottom-left-radius: 7px;
   -moz-border-bottom-right-radius: 7px;
@@ -481,13 +485,14 @@ h3.search_name:hover {
 }
 
 #search_preview_close {
-  background: #F4F4F4;
+  background: #F0F0F0;
   width: 100%;
   text-align: right;
-  margin-top: -60px;
+  color: #1B5187;
+  margin-top: -15px;
   margin-left: -5px;
   margin-bottom: 10px;
-  padding-right: 9px;
+  padding-right: 10px;
   font-size: 75%;
   height: 15px;
   -webkit-border-top-right-radius: 7px;
@@ -513,7 +518,7 @@ h3.search_name:hover {
 }
 
 #search_preview_inner_wrapper {
-  width: 223px;
+  width: 200px;
   float: right;
   position: relative;
   left: -5px;
