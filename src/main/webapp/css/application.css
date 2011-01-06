@@ -490,6 +490,7 @@ h3.search_name:hover {
 .search_preview {
   position: relative;
   margin-top: 90px;
+  -moz-margin-top: 50px;
   margin-left: -45px;
   margin-right: 20px;
   padding-bottom: 10px;

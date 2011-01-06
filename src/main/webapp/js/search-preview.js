@@ -1,12 +1,24 @@
 $(document).ready(function() {
 	$('.search_preview').css('display','none');
-
+	
+	var browser = navigator.appName;
+	var webkit = $.browser.webkit;
+	var firefox = false;
+	
+	if (browser == 'Netscape' && webkit != true) {
+	  var firefox = true;
+	} else {
+	  var firefox = false;
+	}
 	
 	var currentParent = '';
 	var previousParent = '';
 	
 	$(".search_name").click(function() {
 	  var position = $(this).position().top;
+	  if (firefox) {
+	    position -= 40;
+	  }
 	  currentParent = $(this).closest('span').parent();
 	  currentParent.css('background', '#E2DED5');
 		$('html,body').animate({scrollTop:position},500);
