@@ -313,7 +313,7 @@ public class Person implements Comparable<Person> {
 	public void setCredentials (TreeSet<String> credentials){
 		//There must always be a valid set of credentials for every single person
 		if (credentials == null || credentials.isEmpty() )
-			credentials = new TreeSet<String>(Arrays.asList("public", "senate"));
+			credentials = new TreeSet<String>(Arrays.asList(/*"public", */"senate"));
 		this.credentials = credentials;
 	}
 	public void setBio(String bio){
@@ -462,7 +462,7 @@ public class Person implements Comparable<Person> {
 			admin = new Person();
 			admin.setFullName("Administrator");
 			admin.setPermissions(new HashMap<String,TreeSet<String>>());
-			admin.setCredentials(new TreeSet<String>(Arrays.asList("admin", "admin,")));	
+			admin.setCredentials(new TreeSet<String>(Arrays.asList("admin"/*, "admin,"*/)));	
 		}
 		return admin;
 	}
@@ -474,7 +474,7 @@ public class Person implements Comparable<Person> {
 			anon.setPermissions(new HashMap<String, TreeSet<String>>());
 			//the 'public' and 'public,' setting is black magic.. for some reason
 			//some queries work only with the comma..
-			anon.setCredentials(new TreeSet<String>(Arrays.asList("public","public,")));
+			anon.setCredentials(new TreeSet<String>(Arrays.asList("public"/*,"public,"*/)));
 		}
 		return anon;
 	}

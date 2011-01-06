@@ -134,7 +134,7 @@ public class APIServlet extends BaseServlet {
 				String format = args.get(0);
 				if(formatSet.contains(format)) {
 					String query = self.httpRequest.getParameter("query");
-					ArrayList<Person> people = self.solrSession.loadPeopleByQuery(query);
+					ArrayList<Person> people = self.solrSession.loadPeopleByQuery(query, true);
 					
 					writeResponse(people,format);
 					
@@ -180,7 +180,7 @@ public class APIServlet extends BaseServlet {
 	    					String format = parts[1];
 	    					
 	    					if(formatSet.contains(format)) {
-	    						writeResponse(self.solrSession.loadPeopleByQuery(method+":("+term+")"),format);
+	    						writeResponse(self.solrSession.loadPeopleByQuery(method+":("+term+")", true),format);
 	    					} else {
 	    						throw new ApiException("Format "+format+"is currently not recognized!");
 	    					}

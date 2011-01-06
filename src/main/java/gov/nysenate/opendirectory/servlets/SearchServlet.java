@@ -32,7 +32,7 @@ public class SearchServlet extends BaseServlet {
 			if(query == null)
 				throw new SearchServletException("No query supplied with the search request.");
 			
-			ArrayList<Person> people = self.solrSession.loadPeopleByQuery(query);
+			ArrayList<Person> people = self.solrSession.loadPeopleByQuery(query, true);
 			
 			request.setAttribute("query", query);
 			request.setAttribute("results", people);

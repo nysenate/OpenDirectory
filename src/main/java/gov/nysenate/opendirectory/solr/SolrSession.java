@@ -39,8 +39,27 @@ public class SolrSession {
 		Solr solr = new Solr().connect();
 		SolrSession session = solr.newSession(Person.getAdmin());
 		
+		Person p1 = session.loadPersonByUid("helpline");
 		
-		System.out.println(session.loadPeopleByQuery("chief of staff").size());
+		System.out.println(p1.getFullName());
+		
+		if(p1 == null) {
+			System.out.println("oh!");
+		}
+		
+//		session.loadPeopleByQuery("skills:(Drupal)");
+		
+//		Person p1 = session.loadPersonByUid("yee");
+//		Person p2 = session.loadPersonByUid("hoppin");
+//		Person p3 = session.loadPersonByUid("richard");
+//		
+//		p1.setSkills(new TreeSet<String>(Arrays.asList("Drupal, bluebird, crm, drupal, excel, facebook, html, new media, nysenate.gov, project management, social media, statistical analysis, twitter, video".split(", "))));
+//		p2.setSkills(new TreeSet<String>(Arrays.asList("Drupal, Geographic Information Systems (GIS), Remove Sensing (satellite imagery), grassroots organizing, open source software, team building, web application functional design".split(", "))));
+//		p3.setSkills(new TreeSet<String>(Arrays.asList("Apple, CSS, CSS3, Drupal, HTML, HTML5, PHP, Social Media".split(", "))));
+//	
+//		session.savePerson(p1);
+//		session.savePerson(p2);
+//		session.savePerson(p3);
 	}
 	
 	public SolrSession(Person user, Solr solr) {
@@ -53,7 +72,7 @@ public class SolrSession {
 	public Person loadPersonByUid(String uid) {
 		
 		//Do the query on the uid field
-		ArrayList<Person> people = loadPeopleByQuery("uid:"+uid);
+		ArrayList<Person> people = loadPeopleByQuery("uid:"+uid, false);
 		
 		//Return null on no results, sometimes getResults returns null
 		if(people.isEmpty() == true) {
@@ -68,21 +87,21 @@ public class SolrSession {
 		//throw new SolrSessionException("UID provided ("+uid+") was not unique in solr!");
 	}
 	
-	public ArrayList<Person> loadPeopleByQuery(String query) {
-		return loadPeopleBySortedQuery(query,null,false);
+	public ArrayList<Person> loadPeopleByQuery(String query, boolean fuzz) {
+		return loadPeopleBySortedQuery(query,null,false, fuzz);
 	}
 	
-	public ArrayList<Person> loadSortedPeople(String sortField, boolean asc) {
+	public ArrayList<Person> loadSortedPeople(String sortField, boolean asc, boolean fuzz) {
 		//Use the otype field to locate all person documents
-		return loadPeopleBySortedQuery("otype:person", sortField, asc);
+		return loadPeopleBySortedQuery("otype:person", sortField, asc, fuzz);
 	}
 	
 	public ArrayList<Person> loadPeople() {
 		//Use the otype field to locate all person documents
-		return loadPeopleBySortedQuery("otype:person", null, false);
+		return loadPeopleBySortedQuery("otype:person", null, false, false);
 	}
 	
-	public ArrayList<Person> loadPeopleBySortedQuery(String query, String sortField, boolean asc) {
+	public ArrayList<Person> loadPeopleBySortedQuery(String query, String sortField, boolean asc, boolean fuzz) {
 		
 		String creds = SerialUtils.writeStringSet(user.getCredentials(),", ");		
 				
@@ -96,7 +115,7 @@ public class SolrSession {
 		QueryResponse results = null;
 		results = solr.sortedQuery(queryParser(query,creds, "(\"", "\")"), 2000, sortField, asc);
 		
-		if(results == null || results.getResults().isEmpty()) {
+		if(fuzz && (results == null || results.getResults().isEmpty())) {
 			results = solr.sortedQuery(queryParser(
 					query,creds, "(", ")"), 2000, sortField, asc);
 			
@@ -190,6 +209,7 @@ public class SolrSession {
 	}
 	
 	public String queryParser(String query, String creds, String wrpL, String wrpR) {
+		creds = creds + "*";
 		String aon = "(?i:and|or|not)";
 		
 		TreeSet<String> basics = new TreeSet<String>(Arrays.asList("uid","otype","firstName","lastName","fullName"));
