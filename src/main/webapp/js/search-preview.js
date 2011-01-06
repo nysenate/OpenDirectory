@@ -23,7 +23,6 @@ $(document).ready(function() {
 		html += "</div><br />";
 		html += "<div id='search_preview_url'><a href=\"/opendirectory/person/" + person.uid + "/profile\">view full profile →</a></div>";
 		
-		
 		$('.search_preview').html(html);
 		$('.search_preview').css('visibility','visible');
 		
