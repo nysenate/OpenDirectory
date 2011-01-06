@@ -42,7 +42,7 @@
 								<img src="<%=urls.url("img","default_gravatar.png")%>" width="165" height="213" />
 							<% } %>
 							<br/><b style="font-size:80%;">Choose Picture</b> <input type="file" name="avatar" /><br/>
-							<i style="font-size:60%;">Images may be altered to fit a 164x213 display.<br/>Please keep image file sizes under 300kb.</i>
+							<i style="font-size:60%;">Images will be automatically resized</i>
 						</div>
 						
 						<div class="admin">

@@ -214,7 +214,7 @@ $(document).ready( function() {
 		}
 	});
 	
-	$('.vcard').qtip({
+	/*$('.vcard').qtip({
 		content: 'vCards are electronic business cards. They can be placed into an address book program on your computer or phone and will add that contact with any information on the card. vCard information can include text as well as photos and audio.',
 		position: {
 			corner: {
@@ -225,7 +225,7 @@ $(document).ready( function() {
 		style: {
 			name: 'blue'
 		}
-	});
+	});*/
 	
 	$('input[name=phone2]').focus(function() {
 		if($(this).val() == '(###) ###-####') {
@@ -276,29 +276,44 @@ $(document).ready( function() {
 	})();
 	
 	$('#nav_search_input').keyup(function() {
-//		input = $(this).val();
-//		delay(function() {
-//			initQuickResult($('#quickresult-body'), doHeaderQuickResult, input);
-//		},250);
+		input = $(this).val();
+		delay(function() {
+			initQuickResult(input, doHeaderQuickResult, $('#quickresult-header'));
+		},250);
 	});
 	
 	$('#s').keyup(function() {
 		input = $(this).val();
 		delay(function() {
-			initQuickResult(input , doIndexQuickResult, $('#quickresult-body'));
+			initQuickResult(input, doIndexQuickResult, $('#quickresult-body'));
 		},250);
 	});
 	
-	doHeaderQuickResult = (function(data,elem) {
-		//todo
-	});
-	
-	doIndexQuickResult = (function(data, elem, uri) {
+	doHeaderQuickResult = (function(input, data, elem) {
 		var html = "";
 		var total = $(data).find("total").html();
 		
 		html ='<li><em>' + total + ' total results... (<a href="/opendirectory/search/?query=' 
-			+ uri + '">view all</a>)</em></li>';
+			+ input + '">view all</a>)</em></li>';
+		$(data).find('person:lt(10)').each(function() {
+			var fName = $(this).find('firstName').html();
+			var lName = $(this).find('lastName').html();
+			var uid = $(this).find('uid').html();
+			
+			html += '<li class="quickresult_box"><a href="/opendirectory/person/' 
+				+ uid + '/profile" class="sublink">';
+			html += fName + ' ' + lName;
+			html += '</a></li>';
+		});
+		$(elem).html(html);
+	});
+	
+	doIndexQuickResult = (function(input, data, elem) {
+		var html = "";
+		var total = $(data).find("total").html();
+		
+		html ='<li><em>' + total + ' total results... (<a href="/opendirectory/search/?query=' 
+			+ input + '">view all</a>)</em></li>';
 		$(data).find('person:lt(10)').each(function() {
 			var fName = $(this).find('firstName').html();
 			var lName = $(this).find('lastName').html();
@@ -320,17 +335,16 @@ $(document).ready( function() {
 			
 			var queryTerm = "query=" + input;
 			var query = "/opendirectory/api/1.0/search/xml?" + queryTerm;
-			console.log(query);
-			doSearch(query, callback, elem);
+			doSearch(input, query, callback, elem);
 		}
 		else {
 			$(elem).css('visibility','hidden');
 		}	
 	});
 	
-	doSearch = (function(uri, callback, elem) {
+	doSearch = (function(input, uri, callback, elem) {
 		$.get(uri, function(data) {
-			callback(data, elem, uri);
+			callback(input, data, elem);
 		});
 	});
 	

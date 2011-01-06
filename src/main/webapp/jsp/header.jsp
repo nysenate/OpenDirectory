@@ -13,7 +13,6 @@
 		<!--  <script src="http://cdn.jquerytools.org/1.2.5/tiny/jquery.tools.min.js"></script> -->
 		
 		<script type="text/javascript" src="<%=urls.url("js","jquery.tools.min.js")%>"></script>
-		<script type="text/javascript" src="<%=urls.url("js","qtip.js")%>"></script>
 		<script type="text/javascript" src="<%=urls.url("js","application.js")%>"></script>
 		<script type="text/javascript" src="<%=urls.url("js","search-preview.js")%>"></script>
 		
@@ -48,12 +47,14 @@
 					<% } %>
 				</div>
 			</div>
-			<div id="nav_bar">
+			<div id="" style="font-family: Helvetica, Arial, sans-serif;">
 				<form id="nav_search" action="<%=urls.url("search")%>" method="GET">
 					<input type="text" name="query" size="20" maxlength="255" value="" autocomplete="off"  id="nav_search_input" />
 					<input type="submit" value = "Search" id="nav_search_button"></input>
+					<div class="quickresult" id="quickresult-header"></div> 
 				</form>
-				<div class="quickresult" id="quickresult-header"></div> 
+			</div>
+			<div id="nav_bar">
 				Browse:
 				<ul>
 					<li><a href="<%=urls.url("browse","lastname")%>" class="nav">Last name</a><div class="sep">|</div></li>

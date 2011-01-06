@@ -125,7 +125,7 @@ body {
 	  	#nav_bar li { display:inline; }
 	  	.sep { padding:0px 10px; display:inline; }
   	  	  
-  		#nav_search { float:right; display:inline; }
+  		#nav_search { float:right; display:inline; margin-top:3px;}
 			#nav_search_input { display:inline; margin-left:5px; }
 			
 #top_info {
@@ -199,14 +199,17 @@ body {
 }
 
 #quickresult-body {
-  /*
-  position:absolute;
+  
+  /*position:absolute;
   top:122px;
   left:170px;*/
 }
 #quickresult-header {
-	text-align:left;
+	color: #777;
+	width: 200px;
+	margin-left: 5px;
 }
+
 .quickresult ul, .quickresult li {
   list-style-type:none;
   margin:0px;
