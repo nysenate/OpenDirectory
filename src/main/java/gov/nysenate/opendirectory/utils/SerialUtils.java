@@ -40,7 +40,7 @@ public class SerialUtils {
 		}
 		query = "uid:(" + query + ")";
 		
-		return new TreeSet<Person>(session.loadPeopleByQuery(query));
+		return new TreeSet<Person>(session.loadPeopleByQuery(query, false));
 	}
 	
 	public static String writeStringSet(TreeSet<String> set, String delim) {

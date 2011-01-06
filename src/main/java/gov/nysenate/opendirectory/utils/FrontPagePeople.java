@@ -32,7 +32,7 @@ public class FrontPagePeople {
 	
 	private void setFrontPagePeople(Request self) {
 		lastUpdate = new Date();
-		List<Person> people = self.solrSession.loadPeopleBySortedQuery("otype:person AND frontPage:true", "modified", false);
+		List<Person> people = self.solrSession.loadPeopleBySortedQuery("otype:person AND frontPage:true", "modified", false, false);
 		
 		ArrayList<Person> updatedPeople = new ArrayList<Person>();
 		
