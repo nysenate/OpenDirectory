@@ -2,7 +2,8 @@ $(document).ready(function() {
 	$('.search_preview').css('visibility','hidden');
 	
 	$(".search_name").click(function() {
-		getPerson(event.target.id.split("_")[1], writeToSearchBox)
+		$('html,body').animate({scrollTop:$(this).position().top-80},500);
+		getPerson($(this).attr('id').split("_")[1], writeToSearchBox)
 	});
 	
 	writeToSearchBox = (function(person) {

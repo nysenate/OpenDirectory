@@ -23,7 +23,7 @@
 						 <center>
 						 	 <ul class="splashProfiles">
 							 <% for(Person person:people) { %>
-								    <li><a href="<%=urls.url("person",person.getUid(),"profile") %>" title="<%=person.getTitle()%>"><img src="<%=person.getPicture() %>" width="82.5" height="106.5" /><%=person.getFullName() %></a></li>
+								    <li><a href="<%=urls.url("person",person.getUid(),"profile") %>" title="<%=person.getTitle()%>"><img src="/uploads/avatars/profile/<%=person.getPicture() %>" width="82.5" height="106.5" /><%=person.getFullName() %></a></li>
 							  <% } %>
 						  	</ul>
 						</center>

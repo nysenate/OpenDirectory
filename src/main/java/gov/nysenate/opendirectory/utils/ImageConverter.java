@@ -17,7 +17,7 @@ public class ImageConverter {
 	
 	public static void resizeImage(String oldPath, String newPath, String name, String type, int width, int height) throws IOException, InterruptedException, IM4JavaException {
 		//set path to image magick tools
-		ProcessStarter.setGlobalSearchPath("/usr/local/bin/");
+		ProcessStarter.setGlobalSearchPath("/usr/bin/");
 		
 		//convert williams.JPG -resize 165x213\> -size 165x213 xc:transparent +swap -gravity center -composite williams.png
 		IMOperation frame = new IMOperation();
