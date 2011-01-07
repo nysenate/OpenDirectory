@@ -20,6 +20,7 @@ $(document).ready(function() {
 	    position -= 40;
 	  }
 	  currentParent = $(this).closest('span').parent();
+	  currentParent.attr('old-background', currentParent.css('background'));
 	  currentParent.css('background', '#E2DED5');
 		$('html,body').animate({scrollTop:position},500);
 		$('.search_preview').css('margin-top', position);
@@ -29,7 +30,7 @@ $(document).ready(function() {
 	writeToSearchBox = (function(person) {
 	  if (currentParent != previousParent || previousParent == '') {
 	    if (previousParent != '') {
-	      previousParent.css('background', '#fff');
+	      previousParent.css('background',  currentParent.attr('old-background') /*'#fff'*/);
 	    }
 	    previousParent = currentParent;
 	  }
