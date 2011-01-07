@@ -15,7 +15,7 @@ $(document).ready(function() {
 	var previousParent = '';
 	
 	$(".search_name").click(function() {
-	  var position = $(this).position().top;
+	  var position = $(this).position().top-25;
 	  if (firefox) {
 	    position -= 40;
 	  }
@@ -35,6 +35,7 @@ $(document).ready(function() {
 	    previousParent = currentParent;
 	  }
 	  
+	  // Test
 	  
 		var html = "<div id='search_preview_close'><span id='preview_close_button'>close x</span></div>";
 		
