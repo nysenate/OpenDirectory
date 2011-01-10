@@ -52,7 +52,10 @@ $(document).ready(function() {
 		html += writeField("span","senate_phone",person.phone);
 		html += writeField("span","additional_phone",person.phone2);
 		html += "</div><br />";
-		html += "<div id='search_preview_url'><a href=\"/opendirectory/person/" + person.uid + "/profile\">view full profile →</a></div>";
+		html += "<div id='search_preview_url'>";
+		html += "<a href=\"/opendirectory/person/" + person.uid + "/profile\">view full profile →</a><br/>";
+		html += "<span class='vcard'><a href=\"/opendirectory/person/" + person.uid + "/vcard\"> Download vCard </a></span>"
+		html += "</div>";
 		
 		$('.search_preview').html(html);
 		$('.search_preview').css('display','block');

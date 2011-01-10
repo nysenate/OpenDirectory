@@ -51,8 +51,19 @@ public class PersonServlet extends BaseServlet {
 					mResult.append("VERSION:2.1");
 					mResult.append("\r\nN:").append(person.getLastName()).append(";").append(person.getFirstName()).append(";;;");
 					mResult.append("\r\nFN:").append(person.getFullName());
+					mResult.append("\r\nORG:").append("New York State Senate").append(";").append(person.getDepartment());
+					mResult.append("\r\nTITLE:").append(person.getTitle());
 					mResult.append("\r\nTEL;TYPE=WORK:").append(person.getPhone());
-					mResult.append("\r\nEMAIL;TYPE=PREF;TYPE=INTERNET:").append(person.getEmail());
+					mResult.append("\r\nTEL;TYPE=OTHER:").append(person.getPhone2());
+					mResult.append("\r\nEMAIL;TYPE=WORK;TYPE=INTERNET;TYPE=PREF:").append(person.getEmail());
+					mResult.append("\r\nitem1.EMAIL;TYPE=INTERNET:").append(person.getEmail2());
+					mResult.append("\r\nitem1.X-ABLabel:").append("_$!<Other>!$_");
+					mResult.append("\r\nitem2.URL:").append(person.getTwitter());
+					mResult.append("\r\nitem2.X-ABLabel:").append("Twitter");
+					mResult.append("\r\nitem3.URL;TYPE=LINKEDIN:").append(person.getLinkedin());
+					mResult.append("\r\nitem3.X-ABLabel:").append("LinkedIn");
+					mResult.append("\r\nitem4.URL;TYPE=FACEBOOK:").append(person.getFacebook());
+					mResult.append("\r\nitem4.X-ABLabel:").append("Facebook");
 					mResult.append("\r\nEND:VCARD\r\n");
 					out.print(mResult.toString());
 					

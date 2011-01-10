@@ -69,7 +69,7 @@
 						<% } %>
 					</div>
 					<div class="vcard">
-						<a href="<%=urls.url("person", person.getUid(), "vcard")%>"> Download VCard </a>
+						<a href="<%=urls.url("person", person.getUid(), "vcard")%>"> Download vCard </a>
 					</div>
 					<div id="skills">
 						<h3>Skills</h3>

@@ -587,7 +587,7 @@ h3.search_name:hover {
 #search_preview_name,#search_preview_title,#search_preview_office {
 	float: right;
 	position: relative;
-	width: 215px;
+	width: 210px;
 	left: -5px;
 	margin-top: 0px;
 	margin-bottom: 10px;
