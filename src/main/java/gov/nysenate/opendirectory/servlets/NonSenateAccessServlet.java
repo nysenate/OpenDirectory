@@ -1,14 +1,19 @@
 package gov.nysenate.opendirectory.servlets;
 
 import gov.nysenate.opendirectory.ldap.Ldap;
+import gov.nysenate.opendirectory.models.ExternalPerson;
+import gov.nysenate.opendirectory.servlets.UserServlet.UserServletException;
 import gov.nysenate.opendirectory.utils.Request;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.solr.client.solrj.SolrServerException;
 
 
 
@@ -27,7 +32,26 @@ public class NonSenateAccessServlet extends BaseServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Request self = new Request(this,request,response);
-		self.render("access.jsp");
+		String command = urls.getCommand(request);
+		
+		try {
+			if(command == null) {
+				self.render("external/index.jsp");
+			}
+			else if(command.equals("login")) {
+				self.render("external/login.jsp");
+			}
+			else if(command.equals("logout")) {
+				self.httpSession.removeAttribute("externalPerson");
+				self.redirect(urls.url("external"));
+			}
+			else if(command.equals("register")) {
+				self.render("external/register.jsp");
+			}
+	    	else throw new ExternalServletException("Invalid command `"+command+"` supplied.");
+		} catch (ExternalServletException e) {
+			doException(self,e);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,19 +59,138 @@ public class NonSenateAccessServlet extends BaseServlet {
 	    String command = urls.getCommand(request);
 	    
 	    try {
-		    //If they are posting to a bad place, 
-		    if(command == null)
-		    	throw new ExternalServletException("No command supplied to POST request.");
-		    
-	    	if(command.equals("login")) {
-	    		doLogin(self);
-	    		
+		    if(command == null){
+		    	doLogin(self);
+		    }
+		    else if(command.equals("login")) {
+	    		doExternalLogin(self);
 	    	}
+	    	else if(command.equals("register")) {
+	    		doExternalRegister(self);
+	    	}
+	    	else if(command.equals("auth")) {
+	    		doExternalAuth(self);
+	    	}
+	    	else throw new ExternalServletException("Invalid command `"+command+"` supplied.");
 		} catch (ExternalServletException e) {
 	    	doException(self,e);
-	    }
+	    } catch (SolrServerException e) {
+			e.printStackTrace();
+		}
 	}
 	    
+	private void doExternalRegister(Request self) throws IOException, ServletException, SolrServerException {
+		String firstName = (String)self.httpRequest.getParameter("firstName");
+		String lastName = (String)self.httpRequest.getParameter("lastName");
+		String email1 = (String)self.httpRequest.getParameter("email1");
+		String email2 = (String)self.httpRequest.getParameter("email2");
+		String password1 = (String)self.httpRequest.getParameter("pword1");
+		String password2 = (String)self.httpRequest.getParameter("pword2");
+		String phone = (String)self.httpRequest.getParameter("phone2");
+		
+		String error = "";
+		if(firstName == null || firstName.equals("")) {
+			error += "<br/>Entered your first name.";
+		}
+		if(lastName == null || lastName.equals("")) {
+			error += "<br/>Entered your last name.";
+		}
+		if(phone.equals("(###) ###-####")) {
+			error += "<br/>Entered a phone number";
+		}
+		else {
+			if(!phone.matches("\\(\\d{3}\\)[ \\-]?\\d{3}\\-\\d{4}")) {
+				error += "<br/>Used (###) ###-#### for your phone number format";
+			}
+		}
+		if(password1.length() < 8) {
+			error += "<br/>Entered a password at least 8 characters long";
+		}
+		else {
+			if(!password1.equals(password2)) {
+				error += "<br/>Entered matching passwords";
+			}
+		}
+		if(email1 == null || email1.equals("") || !email1.matches(".+?@(.*+\\.state\\.ny\\.us|ny\\.gov)")) {
+			error += "<br/>Entered a valid email address (ending in state.ny.us or ny.gov)";
+		}
+		else {
+			if(email2 == null || !email1.equals(email2)) {
+				
+			}
+			else {
+				ExternalPerson person = self.solrSession.loadExternalPersonByEmail(email1);
+				if(person != null) {
+					if(person.getAuthorized()) {
+						error = "<br/>That email address already exists on OpenDirectory.  If you need help " +
+								"retrieving your password please " +
+								"<a href=\"http://www.nysenate.gov/contact\">contact us</a>.";
+					}
+					else {
+						error = "<br/>That email address already exists on OpenDirectory, so we've dispatched " +
+								"another activation email.  If you do not receive the email or have any questions " +
+								"please <a href=\"http://www.nysenate.gov/contact\">contact us</a>.";
+						//TODO: resend activation email
+					}
+				}
+			}
+		}
+		
+		
+		if(error.equals("")) {
+			ExternalPerson person = new ExternalPerson(firstName, lastName, email1, phone);
+			person.setAuthorized(true);
+			person.encryptPassword(password1);
+			//TODO: set authorized false
+			//TODO: make auth
+			//TODO: send activation email
+			
+			self.solrSession.saveExternalPerson(person);
+			
+			self.httpRequest.setAttribute("header", "Success!");
+			self.httpRequest.setAttribute("message", "You will receive an email shortly to activate your account, " +
+					"until then you will not be able to log in.  If you do not receive an email or have any questions " +
+					"please <a href=\"http://www.nysenate.gov/contact\">contact us</a>.");
+    		self.render("external/message.jsp");
+		}
+		else {
+			self.httpRequest.setAttribute("phone2", phone);
+			self.httpRequest.setAttribute("email", email1);
+			self.httpRequest.setAttribute("firstName", firstName);
+			self.httpRequest.setAttribute("lastName", lastName);
+
+			self.httpRequest.setAttribute("error", error);
+    		self.render("external/register.jsp");
+
+		}
+		
+	}
+
+	private void doExternalAuth(Request self) {
+		
+	}
+
+	private void doExternalLogin(Request self) throws IOException, ServletException {
+
+		String cred = ((String)self.httpRequest.getParameter("name")).toLowerCase();
+		String pass = (String)self.httpRequest.getParameter("password");
+		ExternalPerson person = self.solrSession.loadExternalPersonByEmail(cred);
+		
+		//check login correct
+		if(person != null && pass != null && person.checkPassword(pass)) {
+			self.httpSession.setAttribute("externalPerson", person.getFirstName());
+			self.httpSession.setAttribute("externalUid", person.getEmail());
+			self.redirect(urls.url("index"));
+		}
+		else {
+			self.httpRequest.setAttribute("errorMessage", "Username and/or password were incorrect.  Are you sure you've <a href=\"" + urls.url("external","register") + "\">registered?</a>");
+			self.render("external/login.jsp");
+		}
+
+		
+		
+	}
+
 	public void doException(Request self, ExternalServletException e) throws ServletException, IOException {
 		System.out.println(e.getMessage());
 		e.printStackTrace();
@@ -79,8 +222,8 @@ public class NonSenateAccessServlet extends BaseServlet {
     				
     			//Otherwise, alert them that their combination was wrong and redirect them to try again
     			} else {
-	    			self.httpRequest.setAttribute("errorMessage", "Username and/or password were incorrect.");
-	    			self.render("/access.jsp");
+	    			self.httpRequest.setAttribute("errorMessage", "Username and/or password are incorrect.");
+	    			self.render("external/index.jsp");
     			}
     			
     		//There is a small chance that a connection to LDAP is not available for some reason
@@ -91,13 +234,13 @@ public class NonSenateAccessServlet extends BaseServlet {
     			
     			//Alert the user to the situation
     			self.httpRequest.setAttribute("errorMessage", "The ldap server is down and you can't be authenticated. Please try again later.");
-    			self.render("access.jsp");
+    			self.render("external/index.jsp");
     		}
 		
 		//Person is not in our database
 		} else {
-			self.httpRequest.setAttribute("errorMessage", "The user you have specified `"+cred+"` is not indexed in OpenDirectory.");
-			self.render("access.jsp");
+			self.httpRequest.setAttribute("errorMessage", "Username and/or password were incorrect.");
+			self.render("external/index.jsp");
 		}
 
 	}

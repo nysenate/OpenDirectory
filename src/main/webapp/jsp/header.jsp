@@ -2,16 +2,13 @@
 	UrlMapper urls = (UrlMapper)request.getAttribute("urls");
 	Person user = (Person)request.getAttribute("user");
 	String title = (String)request.getAttribute("title");
+	String externalPerson  = (String)session.getAttribute("externalPerson");
 %><!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title><%=title%></title>
-		<link rel="stylesheet" type="text/css" href="<%=urls.url("css","application.css")%>" />
-		<!--  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> -->
-		<!--  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>  -->
-		<!--  <script src="http://cdn.jquerytools.org/1.2.5/tiny/jquery.tools.min.js"></script> -->
-		
+		<link rel="stylesheet" type="text/css" href="<%=urls.url("css","application.css")%>" />		
 		<script type="text/javascript" src="<%=urls.url("js","jquery.tools.min.js")%>"></script>
 		<script type="text/javascript" src="<%=urls.url("js","application.js")%>"></script>
 		<script type="text/javascript" src="<%=urls.url("js","search-preview.js")%>"></script>
@@ -27,12 +24,13 @@
 				</a>
 			
 				<div id="user_box">
-					<% if (user == null) { %>
+					<% if (externalPerson != null) { %>
 						<ul id="user_top_bar">
-							<li><a href="<%=urls.url("user","login")%>">LOGIN</a></li>
+							<li id="welcome">Welcome, <%=externalPerson%></li>
+							<li><a href="<%=urls.url("external","logout")%>">LOGOUT</a></li>
 							<li><a href="<%=urls.url("index")%>">DIRECTORY HOME</a></li>
 						</ul>
-					<% } else { %>
+					<% } else if(user != null) { %>
 						<ul id="user_top_bar">
 							<li id="welcome">Welcome, <%=user.getFirstName()%></li>
 							<li><a href="<%=urls.url("user","logout")%>">LOGOUT</a></li>
@@ -43,6 +41,11 @@
 							<li><a href="<%=urls.url("person",user.getUid(),"profile")%>">My Profile</a></li> 
 							<li><a href="<%=urls.url("user","bookmarks")%>">My Bookmarks</a></li> 
 							<li><a href="<%=urls.url("user","edit")%>">Edit Profile</a></li>
+						</ul>
+					<% } else { %>
+						<ul id="user_top_bar">
+							<li><a href="<%=urls.url("user","login")%>">LOGIN</a></li>
+							<li><a href="<%=urls.url("index")%>">DIRECTORY HOME</a></li>
 						</ul>
 					<% } %>
 				</div>

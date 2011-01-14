@@ -13,13 +13,16 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 
+import gov.nysenate.opendirectory.models.ExternalPerson;
 import gov.nysenate.opendirectory.models.Person;
+import gov.nysenate.opendirectory.models.interfaces.IPerson;
+import gov.nysenate.opendirectory.utils.BCrypt;
 import gov.nysenate.opendirectory.utils.SerialUtils;
 
 public class SolrSession {
 
 	Solr solr;
-	Person user;
+	IPerson user;
 	SecureLoader loader;
 	SecureWriter writer;
 	
@@ -31,42 +34,33 @@ public class SolrSession {
 	
 	public static void main(String[] args) throws SolrServerException, IOException {
 		
-//		SolrSession solr = new SolrSession(Person.getAnon(),new Solr().connect());
-//		
-//		for(int i=0; i<10; i++)
-//			solr.loadPeople();
-		
 		Solr solr = new Solr().connect();
 		SolrSession session = solr.newSession(Person.getAdmin());
 		
-		Person p1 = session.loadPersonByUid("helpline");
-		
-		System.out.println(p1.getFullName());
-		
-		if(p1 == null) {
-			System.out.println("oh!");
-		}
-		
-//		session.loadPeopleByQuery("skills:(Drupal)");
-		
-//		Person p1 = session.loadPersonByUid("yee");
-//		Person p2 = session.loadPersonByUid("hoppin");
-//		Person p3 = session.loadPersonByUid("richard");
-//		
-//		p1.setSkills(new TreeSet<String>(Arrays.asList("Drupal, bluebird, crm, drupal, excel, facebook, html, new media, nysenate.gov, project management, social media, statistical analysis, twitter, video".split(", "))));
-//		p2.setSkills(new TreeSet<String>(Arrays.asList("Drupal, Geographic Information Systems (GIS), Remove Sensing (satellite imagery), grassroots organizing, open source software, team building, web application functional design".split(", "))));
-//		p3.setSkills(new TreeSet<String>(Arrays.asList("Apple, CSS, CSS3, Drupal, HTML, HTML5, PHP, Social Media".split(", "))));
-//	
-//		session.savePerson(p1);
-//		session.savePerson(p2);
-//		session.savePerson(p3);
 	}
 	
-	public SolrSession(Person user, Solr solr) {
+	public SolrSession(IPerson user, Solr solr) {
 		this.solr = solr;
 		this.user = user;
 		this.loader = new SecureLoader(user,this);
 		this.writer = new SecureWriter(user,this);
+	}
+	
+	public ExternalPerson loadExternalPersonByEmail(String email) {
+		String query = "otype:externalPerson AND uid:" + email;
+		QueryResponse results = solr.query(query);
+		if(results == null)
+			return null;
+		
+		SolrDocumentList profiles = results.getResults();
+		if(profiles == null || profiles.isEmpty())
+			return null;
+		
+		ExternalPerson person = loader.loadExternalPerson(profiles.iterator().next());
+		if(!person.getEmail().equals(email)) 
+			return null;
+		
+		return person;
 	}
 	
 	public Person loadPersonByUid(String uid) {
@@ -113,30 +107,30 @@ public class SolrSession {
 		long start = System.nanoTime();
 		
 		QueryResponse results = null;
-		results = solr.sortedQuery(queryParser(query,creds, "(\"", "\")"), 2000, sortField, asc);
+		results = solr.sortedQuery(personQueryParser(query,creds, "(\"", "\")"), 2000, sortField, asc);
 		
 		if(fuzz && (results == null || results.getResults().isEmpty())) {
-			results = solr.sortedQuery(queryParser(
+			results = solr.sortedQuery(personQueryParser(
 					query,creds, "(", ")"), 2000, sortField, asc);
 			
 			if(results == null || results.getResults().isEmpty()) {
 				Pattern pattern = Pattern.compile("(\\w+?):(\\w+?)(\\s(AND|OR)|$)");
 				Matcher matcher = pattern.matcher(query);
 				if(!matcher.find()) {
-					results = solr.sortedQuery(queryParser(
+					results = solr.sortedQuery(personQueryParser(
 							query + "*",creds, "(", ")"), 2000, sortField, asc);
 
 					if(results == null || results.getResults().isEmpty()) {
-						results = solr.sortedQuery(queryParser(
+						results = solr.sortedQuery(personQueryParser(
 								query + "~",creds, "(", ")"), 2000, sortField, asc);
 					}
 				}
 				else {
-					results =solr.sortedQuery(queryParser(
+					results =solr.sortedQuery(personQueryParser(
 							matcher.replaceAll("$1:$2*$3"), creds, "(", ")"), 2000, sortField, asc);
 					
 					if(results == null || results.getResults().isEmpty()) {
-						results = solr.sortedQuery(queryParser(
+						results = solr.sortedQuery(personQueryParser(
 								matcher.replaceAll("$1:$2~$3"), creds, "(", ")"), 2000, sortField, asc);
 					}
 				}
@@ -165,6 +159,11 @@ public class SolrSession {
 		
 		return people;
 		
+	}
+	
+	public void saveExternalPerson(ExternalPerson person) throws SolrServerException, IOException {
+		addExternalPerson(person);
+		solr.server.commit();
 	}
 	
 	public void savePerson(Person person) throws SolrServerException, IOException {
@@ -204,19 +203,24 @@ public class SolrSession {
 		}
 	}
 	
+	private void addExternalPerson(ExternalPerson person) throws SolrServerException, IOException {
+		solr.server.add(writer.writeExternalPerson(person));
+	}
+	
 	private void addPerson(Person person) throws SolrServerException, IOException {
 		solr.server.add(writer.writePerson(person));
 	}
 	
-	public String queryParser(String query, String creds, String wrpL, String wrpR) {
+	public String personQueryParser(String query, String creds, String wrpL, String wrpR) {		
 		creds = creds + "*";
 		String aon = "(?i:and|or|not)";
 		
-		TreeSet<String> basics = new TreeSet<String>(Arrays.asList("uid","otype","firstName","lastName","fullName"));
+		TreeSet<String> basics = new TreeSet<String>(Arrays.asList("uid","otype","firstName","lastName","fullName", "frontPage"));
 		Pattern p = Pattern.compile("(.*?)(\\w+):(\\(.+?\\)|\\[.+?\\]|.+?)([\\*~])?(\\s" + aon + "|" + aon + "\\s|\\s" + aon + "\\s|$)");
 		Matcher m = p.matcher(query);
 		if(m.find()) {
 			query ="";
+			for(int i = 0;i <= m.groupCount();i++) { System.out.println(i + ": " + m.group(i));}
 			do {
 				String quant = (m.group(4) != null && !m.group(4).equals("") ? m.group(4) : "");
 				boolean paren = (m.group(3).startsWith("(") ? false:true );
@@ -251,7 +255,7 @@ public class SolrSession {
 					" OR (email2:"		+ wrpL + query + wrpR + " AND email2_access:(" 		+ creds + "))" +
 					" OR (phone2:"		+ wrpL + query + wrpR + " AND phone2_access:(" 		+ creds + "))";
 		}
-		System.out.println("\n\n\n" + query + "\n\n\n");
-		return query;
+		System.out.println("otype:person AND " + query.replaceFirst("otype:.*?[\\s\\)\\]]", ""));
+		return "otype:person AND (" + query.replaceFirst("otype:.*?[\\s\\)\\]]", "") + ")";
 	}
 }

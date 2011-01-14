@@ -1,5 +1,6 @@
 package gov.nysenate.opendirectory.models;
 
+import gov.nysenate.opendirectory.models.interfaces.IPerson;
 import gov.nysenate.opendirectory.solr.Solr;
 import gov.nysenate.opendirectory.solr.SolrSession;
 import gov.nysenate.opendirectory.utils.SerialUtils;
@@ -19,7 +20,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class Person implements Comparable<Person> {
+public class Person implements Comparable<Person>, IPerson {
 	/** 
 	 * Designed according to JavaBean specs for use in the
 	 * Java Expressions Language (EL) of JSP 2.0+

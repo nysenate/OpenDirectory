@@ -182,6 +182,13 @@
 		<field name="unprocessedInterests" type="string" indexed="false" stored="true" />
 		<field name="modified" type="textgen" indexed="true" stored="true"/>
 		<field name="frontPage" type="textgen" indexed="true" stored="true"/>
+		<field name="hash" type="string" indexed="false" stored="true" />
+		<field name="authorized" type="string" indexed="false" stored="true" />
+		<field name="authorizationHash" type="string" indexed="false" stored="true" />
+		
+				doc.addField("hash", person.getHash());
+		doc.addField("authorized", person.getAuthorized());
+		doc.addField("authorizationHash", person.getAuthorizationHash());
    
       	<!-- catchall field, containing all other searchable text fields (implemented
         	 via copyField further on in this schema

@@ -8,6 +8,8 @@
 				<h2 style="margin-left:30px;">Open Directory FAQ</h2>
 				
 				<div style="margin-left:30px;">
+					<object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/y-pe46B1vmw?hl=en&fs=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/y-pe46B1vmw?hl=en&fs=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
+				<br/><br/>
 					<ol>
 						<li><a href="#faq_what">What should I put on my profile?</a></li>
 						<li><a href="#faq_login">What's my username and password?</a></li>

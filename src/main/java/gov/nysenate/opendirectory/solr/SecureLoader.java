@@ -5,11 +5,13 @@ import java.util.TreeSet;
 
 import org.apache.solr.common.SolrDocument;
 
+import gov.nysenate.opendirectory.models.ExternalPerson;
 import gov.nysenate.opendirectory.models.Person;
+import gov.nysenate.opendirectory.models.interfaces.IPerson;
 import gov.nysenate.opendirectory.utils.SerialUtils;
 public class SecureLoader {
 
-	private Person user;
+	private IPerson user;
 	private SolrSession session;
 	
 	public static void main(String[] args) {
@@ -18,9 +20,25 @@ public class SecureLoader {
 		System.out.println("Done");
 	}
 	
-	public SecureLoader(Person user,SolrSession session) {
+	public SecureLoader(IPerson user,SolrSession session) {
 		this.user = user;
 		this.session = session;
+	}
+	
+	public ExternalPerson loadExternalPerson(SolrDocument profile) {
+		ExternalPerson person = new ExternalPerson();
+				
+		person.setEmail((String)profile.getFieldValue("uid"));
+		person.setFirstName((String)profile.getFieldValue("firstName"));
+		person.setLastName((String)profile.getFieldValue("lastName"));
+		person.setPhone((String)profile.getFieldValue("phone"));
+		person.setHash((String)profile.getFieldValue("hash"));
+		person.setAuthorized(new Boolean((String)profile.getFieldValue("authorized")));
+		person.setAuthorizationHash((String)profile.getFieldValue("authorizationHash"));
+		
+		SerialUtils.loadStringSet((String)profile.getFieldValue("user_credential"),", ");
+		
+		return person;
 	}
 	
 	public Person loadPerson(SolrDocument profile) {

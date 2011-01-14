@@ -6,21 +6,41 @@ import java.util.TreeSet;
 
 import org.apache.solr.common.SolrInputDocument;
 
+import gov.nysenate.opendirectory.models.ExternalPerson;
 import gov.nysenate.opendirectory.models.Person;
+import gov.nysenate.opendirectory.models.interfaces.IPerson;
 import gov.nysenate.opendirectory.utils.SerialUtils;
 
 public class SecureWriter {
 
-	Person user;
+	IPerson user;
 	SolrSession session;
 	
 	public static void main(String[] args) {
-
+		
 	}
 	
-	public SecureWriter(Person user, SolrSession session) {
+	public SecureWriter(IPerson user, SolrSession session) {
 		this.user = user;
 		this.session = session;
+	}
+	
+	public SolrInputDocument writeExternalPerson(ExternalPerson person) {
+		SolrInputDocument doc = new SolrInputDocument();
+
+		doc.addField("otype","externalPerson", 1.0f);
+		doc.addField("uid", person.getEmail());
+		doc.addField("firstName", person.getFirstName());
+		doc.addField("lastName", person.getLastName());
+		doc.addField("phone", person.getPhone());
+		doc.addField("hash", person.getHash());
+		doc.addField("authorized", person.getAuthorized());
+		doc.addField("authorizationHash", person.getAuthorizationHash());
+		
+		doc.addField("user_credential", SerialUtils.writeStringSet(person.getCredentials(),", "),1.0f);
+
+		
+		return doc;
 	}
 
 	public SolrInputDocument writePerson(Person person) {

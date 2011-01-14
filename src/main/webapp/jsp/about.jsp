@@ -6,6 +6,8 @@
 			<div id="main">
 				<h2 style="margin-left:30px;">About OpenDirectory</h2>
 				<div class="about">
+					<object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/y-pe46B1vmw?hl=en&fs=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/y-pe46B1vmw?hl=en&fs=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
+					<br/><br/>
 					OpenDirectory is a new way of finding the people you're looking for who work for the New York 
 					State Senate. With a profile for every employee, OpenDirectory automatically displays name, 
 					title, office/department, and work contact information within an online, searchable website. 

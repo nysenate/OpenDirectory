@@ -210,7 +210,7 @@ public class UserServlet extends BaseServlet {
 		
 		//Person is not in our database
 		} else {
-			self.httpRequest.setAttribute("errorMessage", "The user you have specified `"+cred+"` is not indexed in OpenDirectory.");
+			self.httpRequest.setAttribute("errorMessage", "Username and/or password were incorrect.");
 			self.render("login.jsp");
 		}
 

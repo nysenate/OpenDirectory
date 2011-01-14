@@ -5,25 +5,9 @@
 	String title = (String)request.getAttribute("title");
 	
 %>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title><%=title%></title>
-		<link rel="stylesheet" type="text/css" href="<%=urls.url("css","application.css")%>" />
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	</head>
-	<body>
-		<div id="page">
-			<div id="header">
-				<a href="http://www.nysenate.gov">
-					<img src="http://www.nysenate.gov/sites/all/themes/nys/images/nyss_logo.png" id="logo" />
-				</a>
-			</div>
-			<div id="nav_bar">
-			</div>
+<jsp:include page="header.jsp" />
 			<div id="main" style="margin-top:50px;">
-				<h2 style="margin-left:30px;">Access OpenDirectory from outside the Senate network</h2>
+				<h2 style="margin-left:30px;">Access to OpenDirectory for non Senate Government Employees</h2>
 				<div id="main_center">					
 					<% if(error_message != null) { %>
 						<div id="error">
@@ -33,7 +17,7 @@
 					<% } %>
 					
 					<div id="edit_form_field">
-						<form action="<%=urls.url("external","login")%>" method="POST">
+						<form action="" method="POST">
 							<ol>
 								<li>
 									<label for="login_name">Username:</label>
@@ -49,8 +33,5 @@
 					</div>
 				</div>
 			</div>
-			<div id="footer">
-			</div>
-		</div>
-	</body>
-</html>
+<jsp:include page="footer.jsp" />
+			

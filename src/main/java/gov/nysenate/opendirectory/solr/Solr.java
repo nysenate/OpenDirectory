@@ -1,6 +1,7 @@
 package gov.nysenate.opendirectory.solr;
 
 import gov.nysenate.opendirectory.models.Person;
+import gov.nysenate.opendirectory.models.interfaces.IPerson;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -47,7 +48,7 @@ public class Solr {
 		return null;
 	}
 	
-	public SolrSession newSession(Person user) {
+	public SolrSession newSession(IPerson user) {
 		return new SolrSession(user,this);
 	}
 

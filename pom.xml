@@ -20,7 +20,13 @@
 			<version>2.4</version>
 			<scope>compile</scope>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.jasypt</groupId>
+			<artifactId>jasypt</artifactId>
+			<version>1.7</version>
+			<classifier>lite</classifier>
+			<scope>compile</scope>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

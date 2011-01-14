@@ -38,11 +38,22 @@ public class Request {
 				httpSession.setAttribute("uid", null);
 		}
 		
-		//If no user was specified/found, log them as the Anonymous user.
-		if( user == null)
+		String externalPerson = (String)httpSession.getAttribute("externalPerson");
+		if(externalPerson != null) {
+			uid = (String)httpSession.getAttribute("externalPersonUid");
 			user = Person.getAnon();
+			solrSession = servlet.solrServer.newSession(
+					servlet.solrServer.newSession(Person.getAdmin()).loadExternalPersonByEmail(uid));
+		}
+		else {
+			if( user == null)
+				user = Person.getAnon();
+			
+			solrSession = servlet.solrServer.newSession(user);
+		}
 		
-		solrSession = servlet.solrServer.newSession(user);
+		//If no user was specified/found, log them as the Anonymous user.
+		
 		
 		//Set up request defaults
 		request.setAttribute("title", "NYSS OpenDirectory");
