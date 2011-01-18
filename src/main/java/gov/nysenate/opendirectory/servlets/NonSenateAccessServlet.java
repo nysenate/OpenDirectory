@@ -115,30 +115,30 @@ public class NonSenateAccessServlet extends BaseServlet {
 				error += "<br/>Entered matching passwords";
 			}
 		}
-//		if(email1 == null || email1.equals("") || !email1.matches(".+?@(.*+\\.state\\.ny\\.us|ny\\.gov)")) {
-//			error += "<br/>Entered a valid email address (ending in state.ny.us or ny.gov)";
-//		}
-//		else {
-//			if(email2 == null || !email1.equals(email2)) {
-//				
-//			}
-//			else {
-//				ExternalPerson person = self.solrSession.loadExternalPersonByEmail(email1);
-//				if(person != null) {
-//					if(person.getAuthorized()) {
-//						error = "<br/>That email address already exists on OpenDirectory.  If you need help " +
-//								"retrieving your password please " +
-//								"<a href=\"http://www.nysenate.gov/contact\">contact us</a>.";
-//					}
-//					else {
-//						error = "<br/>That email address already exists on OpenDirectory, so we've dispatched " +
-//								"another activation email.  If you do not receive the email or have any questions " +
-//								"please <a href=\"http://www.nysenate.gov/contact\">contact us</a>.";
-//						Mailer.sendExternalAuthorizationMail(person);
-//					}
-//				}
-//			}
-//		}
+		if(email1 == null || email1.equals("") || !email1.matches(".+?@(.*+\\.state\\.ny\\.us|ny\\.gov)")) {
+			error += "<br/>Entered a valid email address (ending in state.ny.us or ny.gov)";
+		}
+		else {
+			if(email2 == null || !email1.equals(email2)) {
+				
+			}
+			else {
+				ExternalPerson person = self.solrSession.loadExternalPersonByEmail(email1);
+				if(person != null) {
+					if(person.getAuthorized()) {
+						error = "<br/>That email address already exists on OpenDirectory.  If you need help " +
+								"retrieving your password please " +
+								"<a href=\"http://www.nysenate.gov/contact\">contact us</a>.";
+					}
+					else {
+						error = "<br/>That email address already exists on OpenDirectory, so we've dispatched " +
+								"another activation email.  If you do not receive the email or have any questions " +
+								"please <a href=\"http://www.nysenate.gov/contact\">contact us</a>.";
+						Mailer.sendExternalAuthorizationMail(person);
+					}
+				}
+			}
+		}
 		
 		
 		if(error.equals("")) {

@@ -2,7 +2,6 @@ package gov.nysenate.opendirectory.utils;
 
 import gov.nysenate.opendirectory.models.ExternalPerson;
 
-import java.util.Date;
 import java.util.Properties;
 import java.util.StringTokenizer;
 

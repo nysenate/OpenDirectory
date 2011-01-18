@@ -16,7 +16,6 @@ import org.apache.solr.common.SolrDocumentList;
 import gov.nysenate.opendirectory.models.ExternalPerson;
 import gov.nysenate.opendirectory.models.Person;
 import gov.nysenate.opendirectory.models.interfaces.IPerson;
-import gov.nysenate.opendirectory.utils.BCrypt;
 import gov.nysenate.opendirectory.utils.SerialUtils;
 
 public class SolrSession {

@@ -7,8 +7,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import javax.servlet.ServletContext;
-
 public class FrontPagePeople {
 	private Date lastUpdate;
 	private ArrayList<Person> frontPagePeople;

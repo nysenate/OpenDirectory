@@ -1,6 +1,5 @@
 package gov.nysenate.opendirectory.solr;
 
-import gov.nysenate.opendirectory.models.Person;
 import gov.nysenate.opendirectory.models.interfaces.IPerson;
 
 import java.io.IOException;
@@ -9,10 +8,8 @@ import java.net.MalformedURLException;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
-//import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer;
 import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
-//import org.apache.solr.core.CoreContainer;
 
 public class Solr {
 	
