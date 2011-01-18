@@ -210,6 +210,8 @@ $(document).ready( function() {
 	});
 	
 	$('button[name=submit_changes]').click(function() {
+		if(navigator.appName == 'Microsoft Internet Explorer')
+			return true;
 		msg = validate();
 		if(msg == "") {
 			return true;
