@@ -778,7 +778,7 @@ a.people_url:hover {
 	line-height: 23px;
 }
 
-#external_input {
+.external_input {
 	width: 70px;
 	text-align: left;
 	margin-right: 50px;

@@ -10,6 +10,16 @@
 
 %>
 <jsp:include page="header.jsp" />
+      <script type="text/javascript" src="<%=urls.url("jsp", "external", "js","jquery.validate.min.js")%>"></script>
+      <script type="text/javascript" src="<%=urls.url("jsp", "external", "js","additional-methods.js")%>"></script>
+      <script type="text/javascript" src="<%=urls.url("jsp", "external", "js","register-validate.js")%>"></script>
+      <script type="text/javascript" src="<%=urls.url("jsp", "external", "js","jquery.validate.password.js")%>"></script>
+      <link rel="stylesheet" type="text/css" href="<%=urls.url("jsp", "external", "css","jquery.validate.password.css")%>">
+      <link rel="stylesheet" type="text/css" href="<%=urls.url("jsp", "external", "css","register.css")%>">
+      
+      
+      
+      
 			<div id="main" style="margin-top:50px;">
 				<div id="edit_error" style="font-size:85%; width:60%; display:<%=error!= null ? "inherit" : "none" %>;"><%= error!=null ? "It looks like there may be a problem with one of your contactfields.  <br/>Please check to make sure you:<br/>" + error:"" %></div>
 			
@@ -27,39 +37,55 @@
 					<% } %>
 					<div id="edit_container" style="margin:auto;">
 						<div id="edit_form_field" > <!-- style="float:left" -->
-							<form action="" method="POST">
-								<ol>
-									<li>
-										<label id="external_input">Email</label>
-										<input style="margin-left:34px;" value="<%=email != null ? email : "" %>" type="text" name="email1" size="31" maxlength="255" value=""/>
-									</li>
-									<li>
-										<label id="external_input">Verify Email</label>
-										<input style="margin-left:-11px;" value="" type="text" name="email2" size="31" maxlength="255" value=""/>
-									</li>
-									<li>
-										<label id="external_input">First Name</label>
-										<input style="margin-left:-3px;" value="<%=firstName != null ? firstName : "" %>" type="text" name="firstName" size="31" maxlength="255" value=""/>
-									</li>
-									<li>
-										<label id="external_input">Last Name</label>
-										<input style="margin-left:-2px;" value="<%=lastName != null ? lastName : "" %>" type="text" name="lastName" size="31" maxlength="255" value=""/>
-									</li>
-									<li>
-										<label id="external_input">Phone</label>
-										<input value="<%= phone != null ? phone : "(###) ###-####" %>" style="margin-left:30px;" type="text" name="phone2" size="31" maxlength="255" value=""/>
-									</li>
-									<li>
-										<label id="external_input">Password</label>
-										<input style="margin-left:6px;" type="password" name="pword1" size="31" maxlength="255" value=""/>	
-									</li>
-									<li>
-										<label id="external_input">Verify Password</label>
-										<input style="margin-left:-39px;" type="password" name="pword2" size="31" maxlength="255" value=""/>	
-									</li>					
-								</ol>
-								<input type="submit" value="Register" id="submit_button"></input>
-							</form>
+						  
+							<form id="external_registration" name="external_registration" method="post" action="#">
+
+                <!--Email Address-->
+                <label class="external_input"for="email">Email Address</label>
+                <input id="email" name="email" type="text" value="<%=email != null ? email : "" %>"  size="31" maxlength="255" tabindex="1" style="margin-left:34px;"/>
+                <br />
+
+                <!--Verify Email Address-->
+                <label class="external_input"for="email_verify">Verify Email Address</label>
+                <input id="email_verify" name="email_verify" type="text" value="" size="31" maxlength="255" tabindex="2" style="margin-left:-11px;"/>
+                <br />
+
+                <!--First Name-->
+                <label class="external_input"for="firstname">First Name</label>
+                <input id="firstname" name="firstname" type="text" value="<%=firstName != null ? firstName : "" %>" size="31" maxlength="255" tabindex="3" style="margin-left:-3px;"/ >
+                <br />
+
+                <!--Last Name-->
+                <label class="external_input"for="lastname">Last Name</label>
+                <input id="lastname" name="lastname" type="text" value="<%=lastName != null ? lastName : "" %>" size="31" maxlength="255" tabindex="4" style="margin-left:-2px;"/>
+                <br />
+
+                <!--Phone Number-->
+                <label class="external_input"for="phone">Phone Number</label>
+                <input id="phone" name="phone" type="text" value="<%= phone != null ? phone : "(###) ###-####" %>" style="margin-left:30px;" size="31" maxlength="255" tabindex="5" style="margin-left:30px;"/>
+                <br />
+
+                <!--Password-->
+                <label class="external_input"for="password">Password</label>
+                <input id="password" name="password" type="password" value="" size="31" maxlength="255" tabindex="6" style="margin-left:6px;"/>
+                <div class="password-meter">
+                  <div class="password-meter-message"></div>
+                  <div class="password-meter-bg">
+                    <div class="password-meter-bar"></div>
+                  </div>
+                </div>
+                <br />
+
+                <!--Verify Password-->
+                <label class="external_input"for="password_verify">Verify Password</label>
+                <input id="password_verify" name="password" type="password" value="" size="31" maxlength="255" tabindex="7" style="margin-left:-39px;"/>
+                <br />
+
+                <!--Submit-->
+                <input id="submit" name="submit" type="submit" value="Submit" size="31" maxlength="255" tabindex="8" />
+
+              </form>
+							
 						</div>
 					</div>
 				</div>
