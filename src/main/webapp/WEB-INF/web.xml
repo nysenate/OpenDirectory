@@ -810,7 +810,7 @@ standard deployment descriptor.
     <servlet-name>FaqServlet</servlet-name>
     <servlet-class>gov.nysenate.opendirectory.servlets.FaqServlet</servlet-class>
   </servlet>
-    <servlet>
+  <servlet>
     <servlet-name>NonSenateAccessServlet</servlet-name>
     <servlet-class>gov.nysenate.opendirectory.servlets.NonSenateAccessServlet</servlet-class>
   </servlet>
@@ -889,5 +889,13 @@ standard deployment descriptor.
   <servlet-mapping>
     <servlet-name>NonSenateAccessServlet</servlet-name>
     <url-pattern>/external/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AutoSuggestServlet</servlet-name>
+    <servlet-class>gov.nysenate.opendirectory.servlets.AutoSuggestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AutoSuggestServlet</servlet-name>
+    <url-pattern>/auto/*</url-pattern>
   </servlet-mapping>
 </web-app>

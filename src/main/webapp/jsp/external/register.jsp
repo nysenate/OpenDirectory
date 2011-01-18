@@ -47,7 +47,7 @@
 
                 <!--Verify Email Address-->
                 <label class="external_input"for="email_verify">Verify Email Address</label>
-                <input id="email_verify" name="email_verify" type="text" value="" size="31" maxlength="255" tabindex="2" style="margin-left:-11px;"/>
+                <input id="email_verify" name="email_verify" type="text" value="<%=email != null ? email : "" %>" value="" size="31" maxlength="255" tabindex="2" style="margin-left:-11px;"/>
                 <br />
 
                 <!--First Name-->
