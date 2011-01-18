@@ -4,6 +4,9 @@
 	String message = (String)request.getAttribute("message");
 	String header = (String)request.getAttribute("header");
 	
+	if(header ==  null && message == null && error == null) {
+		response.sendRedirect(urls.url("index"));
+	}
 
 %>
 <jsp:include page="header.jsp" />

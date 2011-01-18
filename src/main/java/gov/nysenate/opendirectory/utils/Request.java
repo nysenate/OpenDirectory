@@ -61,6 +61,8 @@ public class Request {
 		if(httpSession.getAttribute("frontPagePeople") == null) {
 			httpSession.setAttribute("frontPagePeople", new FrontPagePeople(this));
 		}
+		
+		Resource.init(this.servlet);
 	}
 	
 	public void render(String name) throws IOException, ServletException {

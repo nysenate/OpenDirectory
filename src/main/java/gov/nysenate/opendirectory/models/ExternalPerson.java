@@ -1,10 +1,14 @@
 package gov.nysenate.opendirectory.models;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.TreeSet;
+
+import org.jasypt.util.text.BasicTextEncryptor;
 
 import gov.nysenate.opendirectory.models.interfaces.IPerson;
 import gov.nysenate.opendirectory.utils.BCrypt;
+
 
 public class ExternalPerson implements IPerson {
 	
@@ -83,8 +87,13 @@ public class ExternalPerson implements IPerson {
 		this.authorizationHash = authorizationHash;
 	}
 	
-	
-	
+	public void setAuthorizationHash() {
+		BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+		String dateTime = Long.toString(new Date().getTime());
+		textEncryptor.setPassword(dateTime + email);
+		this.authorizationHash = textEncryptor.encrypt(
+				dateTime + email).replaceAll("=|&|\\?|\\+|/|\\p{Cntrl}","");
+	}
 	public boolean checkPassword(String password) {
 		return BCrypt.checkpw(password, hash);
 	}

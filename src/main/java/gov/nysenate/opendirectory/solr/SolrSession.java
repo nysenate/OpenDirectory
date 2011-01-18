@@ -36,7 +36,7 @@ public class SolrSession {
 		
 		Solr solr = new Solr().connect();
 		SolrSession session = solr.newSession(Person.getAdmin());
-		
+		session.deleteByUid("williams@ny.gov");
 	}
 	
 	public SolrSession(IPerson user, Solr solr) {
