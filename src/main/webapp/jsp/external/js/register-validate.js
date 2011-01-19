@@ -10,11 +10,11 @@ $(document).ready(function() {
     );
     
     var validator = $('#external_registration').validate({
+      // The rules for validation
       rules: {
         email: {
           required: true,
           regex: /.*?@(.*\.state\.ny\.us|ny\.gov)/
-//                email_validate: true
         },
         email_verify: {
           required: true,
@@ -39,14 +39,29 @@ $(document).ready(function() {
           equalTo: '#password'
         }
       },
+      // The messages that will be displayed
       messages: {
-        email: "<p class='register_error'>Please enter your email</p>",
-        email_verify: "<p class='register_error'>Email addresses must match</p>",
-        firstname: "<p class='register_error'>First Name is Required</p>",
-        lastname: "<p class='register_error'>Last Name is Required</p>",
-        phone: "<p class='register_error'>Phone is Required. Format (###) ###-####</p>",
-        password_verify: "<p class='register_error'>Passwords must match</p>"
-      }
+        email: " New York State email required",
+        email_verify: " Email addresses must match",
+        firstname: " First Name is Required",
+        lastname: " Last Name is Required",
+        phone: " Phone required. Check formatting.",
+        password_verify: " Passwords must match",
+      },
+      // Where to place the Errors (taking into accout the Table)
+      errorPlacement: function(error, element) {
+        if (element.attr('id') != 'password') {
+          error.prependTo( element.parent().next() );
+        }
+  			
+  			element.css('border', '1px red solid');
+  		},
+  		// Sets Success and adds the success thingie
+  		success: function(label, element) {
+//  		  label.parent().previous().children().css('border', 'none');
+  		  label.html(" ").addClass("success");
+        label.parent().prev().children(':first-child').css('border', 'none');
+		  }
       
     });
     
