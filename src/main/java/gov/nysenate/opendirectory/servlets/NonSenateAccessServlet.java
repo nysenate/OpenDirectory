@@ -84,13 +84,13 @@ public class NonSenateAccessServlet extends BaseServlet {
 	}
 	    
 	private void doExternalRegister(Request self) throws IOException, ServletException, SolrServerException {
-		String firstName = (String)self.httpRequest.getParameter("firstName");
-		String lastName = (String)self.httpRequest.getParameter("lastName");
-		String email1 = (String)self.httpRequest.getParameter("email1");
-		String email2 = (String)self.httpRequest.getParameter("email2");
-		String password1 = (String)self.httpRequest.getParameter("pword1");
-		String password2 = (String)self.httpRequest.getParameter("pword2");
-		String phone = (String)self.httpRequest.getParameter("phone2");
+		String firstName = (String)self.httpRequest.getParameter("firstname");
+		String lastName = (String)self.httpRequest.getParameter("lastname");
+		String email1 = (String)self.httpRequest.getParameter("email");
+		String email2 = (String)self.httpRequest.getParameter("email_verify");
+		String password1 = (String)self.httpRequest.getParameter("password");
+		String password2 = (String)self.httpRequest.getParameter("password_verify");
+		String phone = (String)self.httpRequest.getParameter("phone");
 		
 		String error = "";
 		if(firstName == null || firstName.equals("")) {

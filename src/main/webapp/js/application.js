@@ -87,42 +87,12 @@ $(document).ready( function() {
 				type_set = new_type_set;
 				
 				var type_query_word = new_type_set[x];
-				
-				var query = "/opendirectory/api/1.0/search/xml?query=" + type + ":(" + type_query_word + "~) OR "
-						+ type + ":(" + type_query_word + "*) OR " + type + ":(" + type_query_word + ")";
-				
-				 $.get(query, function(data) {
 					
-					$(data).find('person').each(function() {
-						
-						$(this).find(xml_type).each(function() {
-							
-							if($(this).html().toLowerCase().indexOf(type_query_word.toLowerCase()) == 0) {										
-								if(getUniqueEntry(type_results,$(this).html()) 
-										&& getUniqueEntry(type_set, $(this).html())) {
-									type_results[type_results.length] = $(this).html();
-								}
-							}
-							
-							return (type_results.length != 5);
-						});
-					});
-					var html = "";
-					
-					for(x in type_results) {
-						var result = type_results[x];
-						if(x == 0) {
-							html += '<li id="selected_suggestion" class="suggestions_box">';
-						}
-						else {
-							html += '<li class="suggestions_box">';
-						}
-						html += result;
-						html += '</li>';
-					}
-					
+				var query = "/opendirectory/auto/" + type + "?term=" + type_query_word + "&set=" + type_set.join(",");
+
+				$.get(query, function(data) {
 					$('#' + type + "_suggestions").css('visibility','visible');
-					$('#' + type + "_suggestions").html(html)
+					$('#' + type + "_suggestions").html(data)
 				});
 				break;
 			}
@@ -240,6 +210,8 @@ $(document).ready( function() {
 	});
 	
 	$('button[name=submit_changes]').click(function() {
+		if(navigator.appName == 'Microsoft Internet Explorer')
+			return true;
 		msg = validate();
 		if(msg == "") {
 			return true;
@@ -278,72 +250,16 @@ $(document).ready( function() {
 	$('#nav_search_input').keyup(function() {
 		input = $(this).val();
 		delay(function() {
-			initQuickResult(input, doHeaderQuickResult, $('#quickresult-header'));
+			initQuickResult(input, doQuickResult, $('#quickresult-header'));
 		},250);
 	});
 	
 	$('#s').keyup(function() {
 		input = $(this).val();
 		delay(function() {
-			initQuickResult(input, doIndexQuickResult, $('#quickresult-body'));
+			initQuickResult(input, doQuickResult, $('#quickresult-body'));
+			
 		},250);
-	});
-	
-	doHeaderQuickResult = (function(input, data, elem) {
-		var html = "";
-		var total = $(data).find("total").html();
-		
-		html ='<li><em>' + total + ' total results... (<a href="/opendirectory/search/?query=' 
-			+ input + '">view all</a>)</em></li>';
-		$(data).find('person:lt(10)').each(function() {
-			var fName = $(this).find('firstName').html();
-			var lName = $(this).find('lastName').html();
-			var dept = $(this).find('department').html();
-			var uid = $(this).find('uid').html();
-			
-			html += '<li class="quickresult_box"><a href="/opendirectory/person/' 
-				+ uid + '/profile" class="sublink">';
-			html += fName + ' ' + lName + ' - ' + dept;
-			html += '</a></li>';
-		});
-		$(elem).html(html);
-		
-		/*var html = "";
-		var total = $(data).find("total").html();
-		
-		html ='<li><em>' + total + ' total results... (<a href="/opendirectory/search/?query=' 
-			+ input + '">view all</a>)</em></li>';
-		$(data).find('person:lt(10)').each(function() {
-			var fName = $(this).find('firstName').html();
-			var lName = $(this).find('lastName').html();
-			var uid = $(this).find('uid').html();
-			
-			html += '<li class="quickresult_box"><a href="/opendirectory/person/' 
-				+ uid + '/profile" class="sublink">';
-			html += fName + ' ' + lName;
-			html += '</a></li>';
-		});
-		$(elem).html(html);*/
-	});
-	
-	doIndexQuickResult = (function(input, data, elem) {
-		var html = "";
-		var total = $(data).find("total").html();
-		
-		html ='<li><em>' + total + ' total results... (<a href="/opendirectory/search/?query=' 
-			+ input + '">view all</a>)</em></li>';
-		$(data).find('person:lt(10)').each(function() {
-			var fName = $(this).find('firstName').html();
-			var lName = $(this).find('lastName').html();
-			var dept = $(this).find('department').html();
-			var uid = $(this).find('uid').html();
-			
-			html += '<li class="quickresult_box"><a href="/opendirectory/person/' 
-				+ uid + '/profile" class="sublink">';
-			html += fName + ' ' + lName + ' - ' + dept;
-			html += '</a></li>';
-		});
-		$(elem).html(html);
 	});
 	
 	initQuickResult = (function(input, callback, elem) {
@@ -351,13 +267,16 @@ $(document).ready( function() {
 			$(elem).css('visibility','visible');
 			$(elem).html("");
 			
-			var queryTerm = "query=" + input;
-			var query = "/opendirectory/api/1.0/search/xml?" + queryTerm;
+			var query = "/opendirectory/auto/search?term=" + input;
 			doSearch(input, query, callback, elem);
 		}
 		else {
 			$(elem).css('visibility','hidden');
 		}	
+	});
+	
+	doQuickResult = (function(input, data, elem) {
+		$(elem).html(data);
 	});
 	
 	doSearch = (function(input, uri, callback, elem) {
